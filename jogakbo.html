@@ -1,0 +1,1030 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<!--#artifact-start-->
+<title>보자기 청첩장 규수 세화</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@300;400;500;700&display=swap">
+<style>
+  :root {
+    --hanji: #F6F1E5;
+    --hanji-deep: #ECE4D2;
+    --hanji-warm: #F1EADA;
+    --meok: #23211B;
+    --meok-soft: #6A6254;
+    --meok-faint: #9A9282;
+    --line: #DCD2BA;
+    --line-soft: #E8E0CD;
+    --jjok: #2E4A6B;
+    --jjok-deep: #1B2C42;
+    --jjok-soft: #E2E7EE;
+    --dahong: #BE4430;
+    --dahong-soft: #F4E2DC;
+    --chija: #C9993A;
+    --ssuk: #5C7A54;
+    --ssuk-soft: #E5EBE1;
+    --shadow: rgba(35, 33, 27, 0.24);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --hanji: #14130F;
+      --hanji-deep: #1B1915;
+      --hanji-warm: #1E1C17;
+      --meok: #EFE9DA;
+      --meok-soft: #A79E8C;
+      --meok-faint: #7C7566;
+      --line: #322E26;
+      --line-soft: #29261F;
+      --jjok: #7E9FC4;
+      --jjok-deep: #0E1722;
+      --jjok-soft: #1A2433;
+      --dahong: #DD7059;
+      --dahong-soft: #2D1D19;
+      --chija: #DCB159;
+      --ssuk: #8CAD83;
+      --ssuk-soft: #1C2419;
+      --shadow: rgba(0, 0, 0, 0.6);
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --hanji: #14130F;
+    --hanji-deep: #1B1915;
+    --hanji-warm: #1E1C17;
+    --meok: #EFE9DA;
+    --meok-soft: #A79E8C;
+    --meok-faint: #7C7566;
+    --line: #322E26;
+    --line-soft: #29261F;
+    --jjok: #7E9FC4;
+    --jjok-deep: #0E1722;
+    --jjok-soft: #1A2433;
+    --dahong: #DD7059;
+    --dahong-soft: #2D1D19;
+    --chija: #DCB159;
+    --ssuk: #8CAD83;
+    --ssuk-soft: #1C2419;
+    --shadow: rgba(0, 0, 0, 0.6);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--hanji-deep);
+    color: var(--meok);
+    font-family: "Gothic A1", "Noto Sans KR", -apple-system, sans-serif;
+    font-weight: 400;
+    line-height: 1.85;
+    padding-inline: 14px;
+    padding-block: clamp(0.75rem, 3vw, 2rem);
+    -webkit-text-size-adjust: 100%;
+  }
+  body.locked { overflow: hidden; }
+
+  /* ================= 보자기 표지 ================= */
+  #cover { position: fixed; inset: 0; z-index: 80; cursor: pointer; }
+  #cover.gone { pointer-events: none; }
+
+  .cloth {
+    position: absolute;
+    width: 50.5%;
+    height: 50.5%;
+    background-color: var(--jjok);
+    background-image:
+      linear-gradient(90deg, rgba(246, 241, 229, 0.07) 1px, transparent 1px),
+      linear-gradient(0deg, rgba(246, 241, 229, 0.07) 1px, transparent 1px);
+    background-size: 42px 42px;
+    overflow: hidden;
+    transition: transform 0.85s cubic-bezier(0.66, 0, 0.2, 1), opacity 0.85s ease;
+  }
+  .c1 { left: 0; top: 0; }
+  .c2 { right: 0; top: 0; }
+  .c3 { left: 0; bottom: 0; }
+  .c4 { right: 0; bottom: 0; }
+  #cover.gone .c1 { transform: translate(-78%, -78%) rotate(-9deg); opacity: 0; }
+  #cover.gone .c2 { transform: translate(78%, -78%) rotate(9deg); opacity: 0; }
+  #cover.gone .c3 { transform: translate(-78%, 78%) rotate(9deg); opacity: 0; }
+  #cover.gone .c4 { transform: translate(78%, 78%) rotate(-9deg); opacity: 0; }
+
+  /* 조각보 — 색 헝겊 조각 */
+  .cloth i { position: absolute; display: block; }
+  .p-a { background: rgba(190, 68, 48, 0.42); }
+  .p-b { background: rgba(201, 153, 58, 0.36); }
+  .p-c { background: rgba(92, 122, 84, 0.38); }
+  .p-d { background: rgba(246, 241, 229, 0.12); }
+
+  .cover-inner {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    color: var(--hanji);
+    text-align: center;
+    transition: opacity 0.45s ease, transform 0.6s ease;
+  }
+  #cover.gone .cover-inner { opacity: 0; transform: scale(0.95); }
+
+  .cover-top { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.42em; opacity: 0.8; margin: 0; }
+
+  .moon-row { display: flex; align-items: center; justify-content: center; gap: clamp(0.8rem, 4vw, 1.6rem); }
+  .vname {
+    writing-mode: vertical-rl;
+    font-size: clamp(1.25rem, 5.6vw, 1.6rem);
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    margin: 0;
+    text-shadow: 0 2px 16px rgba(0, 0, 0, 0.45);
+  }
+  .moon {
+    width: clamp(160px, 46vw, 220px);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    overflow: hidden;
+    flex: 0 0 auto;
+    border: 2px solid rgba(246, 241, 229, 0.7);
+    box-shadow: 0 18px 50px rgba(0, 0, 0, 0.45), inset 0 0 40px rgba(0, 0, 0, 0.3);
+  }
+  .moon img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 28%; display: block; }
+
+  .cover-date { font-size: 0.86rem; letter-spacing: 0.16em; margin: 0; opacity: 0.94; font-variant-numeric: tabular-nums; }
+  .knot { display: block; width: 44px; height: 44px; margin: 0 auto 0.2rem; color: var(--chija); }
+  .cover-open {
+    font: inherit;
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: var(--jjok-deep);
+    background: var(--hanji);
+    border: 0;
+    border-radius: 999px;
+    padding: 0.75rem 1.9rem;
+    cursor: pointer;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .cover-open { animation: bob 2.8s ease-in-out infinite; }
+    @keyframes bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+  }
+
+  /* ================= 두루마리 본문 ================= */
+  .scroll {
+    max-width: 480px;
+    margin: 0 auto;
+    background: var(--hanji);
+    border: 1px solid var(--line);
+    box-shadow: 0 30px 70px -34px var(--shadow);
+    overflow: hidden;
+  }
+  .pad { padding-inline: clamp(1.25rem, 6vw, 2.2rem); }
+  section { padding-block: clamp(1.9rem, 6.5vw, 2.6rem); }
+
+  /* 홈질 — 조각보 이음새 */
+  .seam { display: block; width: 100%; height: 6px; }
+
+  .head { text-align: center; margin-bottom: 1.2rem; }
+  .head .eye {
+    display: block;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.3em;
+    color: var(--ssuk);
+    margin-bottom: 0.15rem;
+  }
+  .head .ko { display: block; font-size: 1.1rem; font-weight: 500; letter-spacing: 0.04em; }
+
+  /* ---------- 첫 장 ---------- */
+  .open-leaf { text-align: center; padding-top: clamp(2.4rem, 10vw, 3.4rem); }
+  .seal-row { display: flex; justify-content: center; margin-bottom: 1.2rem; }
+  .seal { width: 52px; height: 52px; }
+  .names {
+    font-size: clamp(1.9rem, 8.6vw, 2.4rem);
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    margin: 0;
+    line-height: 1.3;
+  }
+  .names .mid {
+    display: inline-block;
+    width: 1.6em;
+    vertical-align: 0.3em;
+    border-top: 1.5px solid var(--dahong);
+    margin-inline: 0.4em;
+  }
+  .when { margin: 1.1rem 0 0; font-size: 0.98rem; font-weight: 500; }
+  .when-ko { margin: 0.1rem 0 0; font-size: 0.86rem; color: var(--meok-faint); }
+  .where { margin: 0.45rem 0 0; font-size: 0.88rem; color: var(--meok-soft); }
+  .greet { margin: 1.6rem 0 0; font-size: 0.98rem; line-height: 2.1; color: var(--meok-soft); }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .opened .names { animation: rise 0.7s 0.08s cubic-bezier(0.2, 0.7, 0.3, 1) both; }
+    .opened .when, .opened .when-ko, .opened .where { animation: rise 0.7s 0.18s cubic-bezier(0.2, 0.7, 0.3, 1) both; }
+    .opened .greet { animation: rise 0.7s 0.28s cubic-bezier(0.2, 0.7, 0.3, 1) both; }
+    .opened .seal-row { animation: stamp 0.5s 0.02s cubic-bezier(0.2, 1.4, 0.4, 1) both; }
+    @keyframes rise { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+    @keyframes stamp { from { opacity: 0; transform: scale(1.5) rotate(-12deg); } to { opacity: 1; transform: none; } }
+  }
+
+  /* ---------- 날 ---------- */
+  .day { background: var(--jjok-deep); color: var(--hanji); text-align: center; }
+  .day .sol { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.26em; color: var(--chija); margin: 0; }
+  .day .big {
+    font-size: clamp(3rem, 16vw, 4rem);
+    font-weight: 700;
+    line-height: 1.05;
+    margin: 0.5rem 0 0.15rem;
+    font-variant-numeric: tabular-nums;
+  }
+  .day .sub { font-size: 0.82rem; color: rgba(246, 241, 229, 0.6); margin: 0 0 1.5rem; letter-spacing: 0.08em; }
+
+  table.cal { width: 100%; max-width: 318px; margin: 0 auto 1.5rem; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+  table.cal th {
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    color: rgba(246, 241, 229, 0.42);
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(246, 241, 229, 0.15);
+  }
+  table.cal td { text-align: center; font-size: 0.85rem; color: rgba(246, 241, 229, 0.76); padding: 0.28rem 0; }
+  table.cal .sun { color: rgba(221, 112, 89, 0.9); }
+  table.cal .mark {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 1.9rem; height: 1.9rem; border-radius: 50%;
+    background: var(--dahong); color: #fff; font-weight: 500;
+  }
+  .count-row { display: flex; justify-content: center; gap: 7px; }
+  .count-box {
+    flex: 1 1 0; max-width: 76px;
+    background: rgba(246, 241, 229, 0.07);
+    border: 1px solid rgba(246, 241, 229, 0.1);
+    border-radius: 3px;
+    padding: 0.65rem 0.2rem;
+  }
+  .count-box .num { font-size: 1.3rem; font-weight: 700; line-height: 1.2; font-variant-numeric: tabular-nums; }
+  .count-box .unit { font-size: 0.62rem; color: rgba(246, 241, 229, 0.5); letter-spacing: 0.06em; }
+  .count-done { margin: 0; font-size: 1rem; font-weight: 500; color: var(--chija); }
+
+  /* ---------- 혼서 ---------- */
+  .letter { background: var(--hanji-warm); text-align: center; }
+  .letter .lead { font-size: 0.98rem; line-height: 2.05; margin: 0 0 1.5rem; }
+  .fam {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 0 0.9rem;
+    max-width: 330px;
+    margin: 0 auto;
+  }
+  .fam .col { text-align: center; }
+  .fam .side {
+    display: inline-block;
+    font-size: 0.66rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    color: var(--dahong);
+    border: 1px solid currentColor;
+    border-radius: 2px;
+    padding: 0.1rem 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+  .fam .parent { font-size: 0.88rem; color: var(--meok-soft); line-height: 1.9; }
+  .fam .hanja { color: var(--ssuk); font-size: 0.82rem; }
+  .fam .child { display: block; margin-top: 0.25rem; font-size: 1.12rem; font-weight: 700; }
+  .fam .rel { font-size: 0.74rem; color: var(--meok-faint); }
+  .fam .divider { width: 1px; align-self: stretch; background: var(--line); }
+
+  .contact { margin-top: 1.6rem; display: flex; justify-content: center; gap: 0.5rem; }
+  .chip {
+    display: inline-flex; align-items: center; gap: 0.4em;
+    border: 1px solid var(--line); border-radius: 999px;
+    padding: 0.42rem 0.95rem; font-size: 0.82rem;
+    color: var(--meok-soft); text-decoration: none; background: var(--hanji);
+  }
+  .chip:hover, .chip:focus-visible { border-color: var(--ssuk); color: var(--meok); }
+  .chip svg { width: 13px; height: 13px; color: var(--ssuk); }
+
+  /* ---------- 병풍 ---------- */
+  .screen { background: var(--ssuk-soft); padding-block: clamp(1.9rem, 6.5vw, 2.6rem); }
+  .screen .head .eye { color: var(--ssuk); }
+  .rail-frame { position: relative; padding-block: 10px; }
+  .rail-frame::before, .rail-frame::after {
+    content: "";
+    position: absolute; left: 0; right: 0; height: 6px;
+    background: var(--jjok); opacity: 0.85;
+  }
+  .rail-frame::before { top: 0; }
+  .rail-frame::after { bottom: 0; }
+  .rail {
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding-inline: clamp(1.25rem, 6vw, 2.2rem);
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .rail::-webkit-scrollbar { display: none; }
+  .panel {
+    flex: 0 0 auto;
+    width: 148px;
+    scroll-snap-align: center;
+    border: 0;
+    padding: 8px 8px 0;
+    background: var(--hanji);
+    cursor: pointer;
+    position: relative;
+    border-left: 1px solid rgba(35, 33, 27, 0.14);
+  }
+  .panel:first-child { border-left: 0; }
+  .panel::after {
+    content: "";
+    position: absolute; inset: 0;
+    pointer-events: none;
+    background: linear-gradient(90deg, rgba(35, 33, 27, 0.16), rgba(35, 33, 27, 0) 22%);
+  }
+  .panel:nth-child(even)::after { background: linear-gradient(270deg, rgba(35, 33, 27, 0.13), rgba(35, 33, 27, 0) 22%); }
+  .panel img { display: block; width: 100%; aspect-ratio: 3 / 4; object-fit: cover; }
+  .panel .cap { display: block; padding: 0.55rem 0 0.7rem; font-size: 0.78rem; color: var(--meok-soft); }
+  .panel .step { display: block; font-size: 0.62rem; letter-spacing: 0.18em; color: var(--meok-faint); }
+  .rail-hint { text-align: center; font-size: 0.72rem; color: var(--ssuk); margin: 0.9rem 0 0; letter-spacing: 0.1em; }
+
+  /* ---------- 덕담 ---------- */
+  .wish { text-align: center; }
+  .wish .lead { font-size: 0.92rem; color: var(--meok-soft); margin: 0 0 1.3rem; line-height: 1.95; }
+  .wish-btn {
+    font: inherit; font-size: 1rem; font-weight: 500;
+    border: 0; background: var(--dahong); color: #fff;
+    padding: 0.82rem 2rem; border-radius: 999px; cursor: pointer;
+    box-shadow: 0 12px 26px -12px var(--dahong);
+  }
+  .wish-btn:active { transform: translateY(1px); }
+  .wish-count { margin: 0.9rem 0 0; font-size: 0.84rem; color: var(--meok-faint); }
+  .wish-count b { font-size: 1.05rem; font-weight: 700; color: var(--meok); }
+
+  .guest { margin-top: 1.8rem; text-align: left; }
+  .guest input, .guest textarea {
+    width: 100%; font: inherit; font-size: 0.86rem;
+    border: 1px solid var(--line); border-radius: 3px;
+    padding: 0.6rem 0.75rem; background: var(--hanji-warm); color: var(--meok);
+  }
+  .guest textarea { resize: none; height: 62px; margin-top: 8px; }
+  .guest input:focus, .guest textarea:focus { outline: 2px solid var(--ssuk); outline-offset: 1px; border-color: transparent; }
+  .guest-submit {
+    margin-top: 8px; width: 100%; border: 0; background: var(--jjok); color: #fff;
+    font: inherit; font-size: 0.86rem; font-weight: 500; padding: 0.65rem; border-radius: 3px; cursor: pointer;
+  }
+  .guest-submit[disabled] { opacity: 0.45; cursor: default; }
+  .wall { margin-top: 1.2rem; display: flex; flex-wrap: wrap; gap: 9px; }
+  .slip {
+    flex: 1 1 42%;
+    background: var(--hanji-warm);
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--chija);
+    padding: 0.7rem 0.8rem;
+    font-size: 0.8rem;
+    line-height: 1.65;
+    color: var(--meok);
+    text-align: left;
+    word-break: break-word;
+  }
+  .slip:nth-child(even) { border-left-color: var(--dahong); }
+  .slip .who { display: block; font-weight: 700; font-size: 0.72rem; color: var(--ssuk); margin-bottom: 0.15rem; }
+  .wall-empty { font-size: 0.82rem; color: var(--meok-faint); margin: 1.1rem 0 0; }
+
+  /* ---------- 오시는 길 ---------- */
+  .road { background: var(--hanji-warm); text-align: center; }
+  .loc-name { font-size: 1.16rem; font-weight: 700; margin: 0; }
+  .loc-hall { font-size: 0.86rem; color: var(--ssuk); margin: 0.1rem 0 0.5rem; }
+  .loc-addr { font-size: 0.88rem; color: var(--meok-soft); margin: 0 0 1.2rem; line-height: 1.75; }
+  .map { display: block; width: 100%; height: auto; border: 1px solid var(--line); }
+  .btn-row { display: flex; gap: 8px; margin-top: 0.9rem; }
+  .btn {
+    flex: 1; font: inherit; font-size: 0.84rem; padding: 0.65rem 0.4rem;
+    border: 1px solid var(--line); background: var(--hanji); color: var(--meok);
+    border-radius: 3px; cursor: pointer; text-decoration: none; text-align: center;
+  }
+  .btn.solid { background: var(--jjok); border-color: var(--jjok); color: #fff; }
+  .btn:hover, .btn:focus-visible { border-color: var(--ssuk); }
+
+  /* ---------- 봉투 ---------- */
+  .gift { text-align: center; }
+  .gift .lead { font-size: 0.9rem; color: var(--meok-soft); margin: 0 0 1.3rem; line-height: 1.9; }
+  .env {
+    display: flex; align-items: stretch;
+    background: var(--hanji-warm);
+    border: 1px solid var(--line);
+    text-align: left;
+    overflow: hidden;
+  }
+  .env + .env { margin-top: 10px; }
+  .env .band {
+    flex: 0 0 auto;
+    width: 30px;
+    background: var(--dahong);
+    color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    writing-mode: vertical-rl;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.24em;
+  }
+  .env .body { flex: 1; padding: 0.8rem 0.9rem; display: flex; align-items: center; justify-content: space-between; gap: 0.7rem; }
+  .env .bank { font-size: 0.92rem; font-weight: 500; }
+  .env .num { font-size: 0.83rem; color: var(--meok-soft); font-variant-numeric: tabular-nums; }
+  .copy {
+    flex-shrink: 0; font: inherit; font-size: 0.76rem;
+    border: 1px solid var(--line); background: var(--hanji); color: var(--meok-soft);
+    border-radius: 999px; padding: 0.32rem 0.8rem; cursor: pointer;
+  }
+  .copy.done { background: var(--ssuk); border-color: var(--ssuk); color: #fff; }
+
+  /* ---------- 맺음 ---------- */
+  .last img { display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 30%; }
+  .bow { text-align: center; padding-bottom: clamp(2.4rem, 8vw, 3.2rem); }
+  .bow p { font-size: 0.96rem; line-height: 2.05; color: var(--meok-soft); margin: 1.2rem 0 0; }
+  .sign-row { display: flex; align-items: center; justify-content: center; gap: 0.7rem; margin-top: 1.5rem; }
+  .sign-row .nm { font-size: 1.04rem; font-weight: 700; }
+  .sign-row .seal { width: 40px; height: 40px; }
+
+  /* ---------- 공통 ---------- */
+  .lightbox { position: fixed; inset: 0; background: rgba(20, 19, 15, 0.95); display: none; align-items: center; justify-content: center; z-index: 90; padding: 16px; }
+  .lightbox.on { display: flex; }
+  .lightbox img { max-width: 100%; max-height: 82vh; object-fit: contain; }
+  .lb-btn {
+    position: absolute; width: 2.6rem; height: 2.6rem; border-radius: 50%;
+    background: rgba(246, 241, 229, 0.12); border: 1px solid rgba(246, 241, 229, 0.28);
+    color: #fff; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.05rem;
+  }
+  .lb-prev { left: 12px; top: 50%; transform: translateY(-50%); }
+  .lb-next { right: 12px; top: 50%; transform: translateY(-50%); }
+  .lb-close { right: 12px; top: 12px; }
+  .lb-count { position: absolute; bottom: 20px; left: 0; right: 0; text-align: center; color: var(--hanji); font-size: 0.8rem; letter-spacing: 0.1em; }
+
+  .toast {
+    position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%) translateY(10px);
+    background: var(--meok); color: var(--hanji); font-size: 0.82rem;
+    padding: 0.55rem 1.1rem; border-radius: 999px;
+    opacity: 0; pointer-events: none; transition: 0.24s ease; z-index: 95;
+    max-width: calc(100% - 32px); text-align: center;
+  }
+  .toast.on { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  .petal { position: fixed; top: -14px; z-index: 85; pointer-events: none; border-radius: 50% 0 50% 0; }
+
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--ssuk); outline-offset: 3px; }
+</style>
+</head>
+<body class="locked">
+
+<!-- ================= 보자기 ================= -->
+<div id="cover">
+  <div class="cloth c1">
+    <i class="p-a" style="left:8%;top:14%;width:34%;height:22%"></i>
+    <i class="p-b" style="left:52%;top:6%;width:26%;height:34%"></i>
+    <i class="p-d" style="left:14%;top:52%;width:44%;height:18%"></i>
+    <i class="p-c" style="left:64%;top:58%;width:22%;height:26%"></i>
+  </div>
+  <div class="cloth c2">
+    <i class="p-c" style="left:10%;top:10%;width:28%;height:30%"></i>
+    <i class="p-d" style="left:46%;top:18%;width:38%;height:20%"></i>
+    <i class="p-a" style="left:22%;top:56%;width:24%;height:28%"></i>
+    <i class="p-b" style="left:56%;top:62%;width:30%;height:18%"></i>
+  </div>
+  <div class="cloth c3">
+    <i class="p-b" style="left:12%;top:12%;width:30%;height:26%"></i>
+    <i class="p-a" style="left:54%;top:8%;width:22%;height:32%"></i>
+    <i class="p-c" style="left:18%;top:56%;width:40%;height:20%"></i>
+    <i class="p-d" style="left:62%;top:54%;width:24%;height:30%"></i>
+  </div>
+  <div class="cloth c4">
+    <i class="p-d" style="left:8%;top:16%;width:36%;height:22%"></i>
+    <i class="p-c" style="left:52%;top:10%;width:28%;height:28%"></i>
+    <i class="p-b" style="left:16%;top:58%;width:26%;height:26%"></i>
+    <i class="p-a" style="left:52%;top:62%;width:34%;height:18%"></i>
+  </div>
+
+  <div class="cover-inner">
+    <p class="cover-top">청 첩 장</p>
+
+    <div class="moon-row">
+      <p class="vname">손규수</p>
+      <div class="moon">
+        <img src="p/01.jpg" alt="꽃이 핀 정원 길에서 손을 잡고 선 손규수와 문세화">
+      </div>
+      <p class="vname">문세화</p>
+    </div>
+
+    <p class="cover-date">2027년 1월 16일 토요일 낮 12시 30분</p>
+
+    <div>
+      <svg class="knot" viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M24,6 V15"/>
+        <rect x="15" y="15" width="18" height="18" rx="3"/>
+        <path d="M15,21 H33 M15,27 H33 M21,15 V33 M27,15 V33"/>
+        <path d="M18,33 C18,39 21,41 24,43 C27,41 30,39 30,33"/>
+      </svg>
+      <button class="cover-open" type="button" id="openBtn">보자기를 풀어 주세요</button>
+    </div>
+  </div>
+</div>
+
+<div class="scroll" id="scroll">
+
+  <!-- ================= 첫 장 ================= -->
+  <section class="open-leaf pad">
+    <div class="seal-row">
+      <svg class="seal" viewBox="0 0 48 48" role="img" aria-label="붉은 낙관">
+        <rect x="2" y="2" width="44" height="44" rx="4" fill="var(--dahong)"/>
+        <g fill="none" stroke="var(--hanji)" stroke-width="2" stroke-linecap="round">
+          <path d="M24,11 C29,16 29,22 24,26 C19,22 19,16 24,11 Z"/>
+          <path d="M14,28 C19,25 22,27 24,30 C26,27 29,25 34,28"/>
+          <path d="M24,30 V38"/>
+          <path d="M17,38 H31"/>
+        </g>
+      </svg>
+    </div>
+
+    <h1 class="names">손규수<span class="mid"></span>문세화</h1>
+    <p class="when">2027년 1월 16일 토요일 낮 12시 30분</p>
+    <p class="when-ko">새해 첫달 열엿새, 낮 열두 시 반</p>
+    <p class="where">양산 W웨딩 5층 팰리스홀</p>
+
+    <p class="greet">
+      함께 밥을 먹고, 함께 걷고, 함께 웃던<br>
+      평범한 날들이 쌓여 여기까지 왔습니다.<br>
+      이제 그 평범한 행복을<br>
+      평생 이어가려 합니다.
+    </p>
+  </section>
+
+  <svg class="seam" viewBox="0 0 480 6" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0,3 H480" stroke="var(--chija)" stroke-width="1.6" stroke-dasharray="7 6" fill="none"/>
+  </svg>
+
+  <!-- ================= 날 ================= -->
+  <section class="day pad">
+    <p class="sol">소 한 과 대 한 사 이</p>
+    <p class="big">一月 十六</p>
+    <p class="sub">2027 · 토요일 · 낮 12시 30분</p>
+
+    <table class="cal">
+      <thead>
+        <tr><th scope="col">일</th><th scope="col">월</th><th scope="col">화</th><th scope="col">수</th><th scope="col">목</th><th scope="col">금</th><th scope="col">토</th></tr>
+      </thead>
+      <tbody>
+        <tr><td></td><td></td><td></td><td></td><td></td><td>1</td><td>2</td></tr>
+        <tr><td class="sun">3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td></tr>
+        <tr><td class="sun">10</td><td>11</td><td>12</td><td>13</td><td>14</td><td>15</td><td><span class="mark">16</span></td></tr>
+        <tr><td class="sun">17</td><td>18</td><td>19</td><td>20</td><td>21</td><td>22</td><td>23</td></tr>
+        <tr><td class="sun">24</td><td>25</td><td>26</td><td>27</td><td>28</td><td>29</td><td>30</td></tr>
+        <tr><td class="sun">31</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      </tbody>
+    </table>
+
+    <div class="count-row" id="countRow">
+      <div class="count-box"><div class="num" id="cd-d">124</div><div class="unit">일</div></div>
+      <div class="count-box"><div class="num" id="cd-h">00</div><div class="unit">시간</div></div>
+      <div class="count-box"><div class="num" id="cd-m">00</div><div class="unit">분</div></div>
+      <div class="count-box"><div class="num" id="cd-s">00</div><div class="unit">초</div></div>
+    </div>
+  </section>
+
+  <!-- ================= 혼서 ================= -->
+  <section class="letter pad">
+    <p class="lead">두 사람이 함께 걸어갈 첫걸음,<br>가장 가까이서 축복해 주시면 감사하겠습니다.</p>
+
+    <div class="fam">
+      <div class="col">
+        <span class="side">신 랑</span>
+        <div class="parent">
+          <span class="hanja">父</span> <span class="hanja">故</span> 손현석<br>
+          <span class="hanja">母</span> 이수자
+          <span class="child"><span class="rel">장남</span> 손규수</span>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="col">
+        <span class="side">신 부</span>
+        <div class="parent">
+          <span class="hanja">父</span> <span class="hanja">故</span> 문종문<br>
+          <span class="hanja">母</span> 최장심
+          <span class="child"><span class="rel">장녀</span> 문세화</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="contact">
+      <a class="chip" href="tel:01040122921">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>
+        신랑에게 전화
+      </a>
+      <a class="chip" href="sms:01040122921">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 9 9 0 0 1-3.8-.9L3 20.5l1.5-4.1A8.4 8.4 0 0 1 3.6 12a8.4 8.4 0 0 1 8.4-8.4h.5A8.4 8.4 0 0 1 21 11.5z"/></svg>
+        문자 보내기
+      </a>
+    </div>
+  </section>
+
+  <!-- ================= 병풍 ================= -->
+  <section class="screen">
+    <div class="head">
+      <span class="eye">병 풍 을 펼 치 다</span>
+      <span class="ko">두 사람의 여덟 폭</span>
+    </div>
+    <div class="rail-frame">
+      <div class="rail" id="rail"></div>
+    </div>
+    <p class="rail-hint">옆으로 밀어 보세요</p>
+  </section>
+
+  <!-- ================= 덕담 ================= -->
+  <section class="wish pad">
+    <div class="head">
+      <span class="eye">덕 담</span>
+      <span class="ko">축하 한마디</span>
+    </div>
+    <p class="lead">이 청첩장을 열어보신 모든 분이<br>이미 저희 결혼의 축하객입니다.</p>
+
+    <button class="wish-btn" type="button" id="wishBtn">꽃 한 송이 보내기</button>
+    <p class="wish-count" id="wishCount" hidden><b>0</b>송이가 모였습니다</p>
+
+    <div class="guest">
+      <input id="guestName" type="text" maxlength="12" placeholder="이름" autocomplete="name">
+      <textarea id="guestMsg" maxlength="120" placeholder="덕담을 남겨주세요"></textarea>
+      <button class="guest-submit" type="button" id="guestSubmit" disabled>덕담 남기기</button>
+      <div class="wall" id="wall"></div>
+      <p class="wall-empty" id="wallEmpty">덕담을 불러오는 중입니다…</p>
+    </div>
+  </section>
+
+  <!-- ================= 오시는 길 ================= -->
+  <section class="road pad">
+    <div class="head">
+      <span class="eye">오 시 는 길</span>
+      <span class="ko">양산 W웨딩</span>
+    </div>
+
+    <p class="loc-name">양산 W웨딩</p>
+    <p class="loc-hall">5층 · 팰리스홀</p>
+    <p class="loc-addr">경상남도 양산시 강변로 438<br>크리스탈타워 5층</p>
+
+    <svg class="map" viewBox="0 0 400 210" role="img" aria-label="양산천과 강변로 옆 크리스탈타워 5층에 있는 예식장 약도">
+      <rect x="0" y="0" width="400" height="210" fill="var(--jjok-soft)"/>
+
+      <path d="M0,88 C18,58 32,42 46,42 C60,42 70,60 82,74 C92,58 103,46 117,46 C131,46 143,66 157,88 Z" fill="var(--ssuk)" opacity="0.40"/>
+      <path d="M104,88 C120,60 134,44 150,44 C166,44 178,64 192,80 C204,62 216,52 230,52 C246,52 258,70 270,88 Z" fill="var(--ssuk)" opacity="0.26"/>
+      <path d="M0,86 H400" stroke="var(--line)" stroke-width="1" opacity="0.5"/>
+
+      <path d="M0,158 C70,150 130,156 200,163 C270,170 340,172 400,167 L400,210 L0,210 Z" fill="var(--jjok)" opacity="0.3"/>
+      <g stroke="var(--jjok)" stroke-width="1.2" fill="none" opacity="0.5">
+        <path d="M46,178 C56,172 66,184 76,178"/>
+        <path d="M120,186 C130,180 140,192 150,186"/>
+      </g>
+      <text x="44" y="200" font-size="11" fill="var(--meok-faint)">양산천</text>
+
+      <g stroke="var(--hanji)" stroke-width="15" stroke-linecap="round">
+        <path d="M-8,124 H408"/>
+        <path d="M206,124 V164"/>
+      </g>
+      <path d="M-8,124 H408" fill="none" stroke="var(--line)" stroke-width="1" stroke-dasharray="6 7"/>
+      <text x="92" y="146" font-size="11" fill="var(--meok-faint)" text-anchor="middle">강변로</text>
+
+      <path d="M282,60 C282,46 293,35 306,35 C319,35 330,46 330,60 C330,78 306,110 306,110 C306,110 282,78 282,60 Z" fill="var(--dahong)"/>
+      <circle cx="306" cy="59" r="7" fill="var(--jjok-soft)"/>
+      <text x="306" y="152" font-size="11.5" fill="var(--meok)" text-anchor="middle" font-weight="500">크리스탈타워 5층</text>
+    </svg>
+
+    <div class="btn-row">
+      <a class="btn solid" href="https://map.kakao.com/link/search/%EC%96%91%EC%82%B0%20W%EC%9B%A8%EB%94%A9" target="_blank" rel="noopener">카카오맵</a>
+      <a class="btn" href="https://map.naver.com/p/search/%EC%96%91%EC%82%B0%20W%EC%9B%A8%EB%94%A9" target="_blank" rel="noopener">네이버지도</a>
+      <button class="btn" type="button" id="addrCopy">주소 복사</button>
+    </div>
+  </section>
+
+  <!-- ================= 봉투 ================= -->
+  <section class="gift pad">
+    <div class="head">
+      <span class="eye">마 음 전 하 실 곳</span>
+      <span class="ko">축의</span>
+    </div>
+    <p class="lead">참석이 어려우신 분들을 위해<br>계좌번호를 안내드립니다.</p>
+
+    <div class="env">
+      <div class="band">신랑</div>
+      <div class="body">
+        <div>
+          <div class="bank">손규수 · 토스뱅크</div>
+          <div class="num">010-4012-2921</div>
+        </div>
+        <button class="copy" type="button" data-copy="01040122921">복사</button>
+      </div>
+    </div>
+    <div class="env">
+      <div class="band">신부</div>
+      <div class="body">
+        <div>
+          <div class="bank">문세화 · NH농협은행</div>
+          <div class="num">302-7203-767751</div>
+        </div>
+        <button class="copy" type="button" data-copy="3027203767751">복사</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 맺음 ================= -->
+  <figure class="last" style="margin:0">
+    <img src="p/09.jpg" alt="해 질 무렵 바닷가에서 서로를 바라보는 두 사람, 흑백 사진" loading="lazy" width="1086" height="1448">
+  </figure>
+
+  <section class="bow pad">
+    <p>
+      여러분 한 분 한 분의 축하가<br>
+      저희 두 사람의 새로운 시작을 채웁니다.<br>
+      함께해 주셔서 감사합니다.
+    </p>
+    <div class="sign-row">
+      <span class="nm">손규수 · 문세화 드림</span>
+      <svg class="seal" viewBox="0 0 48 48" role="img" aria-label="붉은 낙관">
+        <rect x="2" y="2" width="44" height="44" rx="4" fill="var(--dahong)"/>
+        <g fill="none" stroke="var(--hanji)" stroke-width="2" stroke-linecap="round">
+          <path d="M24,11 C29,16 29,22 24,26 C19,22 19,16 24,11 Z"/>
+          <path d="M14,28 C19,25 22,27 24,30 C26,27 29,25 34,28"/>
+          <path d="M24,30 V38"/>
+          <path d="M17,38 H31"/>
+        </g>
+      </svg>
+    </div>
+  </section>
+
+</div>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="사진 크게 보기">
+  <img id="lbImg" src="" alt="">
+  <button class="lb-btn lb-prev" id="lbPrev" type="button" aria-label="이전 사진">&#10094;</button>
+  <button class="lb-btn lb-next" id="lbNext" type="button" aria-label="다음 사진">&#10095;</button>
+  <button class="lb-btn lb-close" id="lbClose" type="button" aria-label="닫기">&#10005;</button>
+  <p class="lb-count" id="lbCount"></p>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function () {
+  /* 병풍 여덟 폭 — 한옥에서 시작해 바닷가에서 맺는 순서 */
+  var PHOTOS = [
+    { src: 'p/01.jpg', cap: '꽃길에서',       alt: '꽃이 핀 정원 길에서 손을 잡고 선 두 사람' },
+    { src: 'p/02.jpg', cap: '산을 마주 보고', alt: '한옥 처마 아래 산을 배경으로 선 두 사람' },
+    { src: 'p/03.jpg', cap: '우리 집에서',    alt: '창이 넓은 거실에서 손을 잡고 선 두 사람' },
+    { src: 'p/04.jpg', cap: '가까이, 조용히', alt: '나란히 기대어 앉은 두 사람의 가까운 사진' },
+    { src: 'p/05.jpg', cap: '흰 꽃 앞에서',   alt: '흰 꽃을 배경으로 선 턱시도와 드레스 차림의 두 사람' },
+    { src: 'p/06.jpg', cap: '잠시 앉아',      alt: '소파에 나란히 앉아 서로를 바라보는 두 사람' },
+    { src: 'p/07.jpg', cap: '창가의 빛',      alt: '창가에서 초록 나무를 배경으로 선 두 사람' },
+    { src: 'p/08.jpg', cap: '촬영하던 날',    alt: '촬영장에서 카메라를 마주 보고 선 두 사람' }
+  ];
+  var TOTAL = PHOTOS.length;
+  var WEDDING = new Date(2027, 0, 16, 12, 30, 0);
+  var ADDR = '경상남도 양산시 강변로 438 크리스탈타워 5층';
+  function pad2(n) { return (n < 10 ? '0' : '') + n; }
+  function $(id) { return document.getElementById(id); }
+
+  /* ---------- 보자기 풀기 ---------- */
+  var cover = $('cover');
+  document.body.classList.add('locked');
+  function openCover() {
+    if (cover.classList.contains('gone')) { return; }
+    cover.classList.add('gone');
+    document.body.classList.remove('locked');
+    $('scroll').classList.add('opened');
+    setTimeout(function () { cover.setAttribute('hidden', ''); }, 950);
+  }
+  cover.addEventListener('click', openCover);
+  $('openBtn').addEventListener('click', function (e) { e.stopPropagation(); openCover(); });
+
+  /* ---------- 남은 날 ---------- */
+  var row = $('countRow'), timer;
+  function tick() {
+    var diff = WEDDING - new Date();
+    if (diff <= 0) {
+      row.innerHTML = '<p class="count-done">오늘, 두 사람이 부부가 됩니다</p>';
+      clearInterval(timer);
+      return;
+    }
+    var s = Math.floor(diff / 1000);
+    $('cd-d').textContent = Math.floor(s / 86400);
+    $('cd-h').textContent = pad2(Math.floor(s / 3600) % 24);
+    $('cd-m').textContent = pad2(Math.floor(s / 60) % 60);
+    $('cd-s').textContent = pad2(s % 60);
+  }
+  tick();
+  timer = setInterval(tick, 1000);
+
+  /* ---------- 병풍 ---------- */
+  var rail = $('rail'), html = '';
+  for (var n = 0; n < TOTAL; n++) {
+    var ph = PHOTOS[n];
+    html += '<button class="panel" type="button" data-i="' + n + '" aria-label="' + ph.cap + ' — 사진 크게 보기">' +
+      '<img src="' + ph.src + '" alt="' + ph.alt + '" decoding="async">' +
+      '<span class="cap"><span class="step">' + (n + 1) + '폭</span>' + ph.cap + '</span></button>';
+  }
+  rail.innerHTML = html;
+
+  var lb = $('lightbox'), lbImg = $('lbImg'), cur = 0, lastFocus = null;
+  function show(n) {
+    cur = (n + TOTAL) % TOTAL;
+    lbImg.src = PHOTOS[cur].src;
+    lbImg.alt = PHOTOS[cur].alt;
+    $('lbCount').textContent = PHOTOS[cur].cap + ' · ' + (cur + 1) + ' / ' + TOTAL + '폭';
+  }
+  function openLb(n) {
+    lastFocus = document.activeElement;
+    show(n);
+    lb.classList.add('on');
+    document.body.classList.add('locked');
+    $('lbClose').focus();
+  }
+  function closeLb() {
+    lb.classList.remove('on');
+    document.body.classList.remove('locked');
+    if (lastFocus && lastFocus.focus) { lastFocus.focus(); }
+  }
+  rail.addEventListener('click', function (e) {
+    var b = e.target.closest('.panel');
+    if (b) { openLb(parseInt(b.getAttribute('data-i'), 10)); }
+  });
+  $('lbPrev').addEventListener('click', function () { show(cur - 1); });
+  $('lbNext').addEventListener('click', function () { show(cur + 1); });
+  $('lbClose').addEventListener('click', closeLb);
+  lb.addEventListener('click', function (e) { if (e.target === lb) { closeLb(); } });
+  document.addEventListener('keydown', function (e) {
+    if (!lb.classList.contains('on')) { return; }
+    if (e.key === 'Escape') { closeLb(); }
+    else if (e.key === 'ArrowLeft') { show(cur - 1); }
+    else if (e.key === 'ArrowRight') { show(cur + 1); }
+  });
+  var x0 = null;
+  lb.addEventListener('touchstart', function (e) { x0 = e.changedTouches[0].clientX; }, { passive: true });
+  lb.addEventListener('touchend', function (e) {
+    if (x0 === null) { return; }
+    var dx = e.changedTouches[0].clientX - x0;
+    if (Math.abs(dx) > 45) { show(dx < 0 ? cur + 1 : cur - 1); }
+    x0 = null;
+  }, { passive: true });
+
+  /* ---------- 복사 ---------- */
+  var toast = $('toast'), toastTimer;
+  function say(msg) {
+    toast.textContent = msg;
+    toast.classList.add('on');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { toast.classList.remove('on'); }, 2000);
+  }
+  function copyText(text, btn) {
+    function done() {
+      say('복사되었습니다');
+      if (btn && btn.classList.contains('copy')) {
+        var t = btn.textContent;
+        btn.textContent = '완료';
+        btn.classList.add('done');
+        setTimeout(function () { btn.textContent = t; btn.classList.remove('done'); }, 1400);
+      }
+    }
+    function fallback() {
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      var ok = false;
+      try { ok = document.execCommand('copy'); } catch (err) { ok = false; }
+      document.body.removeChild(ta);
+      if (ok) { done(); } else { say('복사가 막혀 있어요. 길게 눌러 복사해 주세요'); }
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done, fallback);
+    } else { fallback(); }
+  }
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest ? e.target.closest('[data-copy]') : null;
+    if (b) { copyText(b.getAttribute('data-copy'), b); }
+  });
+  $('addrCopy').addEventListener('click', function () { copyText(ADDR, null); });
+
+  /* ---------- 꽃잎 ---------- */
+  function petals() {
+    if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) { return; }
+    var colors = ['#BE4430', '#C9993A', '#F6F1E5', '#DDA0A0'];
+    for (var i = 0; i < 26; i++) {
+      var p = document.createElement('div');
+      p.className = 'petal';
+      var size = 8 + Math.random() * 8;
+      p.style.width = size + 'px';
+      p.style.height = (size * 0.78) + 'px';
+      p.style.left = (Math.random() * 100) + 'vw';
+      p.style.background = colors[i % colors.length];
+      p.style.opacity = '0.9';
+      document.body.appendChild(p);
+      var drift = (Math.random() * 120 - 60);
+      var anim = p.animate([
+        { transform: 'translate(0,0) rotate(0deg)', opacity: 0.95 },
+        { transform: 'translate(' + drift + 'px,' + (window.innerHeight + 40) + 'px) rotate(' + (200 + Math.random() * 400) + 'deg)', opacity: 0.85 }
+      ], { duration: 2200 + Math.random() * 1600, easing: 'cubic-bezier(.35,.5,.5,1)' });
+      anim.onfinish = function () { this.effect.target.remove(); };
+    }
+  }
+
+  /* ---------- 덕담 (공유 저장소) ---------- */
+  var wishBtn = $('wishBtn'), wishCount = $('wishCount');
+  var wall = $('wall'), wallEmpty = $('wallEmpty');
+  var nameEl = $('guestName'), msgEl = $('guestMsg'), submit = $('guestSubmit');
+  var db = null, sending = false;
+
+  wishBtn.addEventListener('click', function () {
+    petals();
+    if (!db) { say('축하 감사합니다'); return; }
+    var ref = db.doc('state/meta');
+    ref.get().then(function (snap) {
+      var v = (snap.exists && snap.data() && Number(snap.data().flowers)) || 0;
+      return ref.set({ flowers: v + 1 });
+    }).catch(function () { say('잠시 후 다시 시도해 주세요'); });
+  });
+
+  function esc(s) {
+    return String(s).replace(/[<>&]/g, function (c) { return { '<': '&lt;', '>': '&gt;', '&': '&amp;' }[c]; });
+  }
+  function renderWall(docs) {
+    if (!docs.length) {
+      wall.innerHTML = '';
+      wallEmpty.textContent = '첫 덕담을 남겨주세요.';
+      wallEmpty.hidden = false;
+      return;
+    }
+    wallEmpty.hidden = true;
+    wall.innerHTML = docs.map(function (d) {
+      var v = d.data() || {};
+      return '<div class="slip"><span class="who">' + esc(v.name || '익명') + '</span>' + esc(v.msg || '') + '</div>';
+    }).join('');
+  }
+  function checkForm() { submit.disabled = !db || sending || !msgEl.value.trim(); }
+  nameEl.addEventListener('input', checkForm);
+  msgEl.addEventListener('input', checkForm);
+
+  submit.addEventListener('click', function () {
+    if (!db || sending || !msgEl.value.trim()) { return; }
+    sending = true;
+    checkForm();
+    db.collection('notes').add({
+      name: nameEl.value.trim().slice(0, 12) || '익명',
+      msg: msgEl.value.trim().slice(0, 120),
+      at: Date.now()
+    }).then(function () {
+      msgEl.value = '';
+      say('덕담을 남겼습니다');
+      petals();
+    }, function () {
+      say('등록에 실패했어요. 잠시 후 다시 시도해 주세요');
+    }).then(function () {
+      sending = false;
+      checkForm();
+    });
+  });
+
+  function noStore() {
+    submit.disabled = true;
+    nameEl.disabled = true;
+    msgEl.disabled = true;
+    msgEl.placeholder = '덕담은 공유된 청첩장에서 남길 수 있습니다';
+    wallEmpty.textContent = '덕담은 공유된 청첩장에서 열립니다.';
+    wallEmpty.hidden = false;
+  }
+
+  if (window.claude && window.claude.use) {
+    window.claude.use('db').then(function (store) {
+      if (!store) { noStore(); return; }
+      db = store;
+      checkForm();
+      db.doc('state/meta').onSnapshot(function (snap) {
+        var v = (snap.exists && snap.data() && Number(snap.data().flowers)) || 0;
+        wishCount.innerHTML = '<b>' + v + '</b>송이가 모였습니다';
+        wishCount.hidden = false;
+      }, function () {});
+      db.collection('notes').orderBy('at', 'desc').limit(30)
+        .onSnapshot(function (snap) { renderWall(snap.docs); }, function () { noStore(); });
+    }, noStore);
+  } else {
+    noStore();
+  }
+})();
+</script>
+<!--#artifact-end-->
+</body>
+</html>
