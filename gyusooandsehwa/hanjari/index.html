@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <!--#artifact-start-->
 <title>한자리 규수 세화</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,13 +18,9 @@
     --ink-2: #575145;
     --ink-3: #8C8475;
     --wine: #8E2E3F;
-    --sage: #5E7560;
     --gold: #A9843F;
     --rule: rgba(31, 28, 23, 0.18);
     --rule-2: rgba(31, 28, 23, 0.1);
-    --W: 1700px;
-    --H: 2900px;
-    --s: 0.85;
   }
 
   * { box-sizing: border-box; }
@@ -33,221 +29,210 @@
   body {
     margin: 0;
     background: var(--cloth);
+    background-image:
+      repeating-linear-gradient(0deg, rgba(255,255,255,0.02) 0 1px, transparent 1px 3px),
+      repeating-linear-gradient(90deg, rgba(255,255,255,0.02) 0 1px, transparent 1px 3px),
+      radial-gradient(130% 80% at 50% 28%, rgba(255,255,255,0.055) 0%, rgba(0,0,0,0.3) 80%);
     color: var(--ink);
     font-family: "Gowun Batang", "Spectral", serif;
     overflow: hidden;
     -webkit-text-size-adjust: 100%;
   }
 
-  /* ---------- 무대 ---------- */
-  .stage {
-    position: fixed; inset: 0;
-    overflow: auto;
-    overscroll-behavior: contain;
-    -webkit-overflow-scrolling: touch;
+  /* ---------- 한 장씩 ---------- */
+  .deck {
+    position: fixed; inset: 0 0 86px 0;
     display: flex;
-    background-color: var(--cloth);
-    background-image:
-      repeating-linear-gradient(0deg, rgba(255,255,255,0.022) 0 1px, transparent 1px 3px),
-      repeating-linear-gradient(90deg, rgba(255,255,255,0.022) 0 1px, transparent 1px 3px),
-      radial-gradient(120% 90% at 50% 36%, rgba(255,255,255,0.06) 0%, rgba(0,0,0,0.25) 78%);
-    cursor: grab;
+    overflow-x: auto; overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    overscroll-behavior-x: contain;
   }
-  .stage.dragging { cursor: grabbing; }
-  .stage::-webkit-scrollbar { width: 0; height: 0; }
+  .deck::-webkit-scrollbar { display: none; }
 
-  .sizer { position: relative; flex: 0 0 auto; margin: auto; width: calc(var(--W) * var(--s)); height: calc(var(--H) * var(--s)); }
-  .board {
-    position: absolute; left: 0; top: 0;
-    width: var(--W); height: var(--H);
-    transform: scale(var(--s));
-    transform-origin: 0 0;
+  .leaf {
+    flex: 0 0 100%;
+    scroll-snap-align: center;
+    scroll-snap-stop: always;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 22px 16px;
+    overflow-y: auto;
+    overscroll-behavior-y: contain;
   }
 
-  .route { position: absolute; left: 0; top: 0; width: var(--W); height: var(--H); pointer-events: none; }
-
-  /* ---------- 종이 조각 공통 ---------- */
-  .piece {
-    position: absolute;
+  .card {
+    width: 100%;
+    max-width: 400px;
+    margin: auto;
     background: var(--paper);
-    box-shadow: 0 18px 38px rgba(0, 0, 0, 0.42), 0 2px 0 rgba(255, 255, 255, 0.25) inset;
-    padding: 24px 26px;
-    font-size: 17px;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.42);
+    padding: 26px 24px;
+    font-size: 1rem;
     line-height: 1.95;
-    transform: translate(-50%, -50%) rotate(var(--r, 0deg));
   }
-  .piece h2 {
+  .card.dark { background: var(--cloth-2); color: var(--paper); box-shadow: 0 16px 40px rgba(0,0,0,0.5); }
+  .card.bare { background: none; box-shadow: none; padding: 0; }
+
+  .eyebrow {
     font-family: "Spectral", serif;
-    font-weight: 400;
     text-transform: uppercase;
     letter-spacing: 0.3em;
-    font-size: 12px;
+    font-size: 0.68rem;
     color: var(--ink-3);
     margin: 0 0 14px;
   }
-  .piece h2::after { content: ""; display: block; width: 26px; height: 1px; background: var(--gold); margin-top: 8px; }
+  .eyebrow::after { content: ""; display: block; width: 26px; height: 1px; background: var(--gold); margin-top: 8px; }
+  .dark .eyebrow { color: rgba(251, 247, 238, 0.5); }
 
-  /* 본 청첩장 */
-  #p-main { width: 430px; text-align: center; padding: 34px 30px 30px; }
-  #p-main .kick { font-family: "Spectral", serif; text-transform: uppercase; letter-spacing: 0.42em; font-size: 11px; color: var(--ink-3); margin: 0; }
-  #p-main .nm {
+  /* 1 청첩장 */
+  .main { text-align: center; padding: 34px 26px 30px; }
+  .main .kick { font-family: "Spectral", serif; text-transform: uppercase; letter-spacing: 0.4em; font-size: 0.62rem; color: var(--ink-3); margin: 0; }
+  .main .nm {
     font-family: "Spectral", serif; font-weight: 400; text-transform: uppercase;
-    font-size: 40px; letter-spacing: 0.14em; line-height: 1.16; margin: 14px 0 0; text-indent: 0.14em;
+    font-size: clamp(2rem, 9.6vw, 2.5rem); letter-spacing: 0.13em; line-height: 1.18; margin: 16px 0 0; text-indent: 0.13em;
   }
-  #p-main .nm i { display: block; font-style: italic; text-transform: lowercase; font-size: 0.46em; letter-spacing: 0.2em; color: var(--wine); }
-  #p-main .ko { font-size: 17px; letter-spacing: 0.26em; color: var(--ink-2); margin: 12px 0 0; }
-  #p-main .hr { height: 1px; background: var(--rule); margin: 18px auto; width: 62%; }
-  #p-main .dt { font-family: "Spectral", serif; font-size: 18px; letter-spacing: 0.16em; margin: 0; }
-  #p-main .ve { font-size: 15px; color: var(--ink-3); margin: 4px 0 0; }
+  .main .nm i { display: block; font-style: italic; text-transform: lowercase; font-size: 0.45em; letter-spacing: 0.2em; color: var(--wine); }
+  .main .ko { font-size: 0.98rem; letter-spacing: 0.26em; color: var(--ink-2); margin: 12px 0 0; }
+  .main .hr { height: 1px; background: var(--rule); margin: 20px auto; width: 62%; }
+  .main .dt { font-family: "Spectral", serif; font-size: 1.05rem; letter-spacing: 0.14em; margin: 0; }
+  .main .ve { font-size: 0.9rem; color: var(--ink-3); margin: 5px 0 0; }
 
-  /* 손편지 */
-  #p-note { width: 380px; background: var(--paper-2); }
-  #p-note .hand {
-    font-family: "Nanum Pen Script", cursive;
-    font-size: 27px; line-height: 1.75; color: var(--ink-2); margin: 0;
-  }
-  #p-note .sign { font-family: "Nanum Pen Script", cursive; font-size: 24px; text-align: right; margin: 16px 0 0; color: var(--wine); }
+  /* 2 인사 */
+  .note { background: var(--paper-2); }
+  .note .hand { font-family: "Nanum Pen Script", cursive; font-size: 1.55rem; line-height: 1.75; color: var(--ink-2); margin: 0; }
+  .note .sign { font-family: "Nanum Pen Script", cursive; font-size: 1.4rem; text-align: right; margin: 18px 0 0; color: var(--wine); }
 
-  /* 사진 더미 */
-  #p-photos { width: 330px; padding: 0; background: none; box-shadow: none; }
-  .polastack { position: relative; height: 330px; }
-  .pola {
-    position: absolute; left: 0; top: 0; width: 240px;
-    background: var(--paper); padding: 11px 11px 40px;
-    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.45);
-    border: 0; cursor: pointer;
-  }
+  /* 3 사진 */
+  .shots { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .pola { border: 0; padding: 9px 9px 30px; background: var(--paper); box-shadow: 0 10px 24px rgba(0,0,0,0.4); cursor: pointer; position: relative; }
   .pola img { display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; filter: saturate(0.82) contrast(1.04); }
-  .pola span {
-    position: absolute; left: 11px; right: 11px; bottom: 12px; text-align: center;
-    font-family: "Nanum Pen Script", cursive; font-size: 19px; color: var(--ink-2);
-  }
-  .pola.a { transform: rotate(-7deg); left: 0; top: 10px; }
-  .pola.b { transform: rotate(4deg); left: 52px; top: 0; }
-  .pola.c { transform: rotate(-2deg); left: 92px; top: 28px; }
+  .pola span { position: absolute; left: 9px; right: 9px; bottom: 8px; text-align: center; font-family: "Nanum Pen Script", cursive; font-size: 1.05rem; color: var(--ink-2); }
 
-  /* 단독 사진 */
-  #p-pola1 { width: 270px; padding: 12px 12px 44px; }
-  #p-pola1 img { display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; filter: saturate(0.82) contrast(1.04); }
-  #p-pola1 span { display: block; text-align: center; margin-top: 12px; font-family: "Nanum Pen Script", cursive; font-size: 21px; color: var(--ink-2); }
-
-  /* 그날 */
-  #p-day { width: 360px; }
-  #p-day .big { font-family: "Spectral", serif; font-size: 30px; letter-spacing: 0.08em; margin: 0 0 2px; }
-  #p-day .sm { font-size: 15px; color: var(--ink-3); margin: 0 0 16px; }
+  /* 4 그날 */
+  .day .big { font-family: "Spectral", serif; font-size: 1.5rem; letter-spacing: 0.06em; margin: 0 0 2px; }
+  .day .sm { font-size: 0.9rem; color: var(--ink-3); margin: 0 0 18px; }
   table.cal { width: 100%; border-collapse: collapse; }
-  table.cal th { font-family: "Spectral", serif; font-size: 12px; font-weight: 400; letter-spacing: 0.1em; color: var(--ink-3); padding-bottom: 6px; border-bottom: 1px solid var(--rule); }
-  table.cal td { font-family: "Spectral", serif; text-align: center; font-size: 15px; color: var(--ink-2); padding: 4px 0; }
-  table.cal .mk { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 50%; background: var(--wine); color: #fff; }
-  .cnt { display: flex; margin-top: 16px; border-top: 1px solid var(--rule-2); padding-top: 12px; }
+  table.cal th { font-family: "Spectral", serif; font-size: 0.7rem; font-weight: 400; letter-spacing: 0.1em; color: var(--ink-3); padding-bottom: 7px; border-bottom: 1px solid var(--rule); }
+  table.cal td { font-family: "Spectral", serif; text-align: center; font-size: 0.92rem; color: var(--ink-2); padding: 5px 0; }
+  table.cal .mk { display: inline-flex; align-items: center; justify-content: center; width: 1.9rem; height: 1.9rem; border-radius: 50%; background: var(--wine); color: #fff; }
+  .cnt { display: flex; margin-top: 18px; border-top: 1px solid var(--rule-2); padding-top: 14px; }
   .cnt div { flex: 1; text-align: center; }
-  .cnt .n { font-family: "Spectral", serif; font-size: 22px; line-height: 1.2; }
-  .cnt .u { font-family: "Spectral", serif; text-transform: uppercase; font-size: 10px; letter-spacing: 0.18em; color: var(--ink-3); }
-  .cnt-done { margin: 14px 0 0; font-size: 17px; color: var(--wine); text-align: center; }
+  .cnt .n { font-family: "Spectral", serif; font-size: 1.3rem; line-height: 1.2; }
+  .cnt .u { font-family: "Spectral", serif; text-transform: uppercase; font-size: 0.56rem; letter-spacing: 0.18em; color: var(--ink-3); }
+  .cnt-done { margin: 16px 0 0; font-size: 1rem; color: var(--wine); text-align: center; }
 
-  /* 양가 */
-  #p-fam { width: 360px; }
+  /* 5 양가 */
   .fam { display: grid; grid-template-columns: 1fr 1fr; gap: 0 14px; }
   .fam .c + .c { border-left: 1px solid var(--rule-2); padding-left: 14px; }
-  .fam .side { font-family: "Spectral", serif; text-transform: uppercase; letter-spacing: 0.24em; font-size: 11px; color: var(--gold); }
-  .fam .par { font-size: 15px; color: var(--ink-3); line-height: 1.95; margin: 4px 0 0; }
+  .fam .side { font-family: "Spectral", serif; text-transform: uppercase; letter-spacing: 0.24em; font-size: 0.62rem; color: var(--gold); }
+  .fam .par { font-size: 0.88rem; color: var(--ink-3); line-height: 1.95; margin: 5px 0 0; }
   .fam .par b { font-weight: 400; color: var(--ink-2); }
-  .fam .who { display: block; margin-top: 6px; font-size: 18px; color: var(--ink); }
-  .fam .rel { font-size: 12px; color: var(--ink-3); }
-  .tel { display: flex; margin-top: 16px; border: 1px solid var(--rule); }
-  .tel a { flex: 1; text-align: center; padding: 9px 4px; font-size: 14px; color: var(--ink-2); text-decoration: none; }
+  .fam .who { display: block; margin-top: 7px; font-size: 1.05rem; color: var(--ink); }
+  .fam .rel { font-size: 0.72rem; color: var(--ink-3); }
+  .tel { display: flex; margin-top: 20px; border: 1px solid var(--rule); }
+  .tel a { flex: 1; text-align: center; padding: 0.65rem 0.3rem; font-size: 0.86rem; color: var(--ink-2); text-decoration: none; }
   .tel a + a { border-left: 1px solid var(--rule); }
-  .tel a:hover { background: var(--ink); color: var(--paper); }
+  .tel a:hover, .tel a:focus-visible { background: var(--ink); color: var(--paper); }
 
-  /* 약도 */
-  #p-map { width: 440px; }
-  #p-map .nm { font-size: 19px; margin: 0; }
-  #p-map .ad { font-size: 15px; color: var(--ink-3); margin: 2px 0 14px; }
-  #p-map svg { display: block; width: 100%; height: auto; border: 1px solid var(--rule); }
-  .mbtn { display: flex; margin-top: 12px; border: 1px solid var(--rule); }
-  .mbtn > * { flex: 1; text-align: center; padding: 9px 4px; font-size: 14px; color: var(--ink-2); text-decoration: none; background: none; border: 0; cursor: pointer; font-family: inherit; }
+  /* 6 오시는 길 */
+  .loc .nm { font-size: 1.12rem; margin: 0; }
+  .loc .ad { font-size: 0.88rem; color: var(--ink-3); margin: 3px 0 16px; line-height: 1.75; }
+  .loc svg { display: block; width: 100%; height: auto; border: 1px solid var(--rule); }
+  .mbtn { display: flex; margin-top: 14px; border: 1px solid var(--rule); }
+  .mbtn > * { flex: 1; text-align: center; padding: 0.65rem 0.3rem; font-size: 0.86rem; color: var(--ink-2); text-decoration: none; background: none; border: 0; cursor: pointer; font-family: inherit; }
   .mbtn > * + * { border-left: 1px solid var(--rule); }
-  .mbtn > *:hover { background: var(--ink); color: var(--paper); }
+  .mbtn > *:hover, .mbtn > *:focus-visible { background: var(--ink); color: var(--paper); }
 
-  /* 봉투 */
-  #p-env { width: 380px; background: var(--paper-2); }
-  .acct { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 11px 0; border-top: 1px solid var(--rule-2); }
+  /* 7 마음 */
+  .env { background: var(--paper-2); }
+  .acct { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 0.8rem 0; border-top: 1px solid var(--rule-2); }
   .acct:last-of-type { border-bottom: 1px solid var(--rule-2); }
-  .acct .sd { font-family: "Spectral", serif; text-transform: uppercase; letter-spacing: 0.2em; font-size: 10px; color: var(--gold); }
-  .acct .wh { font-size: 16px; }
-  .acct .no { font-family: "Spectral", serif; font-size: 15px; color: var(--ink-3); }
-  .cp { flex-shrink: 0; border: 1px solid var(--rule); background: none; color: var(--ink-2); font-family: inherit; font-size: 13px; padding: 5px 12px; cursor: pointer; }
+  .acct .sd { font-family: "Spectral", serif; text-transform: uppercase; letter-spacing: 0.2em; font-size: 0.58rem; color: var(--gold); }
+  .acct .wh { font-size: 0.95rem; }
+  .acct .no { font-family: "Spectral", serif; font-size: 0.88rem; color: var(--ink-3); }
+  .cp { flex-shrink: 0; border: 1px solid var(--rule); background: none; color: var(--ink-2); font-family: inherit; font-size: 0.78rem; padding: 0.3rem 0.75rem; cursor: pointer; }
   .cp:hover, .cp.done { background: var(--ink); color: var(--paper); border-color: var(--ink); }
 
-  /* 방명록 */
-  #p-book { width: 390px; }
-  #p-book .lead { font-size: 15px; color: var(--ink-3); margin: 0 0 14px; line-height: 1.9; }
-  .vbtn { width: 100%; border: 1px solid var(--wine); background: none; color: var(--wine); font-family: inherit; font-size: 16px; padding: 11px; cursor: pointer; }
+  /* 8 방명록 */
+  .book .lead { font-size: 0.9rem; color: var(--ink-3); margin: 0 0 16px; line-height: 1.9; }
+  .vbtn { width: 100%; border: 1px solid var(--wine); background: none; color: var(--wine); font-family: inherit; font-size: 0.98rem; padding: 0.7rem; cursor: pointer; }
   .vbtn:hover { background: var(--wine); color: var(--paper); }
-  .vcount { margin: 10px 0 0; text-align: center; font-size: 13px; color: var(--ink-3); }
-  .vcount b { color: var(--wine); font-size: 17px; }
-  #p-book input, #p-book textarea {
-    width: 100%; font-family: inherit; font-size: 15px; color: var(--ink);
-    border: 0; border-bottom: 1px solid var(--rule); background: none; padding: 7px 2px; border-radius: 0;
+  .vcount { margin: 10px 0 0; text-align: center; font-size: 0.8rem; color: var(--ink-3); }
+  .vcount b { color: var(--wine); font-size: 1rem; }
+  .book input, .book textarea {
+    width: 100%; font-family: inherit; font-size: 0.9rem; color: var(--ink);
+    border: 0; border-bottom: 1px solid var(--rule); background: none; padding: 0.45rem 0.1rem; border-radius: 0;
   }
-  #p-book textarea { resize: none; height: 58px; margin-top: 6px; }
-  #p-book input::placeholder, #p-book textarea::placeholder { color: var(--ink-3); }
-  #p-book input:focus, #p-book textarea:focus { outline: 0; border-bottom-color: var(--wine); }
-  .vsub { margin-top: 12px; width: 100%; border: 0; background: var(--ink); color: var(--paper); font-family: inherit; font-size: 15px; padding: 10px; cursor: pointer; }
+  .book textarea { resize: none; height: 56px; margin-top: 6px; }
+  .book input::placeholder, .book textarea::placeholder { color: var(--ink-3); }
+  .book input:focus, .book textarea:focus { outline: 0; border-bottom-color: var(--wine); }
+  .vsub { margin-top: 12px; width: 100%; border: 0; background: var(--ink); color: var(--paper); font-family: inherit; font-size: 0.9rem; padding: 0.62rem; cursor: pointer; }
   .vsub[disabled] { opacity: 0.3; cursor: default; }
-  .wall { margin-top: 14px; max-height: 190px; overflow: auto; }
-  .slip { border-top: 1px solid var(--rule-2); padding: 9px 0; font-size: 15px; line-height: 1.7; color: var(--ink-2); word-break: break-word; }
-  .slip .who { display: block; font-family: "Spectral", serif; text-transform: uppercase; letter-spacing: 0.18em; font-size: 11px; color: var(--gold); }
-  .wall-empty { font-size: 14px; color: var(--ink-3); margin: 12px 0 0; }
+  .wall { margin-top: 14px; }
+  .slip { border-top: 1px solid var(--rule-2); padding: 0.6rem 0; font-size: 0.88rem; line-height: 1.7; color: var(--ink-2); word-break: break-word; }
+  .slip .who { display: block; font-family: "Spectral", serif; text-transform: uppercase; letter-spacing: 0.18em; font-size: 0.62rem; color: var(--gold); }
+  .wall-empty { font-size: 0.85rem; color: var(--ink-3); margin: 12px 0 0; }
 
-  /* 맺음 쪽지 */
-  #p-fin { width: 340px; background: var(--cloth-2); color: var(--paper); box-shadow: 0 18px 38px rgba(0,0,0,0.5); text-align: center; }
-  #p-fin h2 { color: rgba(251, 247, 238, 0.55); }
-  #p-fin h2::after { background: var(--gold); }
-  #p-fin p { font-size: 16px; line-height: 2; color: rgba(251, 247, 238, 0.82); margin: 0; }
-  #p-fin .sg { margin-top: 16px; font-family: "Spectral", serif; text-transform: uppercase; letter-spacing: 0.24em; font-size: 15px; color: var(--paper); }
+  /* 9 맺음 */
+  .fin { text-align: center; }
+  .fin p { font-size: 0.98rem; line-height: 2.05; color: rgba(251, 247, 238, 0.84); margin: 0; }
+  .fin .sg { margin-top: 20px; font-family: "Spectral", serif; text-transform: uppercase; letter-spacing: 0.24em; font-size: 0.95rem; color: var(--paper); }
+  .fin .sg-ko { margin-top: 5px; font-size: 0.86rem; letter-spacing: 0.12em; color: rgba(251, 247, 238, 0.55); }
 
-  /* ---------- 길잡이 ---------- */
-  .nav {
+  /* ---------- 아래 조작부 ---------- */
+  .bar {
     position: fixed; left: 0; right: 0; bottom: 0; z-index: 30;
-    display: flex; gap: 6px; overflow-x: auto;
-    padding: 10px 12px calc(10px + env(safe-area-inset-bottom, 0px));
-    background: linear-gradient(to top, rgba(26, 33, 34, 0.96), rgba(26, 33, 34, 0.72) 70%, rgba(26, 33, 34, 0));
-    scrollbar-width: none;
+    height: 86px;
+    display: flex; align-items: center; gap: 10px;
+    padding: 0 14px calc(0px + env(safe-area-inset-bottom, 0px));
+    background: linear-gradient(to top, rgba(22, 28, 29, 0.98), rgba(22, 28, 29, 0.86) 72%, rgba(22, 28, 29, 0));
   }
-  .nav::-webkit-scrollbar { display: none; }
-  .nav button {
-    flex: 0 0 auto; border: 1px solid rgba(251, 247, 238, 0.3); background: rgba(251, 247, 238, 0.06);
-    color: rgba(251, 247, 238, 0.9); font-family: inherit; font-size: 13px;
-    padding: 7px 13px; cursor: pointer; white-space: nowrap;
+  .bar button {
+    border: 1px solid rgba(251, 247, 238, 0.32); background: rgba(251, 247, 238, 0.06);
+    color: rgba(251, 247, 238, 0.92); font-family: inherit; font-size: 0.9rem;
+    padding: 0.6rem 0.9rem; cursor: pointer; min-width: 52px;
   }
-  .nav button:hover, .nav button.on { background: var(--paper); color: var(--cloth); border-color: var(--paper); }
-  .nav button.wide { border-color: var(--gold); color: var(--gold); }
-  .nav button.wide.on { background: var(--gold); color: var(--cloth); }
+  .bar button:hover:not([disabled]) { background: var(--paper); color: var(--cloth); border-color: var(--paper); }
+  .bar button[disabled] { opacity: 0.3; cursor: default; }
+  .bar .mid { flex: 1; text-align: center; }
+  .bar .ttl { display: block; color: var(--paper); font-size: 0.95rem; letter-spacing: 0.08em; }
+  .bar .idx { display: block; font-family: "Spectral", serif; font-size: 0.7rem; letter-spacing: 0.2em; color: rgba(251, 247, 238, 0.5); }
 
-  .hint {
-    position: fixed; left: 50%; top: 18px; transform: translateX(-50%); z-index: 29;
-    background: rgba(26, 33, 34, 0.84); color: rgba(251, 247, 238, 0.9);
-    font-size: 13px; letter-spacing: 0.06em; padding: 7px 15px;
-    border: 1px solid rgba(251, 247, 238, 0.22);
-    transition: opacity 0.6s ease; pointer-events: none;
+  .dots { position: fixed; left: 0; right: 0; bottom: 92px; z-index: 29; display: flex; justify-content: center; gap: 7px; pointer-events: none; }
+  .dots i { width: 5px; height: 5px; border-radius: 50%; background: rgba(251, 247, 238, 0.26); transition: background 0.25s, transform 0.25s; }
+  .dots i.on { background: var(--gold); transform: scale(1.5); }
+
+  /* 목차 */
+  .menu { position: fixed; inset: 0; z-index: 60; background: rgba(22, 28, 29, 0.97); display: none; padding: 28px 18px; overflow-y: auto; }
+  .menu.on { display: block; }
+  .menu h2 { font-family: "Spectral", serif; text-transform: uppercase; letter-spacing: 0.3em; font-size: 0.7rem; color: rgba(251,247,238,0.5); margin: 0 0 18px; text-align: center; }
+  .menu ol { list-style: none; margin: 0 auto; padding: 0; max-width: 360px; }
+  .menu li + li { margin-top: 8px; }
+  .menu li button {
+    width: 100%; display: flex; align-items: baseline; gap: 12px; text-align: left;
+    border: 1px solid rgba(251, 247, 238, 0.2); background: none; color: var(--paper);
+    font-family: inherit; font-size: 1rem; padding: 0.75rem 1rem; cursor: pointer;
   }
-  .hint.off { opacity: 0; }
+  .menu li button:hover { background: var(--paper); color: var(--cloth); }
+  .menu li .n { font-family: "Spectral", serif; font-size: 0.78rem; letter-spacing: 0.16em; color: var(--gold); }
+  .menu .close { display: block; margin: 20px auto 0; border: 0; background: none; color: rgba(251,247,238,0.6); font-family: inherit; font-size: 0.9rem; cursor: pointer; }
 
   /* ---------- 라이트박스 · 토스트 ---------- */
   .lightbox { position: fixed; inset: 0; background: rgba(16, 20, 20, 0.97); display: none; align-items: center; justify-content: center; z-index: 90; padding: 16px; }
   .lightbox.on { display: flex; }
   .lightbox img { max-width: 100%; max-height: 80vh; width: auto; object-fit: contain; }
-  .lb-btn { position: absolute; width: 44px; height: 44px; background: none; border: 1px solid rgba(251,247,238,0.4); color: var(--paper); cursor: pointer; font-size: 16px; display: flex; align-items: center; justify-content: center; }
+  .lb-btn { position: absolute; width: 44px; height: 44px; background: none; border: 1px solid rgba(251,247,238,0.4); color: var(--paper); cursor: pointer; font-size: 1rem; display: flex; align-items: center; justify-content: center; }
   .lb-prev { left: 12px; top: 50%; transform: translateY(-50%); }
   .lb-next { right: 12px; top: 50%; transform: translateY(-50%); }
   .lb-close { right: 12px; top: 12px; }
-  .lb-count { position: absolute; bottom: 22px; left: 0; right: 0; text-align: center; color: var(--paper); font-family: "Spectral", serif; letter-spacing: 0.2em; font-size: 13px; }
+  .lb-count { position: absolute; bottom: 22px; left: 0; right: 0; text-align: center; color: var(--paper); font-family: "Spectral", serif; letter-spacing: 0.2em; font-size: 0.82rem; }
 
   .toast {
-    position: fixed; left: 50%; bottom: 74px; transform: translateX(-50%) translateY(10px);
-    background: var(--paper); color: var(--ink); font-size: 14px;
-    padding: 9px 18px; opacity: 0; pointer-events: none; transition: 0.24s ease; z-index: 95;
+    position: fixed; left: 50%; bottom: 104px; transform: translateX(-50%) translateY(10px);
+    background: var(--paper); color: var(--ink); font-size: 0.86rem;
+    padding: 0.55rem 1.1rem; opacity: 0; pointer-events: none; transition: 0.24s ease; z-index: 95;
     max-width: calc(100% - 32px); text-align: center;
   }
   .toast.on { opacity: 1; transform: translateX(-50%) translateY(0); }
@@ -259,187 +244,196 @@
 </head>
 <body>
 
-<div class="stage" id="stage">
-  <div class="sizer">
-    <div class="board" id="board">
+<div class="deck" id="deck">
 
-      <svg class="route" viewBox="0 0 1700 2900" aria-hidden="true">
-        <polyline points="620,330 1230,520 820,1000 1310,1180 380,1420 1280,1620 420,1900 960,2080 1300,2420 560,2560"
-                  fill="none" stroke="rgba(251,247,238,0.17)" stroke-width="2" stroke-dasharray="3 14" stroke-linecap="round"/>
-      </svg>
+  <!-- 1 -->
+  <section class="leaf" data-t="청첩장">
+    <article class="card main">
+      <p class="kick">Wedding Invitation</p>
+      <h1 class="nm">Gyusoo<i>and</i>Sehwa</h1>
+      <p class="ko">손규수 · 문세화</p>
+      <div class="hr"></div>
+      <p class="dt">2027. 1. 16. 토요일 12:30</p>
+      <p class="ve">양산 W웨딩 5층 팰리스홀</p>
+    </article>
+  </section>
 
-      <!-- 본 청첩장 -->
-      <article class="piece" id="p-main" style="left:820px; top:1000px; --r:-0.6deg">
-        <p class="kick">Wedding Invitation</p>
-        <h1 class="nm">Gyusoo<i>and</i>Sehwa</h1>
-        <p class="ko">손규수 · 문세화</p>
-        <div class="hr"></div>
-        <p class="dt">2027. 1. 16. 토요일 12:30</p>
-        <p class="ve">양산 W웨딩 5층 팰리스홀</p>
-      </article>
+  <!-- 2 -->
+  <section class="leaf" data-t="인사">
+    <article class="card note">
+      <p class="eyebrow">Un mot</p>
+      <p class="hand">
+        함께 밥을 먹고, 함께 걷고,<br>
+        함께 웃던 평범한 날들이<br>
+        쌓이고 쌓여 여기까지 왔습니다.<br>
+        이제 그 평범한 행복을<br>
+        평생 이어가려 합니다.
+      </p>
+      <p class="sign">규수 · 세화 드림</p>
+    </article>
+  </section>
 
-      <!-- 손편지 -->
-      <article class="piece" id="p-note" style="left:1230px; top:520px; --r:2.4deg">
-        <h2>Un mot</h2>
-        <p class="hand">
-          함께 밥을 먹고, 함께 걷고,<br>
-          함께 웃던 평범한 날들이<br>
-          쌓이고 쌓여 여기까지 왔습니다.<br>
-          이제 그 평범한 행복을<br>
-          평생 이어가려 합니다.
-        </p>
-        <p class="sign">규수 · 세화 드림</p>
-      </article>
+  <!-- 3 -->
+  <section class="leaf" data-t="사진">
+    <div class="card bare">
+      <div class="shots">
+        <button class="pola" type="button" data-i="0"><img src="../q/02.jpg" alt="한옥 처마 아래 산을 배경으로 선 두 사람"><span>산을 마주 보고</span></button>
+        <button class="pola" type="button" data-i="1"><img src="../q/03.jpg" alt="나란히 기대어 앉은 두 사람의 가까운 사진"><span>가까이</span></button>
+        <button class="pola" type="button" data-i="2"><img src="../q/04.jpg" alt="흰 꽃을 배경으로 선 턱시도와 드레스 차림의 두 사람"><span>흰 꽃 앞에서</span></button>
+        <button class="pola" type="button" data-i="3"><img src="../q/05.jpg" alt="소파에 나란히 앉아 서로를 바라보는 두 사람"><span>잠시 앉아</span></button>
+      </div>
+    </div>
+  </section>
 
-      <!-- 사진 더미 -->
-      <div class="piece" id="p-photos" style="left:620px; top:330px; --r:0deg">
-        <div class="polastack">
-          <button class="pola a" type="button" data-i="0"><img src="../q/02.jpg" alt="한옥 처마 아래 산을 배경으로 선 두 사람"><span>산을 마주 보고</span></button>
-          <button class="pola b" type="button" data-i="1"><img src="../q/03.jpg" alt="나란히 기대어 앉은 두 사람의 가까운 사진"><span>가까이</span></button>
-          <button class="pola c" type="button" data-i="2"><img src="../q/04.jpg" alt="흰 꽃을 배경으로 선 턱시도와 드레스 차림의 두 사람"><span>흰 꽃 앞에서</span></button>
+  <!-- 4 -->
+  <section class="leaf" data-t="그날">
+    <article class="card day">
+      <p class="eyebrow">Le Jour</p>
+      <p class="big">2027년 1월 16일</p>
+      <p class="sm">토요일 낮 12시 30분</p>
+      <table class="cal">
+        <thead><tr><th>일</th><th>월</th><th>화</th><th>수</th><th>목</th><th>금</th><th>토</th></tr></thead>
+        <tbody>
+          <tr><td></td><td></td><td></td><td></td><td></td><td>1</td><td>2</td></tr>
+          <tr><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td></tr>
+          <tr><td>10</td><td>11</td><td>12</td><td>13</td><td>14</td><td>15</td><td><span class="mk">16</span></td></tr>
+          <tr><td>17</td><td>18</td><td>19</td><td>20</td><td>21</td><td>22</td><td>23</td></tr>
+          <tr><td>24</td><td>25</td><td>26</td><td>27</td><td>28</td><td>29</td><td>30</td></tr>
+          <tr><td>31</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        </tbody>
+      </table>
+      <div class="cnt" id="cnt">
+        <div><div class="n" id="cd-d">104</div><div class="u">Days</div></div>
+        <div><div class="n" id="cd-h">00</div><div class="u">Hrs</div></div>
+        <div><div class="n" id="cd-m">00</div><div class="u">Min</div></div>
+        <div><div class="n" id="cd-s">00</div><div class="u">Sec</div></div>
+      </div>
+    </article>
+  </section>
+
+  <!-- 5 -->
+  <section class="leaf" data-t="양가">
+    <article class="card">
+      <p class="eyebrow">La Famille</p>
+      <div class="fam">
+        <div class="c">
+          <span class="side">Mari&eacute;</span>
+          <p class="par"><b>父</b> 故 손현석<br><b>母</b> 이수자
+            <span class="who">손규수 <span class="rel">장남</span></span></p>
+        </div>
+        <div class="c">
+          <span class="side">Mari&eacute;e</span>
+          <p class="par"><b>父</b> 故 문종문<br><b>母</b> 최장심
+            <span class="who">문세화 <span class="rel">장녀</span></span></p>
         </div>
       </div>
+      <div class="tel">
+        <a href="tel:01040122921">신랑에게 전화</a>
+        <a href="sms:01040122921">문자 보내기</a>
+      </div>
+    </article>
+  </section>
 
-      <!-- 단독 사진 -->
-      <button class="piece" id="p-pola1" style="left:420px; top:1900px; --r:-4deg" type="button" data-i="3">
-        <img src="../q/05.jpg" alt="소파에 나란히 앉아 서로를 바라보는 두 사람">
-        <span>잠시 앉아</span>
-      </button>
+  <!-- 6 -->
+  <section class="leaf" data-t="오시는 길">
+    <article class="card loc">
+      <p class="eyebrow">L&rsquo;Adresse</p>
+      <p class="nm">양산 W웨딩 · 5층 팰리스홀</p>
+      <p class="ad">경상남도 양산시 강변로 438<br>크리스탈타워 5층</p>
+      <svg viewBox="0 0 400 180" role="img" aria-label="양산천과 강변로 옆 크리스탈타워 5층에 있는 예식장 약도">
+        <rect x="0" y="0" width="400" height="180" fill="var(--paper-2)"/>
+        <g stroke="var(--ink-3)" fill="none" stroke-width="0.9">
+          <path d="M0,68 L44,32 L76,56 L102,36 L140,68"/>
+          <path d="M116,68 L158,34 L188,60 L212,42 L248,68"/>
+        </g>
+        <path d="M0,142 C70,134 130,140 200,147 C270,154 340,156 400,151" fill="none" stroke="var(--ink-3)" stroke-width="0.9"/>
+        <text x="34" y="168" font-size="10" fill="var(--ink-3)" font-family="Spectral, serif" letter-spacing="1.6">양산천</text>
+        <path d="M-8,108 H408" stroke="var(--ink-2)" stroke-width="1.4"/>
+        <path d="M206,108 V148" stroke="var(--ink-3)" stroke-width="0.9"/>
+        <text x="68" y="126" font-size="10" fill="var(--ink-3)" font-family="Spectral, serif" letter-spacing="1.6">강변로</text>
+        <path d="M40,108 C110,86 180,82 262,88" fill="none" stroke="var(--wine)" stroke-width="1.5" stroke-dasharray="2 6" stroke-linecap="round"/>
+        <circle cx="40" cy="108" r="4" fill="var(--wine)"/>
+        <path d="M288,56 C288,44 297,34 309,34 C321,34 330,44 330,56 C330,72 309,100 309,100 C309,100 288,72 288,56 Z" fill="var(--wine)"/>
+        <circle cx="309" cy="55" r="6" fill="var(--paper-2)"/>
+        <text x="309" y="26" font-size="11" fill="var(--ink)" text-anchor="middle" font-family="Spectral, serif" letter-spacing="1.4">크리스탈타워 5F</text>
+      </svg>
+      <div class="mbtn">
+        <a href="https://map.kakao.com/link/search/%EC%96%91%EC%82%B0%20W%EC%9B%A8%EB%94%A9" target="_blank" rel="noopener">카카오맵</a>
+        <a href="https://map.naver.com/p/search/%EC%96%91%EC%82%B0%20W%EC%9B%A8%EB%94%A9" target="_blank" rel="noopener">네이버지도</a>
+        <button type="button" id="addrCopy">주소 복사</button>
+      </div>
+    </article>
+  </section>
 
-      <!-- 그날 -->
-      <article class="piece" id="p-day" style="left:380px; top:1420px; --r:1.6deg">
-        <h2>Le Jour &middot; 그날</h2>
-        <p class="big">2027년 1월 16일</p>
-        <p class="sm">토요일 낮 12시 30분</p>
-        <table class="cal">
-          <thead><tr><th>일</th><th>월</th><th>화</th><th>수</th><th>목</th><th>금</th><th>토</th></tr></thead>
-          <tbody>
-            <tr><td></td><td></td><td></td><td></td><td></td><td>1</td><td>2</td></tr>
-            <tr><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td></tr>
-            <tr><td>10</td><td>11</td><td>12</td><td>13</td><td>14</td><td>15</td><td><span class="mk">16</span></td></tr>
-            <tr><td>17</td><td>18</td><td>19</td><td>20</td><td>21</td><td>22</td><td>23</td></tr>
-            <tr><td>24</td><td>25</td><td>26</td><td>27</td><td>28</td><td>29</td><td>30</td></tr>
-            <tr><td>31</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-          </tbody>
-        </table>
-        <div class="cnt" id="cnt">
-          <div><div class="n" id="cd-d">104</div><div class="u">Days</div></div>
-          <div><div class="n" id="cd-h">00</div><div class="u">Hrs</div></div>
-          <div><div class="n" id="cd-m">00</div><div class="u">Min</div></div>
-          <div><div class="n" id="cd-s">00</div><div class="u">Sec</div></div>
-        </div>
-      </article>
+  <!-- 7 -->
+  <section class="leaf" data-t="마음">
+    <article class="card env">
+      <p class="eyebrow">Le C&oelig;ur</p>
+      <div class="acct">
+        <div><div class="sd">Mari&eacute;</div><div class="wh">손규수 · 부산은행</div><div class="no">166-12-011157-6</div></div>
+        <button class="cp" type="button" data-copy="166120111576">복사</button>
+      </div>
+      <div class="acct">
+        <div><div class="sd">M&egrave;re</div><div class="wh">이수자 · 경남은행</div><div class="no">679-21-003880-9</div></div>
+        <button class="cp" type="button" data-copy="679210038809">복사</button>
+      </div>
+      <div class="acct">
+        <div><div class="sd">Mari&eacute;e</div><div class="wh">문세화 · NH농협은행</div><div class="no">302-7203-767751</div></div>
+        <button class="cp" type="button" data-copy="3027203767751">복사</button>
+      </div>
+    </article>
+  </section>
 
-      <!-- 양가 -->
-      <article class="piece" id="p-fam" style="left:1280px; top:1620px; --r:-2deg">
-        <h2>La Famille &middot; 양가</h2>
-        <div class="fam">
-          <div class="c">
-            <span class="side">Marié</span>
-            <p class="par"><b>父</b> 故 손현석<br><b>母</b> 이수자
-              <span class="who">손규수 <span class="rel">장남</span></span></p>
-          </div>
-          <div class="c">
-            <span class="side">Mariée</span>
-            <p class="par"><b>父</b> 故 문종문<br><b>母</b> 최장심
-              <span class="who">문세화 <span class="rel">장녀</span></span></p>
-          </div>
-        </div>
-        <div class="tel">
-          <a href="tel:01040122921">신랑에게 전화</a>
-          <a href="sms:01040122921">문자 보내기</a>
-        </div>
-      </article>
+  <!-- 8 -->
+  <section class="leaf" data-t="방명록">
+    <article class="card book">
+      <p class="eyebrow">Les V&oelig;ux</p>
+      <p class="lead">이 자리에 들러주신 모든 분이<br>이미 저희 결혼의 축하객입니다.</p>
+      <button class="vbtn" type="button" id="voeuxBtn">축하 보내기</button>
+      <p class="vcount" id="voeuxCount" hidden><b>0</b>번의 축하가 모였습니다</p>
+      <div style="margin-top:18px">
+        <input id="guestName" type="text" maxlength="12" placeholder="이름" autocomplete="name">
+        <textarea id="guestMsg" maxlength="120" placeholder="축하 한마디를 남겨주세요"></textarea>
+        <button class="vsub" type="button" id="guestSubmit" disabled>남기기</button>
+        <div class="wall" id="wall"></div>
+        <p class="wall-empty" id="wallEmpty">불러오는 중입니다…</p>
+      </div>
+    </article>
+  </section>
 
-      <!-- 약도 -->
-      <article class="piece" id="p-map" style="left:960px; top:2080px; --r:1deg">
-        <h2>L&rsquo;Adresse &middot; 오시는 길</h2>
-        <p class="nm">양산 W웨딩 · 5층 팰리스홀</p>
-        <p class="ad">경상남도 양산시 강변로 438 크리스탈타워 5층</p>
-        <svg viewBox="0 0 400 180" role="img" aria-label="양산천과 강변로 옆 크리스탈타워 5층에 있는 예식장 약도">
-          <rect x="0" y="0" width="400" height="180" fill="var(--paper-2)"/>
-          <g stroke="var(--ink-3)" fill="none" stroke-width="0.9">
-            <path d="M0,68 L44,32 L76,56 L102,36 L140,68"/>
-            <path d="M116,68 L158,34 L188,60 L212,42 L248,68"/>
-          </g>
-          <path d="M0,142 C70,134 130,140 200,147 C270,154 340,156 400,151" fill="none" stroke="var(--ink-3)" stroke-width="0.9"/>
-          <text x="34" y="168" font-size="10" fill="var(--ink-3)" font-family="Spectral, serif" letter-spacing="1.6">양산천</text>
-          <path d="M-8,108 H408" stroke="var(--ink-2)" stroke-width="1.4"/>
-          <path d="M206,108 V148" stroke="var(--ink-3)" stroke-width="0.9"/>
-          <text x="68" y="126" font-size="10" fill="var(--ink-3)" font-family="Spectral, serif" letter-spacing="1.6">강변로</text>
-          <path d="M40,108 C110,86 180,82 262,88" fill="none" stroke="var(--wine)" stroke-width="1.5" stroke-dasharray="2 6" stroke-linecap="round"/>
-          <circle cx="40" cy="108" r="4" fill="var(--wine)"/>
-          <path d="M288,56 C288,44 297,34 309,34 C321,34 330,44 330,56 C330,72 309,100 309,100 C309,100 288,72 288,56 Z" fill="var(--wine)"/>
-          <circle cx="309" cy="55" r="6" fill="var(--paper-2)"/>
-          <text x="309" y="26" font-size="11" fill="var(--ink)" text-anchor="middle" font-family="Spectral, serif" letter-spacing="1.4">크리스탈타워 5F</text>
-        </svg>
-        <div class="mbtn">
-          <a href="https://map.kakao.com/link/search/%EC%96%91%EC%82%B0%20W%EC%9B%A8%EB%94%A9" target="_blank" rel="noopener">카카오맵</a>
-          <a href="https://map.naver.com/p/search/%EC%96%91%EC%82%B0%20W%EC%9B%A8%EB%94%A9" target="_blank" rel="noopener">네이버지도</a>
-          <button type="button" id="addrCopy">주소 복사</button>
-        </div>
-      </article>
+  <!-- 9 -->
+  <section class="leaf" data-t="맺음">
+    <article class="card dark fin">
+      <p class="eyebrow">Merci</p>
+      <p>
+        여러분 한 분 한 분의 축하가<br>
+        저희 두 사람의 새로운 시작을 채웁니다.<br>
+        함께해 주셔서 감사합니다.
+      </p>
+      <p class="sg">Gyusoo &amp; Sehwa</p>
+      <p class="sg-ko">손규수 · 문세화 드림</p>
+    </article>
+  </section>
 
-      <!-- 봉투 -->
-      <article class="piece" id="p-env" style="left:1300px; top:2420px; --r:-1.4deg">
-        <h2>Le C&oelig;ur &middot; 마음 전하실 곳</h2>
-        <div class="acct">
-          <div><div class="sd">Mari&eacute;</div><div class="wh">손규수 · 부산은행</div><div class="no">166-12-011157-6</div></div>
-          <button class="cp" type="button" data-copy="166120111576">복사</button>
-        </div>
-        <div class="acct">
-          <div><div class="sd">M&egrave;re</div><div class="wh">이수자 · 경남은행</div><div class="no">679-21-003880-9</div></div>
-          <button class="cp" type="button" data-copy="679210038809">복사</button>
-        </div>
-        <div class="acct">
-          <div><div class="sd">Mari&eacute;e</div><div class="wh">문세화 · NH농협은행</div><div class="no">302-7203-767751</div></div>
-          <button class="cp" type="button" data-copy="3027203767751">복사</button>
-        </div>
-      </article>
-
-      <!-- 방명록 -->
-      <article class="piece" id="p-book" style="left:560px; top:2560px; --r:2deg">
-        <h2>Les V&oelig;ux &middot; 축하 한마디</h2>
-        <p class="lead">이 자리에 들러주신 모든 분이<br>이미 저희 결혼의 축하객입니다.</p>
-        <button class="vbtn" type="button" id="voeuxBtn">축하 보내기</button>
-        <p class="vcount" id="voeuxCount" hidden><b>0</b>번의 축하가 모였습니다</p>
-        <div style="margin-top:16px">
-          <input id="guestName" type="text" maxlength="12" placeholder="이름" autocomplete="name">
-          <textarea id="guestMsg" maxlength="120" placeholder="축하 한마디를 남겨주세요"></textarea>
-          <button class="vsub" type="button" id="guestSubmit" disabled>남기기</button>
-          <div class="wall" id="wall"></div>
-          <p class="wall-empty" id="wallEmpty">불러오는 중입니다…</p>
-        </div>
-      </article>
-
-      <!-- 맺음 -->
-      <article class="piece" id="p-fin" style="left:1310px; top:1180px; --r:-3deg">
-        <h2>Merci</h2>
-        <p>
-          여러분 한 분 한 분의 축하가<br>
-          저희 두 사람의 새로운 시작을 채웁니다.<br>
-          함께해 주셔서 감사합니다.
-        </p>
-        <p class="sg">Gyusoo &amp; Sehwa</p>
-      </article>
-
-    </div>
-  </div>
 </div>
 
-<p class="hint" id="hint">손가락으로 끌어서 둘러보세요</p>
+<div class="dots" id="dots"></div>
 
-<nav class="nav" id="nav">
-  <button type="button" data-go="p-main">청첩장</button>
-  <button type="button" data-go="p-note">인사</button>
-  <button type="button" data-go="p-photos">사진</button>
-  <button type="button" data-go="p-day">그날</button>
-  <button type="button" data-go="p-fam">양가</button>
-  <button type="button" data-go="p-map">오시는 길</button>
-  <button type="button" data-go="p-env">마음</button>
-  <button type="button" data-go="p-book">방명록</button>
-  <button type="button" class="wide" id="allBtn">전체 보기</button>
+<nav class="bar">
+  <button type="button" id="prev" aria-label="이전">&#10094;</button>
+  <span class="mid">
+    <span class="ttl" id="barTtl">청첩장</span>
+    <span class="idx" id="barIdx">1 / 9</span>
+  </span>
+  <button type="button" id="menuBtn">목차</button>
+  <button type="button" id="next" aria-label="다음">&#10095;</button>
 </nav>
+
+<div class="menu" id="menu" role="dialog" aria-modal="true" aria-label="목차">
+  <h2>Sommaire</h2>
+  <ol id="menuList"></ol>
+  <button class="close" type="button" id="menuClose">닫기</button>
+</div>
 
 <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="사진 크게 보기">
   <img id="lbImg" src="" alt="">
@@ -453,7 +447,6 @@
 
 <script>
 (function () {
-  var W = 1700, H = 2900;
   var PHOTOS = [
     { src: '../q/02.jpg', cap: '산을 마주 보고', alt: '한옥 처마 아래 산을 배경으로 선 두 사람' },
     { src: '../q/03.jpg', cap: '가까이',        alt: '나란히 기대어 앉은 두 사람의 가까운 사진' },
@@ -465,123 +458,63 @@
   function $(id) { return document.getElementById(id); }
   function pad2(n) { return (n < 10 ? '0' : '') + n; }
 
-  var stage = $('stage'), root = document.documentElement;
-  var baseS = 0.85, fitS = 0.3, s = 0.85, zoomedOut = false;
+  /* ---------- 한 장씩 넘기기 ---------- */
+  var deck = $('deck');
+  var leaves = Array.prototype.slice.call(deck.querySelectorAll('.leaf'));
+  var N = leaves.length, at = 0;
 
-  var box = null;
-  function contentBox() {
-    if (box) { return box; }
-    var x1 = 1e9, y1 = 1e9, x2 = -1e9, y2 = -1e9;
-    var ps = document.querySelectorAll('.piece');
-    for (var i = 0; i < ps.length; i++) {
-      var el = ps[i];
-      var cx = parseFloat(el.style.left), cy = parseFloat(el.style.top);
-      var hw = el.offsetWidth / 2, hh = el.offsetHeight / 2;
-      if (cx - hw < x1) { x1 = cx - hw; }
-      if (cy - hh < y1) { y1 = cy - hh; }
-      if (cx + hw > x2) { x2 = cx + hw; }
-      if (cy + hh > y2) { y2 = cy + hh; }
-    }
-    box = { x1: x1 - 40, y1: y1 - 40, x2: x2 + 40, y2: y2 + 40 };
-    box.cx = (box.x1 + box.x2) / 2;
-    box.cy = (box.y1 + box.y2) / 2;
-    return box;
+  var dots = $('dots'), menuList = $('menuList'), dh = '', mh = '';
+  for (var i = 0; i < N; i++) {
+    dh += '<i></i>';
+    mh += '<li><button type="button" data-go="' + i + '"><span class="n">' + pad2(i + 1) + '</span>' + leaves[i].dataset.t + '</button></li>';
   }
-  function measure() {
-    var vw = stage.clientWidth, vh = stage.clientHeight;
-    var b = contentBox();
-    baseS = Math.max(0.55, Math.min(1.25, (vw - 40) / 470));
-    fitS = Math.min((vw - 20) / (b.x2 - b.x1), (vh - 130) / (b.y2 - b.y1));
-    return { vw: vw, vh: vh };
-  }
-  function setScale(ns, focusX, focusY) {
-    var v = measure();
-    s = ns;
-    root.style.setProperty('--s', s);
-    stage.scrollLeft = focusX * s - v.vw / 2;
-    stage.scrollTop = focusY * s - (v.vh - 64) / 2;
-  }
-  function centerOn(el, smooth) {
-    var v = measure();
-    var x = parseFloat(el.style.left), y = parseFloat(el.style.top);
-    var left = x * s - v.vw / 2, top = y * s - (v.vh - 64) / 2;
-    if (smooth && stage.scrollTo) {
-      try { stage.scrollTo({ left: left, top: top, behavior: 'smooth' }); return; } catch (e) {}
-    }
-    stage.scrollLeft = left; stage.scrollTop = top;
-  }
+  dots.innerHTML = dh;
+  menuList.innerHTML = mh;
+  var dotEls = dots.querySelectorAll('i');
 
-  measure();
-  s = baseS;
-  root.style.setProperty('--s', s);
-  centerOn($('p-main'), false);
-
-  /* ---------- 끌어서 이동 ---------- */
-  var dragging = false, sx = 0, sy = 0, cl = 0, ct = 0, moved = 0;
-  stage.addEventListener('pointerdown', function (e) {
-    if (e.target.closest('button, a, input, textarea')) { return; }
-    dragging = true; moved = 0;
-    sx = e.clientX; sy = e.clientY;
-    cl = stage.scrollLeft; ct = stage.scrollTop;
-    stage.classList.add('dragging');
-    stage.setPointerCapture(e.pointerId);
-  });
-  stage.addEventListener('pointermove', function (e) {
-    if (!dragging) { return; }
-    var dx = e.clientX - sx, dy = e.clientY - sy;
-    moved = Math.max(moved, Math.abs(dx) + Math.abs(dy));
-    stage.scrollLeft = cl - dx;
-    stage.scrollTop = ct - dy;
-  });
-  function endDrag(e) {
-    if (!dragging) { return; }
-    dragging = false;
-    stage.classList.remove('dragging');
-    try { stage.releasePointerCapture(e.pointerId); } catch (err) {}
+  function paint() {
+    $('barTtl').textContent = leaves[at].dataset.t;
+    $('barIdx').textContent = (at + 1) + ' / ' + N;
+    $('prev').disabled = at === 0;
+    $('next').disabled = at === N - 1;
+    for (var k = 0; k < N; k++) { dotEls[k].classList.toggle('on', k === at); }
   }
-  stage.addEventListener('pointerup', endDrag);
-  stage.addEventListener('pointercancel', endDrag);
-
-  var hint = $('hint');
-  setTimeout(function () { hint.classList.add('off'); }, 4200);
-  stage.addEventListener('pointerdown', function () { hint.classList.add('off'); }, { once: true });
-
-  /* ---------- 길잡이 ---------- */
-  var navBtns = $('nav').querySelectorAll('button[data-go]');
-  function mark(btn) {
-    navBtns.forEach(function (b) { b.classList.remove('on'); });
-    $('allBtn').classList.remove('on');
-    if (btn) { btn.classList.add('on'); }
+  function go(n, smooth) {
+    at = Math.max(0, Math.min(N - 1, n));
+    var left = leaves[at].offsetLeft;
+    if (smooth !== false && deck.scrollTo) {
+      try { deck.scrollTo({ left: left, behavior: 'smooth' }); } catch (e) { deck.scrollLeft = left; }
+    } else { deck.scrollLeft = left; }
+    paint();
   }
-  navBtns.forEach(function (b) {
-    b.addEventListener('click', function () {
-      if (zoomedOut) { zoomedOut = false; setScale(baseS, parseFloat($(b.dataset.go).style.left), parseFloat($(b.dataset.go).style.top)); }
-      else { centerOn($(b.dataset.go), true); }
-      mark(b);
-    });
+  $('prev').addEventListener('click', function () { go(at - 1); });
+  $('next').addEventListener('click', function () { go(at + 1); });
+
+  var st;
+  deck.addEventListener('scroll', function () {
+    clearTimeout(st);
+    st = setTimeout(function () {
+      var n = Math.round(deck.scrollLeft / deck.clientWidth);
+      if (n !== at) { at = Math.max(0, Math.min(N - 1, n)); paint(); }
+    }, 90);
   });
-  $('allBtn').addEventListener('click', function () {
-    zoomedOut = !zoomedOut;
-    var b = contentBox();
-    setScale(zoomedOut ? fitS : baseS, zoomedOut ? b.cx : parseFloat($('p-main').style.left), zoomedOut ? b.cy : parseFloat($('p-main').style.top));
-    mark(null);
-    if (zoomedOut) { $('allBtn').classList.add('on'); }
-    $('allBtn').textContent = zoomedOut ? '가까이 보기' : '전체 보기';
+  window.addEventListener('resize', function () { go(at, false); });
+
+  var menu = $('menu');
+  $('menuBtn').addEventListener('click', function () { menu.classList.add('on'); });
+  $('menuClose').addEventListener('click', function () { menu.classList.remove('on'); });
+  menuList.addEventListener('click', function (e) {
+    var b = e.target.closest('button[data-go]');
+    if (b) { menu.classList.remove('on'); go(parseInt(b.dataset.go, 10)); }
   });
-  window.addEventListener('resize', function () {
-    var keep = zoomedOut;
-    measure();
-    var b2 = contentBox();
-    setScale(keep ? fitS : baseS, keep ? b2.cx : parseFloat($('p-main').style.left), keep ? b2.cy : parseFloat($('p-main').style.top));
-  });
+
   document.addEventListener('keydown', function (e) {
     if (lb.classList.contains('on')) { return; }
-    var step = 90;
-    if (e.key === 'ArrowLeft') { stage.scrollLeft -= step; }
-    else if (e.key === 'ArrowRight') { stage.scrollLeft += step; }
-    else if (e.key === 'ArrowUp') { stage.scrollTop -= step; }
-    else if (e.key === 'ArrowDown') { stage.scrollTop += step; }
+    if (menu.classList.contains('on')) { if (e.key === 'Escape') { menu.classList.remove('on'); } return; }
+    if (e.key === 'ArrowLeft') { go(at - 1); }
+    else if (e.key === 'ArrowRight') { go(at + 1); }
   });
+  paint();
 
   /* ---------- 카운트다운 ---------- */
   var cnt = $('cnt'), timer;
@@ -604,16 +537,9 @@
     lbImg.alt = PHOTOS[cur].alt;
     $('lbCount').textContent = PHOTOS[cur].cap + ' · ' + (cur + 1) + ' / ' + PHOTOS.length;
   }
-  function openLb(n) {
-    lastFocus = document.activeElement;
-    show(n); lb.classList.add('on'); $('lbClose').focus();
-  }
-  function closeLb() {
-    lb.classList.remove('on');
-    if (lastFocus && lastFocus.focus) { lastFocus.focus(); }
-  }
+  function openLb(n) { lastFocus = document.activeElement; show(n); lb.classList.add('on'); $('lbClose').focus(); }
+  function closeLb() { lb.classList.remove('on'); if (lastFocus && lastFocus.focus) { lastFocus.focus(); } }
   document.addEventListener('click', function (e) {
-    if (moved > 8) { return; }
     var b = e.target.closest ? e.target.closest('[data-i]') : null;
     if (b) { openLb(parseInt(b.getAttribute('data-i'), 10)); }
   });
@@ -659,7 +585,7 @@
   function petals() {
     if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) { return; }
     var tones = ['#8E2E3F', '#A9843F', '#FBF7EE', '#5E7560'];
-    for (var i = 0; i < 26; i++) {
+    for (var i = 0; i < 24; i++) {
       var p = document.createElement('div');
       p.className = 'petal';
       var w = 7 + Math.random() * 7;
@@ -668,11 +594,11 @@
       p.style.background = tones[i % tones.length];
       p.style.opacity = '0.9';
       document.body.appendChild(p);
-      var dx = Math.random() * 120 - 60;
+      var dx = Math.random() * 110 - 55;
       var a = p.animate([
         { transform: 'translate(0,0) rotate(0deg)', opacity: 0.92 },
-        { transform: 'translate(' + dx + 'px,' + (window.innerHeight + 40) + 'px) rotate(' + (240 + Math.random() * 380) + 'deg)', opacity: 0.8 }
-      ], { duration: 2300 + Math.random() * 1500, easing: 'cubic-bezier(.35,.5,.5,1)' });
+        { transform: 'translate(' + dx + 'px,' + (window.innerHeight + 40) + 'px) rotate(' + (240 + Math.random() * 360) + 'deg)', opacity: 0.8 }
+      ], { duration: 2300 + Math.random() * 1400, easing: 'cubic-bezier(.35,.5,.5,1)' });
       a.onfinish = function () { this.effect.target.remove(); };
     }
   }
