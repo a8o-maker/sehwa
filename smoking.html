@@ -1,0 +1,861 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<!--#artifact-start-->
+<title>Le Smoking Gyusoo Sehwa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,400..900&family=Gothic+A1:wght@300;500;700;900&display=swap">
+<style>
+  :root {
+    --noir: #000000;
+    --noir-2: #0C0C0C;
+    --noir-3: #171717;
+    --blanc: #FFFFFF;
+    --fume: #B8B5AF;
+    --fume-2: #7A7772;
+    --or: #C9A227;
+    --or-2: #8E711A;
+    --rouge: #D2241F;
+    --bleu: #1E3FC8;
+    --jaune: #F2C200;
+    --rule: rgba(255, 255, 255, 0.18);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--noir);
+    color: var(--blanc);
+    font-family: "Gothic A1", "Archivo", sans-serif;
+    font-weight: 300;
+    line-height: 1.9;
+    -webkit-text-size-adjust: 100%;
+  }
+  body.locked { overflow: hidden; }
+
+  .ar { font-family: "Archivo", sans-serif; }
+  .wide {
+    font-family: "Archivo", sans-serif;
+    font-variation-settings: "wdth" 118;
+    text-transform: uppercase;
+  }
+  img { display: block; width: 100%; filter: grayscale(1) contrast(1.22) brightness(0.94); }
+
+  /* ================= 커버 ================= */
+  #cover {
+    position: fixed; inset: 0; z-index: 80;
+    background: var(--noir); cursor: pointer; overflow: hidden;
+    transition: transform 0.75s cubic-bezier(0.72, 0, 0.16, 1), opacity 0.75s ease;
+  }
+  #cover.gone { transform: translateY(-101%); opacity: 0.85; pointer-events: none; }
+  #cover > img {
+    position: absolute; inset: 0; height: 100%; object-fit: cover; object-position: 50% 30%;
+    opacity: 0.46; filter: grayscale(1) contrast(1.4) brightness(0.72);
+  }
+  .vignette { position: absolute; inset: 0; background: radial-gradient(74% 56% at 50% 44%, rgba(0,0,0,0) 0%, rgba(0,0,0,0.72) 72%, #000 100%); }
+
+  .frame-gold {
+    position: absolute; inset: 14px; border: 1px solid var(--or-2); pointer-events: none;
+  }
+
+  .cover-face {
+    position: absolute; inset: 0; z-index: 2;
+    display: flex; flex-direction: column; justify-content: center;
+    gap: 1.15rem; padding: 3rem clamp(1.6rem, 8vw, 2.8rem) 6rem;
+    transition: opacity 0.4s ease;
+  }
+  #cover.gone .cover-face { opacity: 0; }
+  .kicker {
+    font-family: "Archivo", sans-serif;
+    font-variation-settings: "wdth" 118;
+    text-transform: uppercase; letter-spacing: 0.46em; font-size: 0.6rem; font-weight: 500;
+    color: var(--or); margin: 0;
+  }
+  .cover-name {
+    font-family: "Archivo", sans-serif;
+    font-variation-settings: "wdth" 112;
+    font-weight: 800;
+    text-transform: uppercase;
+    font-size: clamp(2.6rem, 15vw, 4rem);
+    line-height: 0.92;
+    letter-spacing: -0.01em;
+    margin: 0;
+  }
+  .cover-name span { display: block; }
+  .cover-name .amp { font-weight: 400; font-size: 0.38em; letter-spacing: 0.3em; color: var(--or); line-height: 2.2; }
+  .cover-ko { font-size: 0.88rem; letter-spacing: 0.34em; color: var(--fume); margin: 0; font-weight: 300; }
+  .gold-bar { width: 54px; height: 2px; background: var(--or); }
+  .cover-date {
+    font-family: "Archivo", sans-serif;
+    font-variation-settings: "wdth" 110;
+    text-transform: uppercase; letter-spacing: 0.3em; font-size: 0.74rem; font-weight: 500;
+    margin: 0; color: var(--blanc);
+  }
+  .enter {
+    position: absolute; left: clamp(1.6rem, 8vw, 2.8rem); bottom: 3rem; z-index: 3;
+    font-family: "Archivo", sans-serif; font-variation-settings: "wdth" 115;
+    text-transform: uppercase; letter-spacing: 0.32em; font-size: 0.66rem; font-weight: 600;
+    color: var(--noir); background: var(--or); border: 0;
+    padding: 0.85rem 1.9rem; cursor: pointer;
+    transition: background 0.3s, color 0.3s;
+  }
+  .enter:hover { background: var(--blanc); }
+  #cover.gone .enter { opacity: 0; transition: opacity 0.25s; }
+
+  /* ================= 본문 ================= */
+  .book { max-width: 480px; margin: 0 auto; background: var(--noir); }
+  .pad { padding-inline: clamp(1.6rem, 7.5vw, 2.6rem); }
+  section { padding-block: clamp(2.4rem, 8vw, 3.2rem); }
+
+  .head { margin-bottom: 1.7rem; }
+  .head .row { display: flex; align-items: baseline; gap: 0.8rem; }
+  .head .idx {
+    font-family: "Archivo", sans-serif; font-variation-settings: "wdth" 112;
+    font-weight: 800; font-size: 1.5rem; line-height: 1; color: var(--or);
+  }
+  .head .fr {
+    font-family: "Archivo", sans-serif; font-variation-settings: "wdth" 118;
+    text-transform: uppercase; letter-spacing: 0.26em; font-size: 0.72rem; font-weight: 600;
+  }
+  .head .ko { font-size: 0.76rem; letter-spacing: 0.14em; color: var(--fume-2); }
+  .head .bar { margin-top: 0.7rem; height: 2px; background: var(--blanc); }
+
+  /* ---------- 01 ---------- */
+  .intro .names {
+    font-family: "Archivo", sans-serif;
+    font-variation-settings: "wdth" 112;
+    font-weight: 800; text-transform: uppercase;
+    font-size: clamp(2rem, 10vw, 2.9rem); line-height: 0.95; letter-spacing: -0.01em;
+    margin: 0;
+  }
+  .intro .names span { display: block; }
+  .intro .names .amp { font-weight: 400; font-size: 0.34em; letter-spacing: 0.3em; color: var(--or); line-height: 2.4; }
+  .intro .ko-names { font-size: 0.92rem; letter-spacing: 0.26em; color: var(--fume); margin: 0.9rem 0 0; }
+  .intro .meta {
+    margin: 1.5rem 0 0; display: flex; flex-wrap: wrap; gap: 0.2rem 1.2rem;
+    font-family: "Archivo", sans-serif; font-variation-settings: "wdth" 110;
+    text-transform: uppercase; letter-spacing: 0.22em; font-size: 0.74rem; font-weight: 500;
+  }
+  .intro .meta b { color: var(--or); font-weight: 500; }
+  .intro .venue { margin: 0.5rem 0 0; font-size: 0.86rem; color: var(--fume-2); }
+  .intro .msg { margin: 1.9rem 0 0; font-size: 0.97rem; line-height: 2.15; color: var(--fume); }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .opened .intro .names { animation: cut 0.6s 0.05s cubic-bezier(0.2, 0.9, 0.2, 1) both; }
+    .opened .intro .ko-names, .opened .intro .meta, .opened .intro .venue { animation: cut 0.6s 0.18s cubic-bezier(0.2, 0.9, 0.2, 1) both; }
+    .opened .intro .msg { animation: cut 0.6s 0.3s cubic-bezier(0.2, 0.9, 0.2, 1) both; }
+    @keyframes cut { from { opacity: 0; transform: translateX(-22px); } to { opacity: 1; transform: none; } }
+  }
+
+  /* ---------- 02 : 몬드리안 ---------- */
+  .mondrian {
+    display: grid;
+    grid-template-columns: 1.45fr 1fr;
+    gap: 5px;
+    background: var(--noir);
+    border: 5px solid var(--noir);
+    outline: 2px solid var(--blanc);
+  }
+  .mondrian > div { padding: 0.8rem 0.85rem; display: flex; flex-direction: column; justify-content: flex-end; min-height: 62px; }
+  .m-a { grid-row: span 3; background: var(--blanc); color: var(--noir); }
+  .m-a .d {
+    font-family: "Archivo", sans-serif; font-variation-settings: "wdth" 108;
+    font-weight: 900; font-size: clamp(3.4rem, 19vw, 5rem); line-height: 0.8; letter-spacing: -0.03em;
+  }
+  .m-a .m { font-family: "Archivo", sans-serif; font-variation-settings: "wdth" 118; text-transform: uppercase; letter-spacing: 0.24em; font-size: 0.7rem; font-weight: 600; margin-top: 0.45rem; }
+  .m-b { background: var(--rouge); color: var(--blanc); }
+  .m-c { background: var(--bleu); color: var(--blanc); }
+  .m-d { background: var(--jaune); color: var(--noir); }
+  .m-e { grid-column: 1 / -1; background: var(--blanc); color: var(--noir); }
+  .mondrian .k {
+    font-family: "Archivo", sans-serif; font-variation-settings: "wdth" 115;
+    font-weight: 700; text-transform: uppercase; letter-spacing: 0.16em; font-size: 0.92rem;
+  }
+  .mondrian .s { font-size: 0.72rem; letter-spacing: 0.1em; opacity: 0.82; font-weight: 300; }
+
+  table.cal { width: 100%; margin: 1.6rem 0 1.5rem; border-collapse: collapse; }
+  table.cal th {
+    font-family: "Archivo", sans-serif; font-variation-settings: "wdth" 112;
+    font-size: 0.6rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.14em;
+    color: var(--fume-2); padding-bottom: 0.55rem; border-bottom: 2px solid var(--blanc);
+  }
+  table.cal td {
+    font-family: "Archivo", sans-serif; font-variation-settings: "wdth" 108;
+    text-align: center; font-size: 0.84rem; font-weight: 400; color: var(--fume); padding: 0.34rem 0;
+  }
+  table.cal .mark { display: inline-flex; align-items: center; justify-content: center; width: 2rem; height: 2rem; background: var(--or); color: var(--noir); font-weight: 800; }
+  .count { display: flex; border-top: 1px solid var(--rule); }
+  .count div { flex: 1 1 0; padding: 0.8rem 0.2rem; text-align: center; }
+  .count div + div { border-left: 1px solid var(--rule); }
+  .count .num { font-family: "Archivo", sans-serif; font-variation-settings: "wdth" 108; font-weight: 800; font-size: 1.45rem; line-height: 1.2; }
+  .count .u { font-family: "Archivo", sans-serif; font-variation-settings: "wdth" 118; text-transform: uppercase; font-size: 0.54rem; letter-spacing: 0.2em; color: var(--fume-2); }
+  .count-done { margin: 0; padding: 0.9rem 0; text-align: center; font-family: "Archivo", sans-serif; font-variation-settings: "wdth" 115; text-transform: uppercase; letter-spacing: 0.26em; font-size: 0.9rem; font-weight: 700; color: var(--or); }
+
+  /* ---------- 03 : 가족 ---------- */
+  .fam { display: grid; grid-template-columns: 1fr 1fr; gap: 0 1.2rem; }
+  .fam .c { border-top: 1px solid var(--rule); padding-top: 0.9rem; }
+  .fam .side {
+    font-family: "Archivo", sans-serif; font-variation-settings: "wdth" 118;
+    text-transform: uppercase; letter-spacing: 0.22em; font-size: 0.58rem; font-weight: 600; color: var(--or);
+  }
+  .fam .par { font-size: 0.85rem; color: var(--fume-2); line-height: 2; margin: 0.35rem 0 0; }
+  .fam .par b { font-weight: 300; color: var(--fume); }
+  .fam .who { display: block; margin-top: 0.4rem; font-size: 1.08rem; font-weight: 500; color: var(--blanc); }
+  .fam .rel { font-size: 0.7rem; color: var(--fume-2); font-weight: 300; }
+  .calls { display: flex; margin-top: 1.8rem; }
+  .calls a {
+    flex: 1; text-align: center; padding: 0.8rem 0.4rem;
+    font-family: "Archivo", sans-serif; font-variation-settings: "wdth" 115;
+    text-transform: uppercase; letter-spacing: 0.2em; font-size: 0.64rem; font-weight: 600;
+    color: var(--blanc); text-decoration: none; border: 1px solid var(--blanc);
+  }
+  .calls a + a { border-left: 0; }
+  .calls a:hover, .calls a:focus-visible { background: var(--blanc); color: var(--noir); }
+
+  /* ---------- 04 : 필름 ---------- */
+  .film { border-block: 2px solid var(--blanc); }
+  .strip {
+    display: flex; gap: 2px; overflow-x: auto; scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch; scrollbar-width: none;
+  }
+  .strip::-webkit-scrollbar { display: none; }
+  .shot {
+    position: relative; flex: 0 0 auto; width: 76%; scroll-snap-align: center;
+    border: 0; padding: 0; background: var(--noir); cursor: pointer;
+  }
+  .shot img { aspect-ratio: 4 / 5; object-fit: cover; }
+  .shot .idx {
+    position: absolute; left: 10px; top: 8px;
+    font-family: "Archivo", sans-serif; font-variation-settings: "wdth" 108;
+    font-weight: 900; font-size: 1.6rem; line-height: 1; color: var(--or);
+    text-shadow: 0 1px 10px rgba(0, 0, 0, 0.8);
+  }
+  .shot .cap {
+    position: absolute; left: 10px; bottom: 10px; right: 10px; text-align: left;
+    font-family: "Archivo", sans-serif; font-variation-settings: "wdth" 118;
+    text-transform: uppercase; letter-spacing: 0.22em; font-size: 0.6rem; font-weight: 600; color: var(--blanc);
+    text-shadow: 0 1px 10px rgba(0, 0, 0, 0.9);
+  }
+  .film-foot {
+    display: flex; justify-content: space-between;
+    font-family: "Archivo", sans-serif; font-variation-settings: "wdth" 118;
+    text-transform: uppercase; letter-spacing: 0.24em; font-size: 0.58rem; font-weight: 600; color: var(--fume-2);
+    padding: 0.8rem clamp(1.6rem, 7.5vw, 2.6rem) 0;
+  }
+
+  /* ---------- 05 : 주소 ---------- */
+  .adr .name {
+    font-family: "Archivo", sans-serif; font-variation-settings: "wdth" 115;
+    font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; font-size: 1.5rem; margin: 0;
+  }
+  .adr .hall { font-size: 0.84rem; letter-spacing: 0.16em; color: var(--or); margin: 0.2rem 0 0.8rem; }
+  .adr .addr { font-size: 0.88rem; color: var(--fume); margin: 0 0 1.3rem; line-height: 1.85; }
+  .map { width: 100%; height: auto; filter: none; border: 1px solid var(--rule); }
+  .btns { display: flex; margin-top: 0.9rem; }
+  .btns > * {
+    flex: 1; text-align: center; padding: 0.8rem 0.4rem;
+    font-family: "Archivo", sans-serif; font-variation-settings: "wdth" 115;
+    text-transform: uppercase; letter-spacing: 0.2em; font-size: 0.64rem; font-weight: 600;
+    color: var(--blanc); text-decoration: none; background: transparent; border: 1px solid var(--blanc); cursor: pointer;
+  }
+  .btns > * + * { border-left: 0; }
+  .btns > *:hover, .btns > *:focus-visible { background: var(--blanc); color: var(--noir); }
+
+  /* ---------- 06 : 축하 ---------- */
+  .voeux { background: var(--noir-2); }
+  .voeux .lead { font-size: 0.93rem; color: var(--fume); margin: 0 0 1.5rem; line-height: 2.05; }
+  .voeux-btn {
+    width: 100%; border: 0; background: var(--or); color: var(--noir);
+    font-family: "Archivo", sans-serif; font-variation-settings: "wdth" 118;
+    text-transform: uppercase; letter-spacing: 0.26em; font-size: 0.72rem; font-weight: 700;
+    padding: 0.95rem; cursor: pointer; transition: background 0.25s;
+  }
+  .voeux-btn:hover { background: var(--blanc); }
+  .voeux-count {
+    margin: 0.9rem 0 0; text-align: center;
+    font-family: "Archivo", sans-serif; font-variation-settings: "wdth" 115;
+    text-transform: uppercase; letter-spacing: 0.24em; font-size: 0.66rem; font-weight: 600; color: var(--fume-2);
+  }
+  .voeux-count b { color: var(--or); font-size: 1.05rem; font-weight: 800; }
+  .guest { margin-top: 1.8rem; }
+  .guest input, .guest textarea {
+    width: 100%; font-family: inherit; font-size: 0.88rem; color: var(--blanc);
+    border: 0; border-bottom: 1px solid var(--rule); border-radius: 0;
+    padding: 0.65rem 0.1rem; background: transparent;
+  }
+  .guest textarea { resize: none; height: 58px; margin-top: 0.4rem; }
+  .guest input::placeholder, .guest textarea::placeholder { color: var(--fume-2); }
+  .guest input:focus, .guest textarea:focus { outline: 0; border-bottom-color: var(--or); }
+  .guest-submit {
+    margin-top: 1rem; width: 100%; border: 1px solid var(--blanc); background: transparent; color: var(--blanc);
+    font-family: "Archivo", sans-serif; font-variation-settings: "wdth" 115;
+    text-transform: uppercase; letter-spacing: 0.24em; font-size: 0.66rem; font-weight: 600;
+    padding: 0.8rem; cursor: pointer;
+  }
+  .guest-submit[disabled] { opacity: 0.3; cursor: default; }
+  .wall { margin-top: 1.4rem; }
+  .slip { border-top: 1px solid var(--rule); padding: 0.8rem 0; font-size: 0.86rem; line-height: 1.8; color: var(--fume); word-break: break-word; }
+  .slip:last-child { border-bottom: 1px solid var(--rule); }
+  .slip .who {
+    display: block; font-family: "Archivo", sans-serif; font-variation-settings: "wdth" 118;
+    text-transform: uppercase; letter-spacing: 0.2em; font-size: 0.58rem; font-weight: 600; color: var(--or);
+  }
+  .wall-empty { font-size: 0.84rem; color: var(--fume-2); margin: 1.2rem 0 0; }
+
+  /* ---------- 07 : 마음 ---------- */
+  .coeur .lead { font-size: 0.88rem; color: var(--fume-2); margin: 0 0 1.4rem; line-height: 2; }
+  .acct { display: flex; align-items: center; justify-content: space-between; gap: 0.8rem; padding: 0.95rem 0; border-top: 1px solid var(--rule); }
+  .acct:last-of-type { border-bottom: 1px solid var(--rule); }
+  .acct .side {
+    font-family: "Archivo", sans-serif; font-variation-settings: "wdth" 118;
+    text-transform: uppercase; letter-spacing: 0.22em; font-size: 0.56rem; font-weight: 600; color: var(--or);
+  }
+  .acct .who { font-size: 0.95rem; font-weight: 500; }
+  .acct .num { font-family: "Archivo", sans-serif; font-variation-settings: "wdth" 108; font-size: 0.82rem; letter-spacing: 0.08em; color: var(--fume-2); }
+  .copy {
+    flex-shrink: 0; border: 1px solid var(--rule); background: transparent; color: var(--fume);
+    font-family: "Archivo", sans-serif; font-variation-settings: "wdth" 115;
+    text-transform: uppercase; letter-spacing: 0.18em; font-size: 0.58rem; font-weight: 600;
+    padding: 0.45rem 0.85rem; cursor: pointer;
+  }
+  .copy:hover, .copy.done { background: var(--or); color: var(--noir); border-color: var(--or); }
+
+  /* ---------- 맺음 ---------- */
+  .plate { position: relative; margin: 0; }
+  .plate img { aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 24%; }
+  .plate figcaption {
+    position: absolute; left: clamp(1.6rem, 7.5vw, 2.6rem); bottom: 1.2rem;
+    font-family: "Archivo", sans-serif; font-variation-settings: "wdth" 118;
+    text-transform: uppercase; letter-spacing: 0.34em; font-size: 0.6rem; font-weight: 600;
+    color: var(--or); text-shadow: 0 1px 14px rgba(0, 0, 0, 0.9);
+  }
+  .fin { padding-bottom: clamp(2.6rem, 9vw, 3.6rem); }
+  .fin .gold-line { height: 2px; background: var(--or); width: 54px; margin-bottom: 1.4rem; }
+  .fin p { font-size: 0.95rem; line-height: 2.1; color: var(--fume); margin: 0; }
+  .fin .sig {
+    margin-top: 1.7rem;
+    font-family: "Archivo", sans-serif; font-variation-settings: "wdth" 112;
+    font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; font-size: 1.1rem; color: var(--blanc);
+  }
+  .fin .sig-ko { margin-top: 0.25rem; font-size: 0.83rem; letter-spacing: 0.16em; color: var(--fume-2); }
+
+  /* ---------- 공통 ---------- */
+  .lightbox { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.98); display: none; align-items: center; justify-content: center; z-index: 90; padding: 16px; }
+  .lightbox.on { display: flex; }
+  .lightbox img { max-width: 100%; max-height: 82vh; width: auto; object-fit: contain; }
+  .lb-btn {
+    position: absolute; width: 2.6rem; height: 2.6rem;
+    background: transparent; border: 1px solid var(--or); color: var(--or);
+    cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1rem;
+  }
+  .lb-prev { left: 12px; top: 50%; transform: translateY(-50%); }
+  .lb-next { right: 12px; top: 50%; transform: translateY(-50%); }
+  .lb-close { right: 12px; top: 12px; }
+  .lb-count {
+    position: absolute; bottom: 20px; left: 0; right: 0; text-align: center; color: var(--fume);
+    font-family: "Archivo", sans-serif; font-variation-settings: "wdth" 118;
+    text-transform: uppercase; letter-spacing: 0.3em; font-size: 0.64rem; font-weight: 600;
+  }
+
+  .toast {
+    position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%) translateY(10px);
+    background: var(--or); color: var(--noir); font-size: 0.8rem; font-weight: 500;
+    padding: 0.6rem 1.2rem; opacity: 0; pointer-events: none; transition: 0.24s ease; z-index: 95;
+    max-width: calc(100% - 32px); text-align: center;
+  }
+  .toast.on { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  .spark { position: fixed; top: -16px; z-index: 85; pointer-events: none; }
+
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--or); outline-offset: 2px; }
+</style>
+</head>
+<body class="locked">
+
+<!-- ================= 커버 ================= -->
+<div id="cover">
+  <img src="q/07.jpg" alt="해 질 무렵 바닷가에 선 손규수와 문세화">
+  <div class="vignette"></div>
+  <div class="frame-gold"></div>
+
+  <div class="cover-face">
+    <p class="kicker">Le Smoking</p>
+    <h1 class="cover-name"><span>Gyusoo</span><span class="amp">and</span><span>Sehwa</span></h1>
+    <p class="cover-ko">손규수 · 문세화</p>
+    <span class="gold-bar"></span>
+    <p class="cover-date">Samedi 16 . 01 . 2027</p>
+  </div>
+
+  <button class="enter" type="button" id="enterBtn">Entrez</button>
+</div>
+
+<div class="book" id="book">
+
+  <!-- ================= 01 ================= -->
+  <section class="intro pad">
+    <div class="head">
+      <div class="row"><span class="idx">01</span><span class="fr">L&rsquo;Invitation</span><span class="ko">초대</span></div>
+      <div class="bar"></div>
+    </div>
+
+    <h2 class="names"><span>Gyusoo</span><span class="amp">and</span><span>Sehwa</span></h2>
+    <p class="ko-names">손규수 · 문세화</p>
+    <p class="meta"><span><b>16 . 01 . 2027</b></span><span>12:30</span></p>
+    <p class="venue">양산 W웨딩 5층 팰리스홀</p>
+
+    <p class="msg">
+      함께 밥을 먹고, 함께 걷고, 함께 웃던<br>
+      평범한 날들이 쌓여 여기까지 왔습니다.<br>
+      이제 그 평범한 행복을<br>
+      평생 이어가려 합니다.
+    </p>
+  </section>
+
+  <!-- ================= 02 ================= -->
+  <section class="pad">
+    <div class="head">
+      <div class="row"><span class="idx">02</span><span class="fr">Le Jour</span><span class="ko">그날</span></div>
+      <div class="bar"></div>
+    </div>
+
+    <div class="mondrian">
+      <div class="m-a">
+        <span class="d">16</span>
+        <span class="m">Janvier</span>
+      </div>
+      <div class="m-b"><span class="k">2027</span></div>
+      <div class="m-c"><span class="k">Samedi</span><span class="s">토요일</span></div>
+      <div class="m-d"><span class="k">12:30</span></div>
+      <div class="m-e"><span class="k">W Wedding</span><span class="s">양산 W웨딩 5층 팰리스홀</span></div>
+    </div>
+
+    <table class="cal">
+      <thead>
+        <tr><th scope="col">D</th><th scope="col">L</th><th scope="col">M</th><th scope="col">M</th><th scope="col">J</th><th scope="col">V</th><th scope="col">S</th></tr>
+      </thead>
+      <tbody>
+        <tr><td></td><td></td><td></td><td></td><td></td><td>1</td><td>2</td></tr>
+        <tr><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td></tr>
+        <tr><td>10</td><td>11</td><td>12</td><td>13</td><td>14</td><td>15</td><td><span class="mark">16</span></td></tr>
+        <tr><td>17</td><td>18</td><td>19</td><td>20</td><td>21</td><td>22</td><td>23</td></tr>
+        <tr><td>24</td><td>25</td><td>26</td><td>27</td><td>28</td><td>29</td><td>30</td></tr>
+        <tr><td>31</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      </tbody>
+    </table>
+
+    <div class="count" id="countRow">
+      <div><div class="num" id="cd-d">104</div><div class="u">Jours</div></div>
+      <div><div class="num" id="cd-h">00</div><div class="u">Heures</div></div>
+      <div><div class="num" id="cd-m">00</div><div class="u">Min</div></div>
+      <div><div class="num" id="cd-s">00</div><div class="u">Sec</div></div>
+    </div>
+  </section>
+
+  <!-- ================= 03 ================= -->
+  <section class="pad">
+    <div class="head">
+      <div class="row"><span class="idx">03</span><span class="fr">La Famille</span><span class="ko">양가</span></div>
+      <div class="bar"></div>
+    </div>
+
+    <div class="fam">
+      <div class="c">
+        <span class="side">Le Mari&eacute;</span>
+        <p class="par">
+          <b>父</b> 故 손현석<br>
+          <b>母</b> 이수자
+          <span class="who">손규수 <span class="rel">장남</span></span>
+        </p>
+      </div>
+      <div class="c">
+        <span class="side">La Mari&eacute;e</span>
+        <p class="par">
+          <b>父</b> 故 문종문<br>
+          <b>母</b> 최장심
+          <span class="who">문세화 <span class="rel">장녀</span></span>
+        </p>
+      </div>
+    </div>
+
+    <div class="calls">
+      <a href="tel:01040122921">Appeler &middot; 전화</a>
+      <a href="sms:01040122921">Message &middot; 문자</a>
+    </div>
+  </section>
+
+  <!-- ================= 04 ================= -->
+  <section class="pad" style="padding-bottom:0">
+    <div class="head">
+      <div class="row"><span class="idx">04</span><span class="fr">La Collection</span><span class="ko">두 사람</span></div>
+      <div class="bar"></div>
+    </div>
+  </section>
+  <div class="film">
+    <div class="strip" id="strip"></div>
+  </div>
+  <p class="film-foot"><span>Noir</span><span id="filmCount">04 Images</span></p>
+
+  <!-- ================= 05 ================= -->
+  <section class="adr pad">
+    <div class="head">
+      <div class="row"><span class="idx">05</span><span class="fr">L&rsquo;Adresse</span><span class="ko">오시는 길</span></div>
+      <div class="bar"></div>
+    </div>
+
+    <p class="name">W Wedding</p>
+    <p class="hall">5층 · 팰리스홀</p>
+    <p class="addr">경상남도 양산시 강변로 438<br>크리스탈타워 5층</p>
+
+    <svg class="map" viewBox="0 0 400 190" role="img" aria-label="양산천과 강변로 옆 크리스탈타워 5층에 있는 예식장 약도">
+      <rect x="0" y="0" width="400" height="190" fill="#0C0C0C"/>
+      <g stroke="#7A7772" fill="none" stroke-width="1">
+        <path d="M0,72 L46,34 L78,60 L104,40 L142,72"/>
+        <path d="M118,72 L160,38 L190,64 L214,46 L250,72"/>
+      </g>
+      <path d="M0,150 C70,142 130,148 200,155 C270,162 340,164 400,159" fill="none" stroke="#7A7772" stroke-width="1"/>
+      <text x="36" y="176" font-size="9" fill="#7A7772" font-family="Archivo, sans-serif" letter-spacing="2.4">YANGSAN RIVER</text>
+
+      <path d="M-8,116 H408" stroke="#FFFFFF" stroke-width="2"/>
+      <path d="M206,116 V156" stroke="#7A7772" stroke-width="1"/>
+      <text x="72" y="134" font-size="9" fill="#7A7772" font-family="Archivo, sans-serif" letter-spacing="2.4">GANGBYEON-RO</text>
+
+      <rect x="286" y="44" width="28" height="28" fill="#C9A227"/>
+      <path d="M300,72 V112" stroke="#C9A227" stroke-width="1" stroke-dasharray="3 4"/>
+      <text x="300" y="34" font-size="10" fill="#FFFFFF" text-anchor="middle" font-family="Archivo, sans-serif" font-weight="700" letter-spacing="2.4">CRYSTAL TOWER 5F</text>
+    </svg>
+
+    <div class="btns">
+      <a href="https://map.kakao.com/link/search/%EC%96%91%EC%82%B0%20W%EC%9B%A8%EB%94%A9" target="_blank" rel="noopener">Kakao</a>
+      <a href="https://map.naver.com/p/search/%EC%96%91%EC%82%B0%20W%EC%9B%A8%EB%94%A9" target="_blank" rel="noopener">Naver</a>
+      <button type="button" id="addrCopy">Adresse</button>
+    </div>
+  </section>
+
+  <!-- ================= 06 ================= -->
+  <section class="voeux pad">
+    <div class="head">
+      <div class="row"><span class="idx">06</span><span class="fr">Les V&oelig;ux</span><span class="ko">축하</span></div>
+      <div class="bar"></div>
+    </div>
+
+    <p class="lead">이 초대장을 열어보신 모든 분이<br>이미 저희 결혼의 축하객입니다.</p>
+
+    <button class="voeux-btn" type="button" id="voeuxBtn">Envoyer un v&oelig;u</button>
+    <p class="voeux-count" id="voeuxCount" hidden><b>0</b> &nbsp;V&oelig;ux</p>
+
+    <div class="guest">
+      <input id="guestName" type="text" maxlength="12" placeholder="이름" autocomplete="name">
+      <textarea id="guestMsg" maxlength="120" placeholder="축하 한마디를 남겨주세요"></textarea>
+      <button class="guest-submit" type="button" id="guestSubmit" disabled>Laisser un mot</button>
+      <div class="wall" id="wall"></div>
+      <p class="wall-empty" id="wallEmpty">불러오는 중입니다…</p>
+    </div>
+  </section>
+
+  <!-- ================= 07 ================= -->
+  <section class="coeur pad">
+    <div class="head">
+      <div class="row"><span class="idx">07</span><span class="fr">Le C&oelig;ur</span><span class="ko">마음 전하실 곳</span></div>
+      <div class="bar"></div>
+    </div>
+    <p class="lead">참석이 어려우신 분들을 위해<br>계좌번호를 안내드립니다.</p>
+
+    <div class="acct">
+      <div>
+        <div class="side">Le Mari&eacute;</div>
+        <div class="who">손규수 · 토스뱅크</div>
+        <div class="num">010-4012-2921</div>
+      </div>
+      <button class="copy" type="button" data-copy="01040122921">Copier</button>
+    </div>
+    <div class="acct">
+      <div>
+        <div class="side">La Mari&eacute;e</div>
+        <div class="who">문세화 · NH농협은행</div>
+        <div class="num">302-7203-767751</div>
+      </div>
+      <button class="copy" type="button" data-copy="3027203767751">Copier</button>
+    </div>
+  </section>
+
+  <!-- ================= 맺음 ================= -->
+  <figure class="plate">
+    <img src="q/01.jpg" alt="꽃이 핀 정원 길에서 손을 잡고 선 두 사람" loading="lazy">
+    <figcaption>La Mari&eacute;e</figcaption>
+  </figure>
+
+  <section class="fin pad">
+    <div class="gold-line"></div>
+    <p>
+      여러분 한 분 한 분의 축하가<br>
+      저희 두 사람의 새로운 시작을 채웁니다.<br>
+      함께해 주셔서 감사합니다.
+    </p>
+    <p class="sig">Gyusoo &amp; Sehwa</p>
+    <p class="sig-ko">손규수 · 문세화 드림</p>
+  </section>
+
+</div>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="사진 크게 보기">
+  <img id="lbImg" src="" alt="">
+  <button class="lb-btn lb-prev" id="lbPrev" type="button" aria-label="이전 사진">&#10094;</button>
+  <button class="lb-btn lb-next" id="lbNext" type="button" aria-label="다음 사진">&#10095;</button>
+  <button class="lb-btn lb-close" id="lbClose" type="button" aria-label="닫기">&#10005;</button>
+  <p class="lb-count" id="lbCount"></p>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function () {
+  var PHOTOS = [
+    { src: 'q/02.jpg', cap: 'Hanok',   alt: '한옥 처마 아래 산을 배경으로 선 두 사람' },
+    { src: 'q/03.jpg', cap: 'Portrait', alt: '나란히 기대어 앉은 두 사람의 가까운 사진' },
+    { src: 'q/04.jpg', cap: 'Studio',  alt: '흰 꽃을 배경으로 선 턱시도와 드레스 차림의 두 사람' },
+    { src: 'q/05.jpg', cap: 'Salon',   alt: '소파에 나란히 앉아 서로를 바라보는 두 사람' }
+  ];
+  var TOTAL = PHOTOS.length;
+  var WEDDING = new Date(2027, 0, 16, 12, 30, 0);
+  var ADDR = '경상남도 양산시 강변로 438 크리스탈타워 5층';
+  function pad2(n) { return (n < 10 ? '0' : '') + n; }
+  function $(id) { return document.getElementById(id); }
+
+  /* ---------- 커버 ---------- */
+  var cover = $('cover');
+  document.body.classList.add('locked');
+  function enter() {
+    if (cover.classList.contains('gone')) { return; }
+    cover.classList.add('gone');
+    document.body.classList.remove('locked');
+    $('book').classList.add('opened');
+    setTimeout(function () { cover.setAttribute('hidden', ''); }, 820);
+  }
+  cover.addEventListener('click', enter);
+  $('enterBtn').addEventListener('click', function (e) { e.stopPropagation(); enter(); });
+
+  /* ---------- 카운트다운 ---------- */
+  var row = $('countRow'), timer;
+  function tick() {
+    var diff = WEDDING - new Date();
+    if (diff <= 0) {
+      row.innerHTML = '<p class="count-done">Aujourd&rsquo;hui</p>';
+      clearInterval(timer);
+      return;
+    }
+    var s = Math.floor(diff / 1000);
+    $('cd-d').textContent = Math.floor(s / 86400);
+    $('cd-h').textContent = pad2(Math.floor(s / 3600) % 24);
+    $('cd-m').textContent = pad2(Math.floor(s / 60) % 60);
+    $('cd-s').textContent = pad2(s % 60);
+  }
+  tick();
+  timer = setInterval(tick, 1000);
+
+  /* ---------- 필름 ---------- */
+  var strip = $('strip'), html = '';
+  for (var n = 0; n < TOTAL; n++) {
+    var ph = PHOTOS[n];
+    html += '<button class="shot" type="button" data-i="' + n + '" aria-label="' + ph.cap + ' — 사진 크게 보기">' +
+      '<img src="' + ph.src + '" alt="' + ph.alt + '" decoding="async">' +
+      '<span class="idx">' + pad2(n + 1) + '</span>' +
+      '<span class="cap">' + ph.cap + '</span></button>';
+  }
+  strip.innerHTML = html;
+  $('filmCount').textContent = pad2(TOTAL) + ' Images';
+
+  var lb = $('lightbox'), lbImg = $('lbImg'), cur = 0, lastFocus = null;
+  function show(n) {
+    cur = (n + TOTAL) % TOTAL;
+    lbImg.src = PHOTOS[cur].src;
+    lbImg.alt = PHOTOS[cur].alt;
+    $('lbCount').textContent = PHOTOS[cur].cap + ' — ' + pad2(cur + 1) + ' / ' + pad2(TOTAL);
+  }
+  function openLb(n) {
+    lastFocus = document.activeElement;
+    show(n);
+    lb.classList.add('on');
+    document.body.classList.add('locked');
+    $('lbClose').focus();
+  }
+  function closeLb() {
+    lb.classList.remove('on');
+    document.body.classList.remove('locked');
+    if (lastFocus && lastFocus.focus) { lastFocus.focus(); }
+  }
+  strip.addEventListener('click', function (e) {
+    var b = e.target.closest('button[data-i]');
+    if (b) { openLb(parseInt(b.getAttribute('data-i'), 10)); }
+  });
+  $('lbPrev').addEventListener('click', function () { show(cur - 1); });
+  $('lbNext').addEventListener('click', function () { show(cur + 1); });
+  $('lbClose').addEventListener('click', closeLb);
+  lb.addEventListener('click', function (e) { if (e.target === lb) { closeLb(); } });
+  document.addEventListener('keydown', function (e) {
+    if (!lb.classList.contains('on')) { return; }
+    if (e.key === 'Escape') { closeLb(); }
+    else if (e.key === 'ArrowLeft') { show(cur - 1); }
+    else if (e.key === 'ArrowRight') { show(cur + 1); }
+  });
+  var x0 = null;
+  lb.addEventListener('touchstart', function (e) { x0 = e.changedTouches[0].clientX; }, { passive: true });
+  lb.addEventListener('touchend', function (e) {
+    if (x0 === null) { return; }
+    var dx = e.changedTouches[0].clientX - x0;
+    if (Math.abs(dx) > 45) { show(dx < 0 ? cur + 1 : cur - 1); }
+    x0 = null;
+  }, { passive: true });
+
+  /* ---------- 복사 ---------- */
+  var toast = $('toast'), toastTimer;
+  function say(msg) {
+    toast.textContent = msg;
+    toast.classList.add('on');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { toast.classList.remove('on'); }, 2000);
+  }
+  function copyText(text, btn) {
+    function done() {
+      say('복사되었습니다');
+      if (btn && btn.classList.contains('copy')) {
+        var t = btn.textContent;
+        btn.textContent = 'Copié';
+        btn.classList.add('done');
+        setTimeout(function () { btn.textContent = t; btn.classList.remove('done'); }, 1400);
+      }
+    }
+    function fallback() {
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      var ok = false;
+      try { ok = document.execCommand('copy'); } catch (err) { ok = false; }
+      document.body.removeChild(ta);
+      if (ok) { done(); } else { say('복사가 막혀 있어요. 길게 눌러 복사해 주세요'); }
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done, fallback);
+    } else { fallback(); }
+  }
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest ? e.target.closest('[data-copy]') : null;
+    if (b) { copyText(b.getAttribute('data-copy'), b); }
+  });
+  $('addrCopy').addEventListener('click', function () { copyText(ADDR, null); });
+
+  /* ---------- 금빛 조각 ---------- */
+  function sparks() {
+    if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) { return; }
+    var tones = ['#C9A227', '#FFFFFF', '#D2241F', '#1E3FC8', '#F2C200'];
+    for (var i = 0; i < 28; i++) {
+      var p = document.createElement('div');
+      p.className = 'spark';
+      var w = 4 + Math.random() * 7;
+      p.style.width = w + 'px';
+      p.style.height = (w * 2.1) + 'px';
+      p.style.left = (Math.random() * 100) + 'vw';
+      p.style.background = tones[i % tones.length];
+      p.style.opacity = '0.95';
+      document.body.appendChild(p);
+      var drift = (Math.random() * 120 - 60);
+      var anim = p.animate([
+        { transform: 'translate(0,0) rotate(0deg)', opacity: 1 },
+        { transform: 'translate(' + drift + 'px,' + (window.innerHeight + 40) + 'px) rotate(' + (180 + Math.random() * 360) + 'deg)', opacity: 0.85 }
+      ], { duration: 1900 + Math.random() * 1300, easing: 'cubic-bezier(.3,.6,.4,1)' });
+      anim.onfinish = function () { this.effect.target.remove(); };
+    }
+  }
+
+  /* ---------- 축하 · 방명록 ---------- */
+  var voeuxBtn = $('voeuxBtn'), voeuxCount = $('voeuxCount');
+  var wall = $('wall'), wallEmpty = $('wallEmpty');
+  var nameEl = $('guestName'), msgEl = $('guestMsg'), submit = $('guestSubmit');
+  var db = null, sending = false;
+
+  voeuxBtn.addEventListener('click', function () {
+    sparks();
+    if (!db) { say('축하 감사합니다'); return; }
+    var ref = db.doc('state/meta');
+    ref.get().then(function (snap) {
+      var v = (snap.exists && snap.data() && Number(snap.data().voeux)) || 0;
+      return ref.set({ voeux: v + 1 });
+    }).catch(function () { say('잠시 후 다시 시도해 주세요'); });
+  });
+
+  function esc(s) {
+    return String(s).replace(/[<>&]/g, function (c) { return { '<': '&lt;', '>': '&gt;', '&': '&amp;' }[c]; });
+  }
+  function renderWall(docs) {
+    if (!docs.length) {
+      wall.innerHTML = '';
+      wallEmpty.textContent = '첫 축하 메시지를 남겨주세요.';
+      wallEmpty.hidden = false;
+      return;
+    }
+    wallEmpty.hidden = true;
+    wall.innerHTML = docs.map(function (d) {
+      var v = d.data() || {};
+      return '<div class="slip"><span class="who">' + esc(v.name || '익명') + '</span>' + esc(v.msg || '') + '</div>';
+    }).join('');
+  }
+  function checkForm() { submit.disabled = !db || sending || !msgEl.value.trim(); }
+  nameEl.addEventListener('input', checkForm);
+  msgEl.addEventListener('input', checkForm);
+
+  submit.addEventListener('click', function () {
+    if (!db || sending || !msgEl.value.trim()) { return; }
+    sending = true;
+    checkForm();
+    db.collection('notes').add({
+      name: nameEl.value.trim().slice(0, 12) || '익명',
+      msg: msgEl.value.trim().slice(0, 120),
+      at: Date.now()
+    }).then(function () {
+      msgEl.value = '';
+      say('축하를 남겼습니다');
+      sparks();
+    }, function () {
+      say('등록에 실패했어요. 잠시 후 다시 시도해 주세요');
+    }).then(function () {
+      sending = false;
+      checkForm();
+    });
+  });
+
+  function noStore() {
+    submit.disabled = true;
+    nameEl.disabled = true;
+    msgEl.disabled = true;
+    msgEl.placeholder = '방명록은 공유된 초대장에서 남길 수 있습니다';
+    wallEmpty.textContent = '방명록은 공유된 초대장에서 열립니다.';
+    wallEmpty.hidden = false;
+  }
+
+  if (window.claude && window.claude.use) {
+    window.claude.use('db').then(function (store) {
+      if (!store) { noStore(); return; }
+      db = store;
+      checkForm();
+      db.doc('state/meta').onSnapshot(function (snap) {
+        var v = (snap.exists && snap.data() && Number(snap.data().voeux)) || 0;
+        voeuxCount.innerHTML = '<b>' + v + '</b> &nbsp;Vœux';
+        voeuxCount.hidden = false;
+      }, function () {});
+      db.collection('notes').orderBy('at', 'desc').limit(30)
+        .onSnapshot(function (snap) { renderWall(snap.docs); }, function () { noStore(); });
+    }, noStore);
+  } else {
+    noStore();
+  }
+})();
+</script>
+<!--#artifact-end-->
+</body>
+</html>
