@@ -1,0 +1,878 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<!--#artifact-start-->
+<title>Muguet Gyusoo Sehwa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant:wght@300;400;500;600&family=Gowun+Batang:wght@400;700&display=swap">
+<style>
+  :root {
+    --perle: #D5D3CD;
+    --perle-2: #C7C5BE;
+    --perle-3: #E4E3DF;
+    --blanc: #FBFAF8;
+    --encre: #1C1C1A;
+    --encre-2: #55544F;
+    --encre-3: #8B8982;
+    --or: #B29654;
+    --or-2: #D3BC85;
+    --rouge: #A81D2C;
+    --vert: #74866A;
+    --rule: rgba(28, 28, 26, 0.2);
+    --rule-2: rgba(28, 28, 26, 0.1);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --perle: #1A1A19;
+      --perle-2: #121211;
+      --perle-3: #202020;
+      --blanc: #141413;
+      --encre: #EFEEEA;
+      --encre-2: #B4B2AB;
+      --encre-3: #827F78;
+      --or: #CAAE69;
+      --or-2: #E2CE9B;
+      --rouge: #D2566A;
+      --vert: #96AA8A;
+      --rule: rgba(239, 238, 234, 0.22);
+      --rule-2: rgba(239, 238, 234, 0.11);
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --perle: #1A1A19;
+    --perle-2: #121211;
+    --perle-3: #202020;
+    --blanc: #141413;
+    --encre: #EFEEEA;
+    --encre-2: #B4B2AB;
+    --encre-3: #827F78;
+    --or: #CAAE69;
+    --or-2: #E2CE9B;
+    --rouge: #D2566A;
+    --vert: #96AA8A;
+    --rule: rgba(239, 238, 234, 0.22);
+    --rule-2: rgba(239, 238, 234, 0.11);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--perle-2);
+    color: var(--encre);
+    font-family: "Gowun Batang", "Cormorant", serif;
+    line-height: 1.95;
+    -webkit-text-size-adjust: 100%;
+  }
+  body.locked { overflow: hidden; }
+
+  .cm { font-family: "Cormorant", serif; }
+  .cap {
+    font-family: "Cormorant", serif;
+    text-transform: uppercase;
+    letter-spacing: 0.4em;
+    font-size: 0.68rem;
+    font-weight: 500;
+  }
+  img { display: block; width: 100%; filter: saturate(0.7) contrast(1.02) brightness(1.03); }
+
+  /* 카나주 — 가는 사선 격자 */
+  .cannage {
+    background-image:
+      repeating-linear-gradient(45deg, transparent 0 15px, rgba(28, 28, 26, 0.055) 15px 16px),
+      repeating-linear-gradient(-45deg, transparent 0 15px, rgba(28, 28, 26, 0.055) 15px 16px);
+  }
+
+  /* ================= 커버 ================= */
+  #cover {
+    position: fixed; inset: 0; z-index: 80; cursor: pointer;
+    background: var(--perle);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 1.3rem; padding: 3.2rem 1.6rem 5.4rem;
+    text-align: center;
+    transition: transform 0.95s cubic-bezier(0.5, 0, 0.2, 1), opacity 0.95s ease;
+  }
+  #cover.gone { transform: scale(1.14); opacity: 0; pointer-events: none; }
+  .cover-rule { position: absolute; inset: 16px; border: 1px solid rgba(28, 28, 26, 0.22); pointer-events: none; }
+
+  .medallion {
+    position: relative; width: clamp(180px, 54vw, 244px); aspect-ratio: 3 / 4;
+    border-radius: 50%; overflow: hidden;
+    border: 1px solid rgba(28, 28, 26, 0.3);
+    box-shadow: 0 18px 46px rgba(28, 28, 26, 0.22);
+  }
+  .medallion img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 26%; }
+
+  .cover-name {
+    font-family: "Cormorant", serif; font-weight: 400;
+    text-transform: uppercase;
+    font-size: clamp(1.7rem, 8.4vw, 2.3rem);
+    letter-spacing: 0.3em; line-height: 1.35;
+    margin: 0; text-indent: 0.3em;
+  }
+  .cover-name .amp { display: block; font-size: 0.5em; letter-spacing: 0.4em; color: var(--or); font-style: italic; text-transform: lowercase; }
+  .cover-ko { font-size: 0.86rem; letter-spacing: 0.3em; color: var(--encre-2); margin: 0; }
+  .cover-date { font-family: "Cormorant", serif; text-transform: uppercase; letter-spacing: 0.34em; font-size: 0.76rem; font-weight: 500; color: var(--encre-2); margin: 0; }
+  .muguet-s { display: block; width: 34px; height: 54px; color: var(--vert); }
+
+  .enter {
+    position: absolute; left: 50%; bottom: 3rem; transform: translateX(-50%); z-index: 3;
+    font-family: "Cormorant", serif; text-transform: uppercase; letter-spacing: 0.36em; font-size: 0.7rem; font-weight: 600;
+    color: var(--encre); background: transparent; border: 1px solid var(--encre);
+    padding: 0.8rem 2rem; cursor: pointer; transition: background 0.3s, color 0.3s;
+  }
+  .enter:hover { background: var(--encre); color: var(--perle); }
+  #cover.gone .enter { opacity: 0; transition: opacity 0.3s; }
+
+  /* ================= 본문 ================= */
+  .maison { max-width: 480px; margin: 0 auto; background: var(--blanc); }
+  .pad { padding-inline: clamp(1.6rem, 7.5vw, 2.6rem); }
+  section { padding-block: clamp(2.3rem, 8vw, 3.2rem); }
+
+  .num { text-align: center; margin-bottom: 1.5rem; }
+  .num .star { display: block; width: 20px; height: 20px; margin: 0 auto 0.5rem; color: var(--or); }
+  .num .rn { font-family: "Cormorant", serif; font-size: 0.9rem; letter-spacing: 0.3em; color: var(--or); }
+  .num .fr { display: block; font-family: "Cormorant", serif; text-transform: uppercase; letter-spacing: 0.32em; font-size: 0.74rem; font-weight: 500; margin-top: 0.25rem; }
+  .num .ko { display: block; font-size: 0.74rem; letter-spacing: 0.14em; color: var(--encre-3); }
+
+  /* ---------- I ---------- */
+  .intro { text-align: center; }
+  .intro .names {
+    font-family: "Cormorant", serif; font-weight: 400; text-transform: uppercase;
+    font-size: clamp(1.7rem, 8vw, 2.2rem); letter-spacing: 0.28em; line-height: 1.4;
+    margin: 0; text-indent: 0.28em;
+  }
+  .intro .names .amp { display: block; font-size: 0.5em; letter-spacing: 0.4em; color: var(--or); font-style: italic; text-transform: lowercase; }
+  .intro .ko-names { font-size: 0.92rem; letter-spacing: 0.28em; color: var(--encre-2); margin: 0.7rem 0 0; }
+  .intro .meta { font-family: "Cormorant", serif; text-transform: uppercase; letter-spacing: 0.26em; font-size: 0.8rem; font-weight: 500; margin: 1.4rem 0 0; }
+  .intro .venue { font-size: 0.86rem; color: var(--encre-3); margin: 0.25rem 0 0; }
+  .intro .msg { margin: 1.9rem 0 0; font-size: 0.98rem; line-height: 2.2; color: var(--encre-2); }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .opened .intro .names { animation: bloom 1s 0.1s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+    .opened .intro .ko-names, .opened .intro .meta, .opened .intro .venue { animation: bloom 1s 0.24s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+    .opened .intro .msg { animation: bloom 1s 0.38s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+    @keyframes bloom { from { opacity: 0; transform: translateY(14px) scale(0.98); } to { opacity: 1; transform: none; } }
+  }
+
+  .sprig { display: block; width: 40px; height: 62px; margin: 0 auto; color: var(--vert); }
+
+  /* ---------- II ---------- */
+  .jour { background: var(--perle); text-align: center; }
+  .jour .etoile { display: block; width: 52px; height: 52px; margin: 0 auto 1rem; color: var(--or); }
+  .jour .big {
+    font-family: "Cormorant", serif; font-weight: 300;
+    font-size: clamp(2.6rem, 14vw, 3.6rem); letter-spacing: 0.14em; line-height: 1.1; margin: 0;
+  }
+  .jour .sub { font-family: "Cormorant", serif; text-transform: uppercase; letter-spacing: 0.34em; font-size: 0.74rem; font-weight: 500; color: var(--encre-2); margin: 0.4rem 0 0.1rem; }
+  .jour .ko-date { font-size: 0.85rem; letter-spacing: 0.1em; color: var(--encre-2); margin: 0 0 1.7rem; }
+
+  table.cal { width: 100%; max-width: 314px; margin: 0 auto 1.6rem; border-collapse: collapse; }
+  table.cal th {
+    font-family: "Cormorant", serif; font-size: 0.68rem; font-weight: 500;
+    text-transform: uppercase; letter-spacing: 0.2em; color: var(--encre-3);
+    padding-bottom: 0.6rem; border-bottom: 1px solid var(--rule);
+  }
+  table.cal td { font-family: "Cormorant", serif; text-align: center; font-size: 0.95rem; color: var(--encre-2); padding: 0.32rem 0; }
+  table.cal .mark {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 2rem; height: 2rem; border-radius: 50%;
+    background: var(--encre); color: var(--blanc);
+  }
+  .count { display: flex; justify-content: center; }
+  .count div { flex: 1 1 0; max-width: 76px; text-align: center; padding: 0 0.2rem; }
+  .count div + div { border-left: 1px solid var(--rule-2); }
+  .count .n { font-family: "Cormorant", serif; font-weight: 500; font-size: 1.5rem; line-height: 1.3; }
+  .count .u { font-family: "Cormorant", serif; text-transform: uppercase; font-size: 0.58rem; letter-spacing: 0.24em; color: var(--encre-3); }
+  .count-done { margin: 0; font-family: "Cormorant", serif; text-transform: uppercase; letter-spacing: 0.3em; font-size: 0.95rem; color: var(--or); }
+
+  /* ---------- III ---------- */
+  .fam { display: grid; grid-template-columns: 1fr 1fr; gap: 0 1.2rem; text-align: center; }
+  .fam .c + .c { border-left: 1px solid var(--rule-2); }
+  .fam .side { font-family: "Cormorant", serif; text-transform: uppercase; letter-spacing: 0.26em; font-size: 0.62rem; font-weight: 600; color: var(--or); }
+  .fam .par { font-size: 0.86rem; color: var(--encre-3); line-height: 2; margin: 0.35rem 0 0; }
+  .fam .par b { font-weight: 400; color: var(--encre-2); }
+  .fam .who { display: block; margin-top: 0.45rem; font-size: 1.08rem; color: var(--encre); }
+  .fam .rel { font-size: 0.72rem; color: var(--encre-3); }
+  .calls { display: flex; margin-top: 1.8rem; }
+  .calls a {
+    flex: 1; text-align: center; padding: 0.75rem 0.4rem;
+    font-family: "Cormorant", serif; text-transform: uppercase; letter-spacing: 0.24em; font-size: 0.68rem; font-weight: 600;
+    color: var(--encre-2); text-decoration: none; border: 1px solid var(--rule);
+  }
+  .calls a + a { border-left: 0; }
+  .calls a:hover, .calls a:focus-visible { background: var(--encre); color: var(--blanc); border-color: var(--encre); }
+
+  /* ---------- IV : 아치 ---------- */
+  .defile { background: var(--perle-3); }
+  .arches { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .arch { border: 0; padding: 0; background: transparent; cursor: pointer; }
+  .arch .win {
+    overflow: hidden;
+    border-radius: 50% 50% 2px 2px / 30% 30% 2px 2px;
+    border: 1px solid var(--rule);
+    background: var(--perle);
+  }
+  .arch img { aspect-ratio: 3 / 4; object-fit: cover; transition: transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1); }
+  .arch:hover img, .arch:focus-visible img { transform: scale(1.05); }
+  .arch .t {
+    display: block; margin-top: 0.55rem;
+    font-family: "Cormorant", serif; text-transform: uppercase; letter-spacing: 0.26em;
+    font-size: 0.6rem; font-weight: 500; color: var(--encre-3);
+  }
+  .defile-foot {
+    display: flex; justify-content: center; gap: 0.7rem; margin-top: 1.3rem;
+    font-family: "Cormorant", serif; text-transform: uppercase; letter-spacing: 0.3em; font-size: 0.6rem; color: var(--encre-3);
+  }
+
+  /* ---------- V ---------- */
+  .adr { text-align: center; }
+  .adr .name { font-family: "Cormorant", serif; text-transform: uppercase; letter-spacing: 0.22em; font-size: 1.3rem; font-weight: 500; margin: 0; }
+  .adr .hall { font-size: 0.84rem; letter-spacing: 0.18em; color: var(--or); margin: 0.25rem 0 0.7rem; }
+  .adr .addr { font-size: 0.88rem; color: var(--encre-2); margin: 0 0 1.4rem; line-height: 1.85; }
+  .map { width: 100%; height: auto; filter: none; border: 1px solid var(--rule); }
+  .btns { display: flex; margin-top: 0.9rem; }
+  .btns > * {
+    flex: 1; text-align: center; padding: 0.75rem 0.4rem;
+    font-family: "Cormorant", serif; text-transform: uppercase; letter-spacing: 0.24em; font-size: 0.68rem; font-weight: 600;
+    color: var(--encre-2); text-decoration: none; background: transparent; border: 1px solid var(--rule); cursor: pointer;
+  }
+  .btns > * + * { border-left: 0; }
+  .btns > *:hover, .btns > *:focus-visible { background: var(--encre); color: var(--blanc); border-color: var(--encre); }
+
+  /* ---------- VI ---------- */
+  .voeux { background: var(--perle); text-align: center; }
+  .voeux .lead { font-size: 0.94rem; color: var(--encre-2); margin: 0 0 1.5rem; line-height: 2.1; }
+  .voeux-btn {
+    width: 100%; border: 1px solid var(--encre); background: transparent; color: var(--encre);
+    font-family: "Cormorant", serif; text-transform: uppercase; letter-spacing: 0.3em; font-size: 0.76rem; font-weight: 600;
+    padding: 0.9rem; cursor: pointer; transition: background 0.3s, color 0.3s;
+  }
+  .voeux-btn:hover { background: var(--encre); color: var(--perle); }
+  .voeux-count { margin: 0.9rem 0 0; font-family: "Cormorant", serif; text-transform: uppercase; letter-spacing: 0.26em; font-size: 0.68rem; color: var(--encre-3); }
+  .voeux-count b { color: var(--or); font-size: 1.1rem; font-weight: 600; }
+  .guest { margin-top: 1.8rem; text-align: left; }
+  .guest input, .guest textarea {
+    width: 100%; font-family: inherit; font-size: 0.88rem; color: var(--encre);
+    border: 0; border-bottom: 1px solid var(--rule); border-radius: 0;
+    padding: 0.6rem 0.1rem; background: transparent;
+  }
+  .guest textarea { resize: none; height: 58px; margin-top: 0.4rem; }
+  .guest input::placeholder, .guest textarea::placeholder { color: var(--encre-3); }
+  .guest input:focus, .guest textarea:focus { outline: 0; border-bottom-color: var(--or); }
+  .guest-submit {
+    margin-top: 1rem; width: 100%; border: 0; background: var(--encre); color: var(--blanc);
+    font-family: "Cormorant", serif; text-transform: uppercase; letter-spacing: 0.28em; font-size: 0.72rem; font-weight: 600;
+    padding: 0.8rem; cursor: pointer;
+  }
+  .guest-submit[disabled] { opacity: 0.3; cursor: default; }
+  .wall { margin-top: 1.4rem; }
+  .slip { border-top: 1px solid var(--rule-2); padding: 0.8rem 0; font-size: 0.86rem; line-height: 1.8; color: var(--encre-2); word-break: break-word; }
+  .slip:last-child { border-bottom: 1px solid var(--rule-2); }
+  .slip .who { display: block; font-family: "Cormorant", serif; text-transform: uppercase; letter-spacing: 0.24em; font-size: 0.6rem; font-weight: 600; color: var(--or); }
+  .wall-empty { font-size: 0.84rem; color: var(--encre-3); margin: 1.2rem 0 0; text-align: center; }
+
+  /* ---------- VII ---------- */
+  .coeur .lead { text-align: center; font-size: 0.88rem; color: var(--encre-3); margin: 0 0 1.4rem; line-height: 2; }
+  .acct { display: flex; align-items: center; justify-content: space-between; gap: 0.8rem; padding: 0.95rem 0; border-top: 1px solid var(--rule-2); }
+  .acct:last-of-type { border-bottom: 1px solid var(--rule-2); }
+  .acct .side { font-family: "Cormorant", serif; text-transform: uppercase; letter-spacing: 0.26em; font-size: 0.6rem; font-weight: 600; color: var(--or); }
+  .acct .who { font-size: 0.95rem; }
+  .acct .no { font-family: "Cormorant", serif; font-size: 0.88rem; letter-spacing: 0.1em; color: var(--encre-3); }
+  .copy {
+    flex-shrink: 0; border: 1px solid var(--rule); background: transparent; color: var(--encre-2);
+    font-family: "Cormorant", serif; text-transform: uppercase; letter-spacing: 0.2em; font-size: 0.62rem; font-weight: 600;
+    padding: 0.42rem 0.85rem; cursor: pointer;
+  }
+  .copy:hover, .copy.done { background: var(--encre); color: var(--blanc); border-color: var(--encre); }
+
+  /* ---------- 맺음 ---------- */
+  .final { position: relative; margin: 0; }
+  .final img { aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 24%; }
+  .final figcaption {
+    position: absolute; left: 0; right: 0; bottom: 1.1rem; text-align: center;
+    font-family: "Cormorant", serif; text-transform: uppercase; letter-spacing: 0.4em; font-size: 0.62rem; font-weight: 500;
+    color: var(--blanc); text-shadow: 0 1px 14px rgba(0, 0, 0, 0.55);
+  }
+  .fin { text-align: center; padding-bottom: clamp(2.6rem, 9vw, 3.6rem); }
+  .fin .muguet { display: block; width: 58px; height: 90px; margin: 0 auto 1.2rem; color: var(--vert); }
+  .fin .lucky { font-family: "Cormorant", serif; text-transform: uppercase; letter-spacing: 0.36em; font-size: 0.66rem; color: var(--or); margin: 0 0 1.1rem; }
+  .fin p { font-size: 0.95rem; line-height: 2.1; color: var(--encre-2); margin: 0; }
+  .fin .sig { margin-top: 1.7rem; font-family: "Cormorant", serif; text-transform: uppercase; letter-spacing: 0.3em; font-size: 0.88rem; color: var(--encre); }
+  .fin .sig-ko { margin-top: 0.3rem; font-size: 0.83rem; letter-spacing: 0.16em; color: var(--encre-3); }
+
+  /* ---------- 공통 ---------- */
+  .lightbox { position: fixed; inset: 0; background: rgba(26, 26, 25, 0.96); display: none; align-items: center; justify-content: center; z-index: 90; padding: 16px; }
+  .lightbox.on { display: flex; }
+  .lightbox img { max-width: 100%; max-height: 82vh; width: auto; object-fit: contain; }
+  .lb-btn {
+    position: absolute; width: 2.6rem; height: 2.6rem;
+    background: transparent; border: 1px solid rgba(251, 250, 248, 0.4); color: var(--blanc);
+    cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1rem;
+  }
+  .lb-prev { left: 12px; top: 50%; transform: translateY(-50%); }
+  .lb-next { right: 12px; top: 50%; transform: translateY(-50%); }
+  .lb-close { right: 12px; top: 12px; }
+  .lb-count {
+    position: absolute; bottom: 20px; left: 0; right: 0; text-align: center; color: #FBFAF8;
+    font-family: "Cormorant", serif; text-transform: uppercase; letter-spacing: 0.3em; font-size: 0.68rem;
+  }
+
+  .toast {
+    position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%) translateY(10px);
+    background: var(--encre); color: var(--blanc); font-size: 0.82rem;
+    padding: 0.6rem 1.2rem; opacity: 0; pointer-events: none; transition: 0.24s ease; z-index: 95;
+    max-width: calc(100% - 32px); text-align: center;
+  }
+  .toast.on { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  .bell { position: fixed; top: -16px; z-index: 85; pointer-events: none; border-radius: 50% 50% 46% 46%; }
+
+  a:focus-visible, button:focus-visible { outline: 1px solid var(--or); outline-offset: 3px; }
+</style>
+</head>
+<body class="locked">
+
+<!-- ================= 커버 ================= -->
+<div id="cover" class="cannage">
+  <div class="cover-rule"></div>
+
+  <svg class="muguet-s" viewBox="0 0 40 64" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round">
+    <path d="M20,62 C18,46 19,30 22,14"/>
+    <path d="M19,56 C10,48 7,34 12,22 C17,32 18,45 19,56 Z" fill="currentColor" fill-opacity="0.14"/>
+    <path d="M21,52 C29,45 32,32 28,21 C23,30 21,42 21,52 Z" fill="currentColor" fill-opacity="0.14"/>
+    <g fill="currentColor" fill-opacity="0.9" stroke="none">
+      <ellipse cx="15" cy="20" rx="3.4" ry="4"/>
+      <ellipse cx="26" cy="15" rx="3.2" ry="3.8"/>
+      <ellipse cx="17" cy="30" rx="3" ry="3.6"/>
+      <ellipse cx="27" cy="26" rx="2.8" ry="3.4"/>
+    </g>
+    <path d="M22,18 L16,20 M23,14 L26,15 M20,30 L18,30 M21,26 L26,26"/>
+  </svg>
+
+  <div class="medallion">
+    <img src="../q/01.jpg" alt="꽃이 핀 정원 길에서 손을 잡고 선 손규수와 문세화">
+  </div>
+
+  <h1 class="cover-name">Gyusoo<span class="amp">and</span>Sehwa</h1>
+  <p class="cover-ko">손규수 · 문세화</p>
+  <p class="cover-date">Samedi 16 Janvier 2027</p>
+
+  <button class="enter" type="button" id="enterBtn">Entrer</button>
+</div>
+
+<div class="maison" id="maison">
+
+  <!-- ================= I ================= -->
+  <section class="intro pad">
+    <div class="num">
+      <svg class="star" viewBox="0 0 40 40" aria-hidden="true" fill="currentColor">
+        <path d="M20,0 L23,17 L40,20 L23,23 L20,40 L17,23 L0,20 L17,17 Z"/>
+        <path d="M20,6 L22,18 L34,20 L22,22 L20,34 L18,22 L6,20 L18,18 Z" transform="rotate(45 20 20)" opacity="0.5"/>
+      </svg>
+      <span class="rn">I</span>
+      <span class="fr">L&rsquo;Invitation</span>
+      <span class="ko">초대</span>
+    </div>
+
+    <h2 class="names">Gyusoo<span class="amp">and</span>Sehwa</h2>
+    <p class="ko-names">손규수 · 문세화</p>
+    <p class="meta">16 Janvier 2027 &nbsp;&middot;&nbsp; 12:30</p>
+    <p class="venue">양산 W웨딩 5층 팰리스홀</p>
+
+    <p class="msg">
+      함께 밥을 먹고, 함께 걷고, 함께 웃던<br>
+      평범한 날들이 쌓여 여기까지 왔습니다.<br>
+      이제 그 평범한 행복을<br>
+      평생 이어가려 합니다.
+    </p>
+  </section>
+
+  <svg class="sprig" viewBox="0 0 40 64" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round">
+    <path d="M20,60 C18,44 19,28 22,12"/>
+    <path d="M19,54 C11,46 8,33 13,21 C17,31 18,44 19,54 Z" fill="currentColor" fill-opacity="0.13"/>
+    <path d="M21,50 C29,43 31,30 27,19 C23,28 21,40 21,50 Z" fill="currentColor" fill-opacity="0.13"/>
+    <g fill="currentColor" fill-opacity="0.85" stroke="none">
+      <ellipse cx="15" cy="19" rx="3.2" ry="3.8"/>
+      <ellipse cx="26" cy="14" rx="3" ry="3.6"/>
+      <ellipse cx="17" cy="29" rx="2.8" ry="3.4"/>
+    </g>
+  </svg>
+
+  <!-- ================= II ================= -->
+  <section class="jour pad cannage">
+    <div class="num">
+      <svg class="star" viewBox="0 0 40 40" aria-hidden="true" fill="currentColor">
+        <path d="M20,0 L23,17 L40,20 L23,23 L20,40 L17,23 L0,20 L17,17 Z"/>
+      </svg>
+      <span class="rn">II</span>
+      <span class="fr">Le Jour</span>
+      <span class="ko">그날</span>
+    </div>
+
+    <svg class="etoile" viewBox="0 0 40 40" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1">
+      <path d="M20,1 L23.2,16.8 L39,20 L23.2,23.2 L20,39 L16.8,23.2 L1,20 L16.8,16.8 Z" fill="currentColor" fill-opacity="0.18"/>
+      <path d="M20,7 L21.8,18.2 L33,20 L21.8,21.8 L20,33 L18.2,21.8 L7,20 L18.2,18.2 Z" transform="rotate(45 20 20)"/>
+    </svg>
+
+    <p class="big cm">16 Janvier</p>
+    <p class="sub">Samedi 2027</p>
+    <p class="ko-date">토요일 낮 12시 30분</p>
+
+    <table class="cal">
+      <thead>
+        <tr><th scope="col">D</th><th scope="col">L</th><th scope="col">M</th><th scope="col">M</th><th scope="col">J</th><th scope="col">V</th><th scope="col">S</th></tr>
+      </thead>
+      <tbody>
+        <tr><td></td><td></td><td></td><td></td><td></td><td>1</td><td>2</td></tr>
+        <tr><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td></tr>
+        <tr><td>10</td><td>11</td><td>12</td><td>13</td><td>14</td><td>15</td><td><span class="mark">16</span></td></tr>
+        <tr><td>17</td><td>18</td><td>19</td><td>20</td><td>21</td><td>22</td><td>23</td></tr>
+        <tr><td>24</td><td>25</td><td>26</td><td>27</td><td>28</td><td>29</td><td>30</td></tr>
+        <tr><td>31</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      </tbody>
+    </table>
+
+    <div class="count" id="countRow">
+      <div><div class="n" id="cd-d">104</div><div class="u">Jours</div></div>
+      <div><div class="n" id="cd-h">00</div><div class="u">Heures</div></div>
+      <div><div class="n" id="cd-m">00</div><div class="u">Min</div></div>
+      <div><div class="n" id="cd-s">00</div><div class="u">Sec</div></div>
+    </div>
+  </section>
+
+  <!-- ================= III ================= -->
+  <section class="pad">
+    <div class="num">
+      <span class="rn">III</span>
+      <span class="fr">La Famille</span>
+      <span class="ko">양가</span>
+    </div>
+
+    <div class="fam">
+      <div class="c">
+        <span class="side">Le Mari&eacute;</span>
+        <p class="par">
+          <b>父</b> 故 손현석<br>
+          <b>母</b> 이수자
+          <span class="who">손규수 <span class="rel">장남</span></span>
+        </p>
+      </div>
+      <div class="c">
+        <span class="side">La Mari&eacute;e</span>
+        <p class="par">
+          <b>父</b> 故 문종문<br>
+          <b>母</b> 최장심
+          <span class="who">문세화 <span class="rel">장녀</span></span>
+        </p>
+      </div>
+    </div>
+
+    <div class="calls">
+      <a href="tel:01040122921">Appeler &middot; 전화</a>
+      <a href="sms:01040122921">Message &middot; 문자</a>
+    </div>
+  </section>
+
+  <!-- ================= IV ================= -->
+  <section class="defile pad">
+    <div class="num">
+      <span class="rn">IV</span>
+      <span class="fr">Le D&eacute;fil&eacute;</span>
+      <span class="ko">두 사람</span>
+    </div>
+    <div class="arches" id="arches"></div>
+    <p class="defile-foot"><span id="defCount">Quatre Passages</span></p>
+  </section>
+
+  <!-- ================= V ================= -->
+  <section class="adr pad">
+    <div class="num">
+      <span class="rn">V</span>
+      <span class="fr">L&rsquo;Adresse</span>
+      <span class="ko">오시는 길</span>
+    </div>
+
+    <p class="name">W Wedding</p>
+    <p class="hall">5층 · 팰리스홀</p>
+    <p class="addr">경상남도 양산시 강변로 438<br>크리스탈타워 5층</p>
+
+    <svg class="map" viewBox="0 0 400 190" role="img" aria-label="양산천과 강변로 옆 크리스탈타워 5층에 있는 예식장 약도">
+      <rect x="0" y="0" width="400" height="190" fill="var(--perle-3)"/>
+      <g stroke="var(--encre-3)" fill="none" stroke-width="0.8">
+        <path d="M0,74 L44,38 L76,62 L102,42 L140,74"/>
+        <path d="M116,74 L158,40 L188,66 L212,48 L248,74"/>
+      </g>
+      <path d="M0,150 C70,142 130,148 200,155 C270,162 340,164 400,159" fill="none" stroke="var(--encre-3)" stroke-width="0.8"/>
+      <text x="34" y="176" font-size="9" fill="var(--encre-3)" font-family="Cormorant, serif" letter-spacing="2.6">YANGSAN RIVER</text>
+
+      <path d="M-8,116 H408" stroke="var(--encre-2)" stroke-width="1.2"/>
+      <path d="M206,116 V156" stroke="var(--encre-3)" stroke-width="0.8"/>
+      <text x="70" y="134" font-size="9" fill="var(--encre-3)" font-family="Cormorant, serif" letter-spacing="2.6">GANGBYEON-RO</text>
+
+      <g transform="translate(302,54)">
+        <path d="M0,-16 L2.6,-2.6 L16,0 L2.6,2.6 L0,16 L-2.6,2.6 L-16,0 L-2.6,-2.6 Z" fill="var(--or)"/>
+        <path d="M0,16 V58" stroke="var(--or)" stroke-width="0.9" stroke-dasharray="3 4"/>
+      </g>
+      <text x="302" y="30" font-size="10" fill="var(--encre)" text-anchor="middle" font-family="Cormorant, serif" letter-spacing="2.6">CRYSTAL TOWER 5F</text>
+    </svg>
+
+    <div class="btns">
+      <a href="https://map.kakao.com/link/search/%EC%96%91%EC%82%B0%20W%EC%9B%A8%EB%94%A9" target="_blank" rel="noopener">Kakao</a>
+      <a href="https://map.naver.com/p/search/%EC%96%91%EC%82%B0%20W%EC%9B%A8%EB%94%A9" target="_blank" rel="noopener">Naver</a>
+      <button type="button" id="addrCopy">Adresse</button>
+    </div>
+  </section>
+
+  <!-- ================= VI ================= -->
+  <section class="voeux pad">
+    <div class="num">
+      <span class="rn">VI</span>
+      <span class="fr">Les V&oelig;ux</span>
+      <span class="ko">축하</span>
+    </div>
+
+    <p class="lead">이 초대장을 열어보신 모든 분이<br>이미 저희 결혼의 축하객입니다.</p>
+
+    <button class="voeux-btn" type="button" id="voeuxBtn">Offrir un muguet</button>
+    <p class="voeux-count" id="voeuxCount" hidden><b>0</b> &nbsp;Brins</p>
+
+    <div class="guest">
+      <input id="guestName" type="text" maxlength="12" placeholder="이름" autocomplete="name">
+      <textarea id="guestMsg" maxlength="120" placeholder="축하 한마디를 남겨주세요"></textarea>
+      <button class="guest-submit" type="button" id="guestSubmit" disabled>Laisser un mot</button>
+      <div class="wall" id="wall"></div>
+      <p class="wall-empty" id="wallEmpty">불러오는 중입니다…</p>
+    </div>
+  </section>
+
+  <!-- ================= VII ================= -->
+  <section class="coeur pad">
+    <div class="num">
+      <span class="rn">VII</span>
+      <span class="fr">Le C&oelig;ur</span>
+      <span class="ko">마음 전하실 곳</span>
+    </div>
+    <p class="lead">참석이 어려우신 분들을 위해<br>계좌번호를 안내드립니다.</p>
+
+    <div class="acct">
+      <div>
+        <div class="side">Le Mari&eacute;</div>
+        <div class="who">손규수 · 부산은행</div>
+        <div class="no">166-12-011157-6</div>
+      </div>
+      <button class="copy" type="button" data-copy="166120111576">Copier</button>
+    </div>
+    <div class="acct">
+      <div>
+        <div class="side">M&egrave;re du Mari&eacute;</div>
+        <div class="who">이수자 · 경남은행</div>
+        <div class="no">679-21-003880-9</div>
+      </div>
+      <button class="copy" type="button" data-copy="679210038809">Copier</button>
+    </div>
+    <div class="acct">
+      <div>
+        <div class="side">La Mari&eacute;e</div>
+        <div class="who">문세화 · NH농협은행</div>
+        <div class="no">302-7203-767751</div>
+      </div>
+      <button class="copy" type="button" data-copy="3027203767751">Copier</button>
+    </div>
+  </section>
+
+  <!-- ================= 맺음 ================= -->
+  <figure class="final">
+    <img src="../q/07.jpg" alt="해 질 무렵 바닷가에서 서로를 바라보는 두 사람" loading="lazy">
+    <figcaption>Le Bonheur</figcaption>
+  </figure>
+
+  <section class="fin pad">
+    <svg class="muguet" viewBox="0 0 58 90" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round">
+      <path d="M29,88 C26,66 27,44 31,18"/>
+      <path d="M27,80 C14,68 10,46 18,28 C24,44 26,64 27,80 Z" fill="currentColor" fill-opacity="0.13"/>
+      <path d="M31,74 C44,63 48,42 41,25 C34,40 31,58 31,74 Z" fill="currentColor" fill-opacity="0.13"/>
+      <g fill="currentColor" fill-opacity="0.85" stroke="none">
+        <ellipse cx="21" cy="28" rx="3.6" ry="4.3"/>
+        <ellipse cx="38" cy="21" rx="3.4" ry="4"/>
+        <ellipse cx="24" cy="42" rx="3.2" ry="3.8"/>
+        <ellipse cx="39" cy="36" rx="3" ry="3.6"/>
+        <ellipse cx="27" cy="56" rx="2.8" ry="3.3"/>
+      </g>
+      <path d="M31,26 L23,28 M32,21 L38,21 M29,42 L25,42 M30,36 L38,36 M28,56 L28,56"/>
+    </svg>
+
+    <p class="lucky">Porte-Bonheur</p>
+    <p>
+      여러분 한 분 한 분의 축하가<br>
+      저희 두 사람의 새로운 시작을 채웁니다.<br>
+      함께해 주셔서 감사합니다.
+    </p>
+    <p class="sig">Gyusoo &amp; Sehwa</p>
+    <p class="sig-ko">손규수 · 문세화 드림</p>
+  </section>
+
+</div>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="사진 크게 보기">
+  <img id="lbImg" src="" alt="">
+  <button class="lb-btn lb-prev" id="lbPrev" type="button" aria-label="이전 사진">&#10094;</button>
+  <button class="lb-btn lb-next" id="lbNext" type="button" aria-label="다음 사진">&#10095;</button>
+  <button class="lb-btn lb-close" id="lbClose" type="button" aria-label="닫기">&#10005;</button>
+  <p class="lb-count" id="lbCount"></p>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function () {
+  var PHOTOS = [
+    { src: '../q/02.jpg', cap: 'Premier',  alt: '한옥 처마 아래 산을 배경으로 선 두 사람' },
+    { src: '../q/03.jpg', cap: 'Deuxième', alt: '나란히 기대어 앉은 두 사람의 가까운 사진' },
+    { src: '../q/04.jpg', cap: 'Troisième', alt: '흰 꽃을 배경으로 선 턱시도와 드레스 차림의 두 사람' },
+    { src: '../q/05.jpg', cap: 'Quatrième', alt: '소파에 나란히 앉아 서로를 바라보는 두 사람' }
+  ];
+  var TOTAL = PHOTOS.length;
+  var WEDDING = new Date(2027, 0, 16, 12, 30, 0);
+  var ADDR = '경상남도 양산시 강변로 438 크리스탈타워 5층';
+  function pad2(n) { return (n < 10 ? '0' : '') + n; }
+  function $(id) { return document.getElementById(id); }
+
+  /* ---------- 커버 ---------- */
+  var cover = $('cover');
+  document.body.classList.add('locked');
+  function enter() {
+    if (cover.classList.contains('gone')) { return; }
+    cover.classList.add('gone');
+    document.body.classList.remove('locked');
+    $('maison').classList.add('opened');
+    setTimeout(function () { cover.setAttribute('hidden', ''); }, 1050);
+  }
+  cover.addEventListener('click', enter);
+  $('enterBtn').addEventListener('click', function (e) { e.stopPropagation(); enter(); });
+
+  /* ---------- 카운트다운 ---------- */
+  var row = $('countRow'), timer;
+  function tick() {
+    var diff = WEDDING - new Date();
+    if (diff <= 0) {
+      row.innerHTML = '<p class="count-done">Le Jour J</p>';
+      clearInterval(timer);
+      return;
+    }
+    var s = Math.floor(diff / 1000);
+    $('cd-d').textContent = Math.floor(s / 86400);
+    $('cd-h').textContent = pad2(Math.floor(s / 3600) % 24);
+    $('cd-m').textContent = pad2(Math.floor(s / 60) % 60);
+    $('cd-s').textContent = pad2(s % 60);
+  }
+  tick();
+  timer = setInterval(tick, 1000);
+
+  /* ---------- 아치 ---------- */
+  var arches = $('arches'), html = '';
+  for (var n = 0; n < TOTAL; n++) {
+    var ph = PHOTOS[n];
+    html += '<button class="arch" type="button" data-i="' + n + '" aria-label="' + ph.cap + ' — 사진 크게 보기">' +
+      '<span class="win"><img src="' + ph.src + '" alt="' + ph.alt + '" decoding="async"></span>' +
+      '<span class="t">' + ph.cap + '</span></button>';
+  }
+  arches.innerHTML = html;
+
+  var lb = $('lightbox'), lbImg = $('lbImg'), cur = 0, lastFocus = null;
+  function show(n) {
+    cur = (n + TOTAL) % TOTAL;
+    lbImg.src = PHOTOS[cur].src;
+    lbImg.alt = PHOTOS[cur].alt;
+    $('lbCount').textContent = PHOTOS[cur].cap + ' — ' + (cur + 1) + ' / ' + TOTAL;
+  }
+  function openLb(n) {
+    lastFocus = document.activeElement;
+    show(n);
+    lb.classList.add('on');
+    document.body.classList.add('locked');
+    $('lbClose').focus();
+  }
+  function closeLb() {
+    lb.classList.remove('on');
+    document.body.classList.remove('locked');
+    if (lastFocus && lastFocus.focus) { lastFocus.focus(); }
+  }
+  arches.addEventListener('click', function (e) {
+    var b = e.target.closest('button[data-i]');
+    if (b) { openLb(parseInt(b.getAttribute('data-i'), 10)); }
+  });
+  $('lbPrev').addEventListener('click', function () { show(cur - 1); });
+  $('lbNext').addEventListener('click', function () { show(cur + 1); });
+  $('lbClose').addEventListener('click', closeLb);
+  lb.addEventListener('click', function (e) { if (e.target === lb) { closeLb(); } });
+  document.addEventListener('keydown', function (e) {
+    if (!lb.classList.contains('on')) { return; }
+    if (e.key === 'Escape') { closeLb(); }
+    else if (e.key === 'ArrowLeft') { show(cur - 1); }
+    else if (e.key === 'ArrowRight') { show(cur + 1); }
+  });
+  var x0 = null;
+  lb.addEventListener('touchstart', function (e) { x0 = e.changedTouches[0].clientX; }, { passive: true });
+  lb.addEventListener('touchend', function (e) {
+    if (x0 === null) { return; }
+    var dx = e.changedTouches[0].clientX - x0;
+    if (Math.abs(dx) > 45) { show(dx < 0 ? cur + 1 : cur - 1); }
+    x0 = null;
+  }, { passive: true });
+
+  /* ---------- 복사 ---------- */
+  var toast = $('toast'), toastTimer;
+  function say(msg) {
+    toast.textContent = msg;
+    toast.classList.add('on');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { toast.classList.remove('on'); }, 2000);
+  }
+  function copyText(text, btn) {
+    function done() {
+      say('복사되었습니다');
+      if (btn && btn.classList.contains('copy')) {
+        var t = btn.textContent;
+        btn.textContent = 'Copié';
+        btn.classList.add('done');
+        setTimeout(function () { btn.textContent = t; btn.classList.remove('done'); }, 1400);
+      }
+    }
+    function fallback() {
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      var ok = false;
+      try { ok = document.execCommand('copy'); } catch (err) { ok = false; }
+      document.body.removeChild(ta);
+      if (ok) { done(); } else { say('복사가 막혀 있어요. 길게 눌러 복사해 주세요'); }
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done, fallback);
+    } else { fallback(); }
+  }
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest ? e.target.closest('[data-copy]') : null;
+    if (b) { copyText(b.getAttribute('data-copy'), b); }
+  });
+  $('addrCopy').addEventListener('click', function () { copyText(ADDR, null); });
+
+  /* ---------- 은방울꽃 ---------- */
+  function bells() {
+    if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) { return; }
+    var tones = ['#FBFAF8', '#E4E3DF', '#B29654', '#74866A'];
+    for (var i = 0; i < 26; i++) {
+      var p = document.createElement('div');
+      p.className = 'bell';
+      var w = 6 + Math.random() * 6;
+      p.style.width = w + 'px';
+      p.style.height = (w * 1.2) + 'px';
+      p.style.left = (Math.random() * 100) + 'vw';
+      p.style.background = tones[i % tones.length];
+      p.style.boxShadow = '0 1px 4px rgba(28,28,26,0.22)';
+      p.style.opacity = '0.95';
+      document.body.appendChild(p);
+      var drift = (Math.random() * 120 - 60);
+      var anim = p.animate([
+        { transform: 'translate(0,0) rotate(0deg)', opacity: 0.95 },
+        { transform: 'translate(' + drift + 'px,' + (window.innerHeight + 40) + 'px) rotate(' + (120 + Math.random() * 260) + 'deg)', opacity: 0.8 }
+      ], { duration: 2600 + Math.random() * 1700, easing: 'cubic-bezier(.35,.5,.5,1)' });
+      anim.onfinish = function () { this.effect.target.remove(); };
+    }
+  }
+
+  /* ---------- 축하 · 방명록 ---------- */
+  var voeuxBtn = $('voeuxBtn'), voeuxCount = $('voeuxCount');
+  var wall = $('wall'), wallEmpty = $('wallEmpty');
+  var nameEl = $('guestName'), msgEl = $('guestMsg'), submit = $('guestSubmit');
+  var db = null, sending = false;
+
+  voeuxBtn.addEventListener('click', function () {
+    bells();
+    if (!db) { say('축하 감사합니다'); return; }
+    var ref = db.doc('state/meta');
+    ref.get().then(function (snap) {
+      var v = (snap.exists && snap.data() && Number(snap.data().brins)) || 0;
+      return ref.set({ brins: v + 1 });
+    }).catch(function () { say('잠시 후 다시 시도해 주세요'); });
+  });
+
+  function esc(s) {
+    return String(s).replace(/[<>&]/g, function (c) { return { '<': '&lt;', '>': '&gt;', '&': '&amp;' }[c]; });
+  }
+  function renderWall(docs) {
+    if (!docs.length) {
+      wall.innerHTML = '';
+      wallEmpty.textContent = '첫 축하 메시지를 남겨주세요.';
+      wallEmpty.hidden = false;
+      return;
+    }
+    wallEmpty.hidden = true;
+    wall.innerHTML = docs.map(function (d) {
+      var v = d.data() || {};
+      return '<div class="slip"><span class="who">' + esc(v.name || '익명') + '</span>' + esc(v.msg || '') + '</div>';
+    }).join('');
+  }
+  function checkForm() { submit.disabled = !db || sending || !msgEl.value.trim(); }
+  nameEl.addEventListener('input', checkForm);
+  msgEl.addEventListener('input', checkForm);
+
+  submit.addEventListener('click', function () {
+    if (!db || sending || !msgEl.value.trim()) { return; }
+    sending = true;
+    checkForm();
+    db.collection('notes').add({
+      name: nameEl.value.trim().slice(0, 12) || '익명',
+      msg: msgEl.value.trim().slice(0, 120),
+      at: Date.now()
+    }).then(function () {
+      msgEl.value = '';
+      say('축하를 남겼습니다');
+      bells();
+    }, function () {
+      say('등록에 실패했어요. 잠시 후 다시 시도해 주세요');
+    }).then(function () {
+      sending = false;
+      checkForm();
+    });
+  });
+
+  function noStore() {
+    submit.disabled = true;
+    nameEl.disabled = true;
+    msgEl.disabled = true;
+    msgEl.placeholder = '방명록은 공유된 초대장에서 남길 수 있습니다';
+    wallEmpty.textContent = '방명록은 공유된 초대장에서 열립니다.';
+    wallEmpty.hidden = false;
+  }
+
+  if (window.claude && window.claude.use) {
+    window.claude.use('db').then(function (store) {
+      if (!store) { noStore(); return; }
+      db = store;
+      checkForm();
+      db.doc('state/meta').onSnapshot(function (snap) {
+        var v = (snap.exists && snap.data() && Number(snap.data().brins)) || 0;
+        voeuxCount.innerHTML = '<b>' + v + '</b> &nbsp;Brins';
+        voeuxCount.hidden = false;
+      }, function () {});
+      db.collection('notes').orderBy('at', 'desc').limit(30)
+        .onSnapshot(function (snap) { renderWall(snap.docs); }, function () { noStore(); });
+    }, noStore);
+  } else {
+    noStore();
+  }
+})();
+</script>
+<!--#artifact-end-->
+</body>
+</html>
