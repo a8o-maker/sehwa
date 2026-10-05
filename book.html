@@ -11,18 +11,17 @@
 <style>
   :root {
     --desk: #232C2E;
-    --desk-2: #19201F;
     --paper: #FBF6EA;
     --paper-2: #F3EBD9;
     --edge: #E3D8C0;
     --ink: #221E18;
     --ink-2: #5A5347;
     --ink-3: #8E8574;
-    --wine: #8E2E3F;
     --gold: #B08C44;
     --cloth: #2E4034;
     --rule: rgba(34, 30, 24, 0.18);
     --rule-2: rgba(34, 30, 24, 0.1);
+    --ac: #8E2E3F;
   }
 
   * { box-sizing: border-box; }
@@ -38,113 +37,146 @@
     -webkit-text-size-adjust: 100%;
   }
 
-  /* ---------- 책상 위의 책 ---------- */
-  .desk {
-    position: fixed; inset: 0 0 92px 0;
-    display: flex; align-items: center; justify-content: center;
-    padding: 18px 16px;
-    perspective: 1900px;
-  }
-  .book {
-    position: relative;
-    width: min(420px, 100%);
-    height: min(660px, 100%);
-    box-shadow: 0 26px 60px rgba(0, 0, 0, 0.5);
-  }
-  .ribbon {
-    position: absolute; top: 0; right: 34px; bottom: -34px; width: 15px; z-index: 0;
-    background: linear-gradient(90deg, #6E2231, var(--wine) 45%, #6E2231);
-  }
-  .ribbon::after {
-    content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 13px;
-    background: var(--desk);
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 58%, 0 100%);
-  }
+  /* ---------- 책 ---------- */
+  .desk { position: fixed; inset: 0 0 92px 0; display: flex; align-items: center; justify-content: center; padding: 18px 16px; perspective: 1900px; }
+  .book { position: relative; width: min(420px, 100%); height: min(660px, 100%); box-shadow: 0 26px 60px rgba(0, 0, 0, 0.5); }
+  .ribbon { position: absolute; top: 0; right: 34px; bottom: -34px; width: 15px; z-index: 0; background: linear-gradient(90deg, #6E2231, #8E2E3F 45%, #6E2231); }
+  .ribbon::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 13px; background: var(--desk); clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 58%, 0 100%); }
 
-  .leaf {
-    position: absolute; inset: 0;
-    transform-origin: left center;
-    transform-style: preserve-3d;
-    transition: transform 0.85s cubic-bezier(0.3, 0.06, 0.2, 1);
-  }
+  .leaf { position: absolute; inset: 0; transform-origin: left center; transform-style: preserve-3d; transition: transform 0.85s cubic-bezier(0.3, 0.06, 0.2, 1); }
   .leaf.turned { transform: rotateY(-179deg); }
 
   .side {
-    position: absolute; inset: 0;
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
-    background: var(--paper);
-    overflow-y: auto;
-    overscroll-behavior: contain;
-    padding: 30px 26px 42px;
-    display: flex; flex-direction: column;
+    position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden;
+    background: var(--paper); overflow-y: auto; overscroll-behavior: contain;
+    padding: 28px 24px 40px; display: flex; flex-direction: column;
   }
   .side.front { box-shadow: inset 16px 0 26px -18px rgba(34, 30, 24, 0.5); }
-  .side.back { transform: rotateY(180deg); box-shadow: inset -16px 0 26px -18px rgba(34, 30, 24, 0.45); background: var(--paper-2); }
+  .side.back { transform: rotateY(180deg); background: var(--paper-2); box-shadow: inset -16px 0 26px -18px rgba(34, 30, 24, 0.45); }
   .side::-webkit-scrollbar { width: 0; }
-
-  .pno {
-    margin-top: auto; padding-top: 22px; text-align: center;
-    font-family: "Spectral", serif; font-size: 0.68rem; letter-spacing: 0.3em; color: var(--ink-3);
+  /* 색깔 책등 탭 */
+  .side.front::after {
+    content: ""; position: absolute; right: 0; width: 7px; height: 58px;
+    top: var(--tab, 60px); background: var(--ac); opacity: 0.9;
   }
+
+  .pno { margin-top: auto; padding-top: 20px; text-align: center; font-family: "Spectral", serif; font-size: 0.66rem; letter-spacing: 0.3em; color: var(--ac); }
   .back .mark { margin: auto; text-align: center; color: var(--edge); font-size: 1.6rem; letter-spacing: 0.5em; }
 
   /* 표지 */
   .cover {
     background: var(--cloth);
-    background-image:
-      repeating-linear-gradient(0deg, rgba(255,255,255,0.035) 0 1px, transparent 1px 3px),
-      repeating-linear-gradient(90deg, rgba(255,255,255,0.035) 0 1px, transparent 1px 3px);
-    color: var(--paper);
-    text-align: center;
-    justify-content: center;
-    padding: 40px 28px;
+    background-image: repeating-linear-gradient(0deg, rgba(255,255,255,0.035) 0 1px, transparent 1px 3px), repeating-linear-gradient(90deg, rgba(255,255,255,0.035) 0 1px, transparent 1px 3px);
+    color: var(--paper); text-align: center; justify-content: center; padding: 40px 26px;
     box-shadow: inset 16px 0 30px -18px rgba(0,0,0,0.7);
+    overflow: hidden;
   }
-  .cover .frame { border: 1px solid rgba(176, 140, 68, 0.6); padding: 34px 20px; }
+  .cover::after { display: none; }
+  .cover .frame { border: 1px solid rgba(176, 140, 68, 0.6); padding: 32px 18px; position: relative; }
   .cover .kick { font-family: "Spectral", serif; text-transform: uppercase; letter-spacing: 0.42em; font-size: 0.6rem; color: var(--gold); margin: 0; }
   .cover .nm {
     font-family: "Spectral", serif; font-weight: 400; text-transform: uppercase;
-    font-size: clamp(1.8rem, 8.6vw, 2.25rem); letter-spacing: 0.14em; line-height: 1.22; margin: 20px 0 0; text-indent: 0.14em;
-    color: var(--gold);
+    font-size: clamp(1.8rem, 8.6vw, 2.25rem); letter-spacing: 0.14em; line-height: 1.22; margin: 18px 0 0; text-indent: 0.14em;
+    background: linear-gradient(100deg, #8E6B2C 0%, #E6CB86 38%, #FFF2C8 48%, #E6CB86 58%, #8E6B2C 100%);
+    background-size: 280% 100%;
+    -webkit-background-clip: text; background-clip: text; color: transparent;
   }
-  .cover .nm i { display: block; font-style: italic; text-transform: lowercase; font-size: 0.45em; letter-spacing: 0.22em; color: rgba(251, 246, 234, 0.75); }
+  .cover .nm i { display: block; font-style: italic; text-transform: lowercase; font-size: 0.45em; letter-spacing: 0.22em; -webkit-text-fill-color: rgba(251, 246, 234, 0.78); }
+  @media (prefers-reduced-motion: no-preference) {
+    .cover .nm { animation: shine 7s ease-in-out infinite; }
+    @keyframes shine { 0%, 100% { background-position: 100% 0; } 50% { background-position: 0 0; } }
+  }
   .cover .ko { font-size: 0.95rem; letter-spacing: 0.28em; color: rgba(251, 246, 234, 0.9); margin: 16px 0 0; }
   .cover .line { width: 46px; height: 1px; background: var(--gold); margin: 20px auto; }
   .cover .dt { font-family: "Spectral", serif; letter-spacing: 0.24em; font-size: 0.8rem; color: rgba(251, 246, 234, 0.82); margin: 0; }
-  .cover .open { margin-top: 26px; font-size: 0.8rem; letter-spacing: 0.18em; color: rgba(251, 246, 234, 0.5); }
-
-  /* 속장 공통 */
-  .head {
-    font-family: "Spectral", serif; text-transform: uppercase; letter-spacing: 0.3em;
-    font-size: 0.66rem; color: var(--ink-3); margin: 0 0 6px;
+  .cover .open { margin-top: 24px; font-size: 0.8rem; letter-spacing: 0.18em; color: rgba(251, 246, 234, 0.55); }
+  .cover .petal2 { position: absolute; width: 9px; height: 7px; border-radius: 50% 0 50% 0; background: rgba(176,140,68,0.5); pointer-events: none; }
+  @media (prefers-reduced-motion: no-preference) {
+    .cover .petal2 { animation: drift 9s linear infinite; }
+    @keyframes drift { from { transform: translateY(-20px) rotate(0); opacity: 0; } 12% { opacity: 0.9; } 90% { opacity: 0.6; } to { transform: translateY(620px) rotate(420deg); opacity: 0; } }
   }
-  .ttl { font-size: 1.12rem; margin: 0 0 18px; letter-spacing: 0.04em; }
-  .ttl::after { content: ""; display: block; width: 26px; height: 1px; background: var(--gold); margin-top: 12px; }
 
-  .hand { font-family: "Nanum Pen Script", cursive; font-size: 1.5rem; line-height: 1.8; color: var(--ink-2); margin: 0; }
-  .sign { font-family: "Nanum Pen Script", cursive; font-size: 1.35rem; text-align: right; margin: 20px 0 0; color: var(--wine); }
+  /* 속장 머리 */
+  .head { display: flex; align-items: center; gap: 8px; margin: 0 0 4px; }
+  .head svg { width: 19px; height: 19px; color: var(--ac); flex: 0 0 auto; }
+  .head span { font-family: "Spectral", serif; text-transform: uppercase; letter-spacing: 0.28em; font-size: 0.62rem; color: var(--ink-3); }
+  .ttl { font-size: 1.12rem; margin: 0 0 16px; letter-spacing: 0.04em; }
+  .ttl::after { content: ""; display: block; width: 28px; height: 2px; background: var(--ac); margin-top: 11px; }
 
+  /* 들어오는 움직임 */
+  @media (prefers-reduced-motion: no-preference) {
+    .side.live > * { animation: rise 0.55s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+    .side.live > *:nth-child(1) { animation-delay: 0.06s; }
+    .side.live > *:nth-child(2) { animation-delay: 0.13s; }
+    .side.live > *:nth-child(3) { animation-delay: 0.2s; }
+    .side.live > *:nth-child(4) { animation-delay: 0.27s; }
+    .side.live > *:nth-child(5) { animation-delay: 0.34s; }
+    .side.live > *:nth-child(6) { animation-delay: 0.41s; }
+    .side.live > *:nth-child(7) { animation-delay: 0.48s; }
+    @keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+  }
+
+  /* ---------- 영상 ---------- */
+  .film { position: relative; width: 100%; aspect-ratio: 3 / 4; overflow: hidden; background: #111; border: 1px solid var(--rule); }
+  .frame { position: absolute; inset: 0; opacity: 0; transition: opacity 1.1s ease; }
+  .frame.on { opacity: 1; }
+  .frame img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  @media (prefers-reduced-motion: no-preference) {
+    .frame.on.k0 img { animation: k0 5600ms ease-out forwards; }
+    .frame.on.k1 img { animation: k1 5600ms ease-out forwards; }
+    .frame.on.k2 img { animation: k2 5600ms ease-out forwards; }
+    .frame.on.k3 img { animation: k3 5600ms ease-out forwards; }
+    @keyframes k0 { from { transform: scale(1.02); } to { transform: scale(1.17) translate(-2%, -2.5%); } }
+    @keyframes k1 { from { transform: scale(1.18) translate(2%, 2%); } to { transform: scale(1.02); } }
+    @keyframes k2 { from { transform: scale(1.04) translate(2.5%, 0); } to { transform: scale(1.19) translate(-2%, 1.5%); } }
+    @keyframes k3 { from { transform: scale(1.2) translate(-2%, 2%); } to { transform: scale(1.04) translate(1.5%, -1%); } }
+  }
+  .film .veil { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(to top, rgba(17,17,17,0.72) 0%, rgba(17,17,17,0) 38%); }
+  .film .cap {
+    position: absolute; left: 14px; right: 14px; bottom: 26px; margin: 0;
+    font-family: "Nanum Pen Script", cursive; font-size: 1.3rem; color: #FBF6EA;
+    text-shadow: 0 1px 10px rgba(0,0,0,0.7); transition: opacity 0.5s ease;
+  }
+  .film .prog { position: absolute; left: 0; right: 0; bottom: 0; height: 3px; background: rgba(251,246,234,0.22); }
+  .film .prog i { display: block; height: 100%; width: 0; background: var(--ac); }
+  .film-bar { display: flex; align-items: center; gap: 10px; margin-top: 12px; }
+  .film-bar button { border: 1px solid var(--rule); background: none; color: var(--ink-2); font-family: inherit; font-size: 0.84rem; padding: 0.4rem 0.9rem; cursor: pointer; }
+  .film-bar button:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .film-bar .dots { display: flex; gap: 6px; margin-left: auto; }
+  .film-bar .dots i { width: 6px; height: 6px; border-radius: 50%; background: var(--rule); }
+  .film-bar .dots i.on { background: var(--ac); }
+
+  /* 앨범 */
   .shots { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
-  .pola { border: 0; padding: 7px 7px 26px; background: var(--paper-2); box-shadow: 0 6px 14px rgba(34,30,24,0.2); cursor: pointer; position: relative; }
-  .pola img { display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; filter: saturate(0.84) contrast(1.03); }
-  .pola span { position: absolute; left: 7px; right: 7px; bottom: 6px; text-align: center; font-family: "Nanum Pen Script", cursive; font-size: 1rem; color: var(--ink-2); }
+  .pola { border: 0; padding: 7px 7px 24px; background: var(--paper-2); box-shadow: 0 6px 14px rgba(34,30,24,0.2); cursor: pointer; position: relative; transition: transform 0.3s ease; }
+  .pola:hover { transform: translateY(-3px); }
+  .pola img { display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
+  .pola span { position: absolute; left: 7px; right: 7px; bottom: 5px; text-align: center; font-family: "Nanum Pen Script", cursive; font-size: 0.98rem; color: var(--ink-2); }
 
+  /* 공통 본문 */
+  .hand { font-family: "Nanum Pen Script", cursive; font-size: 1.5rem; line-height: 1.8; color: var(--ink-2); margin: 0; }
+  .sign { font-family: "Nanum Pen Script", cursive; font-size: 1.35rem; text-align: right; margin: 18px 0 0; color: var(--ac); }
   .big { font-family: "Spectral", serif; font-size: 1.42rem; letter-spacing: 0.06em; margin: 0 0 2px; }
-  .sm { font-size: 0.88rem; color: var(--ink-3); margin: 0 0 16px; }
+  .sm { font-size: 0.86rem; color: var(--ink-3); margin: 0 0 14px; }
   table.cal { width: 100%; border-collapse: collapse; }
   table.cal th { font-family: "Spectral", serif; font-size: 0.68rem; font-weight: 400; letter-spacing: 0.1em; color: var(--ink-3); padding-bottom: 6px; border-bottom: 1px solid var(--rule); }
   table.cal td { font-family: "Spectral", serif; text-align: center; font-size: 0.9rem; color: var(--ink-2); padding: 4px 0; }
-  table.cal .mk { display: inline-flex; align-items: center; justify-content: center; width: 1.85rem; height: 1.85rem; border-radius: 50%; background: var(--wine); color: #fff; }
+  table.cal .mk { display: inline-flex; align-items: center; justify-content: center; width: 1.85rem; height: 1.85rem; border-radius: 50%; background: var(--ac); color: #fff; }
+  @media (prefers-reduced-motion: no-preference) {
+    .live table.cal .mk { animation: beat 2.6s ease-in-out 0.7s infinite; }
+    @keyframes beat { 0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(42,74,123,0.5); } 50% { transform: scale(1.1); box-shadow: 0 0 0 8px rgba(42,74,123,0); } }
+  }
   .cnt { display: flex; margin-top: 16px; border-top: 1px solid var(--rule-2); padding-top: 13px; }
   .cnt div { flex: 1; text-align: center; }
   .cnt .n { font-family: "Spectral", serif; font-size: 1.22rem; line-height: 1.2; }
+  .cnt .n.tick { animation: pop 0.4s ease-out; }
+  @keyframes pop { from { transform: scale(1.22); color: var(--ac); } to { transform: scale(1); } }
   .cnt .u { font-family: "Spectral", serif; text-transform: uppercase; font-size: 0.54rem; letter-spacing: 0.18em; color: var(--ink-3); }
-  .cnt-done { margin: 14px 0 0; font-size: 1rem; color: var(--wine); text-align: center; }
+  .cnt-done { margin: 14px 0 0; font-size: 1rem; color: var(--ac); text-align: center; }
 
   .fam { display: grid; grid-template-columns: 1fr 1fr; gap: 0 13px; }
   .fam .c + .c { border-left: 1px solid var(--rule-2); padding-left: 13px; }
-  .fam .side2 { font-family: "Spectral", serif; text-transform: uppercase; letter-spacing: 0.22em; font-size: 0.6rem; color: var(--gold); }
+  .fam .side2 { font-family: "Spectral", serif; text-transform: uppercase; letter-spacing: 0.22em; font-size: 0.6rem; color: var(--ac); }
   .fam .par { font-size: 0.86rem; color: var(--ink-3); line-height: 1.95; margin: 5px 0 0; }
   .fam .par b { font-weight: 400; color: var(--ink-2); }
   .fam .who { display: block; margin-top: 6px; font-size: 1.02rem; color: var(--ink); }
@@ -152,82 +184,69 @@
   .tel { display: flex; margin-top: 18px; border: 1px solid var(--rule); }
   .tel a { flex: 1; text-align: center; padding: 0.6rem 0.3rem; font-size: 0.85rem; color: var(--ink-2); text-decoration: none; }
   .tel a + a { border-left: 1px solid var(--rule); }
-  .tel a:hover, .tel a:focus-visible { background: var(--ink); color: var(--paper); }
+  .tel a:hover, .tel a:focus-visible { background: var(--ac); color: var(--paper); }
 
-  .loc .nm2 { font-size: 1.06rem; margin: 0; }
-  .loc .ad { font-size: 0.86rem; color: var(--ink-3); margin: 3px 0 14px; line-height: 1.75; }
-  .loc svg { display: block; width: 100%; height: auto; border: 1px solid var(--rule); }
+  .nm2 { font-size: 1.06rem; margin: 0; }
+  .ad { font-size: 0.86rem; color: var(--ink-3); margin: 3px 0 13px; line-height: 1.75; }
+  .mapsvg { display: block; width: 100%; height: auto; border: 1px solid var(--rule); }
+  @media (prefers-reduced-motion: no-preference) {
+    .live .route { stroke-dasharray: 3 7; animation: walk 3.2s linear infinite; }
+    @keyframes walk { to { stroke-dashoffset: -40; } }
+  }
   .mbtn { display: flex; margin-top: 12px; border: 1px solid var(--rule); }
   .mbtn > * { flex: 1; text-align: center; padding: 0.6rem 0.3rem; font-size: 0.84rem; color: var(--ink-2); text-decoration: none; background: none; border: 0; cursor: pointer; font-family: inherit; }
   .mbtn > * + * { border-left: 1px solid var(--rule); }
-  .mbtn > *:hover, .mbtn > *:focus-visible { background: var(--ink); color: var(--paper); }
+  .mbtn > *:hover, .mbtn > *:focus-visible { background: var(--ac); color: var(--paper); }
 
-  .acct { display: flex; align-items: center; justify-content: space-between; gap: 11px; padding: 0.75rem 0; border-top: 1px solid var(--rule-2); }
+  .acct { display: flex; align-items: center; justify-content: space-between; gap: 11px; padding: 0.72rem 0; border-top: 1px solid var(--rule-2); }
   .acct:last-of-type { border-bottom: 1px solid var(--rule-2); }
-  .acct .sd { font-family: "Spectral", serif; text-transform: uppercase; letter-spacing: 0.2em; font-size: 0.56rem; color: var(--gold); }
+  .acct .sd { font-family: "Spectral", serif; text-transform: uppercase; letter-spacing: 0.2em; font-size: 0.56rem; color: var(--ac); }
   .acct .wh { font-size: 0.93rem; }
   .acct .no { font-family: "Spectral", serif; font-size: 0.85rem; color: var(--ink-3); }
   .cp { flex-shrink: 0; border: 1px solid var(--rule); background: none; color: var(--ink-2); font-family: inherit; font-size: 0.76rem; padding: 0.28rem 0.7rem; cursor: pointer; }
-  .cp:hover, .cp.done { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .cp:hover, .cp.done { background: var(--ac); color: var(--paper); border-color: var(--ac); }
 
-  .lead { font-size: 0.89rem; color: var(--ink-3); margin: 0 0 15px; line-height: 1.9; }
-  .vbtn { width: 100%; border: 1px solid var(--wine); background: none; color: var(--wine); font-family: inherit; font-size: 0.95rem; padding: 0.65rem; cursor: pointer; }
-  .vbtn:hover { background: var(--wine); color: var(--paper); }
+  .lead { font-size: 0.88rem; color: var(--ink-3); margin: 0 0 14px; line-height: 1.9; }
+  .vbtn { width: 100%; border: 1px solid var(--ac); background: none; color: var(--ac); font-family: inherit; font-size: 0.95rem; padding: 0.65rem; cursor: pointer; }
+  .vbtn:hover { background: var(--ac); color: var(--paper); }
   .vcount { margin: 9px 0 0; text-align: center; font-size: 0.78rem; color: var(--ink-3); }
-  .vcount b { color: var(--wine); font-size: 0.98rem; }
-  .book-form input, .book-form textarea {
-    width: 100%; font-family: inherit; font-size: 0.88rem; color: var(--ink);
-    border: 0; border-bottom: 1px solid var(--rule); background: none; padding: 0.42rem 0.1rem; border-radius: 0;
-  }
-  .book-form textarea { resize: none; height: 54px; margin-top: 5px; }
-  .book-form input::placeholder, .book-form textarea::placeholder { color: var(--ink-3); }
-  .book-form input:focus, .book-form textarea:focus { outline: 0; border-bottom-color: var(--wine); }
+  .vcount b { color: var(--ac); font-size: 0.98rem; }
+  .bform input, .bform textarea { width: 100%; font-family: inherit; font-size: 0.88rem; color: var(--ink); border: 0; border-bottom: 1px solid var(--rule); background: none; padding: 0.42rem 0.1rem; border-radius: 0; }
+  .bform textarea { resize: none; height: 54px; margin-top: 5px; }
+  .bform input::placeholder, .bform textarea::placeholder { color: var(--ink-3); }
+  .bform input:focus, .bform textarea:focus { outline: 0; border-bottom-color: var(--ac); }
   .vsub { margin-top: 11px; width: 100%; border: 0; background: var(--ink); color: var(--paper); font-family: inherit; font-size: 0.88rem; padding: 0.58rem; cursor: pointer; }
   .vsub[disabled] { opacity: 0.3; cursor: default; }
   .wall { margin-top: 13px; }
   .slip { border-top: 1px solid var(--rule-2); padding: 0.55rem 0; font-size: 0.86rem; line-height: 1.7; color: var(--ink-2); word-break: break-word; }
-  .slip .who { display: block; font-family: "Spectral", serif; text-transform: uppercase; letter-spacing: 0.18em; font-size: 0.6rem; color: var(--gold); }
+  .slip .who { display: block; font-family: "Spectral", serif; text-transform: uppercase; letter-spacing: 0.18em; font-size: 0.6rem; color: var(--ac); }
   .wall-empty { font-size: 0.84rem; color: var(--ink-3); margin: 11px 0 0; }
 
   .fin { text-align: center; justify-content: center; }
   .fin p { font-size: 0.96rem; line-height: 2.05; color: var(--ink-2); margin: 0; }
-  .fin .sg { margin-top: 22px; font-family: "Spectral", serif; text-transform: uppercase; letter-spacing: 0.24em; font-size: 0.95rem; color: var(--ink); }
+  .fin .sg { margin-top: 20px; font-family: "Spectral", serif; text-transform: uppercase; letter-spacing: 0.24em; font-size: 0.95rem; color: var(--ink); }
   .fin .sg-ko { margin-top: 5px; font-size: 0.85rem; letter-spacing: 0.12em; color: var(--ink-3); }
+  .fin .wreath { width: 62px; height: 62px; margin: 0 auto 10px; color: var(--ac); }
 
   /* ---------- 아래 조작부 ---------- */
-  .bar {
-    position: fixed; left: 0; right: 0; bottom: 0; z-index: 40;
-    height: 92px; display: flex; align-items: center; gap: 10px;
-    padding: 0 14px calc(0px + env(safe-area-inset-bottom, 0px));
-    background: linear-gradient(to top, rgba(22, 28, 29, 0.98), rgba(22, 28, 29, 0.84) 72%, rgba(22, 28, 29, 0));
-  }
-  .bar button {
-    border: 1px solid rgba(251, 246, 234, 0.3); background: rgba(251, 246, 234, 0.06);
-    color: rgba(251, 246, 234, 0.92); font-family: inherit; font-size: 0.9rem;
-    padding: 0.6rem 0.9rem; cursor: pointer; min-width: 52px;
-  }
+  .bar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 40; height: 92px; display: flex; align-items: center; gap: 10px; padding: 0 14px calc(0px + env(safe-area-inset-bottom, 0px)); background: linear-gradient(to top, rgba(22, 28, 29, 0.98), rgba(22, 28, 29, 0.84) 72%, rgba(22, 28, 29, 0)); }
+  .bar button { border: 1px solid rgba(251, 246, 234, 0.3); background: rgba(251, 246, 234, 0.06); color: rgba(251, 246, 234, 0.92); font-family: inherit; font-size: 0.9rem; padding: 0.6rem 0.9rem; cursor: pointer; min-width: 52px; }
   .bar button:hover:not([disabled]) { background: var(--paper); color: var(--desk); border-color: var(--paper); }
   .bar button[disabled] { opacity: 0.28; cursor: default; }
   .bar .mid { flex: 1; text-align: center; }
   .bar .ttl2 { display: block; color: var(--paper); font-size: 0.93rem; letter-spacing: 0.08em; }
   .bar .idx { display: block; font-family: "Spectral", serif; font-size: 0.68rem; letter-spacing: 0.2em; color: rgba(251, 246, 234, 0.5); }
 
-  /* 목차 */
   .menu { position: fixed; inset: 0; z-index: 60; background: rgba(22, 28, 29, 0.97); display: none; padding: 26px 18px; overflow-y: auto; }
   .menu.on { display: block; }
   .menu h2 { font-family: "Spectral", serif; text-transform: uppercase; letter-spacing: 0.3em; font-size: 0.68rem; color: rgba(251,246,234,0.5); margin: 0 0 18px; text-align: center; }
   .menu ol { list-style: none; margin: 0 auto; padding: 0; max-width: 360px; }
   .menu li + li { margin-top: 7px; }
-  .menu li button {
-    width: 100%; display: flex; align-items: baseline; gap: 12px; text-align: left;
-    border: 1px solid rgba(251, 246, 234, 0.2); background: none; color: var(--paper);
-    font-family: inherit; font-size: 0.98rem; padding: 0.7rem 1rem; cursor: pointer;
-  }
+  .menu li button { width: 100%; display: flex; align-items: baseline; gap: 12px; text-align: left; border: 1px solid rgba(251, 246, 234, 0.2); border-left: 4px solid var(--c); background: none; color: var(--paper); font-family: inherit; font-size: 0.98rem; padding: 0.7rem 1rem; cursor: pointer; }
   .menu li button:hover { background: var(--paper); color: var(--desk); }
-  .menu li .n { font-family: "Spectral", serif; font-size: 0.74rem; letter-spacing: 0.16em; color: var(--gold); }
+  .menu li .n { font-family: "Spectral", serif; font-size: 0.74rem; letter-spacing: 0.16em; color: var(--c); }
   .menu .close { display: block; margin: 20px auto 0; border: 0; background: none; color: rgba(251,246,234,0.6); font-family: inherit; font-size: 0.9rem; cursor: pointer; }
 
-  /* ---------- 라이트박스 · 토스트 ---------- */
   .lightbox { position: fixed; inset: 0; background: rgba(16, 20, 20, 0.97); display: none; align-items: center; justify-content: center; z-index: 90; padding: 16px; }
   .lightbox.on { display: flex; }
   .lightbox img { max-width: 100%; max-height: 80vh; width: auto; object-fit: contain; }
@@ -237,21 +256,12 @@
   .lb-close { right: 12px; top: 12px; }
   .lb-count { position: absolute; bottom: 22px; left: 0; right: 0; text-align: center; color: var(--paper); font-family: "Spectral", serif; letter-spacing: 0.2em; font-size: 0.8rem; }
 
-  .toast {
-    position: fixed; left: 50%; bottom: 108px; transform: translateX(-50%) translateY(10px);
-    background: var(--paper); color: var(--ink); font-size: 0.85rem;
-    padding: 0.55rem 1.1rem; opacity: 0; pointer-events: none; transition: 0.24s ease; z-index: 95;
-    max-width: calc(100% - 32px); text-align: center;
-  }
+  .toast { position: fixed; left: 50%; bottom: 108px; transform: translateX(-50%) translateY(10px); background: var(--paper); color: var(--ink); font-size: 0.85rem; padding: 0.55rem 1.1rem; opacity: 0; pointer-events: none; transition: 0.24s ease; z-index: 95; max-width: calc(100% - 32px); text-align: center; }
   .toast.on { opacity: 1; transform: translateX(-50%) translateY(0); }
-
   .petal { position: fixed; top: -16px; z-index: 85; pointer-events: none; border-radius: 50% 0 50% 0; }
 
   button:focus-visible, a:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
-
-  @media (prefers-reduced-motion: reduce) {
-    .leaf { transition: transform 0.01s linear; }
-  }
+  @media (prefers-reduced-motion: reduce) { .leaf { transition: transform 0.01s linear; } }
 </style>
 </head>
 <body>
@@ -261,7 +271,7 @@
     <div class="ribbon"></div>
 
     <!-- 1 표지 -->
-    <div class="leaf" data-t="표지">
+    <div class="leaf" data-t="표지" data-c="#B08C44">
       <div class="side front cover">
         <div class="frame">
           <p class="kick">Wedding Invitation</p>
@@ -271,14 +281,44 @@
           <p class="dt">2027 . 01 . 16</p>
           <p class="open">책장을 넘겨 주세요</p>
         </div>
+        <span class="petal2" style="left:12%; animation-delay:0s"></span>
+        <span class="petal2" style="left:38%; animation-delay:2.4s"></span>
+        <span class="petal2" style="left:66%; animation-delay:4.6s"></span>
+        <span class="petal2" style="left:86%; animation-delay:6.8s"></span>
       </div>
       <div class="side back"><div class="mark">&#10045;</div></div>
     </div>
 
-    <!-- 2 인사 -->
-    <div class="leaf" data-t="인사">
+    <!-- 2 영상 -->
+    <div class="leaf" data-t="움직이는 그림" data-c="#2E6F6A" style="--ac:#2E6F6A; --tab:60px">
       <div class="side front">
-        <p class="head">Un mot</p>
+        <p class="head">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="2.5" y="5" width="19" height="14" rx="1.5"/><path d="M2.5 9h19M2.5 15h19M7 5v14M17 5v14"/></svg>
+          <span>Film</span>
+        </p>
+        <h2 class="ttl">움직이는 그림</h2>
+        <div class="film">
+          <div id="frames"></div>
+          <div class="veil"></div>
+          <p class="cap" id="filmCap"></p>
+          <div class="prog"><i id="filmBar"></i></div>
+        </div>
+        <div class="film-bar">
+          <button type="button" id="filmToggle">일시정지</button>
+          <span class="dots" id="filmDots"></span>
+        </div>
+        <p class="pno">2</p>
+      </div>
+      <div class="side back"><div class="mark">&#10045;</div></div>
+    </div>
+
+    <!-- 3 인사 -->
+    <div class="leaf" data-t="인사" data-c="#8E2E3F" style="--ac:#8E2E3F; --tab:124px">
+      <div class="side front">
+        <p class="head">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="2.5" y="5" width="19" height="14" rx="1.5"/><path d="M3 6l9 7 9-7"/></svg>
+          <span>Un mot</span>
+        </p>
         <h2 class="ttl">인사</h2>
         <p class="hand">
           함께 밥을 먹고, 함께 걷고,<br>
@@ -288,31 +328,32 @@
           평생 이어가려 합니다.
         </p>
         <p class="sign">규수 · 세화 드림</p>
-        <p class="pno">2</p>
-      </div>
-      <div class="side back"><div class="mark">&#10045;</div></div>
-    </div>
-
-    <!-- 3 사진 -->
-    <div class="leaf" data-t="사진">
-      <div class="side front">
-        <p class="head">Album</p>
-        <h2 class="ttl">두 사람</h2>
-        <div class="shots">
-          <button class="pola" type="button" data-i="0"><img src="q/02.jpg" alt="한옥 처마 아래 산을 배경으로 선 두 사람"><span>산을 마주 보고</span></button>
-          <button class="pola" type="button" data-i="1"><img src="q/03.jpg" alt="나란히 기대어 앉은 두 사람의 가까운 사진"><span>가까이</span></button>
-          <button class="pola" type="button" data-i="2"><img src="q/04.jpg" alt="흰 꽃을 배경으로 선 턱시도와 드레스 차림의 두 사람"><span>흰 꽃 앞에서</span></button>
-          <button class="pola" type="button" data-i="3"><img src="q/05.jpg" alt="소파에 나란히 앉아 서로를 바라보는 두 사람"><span>잠시 앉아</span></button>
-        </div>
         <p class="pno">3</p>
       </div>
       <div class="side back"><div class="mark">&#10045;</div></div>
     </div>
 
-    <!-- 4 그날 -->
-    <div class="leaf" data-t="그날">
+    <!-- 4 앨범 -->
+    <div class="leaf" data-t="앨범" data-c="#6E3A6B" style="--ac:#6E3A6B; --tab:188px">
       <div class="side front">
-        <p class="head">Le Jour</p>
+        <p class="head">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 9c0-3-2-5-5-4 0 3 2 4.5 5 4zM12 15c0 3 2 5 5 4 0-3-2-4.5-5-4zM9 12c-3 0-5 2-4 5 3 0 4.5-2 4-5zM15 12c3 0 5-2 4-5-3 0-4.5 2-4 5z"/></svg>
+          <span>Album</span>
+        </p>
+        <h2 class="ttl">두 사람</h2>
+        <div class="shots" id="shots"></div>
+        <p class="pno">4</p>
+      </div>
+      <div class="side back"><div class="mark">&#10045;</div></div>
+    </div>
+
+    <!-- 5 그날 -->
+    <div class="leaf" data-t="그날" data-c="#2A4A7B" style="--ac:#2A4A7B; --tab:252px">
+      <div class="side front">
+        <p class="head">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="1.5"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
+          <span>Le Jour</span>
+        </p>
         <h2 class="ttl">그날</h2>
         <p class="big">2027년 1월 16일</p>
         <p class="sm">토요일 낮 12시 30분 · 양산 W웨딩 5층 팰리스홀</p>
@@ -333,15 +374,18 @@
           <div><div class="n" id="cd-m">00</div><div class="u">Min</div></div>
           <div><div class="n" id="cd-s">00</div><div class="u">Sec</div></div>
         </div>
-        <p class="pno">4</p>
+        <p class="pno">5</p>
       </div>
       <div class="side back"><div class="mark">&#10045;</div></div>
     </div>
 
-    <!-- 5 양가 -->
-    <div class="leaf" data-t="양가">
+    <!-- 6 양가 -->
+    <div class="leaf" data-t="양가" data-c="#3E6B45" style="--ac:#3E6B45; --tab:316px">
       <div class="side front">
-        <p class="head">La Famille</p>
+        <p class="head">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="9" cy="13" r="4.5"/><circle cx="15" cy="13" r="4.5"/><path d="M7.5 7l1.5 2M16.5 7L15 9"/></svg>
+          <span>La Famille</span>
+        </p>
         <h2 class="ttl">양가</h2>
         <div class="fam">
           <div class="c">
@@ -359,32 +403,35 @@
           <a href="tel:01040122921">신랑에게 전화</a>
           <a href="sms:01040122921">문자 보내기</a>
         </div>
-        <p class="pno">5</p>
+        <p class="pno">6</p>
       </div>
       <div class="side back"><div class="mark">&#10045;</div></div>
     </div>
 
-    <!-- 6 오시는 길 -->
-    <div class="leaf" data-t="오시는 길">
-      <div class="side front loc">
-        <p class="head">L&rsquo;Adresse</p>
+    <!-- 7 오시는 길 -->
+    <div class="leaf" data-t="오시는 길" data-c="#1F6E8C" style="--ac:#1F6E8C; --tab:380px">
+      <div class="side front">
+        <p class="head">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 21s7-6.2 7-11a7 7 0 10-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+          <span>L&rsquo;Adresse</span>
+        </p>
         <h2 class="ttl">오시는 길</h2>
         <p class="nm2">양산 W웨딩 · 5층 팰리스홀</p>
         <p class="ad">경상남도 양산시 강변로 438<br>크리스탈타워 5층</p>
-        <svg viewBox="0 0 400 180" role="img" aria-label="양산천과 강변로 옆 크리스탈타워 5층에 있는 예식장 약도">
+        <svg class="mapsvg" viewBox="0 0 400 180" role="img" aria-label="양산천과 강변로 옆 크리스탈타워 5층에 있는 예식장 약도">
           <rect x="0" y="0" width="400" height="180" fill="var(--paper-2)"/>
-          <g stroke="var(--ink-3)" fill="none" stroke-width="0.9">
+          <g stroke="#3E6B45" fill="none" stroke-width="1" opacity="0.6">
             <path d="M0,68 L44,32 L76,56 L102,36 L140,68"/>
             <path d="M116,68 L158,34 L188,60 L212,42 L248,68"/>
           </g>
-          <path d="M0,142 C70,134 130,140 200,147 C270,154 340,156 400,151" fill="none" stroke="var(--ink-3)" stroke-width="0.9"/>
+          <path d="M0,142 C70,134 130,140 200,147 C270,154 340,156 400,151" fill="none" stroke="#1F6E8C" stroke-width="1.2" opacity="0.6"/>
           <text x="34" y="168" font-size="10" fill="var(--ink-3)" font-family="Spectral, serif" letter-spacing="1.6">양산천</text>
           <path d="M-8,108 H408" stroke="var(--ink-2)" stroke-width="1.4"/>
           <path d="M206,108 V148" stroke="var(--ink-3)" stroke-width="0.9"/>
           <text x="68" y="126" font-size="10" fill="var(--ink-3)" font-family="Spectral, serif" letter-spacing="1.6">강변로</text>
-          <path d="M40,108 C110,86 180,82 262,88" fill="none" stroke="var(--wine)" stroke-width="1.5" stroke-dasharray="2 6" stroke-linecap="round"/>
-          <circle cx="40" cy="108" r="4" fill="var(--wine)"/>
-          <path d="M288,56 C288,44 297,34 309,34 C321,34 330,44 330,56 C330,72 309,100 309,100 C309,100 288,72 288,56 Z" fill="var(--wine)"/>
+          <path class="route" d="M40,108 C110,86 180,82 262,88" fill="none" stroke="#1F6E8C" stroke-width="1.8" stroke-dasharray="3 7" stroke-linecap="round"/>
+          <circle cx="40" cy="108" r="4" fill="#1F6E8C"/>
+          <path d="M288,56 C288,44 297,34 309,34 C321,34 330,44 330,56 C330,72 309,100 309,100 C309,100 288,72 288,56 Z" fill="#1F6E8C"/>
           <circle cx="309" cy="55" r="6" fill="var(--paper-2)"/>
           <text x="309" y="26" font-size="11" fill="var(--ink)" text-anchor="middle" font-family="Spectral, serif" letter-spacing="1.4">크리스탈타워 5F</text>
         </svg>
@@ -393,15 +440,18 @@
           <a href="https://map.naver.com/p/search/%EC%96%91%EC%82%B0%20W%EC%9B%A8%EB%94%A9" target="_blank" rel="noopener">네이버지도</a>
           <button type="button" id="addrCopy">주소 복사</button>
         </div>
-        <p class="pno">6</p>
+        <p class="pno">7</p>
       </div>
       <div class="side back"><div class="mark">&#10045;</div></div>
     </div>
 
-    <!-- 7 마음 -->
-    <div class="leaf" data-t="마음">
+    <!-- 8 마음 -->
+    <div class="leaf" data-t="마음" data-c="#A9742A" style="--ac:#A9742A; --tab:444px">
       <div class="side front">
-        <p class="head">Le C&oelig;ur</p>
+        <p class="head">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 20s-7.5-4.7-7.5-9.6A4 4 0 0112 8.4a4 4 0 017.5 2c0 4.9-7.5 9.6-7.5 9.6z"/></svg>
+          <span>Le C&oelig;ur</span>
+        </p>
         <h2 class="ttl">마음 전하실 곳</h2>
         <div class="acct">
           <div><div class="sd">Mari&eacute;</div><div class="wh">손규수 · 부산은행</div><div class="no">166-12-011157-6</div></div>
@@ -415,43 +465,53 @@
           <div><div class="sd">Mari&eacute;e</div><div class="wh">문세화 · NH농협은행</div><div class="no">302-7203-767751</div></div>
           <button class="cp" type="button" data-copy="3027203767751">복사</button>
         </div>
-        <p class="pno">7</p>
+        <p class="pno">8</p>
       </div>
       <div class="side back"><div class="mark">&#10045;</div></div>
     </div>
 
-    <!-- 8 방명록 -->
-    <div class="leaf" data-t="방명록">
+    <!-- 9 방명록 -->
+    <div class="leaf" data-t="방명록" data-c="#B4553A" style="--ac:#B4553A; --tab:508px">
       <div class="side front">
-        <p class="head">Les V&oelig;ux</p>
+        <p class="head">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 20l1.2-4.2L16 5a2 2 0 013 3L8.2 18.8 4 20z"/></svg>
+          <span>Les V&oelig;ux</span>
+        </p>
         <h2 class="ttl">축하 한마디</h2>
         <p class="lead">이 책을 펼쳐 주신 모든 분이<br>이미 저희 결혼의 축하객입니다.</p>
         <button class="vbtn" type="button" id="voeuxBtn">축하 보내기</button>
         <p class="vcount" id="voeuxCount" hidden><b>0</b>번의 축하가 모였습니다</p>
-        <div class="book-form" style="margin-top:16px">
+        <div class="bform" style="margin-top:16px">
           <input id="guestName" type="text" maxlength="12" placeholder="이름" autocomplete="name">
           <textarea id="guestMsg" maxlength="120" placeholder="축하 한마디를 남겨주세요"></textarea>
           <button class="vsub" type="button" id="guestSubmit" disabled>남기기</button>
           <div class="wall" id="wall"></div>
           <p class="wall-empty" id="wallEmpty">불러오는 중입니다…</p>
         </div>
-        <p class="pno">8</p>
+        <p class="pno">9</p>
       </div>
       <div class="side back"><div class="mark">&#10045;</div></div>
     </div>
 
-    <!-- 9 맺음 -->
-    <div class="leaf" data-t="맺음">
+    <!-- 10 맺음 -->
+    <div class="leaf" data-t="맺음" data-c="#8E2E3F" style="--ac:#8E2E3F; --tab:572px">
       <div class="side front fin">
-        <p class="head">Merci</p>
-        <p style="margin-top:18px">
+        <svg class="wreath" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" aria-hidden="true">
+          <path d="M32 56c-12 0-20-9-20-20S20 14 32 8c12 6 20 16 20 28s-8 20-20 20z" opacity="0.25"/>
+          <path d="M32 54V26"/>
+          <path d="M32 40c-7 0-11-4-11-10 6 0 11 4 11 10zM32 40c7 0 11-4 11-10-6 0-11 4-11 10z"/>
+          <path d="M32 30c-5 0-9-3-9-8 5 0 9 3 9 8zM32 30c5 0 9-3 9-8-5 0-9 3-9 8z"/>
+          <circle cx="32" cy="20" r="3"/>
+        </svg>
+        <p class="head" style="justify-content:center"><span>Merci</span></p>
+        <p>
           여러분 한 분 한 분의 축하가<br>
           저희 두 사람의 새로운 시작을 채웁니다.<br>
           함께해 주셔서 감사합니다.
         </p>
         <p class="sg">Gyusoo &amp; Sehwa</p>
         <p class="sg-ko">손규수 · 문세화 드림</p>
-        <p class="pno">9</p>
+        <p class="pno">10</p>
       </div>
       <div class="side back"><div class="mark">&#10045;</div></div>
     </div>
@@ -463,7 +523,7 @@
   <button type="button" id="prev" aria-label="앞 장">&#10094;</button>
   <span class="mid">
     <span class="ttl2" id="barTtl">표지</span>
-    <span class="idx" id="barIdx">1 / 9</span>
+    <span class="idx" id="barIdx">1 / 10</span>
   </span>
   <button type="button" id="menuBtn">목차</button>
   <button type="button" id="next" aria-label="다음 장">&#10095;</button>
@@ -475,10 +535,10 @@
   <button class="close" type="button" id="menuClose">닫기</button>
 </div>
 
-<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="사진 크게 보기">
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="그림 크게 보기">
   <img id="lbImg" src="" alt="">
-  <button class="lb-btn lb-prev" id="lbPrev" type="button" aria-label="이전 사진">&#10094;</button>
-  <button class="lb-btn lb-next" id="lbNext" type="button" aria-label="다음 사진">&#10095;</button>
+  <button class="lb-btn lb-prev" id="lbPrev" type="button" aria-label="이전">&#10094;</button>
+  <button class="lb-btn lb-next" id="lbNext" type="button" aria-label="다음">&#10095;</button>
   <button class="lb-btn lb-close" id="lbClose" type="button" aria-label="닫기">&#10005;</button>
   <p class="lb-count" id="lbCount"></p>
 </div>
@@ -487,60 +547,66 @@
 
 <script>
 (function () {
-  var PHOTOS = [
-    { src: 'q/02.jpg', cap: '산을 마주 보고', alt: '한옥 처마 아래 산을 배경으로 선 두 사람' },
-    { src: 'q/03.jpg', cap: '가까이',        alt: '나란히 기대어 앉은 두 사람의 가까운 사진' },
-    { src: 'q/04.jpg', cap: '흰 꽃 앞에서',  alt: '흰 꽃을 배경으로 선 턱시도와 드레스 차림의 두 사람' },
-    { src: 'q/05.jpg', cap: '잠시 앉아',     alt: '소파에 나란히 앉아 서로를 바라보는 두 사람' }
+  var ART = [
+    { src: 'r/01.jpg', cap: '꽃길에서' },
+    { src: 'r/02.jpg', cap: '산을 마주 보고' },
+    { src: 'r/03.jpg', cap: '가까이, 조용히' },
+    { src: 'r/04.jpg', cap: '흰 꽃 앞에서' },
+    { src: 'r/05.jpg', cap: '잠시 앉아' },
+    { src: 'r/06.jpg', cap: '해 질 무렵, 바다' }
   ];
+  var FILM_AT = 1;
+  var SHOT = 4200;
   var WEDDING = new Date(2027, 0, 16, 12, 30, 0);
   var ADDR = '경상남도 양산시 강변로 438 크리스탈타워 5층';
   function $(id) { return document.getElementById(id); }
   function pad2(n) { return (n < 10 ? '0' : '') + n; }
+  var calm = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* ---------- 책장 넘기기 ---------- */
+  /* ---------- 책장 ---------- */
   var bk = $('bk');
   var leaves = Array.prototype.slice.call(bk.querySelectorAll('.leaf'));
-  var N = leaves.length, at = 0;   // at = 지금 보이는 장(0부터)
+  var N = leaves.length, at = 0;
 
-  var menuList = $('menuList'), mh = '';
+  var mh = '';
   for (var i = 0; i < N; i++) {
-    mh += '<li><button type="button" data-go="' + i + '"><span class="n">' + pad2(i + 1) + '</span>' + leaves[i].dataset.t + '</button></li>';
+    mh += '<li><button type="button" data-go="' + i + '" style="--c:' + leaves[i].dataset.c + '"><span class="n">' + pad2(i + 1) + '</span>' + leaves[i].dataset.t + '</button></li>';
   }
-  menuList.innerHTML = mh;
+  $('menuList').innerHTML = mh;
 
   function stack() {
     for (var i = 0; i < N; i++) {
       var turned = i < at;
       leaves[i].classList.toggle('turned', turned);
       leaves[i].style.zIndex = turned ? (i + 1) : (N - i + 1);
+      var front = leaves[i].querySelector('.side.front');
+      if (i === at) {
+        front.classList.remove('live');
+        void front.offsetWidth;
+        front.classList.add('live');
+      } else { front.classList.remove('live'); }
       leaves[i].setAttribute('aria-hidden', i === at ? 'false' : 'true');
     }
     $('barTtl').textContent = leaves[at].dataset.t;
     $('barIdx').textContent = (at + 1) + ' / ' + N;
     $('prev').disabled = at === 0;
     $('next').disabled = at === N - 1;
+    if (at === FILM_AT) { filmStart(); } else { filmStop(); }
   }
   function go(n) { at = Math.max(0, Math.min(N - 1, n)); stack(); }
-  stack();
 
   $('prev').addEventListener('click', function () { go(at - 1); });
   $('next').addEventListener('click', function () { go(at + 1); });
-
-  /* 책을 눌러서 넘기기 — 좌/우 절반 */
   bk.addEventListener('click', function (e) {
-    if (e.target.closest('button, a, input, textarea')) { return; }
+    if (e.target.closest('button, a, input, textarea, .film')) { return; }
     var r = bk.getBoundingClientRect();
     if (e.clientX - r.left > r.width * 0.5) { go(at + 1); } else { go(at - 1); }
   });
-
-  /* 쓸어 넘기기 */
   var x0 = null, y0 = null;
   bk.addEventListener('touchstart', function (e) { x0 = e.changedTouches[0].clientX; y0 = e.changedTouches[0].clientY; }, { passive: true });
   bk.addEventListener('touchend', function (e) {
     if (x0 === null) { return; }
-    var dx = e.changedTouches[0].clientX - x0;
-    var dy = e.changedTouches[0].clientY - y0;
+    var dx = e.changedTouches[0].clientX - x0, dy = e.changedTouches[0].clientY - y0;
     if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) { go(dx < 0 ? at + 1 : at - 1); }
     x0 = null;
   }, { passive: true });
@@ -548,11 +614,10 @@
   var menu = $('menu');
   $('menuBtn').addEventListener('click', function () { menu.classList.add('on'); });
   $('menuClose').addEventListener('click', function () { menu.classList.remove('on'); });
-  menuList.addEventListener('click', function (e) {
+  $('menuList').addEventListener('click', function (e) {
     var b = e.target.closest('button[data-go]');
     if (b) { menu.classList.remove('on'); go(parseInt(b.dataset.go, 10)); }
   });
-
   document.addEventListener('keydown', function (e) {
     if (lb.classList.contains('on')) { return; }
     if (menu.classList.contains('on')) { if (e.key === 'Escape') { menu.classList.remove('on'); } return; }
@@ -560,32 +625,81 @@
     else if (e.key === 'ArrowRight') { go(at + 1); }
   });
 
-  /* ---------- 카운트다운 ---------- */
-  var cnt = $('cnt'), timer;
-  function tick() {
-    var diff = WEDDING - new Date();
-    if (diff <= 0) { cnt.innerHTML = '<p class="cnt-done">오늘, 두 사람이 부부가 됩니다</p>'; clearInterval(timer); return; }
-    var t = Math.floor(diff / 1000);
-    $('cd-d').textContent = Math.floor(t / 86400);
-    $('cd-h').textContent = pad2(Math.floor(t / 3600) % 24);
-    $('cd-m').textContent = pad2(Math.floor(t / 60) % 60);
-    $('cd-s').textContent = pad2(t % 60);
+  /* ---------- 영상 ---------- */
+  var framesEl = $('frames'), capEl = $('filmCap'), barEl = $('filmBar'), dotsEl = $('filmDots');
+  var fh = '', dh = '';
+  for (var f = 0; f < ART.length; f++) {
+    fh += '<div class="frame k' + (f % 4) + '"><img src="' + ART[f].src + '" alt="' + ART[f].cap + ' — 그림으로 옮긴 사진" decoding="async"></div>';
+    dh += '<i></i>';
   }
-  tick(); timer = setInterval(tick, 1000);
+  framesEl.innerHTML = fh;
+  dotsEl.innerHTML = dh;
+  var frameEls = framesEl.querySelectorAll('.frame');
+  var fdots = dotsEl.querySelectorAll('i');
+  var fi = 0, ftimer = null, playing = false;
 
-  /* ---------- 사진 ---------- */
+  function paintFrame(n) {
+    fi = (n + ART.length) % ART.length;
+    for (var i = 0; i < frameEls.length; i++) {
+      frameEls[i].classList.toggle('on', i === fi);
+      fdots[i].classList.toggle('on', i === fi);
+    }
+    var img = frameEls[fi].querySelector('img');
+    if (!calm) { img.style.animation = 'none'; void img.offsetWidth; img.style.animation = ''; }
+    capEl.style.opacity = '0';
+    setTimeout(function () { capEl.textContent = ART[fi].cap; capEl.style.opacity = '1'; }, 220);
+    barEl.style.transition = 'none';
+    barEl.style.width = '0%';
+    void barEl.offsetWidth;
+    if (playing && !calm) {
+      barEl.style.transition = 'width ' + SHOT + 'ms linear';
+      barEl.style.width = '100%';
+    }
+  }
+  function filmStart() {
+    if (playing) { return; }
+    playing = true;
+    $('filmToggle').textContent = '일시정지';
+    paintFrame(fi);
+    clearInterval(ftimer);
+    ftimer = setInterval(function () { paintFrame(fi + 1); }, SHOT);
+  }
+  function filmStop() {
+    playing = false;
+    clearInterval(ftimer);
+    ftimer = null;
+    $('filmToggle').textContent = '재생';
+    barEl.style.transition = 'none';
+  }
+  $('filmToggle').addEventListener('click', function (e) {
+    e.stopPropagation();
+    if (playing) { filmStop(); } else { filmStart(); }
+  });
+  $('frames').addEventListener('click', function (e) { e.stopPropagation(); paintFrame(fi + 1); if (playing) { clearInterval(ftimer); ftimer = setInterval(function () { paintFrame(fi + 1); }, SHOT); } });
+  paintFrame(0);
+
+  /* ---------- 앨범 ---------- */
+  var sh = '';
+  for (var s = 0; s < ART.length; s++) {
+    sh += '<button class="pola" type="button" data-i="' + s + '" aria-label="' + ART[s].cap + ' 크게 보기">' +
+      '<img src="' + ART[s].src + '" alt="' + ART[s].cap + ' — 그림으로 옮긴 사진" loading="lazy" decoding="async">' +
+      '<span>' + ART[s].cap + '</span></button>';
+  }
+  $('shots').innerHTML = sh;
+
+  /* ---------- 크게 보기 ---------- */
   var lb = $('lightbox'), lbImg = $('lbImg'), cur = 0, lastFocus = null;
   function show(n) {
-    cur = (n + PHOTOS.length) % PHOTOS.length;
-    lbImg.src = PHOTOS[cur].src;
-    lbImg.alt = PHOTOS[cur].alt;
-    $('lbCount').textContent = PHOTOS[cur].cap + ' · ' + (cur + 1) + ' / ' + PHOTOS.length;
+    cur = (n + ART.length) % ART.length;
+    lbImg.src = ART[cur].src;
+    lbImg.alt = ART[cur].cap + ' — 그림으로 옮긴 사진';
+    $('lbCount').textContent = ART[cur].cap + ' · ' + (cur + 1) + ' / ' + ART.length;
   }
   function openLb(n) { lastFocus = document.activeElement; show(n); lb.classList.add('on'); $('lbClose').focus(); }
   function closeLb() { lb.classList.remove('on'); if (lastFocus && lastFocus.focus) { lastFocus.focus(); } }
   document.addEventListener('click', function (e) {
-    var b = e.target.closest ? e.target.closest('[data-i]') : null;
-    if (b) { openLb(parseInt(b.getAttribute('data-i'), 10)); }
+    var b = e.target.closest ? e.target.closest('.pola[data-i]') : null;
+    if (b) { e.stopPropagation(); openLb(parseInt(b.getAttribute('data-i'), 10)); }
   });
   $('lbPrev').addEventListener('click', function () { show(cur - 1); });
   $('lbNext').addEventListener('click', function () { show(cur + 1); });
@@ -597,6 +711,21 @@
     else if (e.key === 'ArrowLeft') { show(cur - 1); }
     else if (e.key === 'ArrowRight') { show(cur + 1); }
   });
+
+  /* ---------- 남은 날 ---------- */
+  var cnt = $('cnt'), timer, lastS = -1;
+  function tick() {
+    var diff = WEDDING - new Date();
+    if (diff <= 0) { cnt.innerHTML = '<p class="cnt-done">오늘, 두 사람이 부부가 됩니다</p>'; clearInterval(timer); return; }
+    var t = Math.floor(diff / 1000);
+    $('cd-d').textContent = Math.floor(t / 86400);
+    $('cd-h').textContent = pad2(Math.floor(t / 3600) % 24);
+    $('cd-m').textContent = pad2(Math.floor(t / 60) % 60);
+    var sEl = $('cd-s'), sv = t % 60;
+    sEl.textContent = pad2(sv);
+    if (!calm && sv !== lastS) { sEl.classList.remove('tick'); void sEl.offsetWidth; sEl.classList.add('tick'); lastS = sv; }
+  }
+  tick(); timer = setInterval(tick, 1000);
 
   /* ---------- 복사 ---------- */
   var toast = $('toast'), tt;
@@ -621,15 +750,15 @@
   }
   document.addEventListener('click', function (e) {
     var b = e.target.closest ? e.target.closest('[data-copy]') : null;
-    if (b) { copyText(b.getAttribute('data-copy'), b); }
+    if (b) { e.stopPropagation(); copyText(b.getAttribute('data-copy'), b); }
   });
-  $('addrCopy').addEventListener('click', function () { copyText(ADDR, null); });
+  $('addrCopy').addEventListener('click', function (e) { e.stopPropagation(); copyText(ADDR, null); });
 
   /* ---------- 꽃잎 ---------- */
   function petals() {
-    if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) { return; }
-    var tones = ['#8E2E3F', '#B08C44', '#FBF6EA', '#2E4034'];
-    for (var i = 0; i < 24; i++) {
+    if (calm) { return; }
+    var tones = ['#8E2E3F', '#B08C44', '#FBF6EA', '#2E6F6A', '#B4553A'];
+    for (var i = 0; i < 26; i++) {
       var p = document.createElement('div');
       p.className = 'petal';
       var w = 7 + Math.random() * 7;
@@ -653,7 +782,8 @@
   var nameEl = $('guestName'), msgEl = $('guestMsg'), submit = $('guestSubmit');
   var db = null, sending = false;
 
-  vBtn.addEventListener('click', function () {
+  vBtn.addEventListener('click', function (e) {
+    e.stopPropagation();
     petals();
     if (!db) { say('축하 감사합니다'); return; }
     var ref = db.doc('state/meta');
@@ -674,7 +804,8 @@
   function checkForm() { submit.disabled = !db || sending || !msgEl.value.trim(); }
   nameEl.addEventListener('input', checkForm);
   msgEl.addEventListener('input', checkForm);
-  submit.addEventListener('click', function () {
+  submit.addEventListener('click', function (e) {
+    e.stopPropagation();
     if (!db || sending || !msgEl.value.trim()) { return; }
     sending = true; checkForm();
     db.collection('notes').add({
@@ -704,6 +835,9 @@
         .onSnapshot(function (snap) { renderWall(snap.docs); }, function () { noStore(); });
     }, noStore);
   } else { noStore(); }
+
+  stack();
+  filmStop();
 })();
 </script>
 <!--#artifact-end-->
