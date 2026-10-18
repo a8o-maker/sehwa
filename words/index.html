@@ -1,0 +1,971 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="공통영어2 YBM(박준언) 3과 단어 300개 게임">
+<style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}[hidden]{display:none!important}</style>
+<title>바운스백 단어게임</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jua&family=Gowun+Dodum&family=Fredoka:wght@500;600;700&display=swap">
+<style>
+/* Layout: one-column app shell; a rubber ball mascot that squashes on mistakes and bounces back on hits */
+:root {
+  --bg: #EAF3F1;
+  --surface: #FFFFFF;
+  --surface-2: #DCEAE6;
+  --ink: #12302B;
+  --muted: #557069;
+  --line: #C5DAD4;
+  --ball: #FFB000;
+  --ball-ink: #3A2600;
+  --blue: #2563EB;
+  --good: #14965B;
+  --good-bg: #DDF5E8;
+  --bad: #D93A3A;
+  --bad-bg: #FDE3E3;
+  --shadow: 0 2px 0 #C5DAD4;
+  --f-display: "Jua", "Gowun Dodum", system-ui, sans-serif;
+  --f-body: "Gowun Dodum", "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif;
+  --f-en: "Fredoka", "Jua", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0E1B19; --surface: #162926; --surface-2: #1F3733; --ink: #E6F2EF; --muted: #93ADA7;
+    --line: #2C4843; --ball: #FFC23D; --ball-ink: #2A1B00; --blue: #6EA0FF; --good: #3DD68C; --good-bg: #133528;
+    --bad: #FF7070; --bad-bg: #3A1A1A; --shadow: 0 2px 0 #08110F; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0E1B19; --surface: #162926; --surface-2: #1F3733; --ink: #E6F2EF; --muted: #93ADA7;
+  --line: #2C4843; --ball: #FFC23D; --ball-ink: #2A1B00; --blue: #6EA0FF; --good: #3DD68C; --good-bg: #133528;
+  --bad: #FF7070; --bad-bg: #3A1A1A; --shadow: 0 2px 0 #08110F; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 16px; line-height: 1.55;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 20px 48px;
+}
+.app { max-width: 720px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; }
+h1, h2, h3 { font-family: var(--f-display); font-weight: 400; margin: 0; text-wrap: balance; }
+button { font: inherit; color: inherit; cursor: pointer; }
+button:focus-visible, input:focus-visible { outline: 3px solid var(--blue); outline-offset: 2px; }
+.en { font-family: var(--f-en); font-weight: 600; }
+
+/* header */
+.top { display: flex; align-items: center; gap: 14px; }
+.ballbox { width: 56px; height: 64px; position: relative; flex: none; }
+.ball {
+  width: 44px; height: 44px; border-radius: 50%; position: absolute; left: 6px; bottom: 4px;
+  background: radial-gradient(circle at 35% 30%, #FFE7A3 0 14%, var(--ball) 15% 100%);
+  box-shadow: inset -5px -6px 0 rgba(0,0,0,.12); transform-origin: 50% 100%;
+}
+.ballbox::after { content: ""; position: absolute; left: 4px; right: 4px; bottom: 0; height: 4px; border-radius: 4px; background: var(--line); }
+.ball.hop { animation: hop .55s cubic-bezier(.3,.7,.4,1); }
+.ball.squash { animation: squash .6s ease; }
+@keyframes hop { 0%{transform:translateY(0) scale(1.15,.85)} 40%{transform:translateY(-20px) scale(.92,1.08)} 75%{transform:translateY(0) scale(1.12,.88)} 100%{transform:translateY(0) scale(1)} }
+@keyframes squash { 0%{transform:scale(1)} 25%{transform:scale(1.35,.55)} 60%{transform:translateY(-8px) scale(.95,1.05)} 100%{transform:scale(1)} }
+.brand { flex: 1; min-width: 0; }
+.brand h1 { font-size: 1.6rem; line-height: 1.2; }
+.brand p { margin: 0; color: var(--muted); font-size: .88rem; }
+.stats { display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
+.stat { background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 4px 12px; font-size: .85rem; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.stat b { font-family: var(--f-en); }
+
+/* scope chips */
+.label { font-size: .78rem; letter-spacing: .06em; color: var(--muted); margin: 0 0 8px; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip {
+  border: 1.5px solid var(--line); background: var(--surface); border-radius: 999px; padding: 6px 14px; font-size: .9rem;
+}
+.chip[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.chip small { opacity: .7; margin-left: 4px; font-variant-numeric: tabular-nums; }
+.scope-title { margin-top: 10px; color: var(--muted); font-size: .9rem; min-height: 1.4em; }
+
+/* mode cards */
+.modes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.mode {
+  text-align: left; background: var(--surface); border: 1.5px solid var(--line); border-radius: 18px; padding: 16px;
+  display: flex; flex-direction: column; gap: 6px; box-shadow: var(--shadow); transition: transform .12s ease, border-color .12s;
+}
+.mode:hover { transform: translateY(-2px); border-color: var(--ink); }
+.mode:active { transform: translateY(1px); }
+.mode .ic { width: 38px; height: 38px; border-radius: 12px; display: grid; place-items: center; background: var(--surface-2); font-family: var(--f-en); font-weight: 700; font-size: 1.1rem; }
+.mode h3 { font-size: 1.2rem; }
+.mode p { margin: 0; color: var(--muted); font-size: .88rem; }
+.mode .best { font-size: .8rem; color: var(--ink); font-variant-numeric: tabular-nums; }
+.mode.feature { grid-column: 1 / -1; background: var(--ball); color: var(--ball-ink); border-color: var(--ball); box-shadow: 0 3px 0 #C98A00; }
+.mode.feature p, .mode.feature .best { color: var(--ball-ink); opacity: .85; }
+.mode.feature .ic { background: rgba(255,255,255,.45); }
+@media (max-width: 460px) { .modes { grid-template-columns: 1fr; } .stats { display: none; } }
+
+.note { background: var(--surface); border: 1px dashed var(--line); border-radius: 14px; padding: 12px 14px; font-size: .88rem; color: var(--muted); display: flex; gap: 12px; align-items: center; justify-content: space-between; flex-wrap: wrap; }
+.linkbtn { background: none; border: none; padding: 0; color: var(--blue); text-decoration: underline; font-size: .88rem; }
+
+/* game shell */
+.bar { display: flex; align-items: center; gap: 10px; }
+.back { background: var(--surface); border: 1.5px solid var(--line); border-radius: 12px; padding: 6px 12px; }
+.bar .title { font-family: var(--f-display); font-size: 1.25rem; flex: 1; min-width: 0; }
+.hud { display: flex; gap: 8px; font-variant-numeric: tabular-nums; flex-wrap: wrap; justify-content: flex-end; }
+.pill { background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 3px 10px; font-size: .85rem; white-space: nowrap; }
+.pill.combo { background: var(--ball); color: var(--ball-ink); border-color: var(--ball); }
+.progress { height: 8px; border-radius: 8px; background: var(--surface-2); overflow: hidden; }
+.progress i { display: block; height: 100%; background: var(--ink); transition: width .25s; }
+.timer i { background: var(--blue); transition: none; }
+.timer.low i { background: var(--bad); }
+
+.card {
+  background: var(--surface); border: 1.5px solid var(--line); border-radius: 22px; padding: 28px 20px; text-align: center;
+  box-shadow: var(--shadow); min-height: 180px; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 8px;
+}
+.q-word { font-family: var(--f-en); font-weight: 600; font-size: clamp(1.8rem, 7vw, 2.6rem); line-height: 1.15; overflow-wrap: anywhere; }
+.q-mean { font-family: var(--f-display); font-size: clamp(1.5rem, 6vw, 2.1rem); line-height: 1.3; }
+.pos { display: inline-block; font-size: .78rem; border-radius: 6px; padding: 1px 8px; background: var(--surface-2); color: var(--muted); letter-spacing: .04em; }
+.hint { color: var(--muted); font-size: .88rem; }
+.speak { background: var(--surface-2); border: none; border-radius: 999px; padding: 4px 12px; font-size: .85rem; }
+
+.choices { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+@media (max-width: 460px) { .choices { grid-template-columns: 1fr; } }
+.choice {
+  background: var(--surface); border: 1.5px solid var(--line); border-radius: 16px; padding: 14px 14px; text-align: left;
+  display: flex; gap: 10px; align-items: center; min-height: 58px; box-shadow: var(--shadow);
+}
+.choice .k { flex: none; width: 26px; height: 26px; border-radius: 8px; background: var(--surface-2); display: grid; place-items: center; font-family: var(--f-en); font-size: .85rem; }
+.choice span:last-child { min-width: 0; overflow-wrap: anywhere; }
+.choice:hover:not(:disabled) { border-color: var(--ink); }
+.choice.right { background: var(--good-bg); border-color: var(--good); }
+.choice.wrong { background: var(--bad-bg); border-color: var(--bad); animation: shake .35s; }
+.choice:disabled { cursor: default; }
+@keyframes shake { 20%{transform:translateX(-6px)} 40%{transform:translateX(6px)} 60%{transform:translateX(-4px)} 80%{transform:translateX(3px)} }
+.pop { position: fixed; left: 50%; top: 38%; transform: translate(-50%, -50%); font-family: var(--f-display); font-size: 2rem; pointer-events: none; color: var(--good); animation: rise .8s ease forwards; z-index: 5; }
+.pop.bad { color: var(--bad); }
+@keyframes rise { from { opacity: 1; transform: translate(-50%, -30%) scale(.8); } to { opacity: 0; transform: translate(-50%, -120%) scale(1.1); } }
+
+/* flashcards */
+.flip { perspective: 1200px; cursor: pointer; background: none; border: none; padding: 0; width: 100%; }
+.flip-inner { position: relative; height: 240px; transition: transform .45s; transform-style: preserve-3d; }
+.flip.on .flip-inner { transform: rotateY(180deg); }
+.face { position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+.face.back-face { transform: rotateY(180deg); background: var(--surface-2); }
+.row { display: flex; gap: 10px; flex-wrap: wrap; }
+.row > * { flex: 1 1 140px; }
+.btn { border: 1.5px solid var(--line); background: var(--surface); border-radius: 14px; padding: 12px 16px; font-family: var(--f-display); font-size: 1.05rem; box-shadow: var(--shadow); }
+.btn.primary { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.btn.good { background: var(--good-bg); border-color: var(--good); }
+.btn.bad { background: var(--bad-bg); border-color: var(--bad); }
+.btn:disabled { opacity: .5; cursor: default; }
+
+/* match */
+.match { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.col { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.tile {
+  background: var(--surface); border: 1.5px solid var(--line); border-radius: 14px; padding: 12px 10px; min-height: 56px;
+  box-shadow: var(--shadow); overflow-wrap: anywhere; transition: opacity .3s, transform .3s;
+}
+.tile.en { font-size: 1.02rem; }
+.tile.sel { border-color: var(--blue); background: var(--surface-2); }
+.tile.done { opacity: 0; transform: scale(.85); pointer-events: none; }
+.tile.wrong { border-color: var(--bad); background: var(--bad-bg); animation: shake .35s; }
+
+/* spelling */
+.slots { display: flex; flex-wrap: wrap; gap: 4px; justify-content: center; font-family: var(--f-en); font-size: 1.3rem; }
+.slots span { min-width: 22px; border-bottom: 3px solid var(--line); text-align: center; line-height: 1.4; }
+.slots span.sp { border-bottom-color: transparent; }
+.slots span.shown { border-bottom-color: var(--ball); }
+.answer { width: 100%; font-family: var(--f-en); font-size: 1.3rem; padding: 12px 14px; border-radius: 14px; border: 1.5px solid var(--line); background: var(--surface); color: var(--ink); text-align: center; }
+.answer.right { border-color: var(--good); background: var(--good-bg); }
+.answer.wrong { border-color: var(--bad); background: var(--bad-bg); animation: shake .35s; }
+.reveal { min-height: 1.6em; text-align: center; font-size: .95rem; }
+.reveal b { font-family: var(--f-en); }
+
+/* result */
+.result { text-align: center; display: flex; flex-direction: column; gap: 10px; align-items: center; }
+.big { font-family: var(--f-en); font-weight: 700; font-size: 3.4rem; line-height: 1; font-variant-numeric: tabular-nums; }
+.missed { width: 100%; text-align: left; background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 6px 14px; }
+.missed div { display: flex; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--line); }
+.missed div:last-child { border-bottom: none; }
+.missed .en { flex: 0 0 44%; min-width: 0; overflow-wrap: anywhere; }
+.missed span:last-child { min-width: 0; }
+
+.wordlist { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 4px 14px; max-height: 60vh; overflow: auto; }
+.wordlist div { display: grid; grid-template-columns: minmax(0, 1fr) 30px minmax(0, 1.2fr) auto; gap: 8px; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--line); }
+.wordlist div:last-child { border-bottom: none; }
+.wordlist .mk { font-size: .78rem; color: var(--muted); white-space: nowrap; }
+.wordlist .mk.w { color: var(--bad); }
+.wordlist .mk.k { color: var(--good); }
+
+.foot { color: var(--muted); font-size: .8rem; text-align: center; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+</style>
+</head>
+<body>
+
+<div class="app" id="app">
+  <header class="top">
+    <div class="ballbox" aria-hidden="true"><div class="ball" id="ball"></div></div>
+    <div class="brand">
+      <h1>바운스백 단어게임</h1>
+      <p>공통영어2 YBM(박준언) 3과 · Resilience: The Power to Overcome</p>
+    </div>
+    <div class="stats">
+      <span class="stat">XP <b id="xp">0</b></span>
+      <span class="stat">외운 단어 <b id="known">0</b></span>
+    </div>
+  </header>
+  <main id="view"></main>
+  <p class="foot">진도와 기록은 이 브라우저에만 저장돼요.</p>
+</div>
+
+<script>
+const POS = { "명":"명사", "동":"동사", "형":"형용사", "부":"부사", "전":"전치사", "접":"접속사", "대":"대명사", "숙":"숙어" };
+const SECTIONS = [
+["Resilience: The Power to Overcome", "회복탄력성: 이겨 내는 힘", `resilience|명|회복탄력성, 이겨 내는 힘
+power|명|힘
+overcome|동|극복하다, 이겨 내다
+wellness|명|건강, 웰빙
+newsletter|명|소식지, 뉴스레터
+topic|명|주제
+famous|형|유명한
+deal with ~|숙|~을 다루다, ~에 대처하다
+by -ing|숙|~함으로써
+cultivate|동|기르다, 함양하다
+inner|형|내면의, 안쪽의
+strength|명|힘, 강점
+be free from ~|숙|~이 없다, ~에서 자유롭다
+whatever|형|어떤 ~이든
+path|명|길, 경로
+experience|동|겪다, 경험하다
+adversity|명|역경
+take the form of ~|숙|~의 형태를 띠다
+illness|명|병, 질병
+accident|명|사고
+failure|명|실패
+in|전|~에서
+relationship|명|관계
+issue|명|문제, 사안
+stress|명|스트레스, 압박
+cope|동|대처하다, 헤쳐 나가다
+ability|명|능력
+difficulty|명|어려움
+be known as ~|숙|~으로 알려져 있다
+spring back|숙|되튀다, 도로 튀어 오르다
+just like ~|숙|꼭 ~처럼
+bouncy|형|잘 튀는
+after|전|~한 뒤에
+resilient|형|회복력이 강한, 잘 이겨 내는
+bounce back|숙|다시 튀어 오르다, 회복하다
+recover|동|회복하다
+from|전|~에서, ~로부터
+hard times|숙|힘든 시기
+furthermore|부|게다가, 더욱이
+grow|동|성장하다, 자라다
+handle|동|다루다, 감당하다
+benefit from ~|숙|~에서 이득을 얻다
+event|명|사건, 일`],
+["Stories of Resilient People", "역경을 이겨 낸 사람들", `countless|형|셀 수 없이 많은
+of|전|~의
+successful|형|성공한
+not only A but (also) B|숙|A뿐 아니라 B도
+survive|동|살아남다, 이겨 내고 살다
+adversity|명|역경
+use A as B|숙|A를 B로 쓰다
+stepping stone|명|디딤돌
+to|전|~로, ~에
+growth|명|성장
+fairy tale|명|동화
+childhood|명|어린 시절
+poverty|명|가난, 빈곤
+early|형|이른, 초기의
+loss|명|잃음, 상실
+experience|명|경험
+be disrespected|숙|무시당하다, 존중받지 못하다
+source|명|원천, 근원
+for|전|~에 대한, ~을 위한
+popular|형|인기 있는
+hardship|명|고난, 어려움
+blessing|명|축복
+inspire A to V|숙|A가 ~하도록 영감을 주다
+like|전|~와 같은, ~처럼
+athlete|명|운동선수
+challenge|명|도전, 힘든 일
+see A as B|숙|A를 B로 여기다
+opportunity|명|기회
+be born with ~|숙|~을 갖고 태어나다
+medical|형|의학의, 의료의
+condition|명|(몸의) 상태, 질환
+result in ~|숙|~을 초래하다, ~라는 결과를 낳다
+beneath|전|~ 아래에
+knee|명|무릎
+surgery|명|수술
+compete against ~|숙|~와 겨루다, ~에 맞서 경쟁하다
+without|전|~ 없이
+disability|명|장애
+national|형|전국적인, 국가의
+competition|명|대회, 경쟁
+participate in ~|숙|~에 참가하다
+career|명|경력, 활동
+include|동|포함하다
+modeling|명|모델 일
+acting|명|연기
+public speaking|명|연설, 대중 강연
+physical|형|신체의, 몸의
+not A but B|숙|A가 아니라 B
+very|형|바로 그
+open the door for ~|숙|~에게 문을 열어 주다
+amazing|형|놀라운
+potential|명|잠재력
+succeed|동|성공하다
+despite|전|~에도 불구하고
+thanks to ~|숙|~ 덕분에
+bounce back|숙|다시 튀어 오르다, 회복하다`],
+["Resilience Is Like a Muscle", "회복탄력성은 근육과 같다", `might|동|~일지도 모른다
+exceptional|형|특출한, 예외적인
+however|부|그러나
+be born with ~|숙|~을 갖고 태어나다
+potential|명|잠재력
+just like ~|숙|꼭 ~처럼
+develop|동|기르다, 발달시키다
+strength|명|힘, 강점
+recover|동|회복하다
+crisis|명|위기
+otherwise|부|그렇지 않으면
+cause|동|일으키다, 초래하다
+lasting|형|오래가는, 지속되는
+damage|명|손상, 피해
+mental|형|정신의
+The good news is that ~|숙|좋은 소식은 ~라는 것이다
+muscle|명|근육
+build up ~|숙|~을 키우다, 쌓아 올리다
+through|전|~을 통해
+practice|명|연습, 훈련
+by -ing|숙|~함으로써
+thought|명|생각
+behavior|명|행동
+habit|명|습관
+allow A to V|숙|A가 ~할 수 있게 하다
+painful|형|고통스러운
+stressful|형|스트레스가 많은
+event|명|사건, 일
+basic|형|기본적인
+strategy|명|전략`],
+["Strategy 1 · Accept Adversity", "전략 1 · 역경을 받아들이기", `basic|형|기본적인
+strategy|명|전략
+build up ~|숙|~을 키우다, 쌓아 올리다
+accept|동|받아들이다
+respect|동|존중하다
+adversity|명|역경
+as|전|~로, ~로서
+natural|형|자연스러운, 당연한
+passive|형|수동적인, 소극적인
+understand|동|이해하다
+cause|동|일으키다, 초래하다
+suffering|명|고통
+stress|명|스트레스, 압박
+instead of -ing|숙|~하는 대신에
+singled out|숙|(혼자만) 지목된, 콕 집힌
+face|동|맞서다, 직면하다
+whatever|대|~하는 것은 무엇이든
+focus on ~|숙|~에 집중하다
+embrace|동|받아들이다, 껴안다
+challenge|명|도전, 힘든 일
+unexpected|형|예상치 못한
+obstacle|명|장애물
+help A V|숙|A가 ~하도록 돕다
+confront|동|맞서다, 마주하다
+learning|명|배움, 학습
+process|명|과정
+think of ~|숙|~을 생각해 보다, 떠올리다
+success|명|성공`],
+["Strategy 2 · Have \"Me Time\"", "전략 2 · 나만의 시간 갖기", `that is|숙|즉, 다시 말해
+personal|형|개인적인
+look after ~|숙|~을 돌보다
+take a break|숙|잠시 쉬다
+present|형|현재의
+moment|명|순간
+neither A nor B|숙|A도 B도 아닌
+regret|동|후회하다
+past|명|과거
+worry about ~|숙|~에 대해 걱정하다
+future|명|미래
+meditate|동|명상하다
+listen to ~|숙|~을 듣다
+exercise|동|운동하다
+technique|명|기법, 기술
+meditative|형|명상의, 명상에 쓰는
+work|동|효과가 있다, 작동하다
+like this|숙|이렇게, 이런 식으로
+whatever|대|~하는 것은 무엇이든
+a few|숙|몇몇의, 약간의
+breath|명|숨, 호흡
+observe|동|관찰하다, 살펴보다
+emotion|명|감정
+thought|명|생각
+as|접|~인 그대로, ~하는 대로
+judge A as B|숙|A를 B로 판단하다
+proceed with ~|숙|~을 계속 진행하다
+based on ~|숙|~에 근거해서
+go forward|숙|앞으로 나아가다
+with|전|~을 가지고, ~와 함께`],
+["Strategy 3 · Be Connected", "전략 3 · 사람들과 이어지기", `be connected|숙|(사람들과) 이어져 있다
+allow A to V|숙|A가 ~할 수 있게 하다
+ask for ~|숙|~을 요청하다, 부탁하다
+trust|동|믿다, 신뢰하다
+such as ~|숙|~와 같은
+counselor|명|상담사
+talk about ~|숙|~에 대해 이야기하다
+issue|명|문제, 사안
+help A V|숙|A가 ~하도록 돕다
+situation|명|상황
+with|전|더 ~하게, ~을 가지고
+clarity|명|명료함, 또렷함
+strength|명|힘, 강점
+respond to ~|숙|~에 대응하다, 반응하다
+communication|명|의사소통
+tend to V|숙|~하는 경향이 있다
+create|동|만들다
+support|명|지원, 지지
+network|명|관계망, 네트워크
+strategy|명|전략
+remove|동|없애다, 제거하다
+stress|명|스트레스, 압박
+suffering|명|고통
+still|부|그래도, 그럼에도
+urge A to V|숙|A에게 ~하라고 강하게 권하다
+practice|동|연습하다, 실천하다
+whenever|접|~할 때마다
+particularly|부|특히
+be under stress|숙|스트레스를 받고 있다
+muscle|명|근육
+than|전|~보다
+moment|명|순간
+in the middle of ~|숙|~의 한가운데에
+adversity|명|역경
+uncertainty|명|불확실함
+during|전|~ 동안
+tough|형|힘든, 고된
+endure|동|견디다, 버티다
+grow|동|성장하다, 자라다
+however|부|그러나
+apply A to B|숙|A를 B에 적용하다
+everyday|형|일상의
+minor|형|사소한, 작은
+challenge|명|도전, 힘든 일
+gradually|부|점차, 서서히
+able to V|형|~할 수 있는
+deal with ~|숙|~을 다루다, ~에 대처하다
+fulfilled|형|충족감을 느끼는, 만족한
+less|부|덜
+be afraid of ~|숙|~을 두려워하다
+fail|동|실패하다
+key to -ing|숙|~하는 비결, ~의 열쇠
+not only A but (also) B|숙|A뿐 아니라 B도
+overcome|동|극복하다, 이겨 내다`],
+["Further Reading · Growth Mindset", "성장 마인드셋", `further reading|명|더 읽을거리
+growth|명|성장
+mindset|명|사고방식, 마음가짐
+way of thinking|숙|사고방식, 생각하는 방식
+affect|동|영향을 미치다
+ability|명|능력
+deal with ~|숙|~을 다루다, ~에 대처하다
+challenge|명|도전, 힘든 일
+psychologist|명|심리학자
+main|형|주된, 주요한
+fixed|형|고정된
+for|전|~에게 (있어서는), ~의 경우에는
+with|전|~을 가진
+failure|명|실패
+intelligence|명|지능
+talent|명|재능
+be limited|숙|제한되어 있다, 한계가 있다
+for example|숙|예를 들어
+be good at ~|숙|~을 잘하다
+therefore|부|그러므로
+comfort zone|명|안전지대, 편한 영역
+be challenged|숙|도전받다
+tend to V|숙|~하는 경향이 있다
+reject|동|거부하다
+even|부|심지어, ~조차
+constructive|형|건설적인
+criticism|명|비판
+success|명|성공
+make A V|숙|A가 ~하게 만들다
+defeated|형|진 것 같은, 패배감이 드는
+confidence|명|자신감
+meanwhile|부|한편
+accept|동|받아들이다
+opportunity|명|기회
+still|부|아직(도), 여전히
+practice|동|연습하다, 실천하다
+skill|명|기술, 능력
+until|접|~할 때까지
+learn from ~|숙|~에서 배우다
+ask for ~|숙|~을 요청하다, 부탁하다
+advice|명|조언
+be inspired by ~|숙|~에게 영감을 받다
+empower A to V|숙|A가 ~할 수 있게 힘을 주다
+comfortable|형|편안한
+about|전|~에 대해
+imperfection|명|불완전함, 결점
+overcome|동|극복하다, 이겨 내다
+crisis|명|위기
+mistake|명|실수
+expert|명|전문가
+develop|동|기르다, 발달시키다
+practice|명|연습, 훈련
+whenever|접|~할 때마다
+impossible|형|불가능한
+would rather V|숙|차라리 ~하겠다
+give up|숙|포기하다
+train A to V|숙|A가 ~하도록 훈련하다
+how to V|숙|~하는 방법
+possible|형|가능한`]
+];
+
+// Build a deduplicated word bank; each section keeps references to its entries.
+const BANK = new Map();
+const SEC = SECTIONS.map(([en, ko, raw], i) => {
+  const keys = [];
+  raw.split("\n").forEach(line => {
+    const [w, p, m] = line.split("|");
+    const key = w + "|" + p + "|" + m;
+    if (!BANK.has(key)) BANK.set(key, { key, w, p, m, sec: i + 1 });
+    if (!keys.includes(key)) keys.push(key);
+  });
+  return { en, ko, keys };
+});
+const ALL = [...BANK.values()];
+
+// ---- storage (per-viewer convenience only)
+const STORE_KEY = "bounceback-ybm3-v1";
+let S = { xp: 0, known: {}, wrong: {}, best: {} , scope: "all", mute: false };
+try { const raw = localStorage.getItem(STORE_KEY); if (raw) S = Object.assign(S, JSON.parse(raw)); } catch (e) {}
+function save() { try { localStorage.setItem(STORE_KEY, JSON.stringify(S)); } catch (e) {} updateStats(); }
+function updateStats() {
+  document.getElementById("xp").textContent = S.xp;
+  document.getElementById("known").textContent = Object.keys(S.known).filter(k => BANK.has(k)).length;
+}
+function markWrong(it) { S.wrong[it.key] = (S.wrong[it.key] || 0) + 1; delete S.known[it.key]; }
+function markRight(it) { if (S.wrong[it.key]) { S.wrong[it.key]--; if (S.wrong[it.key] <= 0) delete S.wrong[it.key]; } }
+function addXp(n) { S.xp += n; }
+
+// ---- helpers
+const $view = document.getElementById("view");
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;" }[c]));
+const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+function pool(scope = S.scope) {
+  if (scope === "wrong") return ALL.filter(it => S.wrong[it.key]);
+  if (scope === "all") return ALL;
+  return SEC[scope - 1].keys.map(k => BANK.get(k));
+}
+const meanParts = m => m.split(",").map(s => s.trim());
+function clash(a, b) {
+  if (a.w === b.w) return true;
+  const pa = meanParts(a.m), pb = meanParts(b.m);
+  return pa.some(x => pb.includes(x));
+}
+function distractors(it, n) {
+  const same = shuffle(ALL.filter(o => o.p === it.p && !clash(o, it)));
+  const other = shuffle(ALL.filter(o => o.p !== it.p && !clash(o, it)));
+  const out = [];
+  for (const o of same.concat(other)) {
+    if (out.length >= n) break;
+    if (!out.some(x => clash(x, o))) out.push(o);
+  }
+  return out;
+}
+
+// sound + motion feedback
+let actx = null;
+function tone(freqs, dur = .09, type = "triangle") {
+  if (S.mute) return;
+  try {
+    actx = actx || new (window.AudioContext || window.webkitAudioContext)();
+    let t = actx.currentTime;
+    freqs.forEach(f => {
+      const o = actx.createOscillator(), g = actx.createGain();
+      o.type = type; o.frequency.value = f;
+      g.gain.setValueAtTime(.12, t); g.gain.exponentialRampToValueAtTime(.001, t + dur);
+      o.connect(g); g.connect(actx.destination); o.start(t); o.stop(t + dur); t += dur * .8;
+    });
+  } catch (e) {}
+}
+const ball = document.getElementById("ball");
+function bounce(ok) {
+  ball.classList.remove("hop", "squash"); void ball.offsetWidth;
+  ball.classList.add(ok ? "hop" : "squash");
+  ok ? tone([660, 880]) : tone([220, 160], .14, "sawtooth");
+}
+function pop(text, bad) {
+  const d = document.createElement("div"); d.className = "pop" + (bad ? " bad" : ""); d.textContent = text;
+  document.body.appendChild(d); setTimeout(() => d.remove(), 800);
+}
+function speak(text) {
+  try {
+    const u = new SpeechSynthesisUtterance(text.replace(/~|\(also\)|-ing/g, " ").replace(/\bA\b|\bB\b|\bV\b/g, "something"));
+    u.lang = "en-US"; u.rate = .9; speechSynthesis.cancel(); speechSynthesis.speak(u);
+  } catch (e) {}
+}
+let timers = [];
+function clearTimers() { timers.forEach(t => { clearInterval(t); clearTimeout(t); }); timers = []; }
+
+function bar(title, hud = "") {
+  return `<div class="bar"><button class="back" id="back" aria-label="처음으로">← 처음</button><div class="title">${title}</div><div class="hud" id="hud">${hud}</div></div>`;
+}
+function bindBack() { document.getElementById("back").onclick = home; }
+
+// ---- HOME
+function scopeName(sc = S.scope) {
+  if (sc === "all") return "본문 전체 · 중복 제외 " + ALL.length + "단어";
+  if (sc === "wrong") return "오답노트 · 틀렸던 단어 " + pool("wrong").length + "개";
+  const s = SEC[sc - 1]; return `본문 (${sc}) ${s.en} — ${s.ko}`;
+}
+function home() {
+  clearTimers();
+  const wrongN = pool("wrong").length;
+  if (S.scope === "wrong" && !wrongN) S.scope = "all";
+  const chips = [["all", "전체", ALL.length], ...SEC.map((s, i) => [i + 1, "본문 " + (i + 1), s.keys.length]), ["wrong", "오답노트", wrongN]];
+  const b = S.best;
+  $view.innerHTML = `
+  <section style="display:flex;flex-direction:column;gap:20px">
+    <div>
+      <p class="label">범위 고르기</p>
+      <div class="chips" role="group" aria-label="학습 범위">
+        ${chips.map(([v, l, n]) => `<button class="chip" data-scope="${v}" aria-pressed="${String(S.scope) === String(v)}" ${v === "wrong" && !n ? "disabled style='opacity:.45'" : ""}>${l}<small>${n}</small></button>`).join("")}
+      </div>
+      <div class="scope-title">${esc(scopeName())}</div>
+    </div>
+    <div>
+      <p class="label">게임 고르기</p>
+      <div class="modes">
+        <button class="mode feature" data-mode="quiz">
+          <span class="ic">10</span><h3>스피드 퀴즈</h3>
+          <p>10초 안에 4개 중 정답 고르기. 연속으로 맞히면 콤보 점수가 붙어요.</p>
+          <span class="best">최고 점수 ${b.quiz || 0}점</span>
+        </button>
+        <button class="mode" data-mode="match">
+          <span class="ic">⇄</span><h3>짝맞추기</h3>
+          <p>영어와 뜻을 짝지어 없애기. 3라운드 기록 도전.</p>
+          <span class="best">최고 기록 ${b.match ? b.match.toFixed(1) + "초" : "—"}</span>
+        </button>
+        <button class="mode" data-mode="spell">
+          <span class="ic">Aa</span><h3>철자 바운스</h3>
+          <p>뜻을 보고 영어 철자 쓰기. 목숨은 공 3개.</p>
+          <span class="best">최고 점수 ${b.spell || 0}점</span>
+        </button>
+        <button class="mode" data-mode="flash">
+          <span class="ic">◐</span><h3>플래시카드</h3>
+          <p>카드를 뒤집어 확인하고 아는 단어, 모르는 단어로 나누기.</p>
+          <span class="best">외운 단어는 상단에 집계</span>
+        </button>
+        <button class="mode" data-mode="list">
+          <span class="ic">≡</span><h3>단어 목록</h3>
+          <p>범위 안의 단어를 한눈에 보고 발음 듣기.</p>
+          <span class="best">${pool().length}단어</span>
+        </button>
+      </div>
+    </div>
+    <div class="note">
+      <span>오답노트에 ${wrongN}개 · 퀴즈에서 맞히면 하나씩 빠져요.</span>
+      <span style="display:flex;gap:14px"><button class="linkbtn" id="mute">${S.mute ? "소리 켜기" : "소리 끄기"}</button><button class="linkbtn" id="reset">기록 초기화</button></span>
+    </div>
+  </section>`;
+  $view.querySelectorAll(".chip").forEach(c => c.onclick = () => { const v = c.dataset.scope; S.scope = (v === "all" || v === "wrong") ? v : +v; save(); home(); });
+  $view.querySelectorAll(".mode").forEach(m => m.onclick = () => ({ quiz, match, spell, flash, list })[m.dataset.mode]());
+  document.getElementById("mute").onclick = () => { S.mute = !S.mute; save(); home(); };
+  const r = document.getElementById("reset");
+  r.onclick = () => {
+    if (r.dataset.arm) { S = { xp: 0, known: {}, wrong: {}, best: {}, scope: "all", mute: S.mute }; save(); home(); }
+    else { r.dataset.arm = 1; r.textContent = "정말 지울까요? 한 번 더 누르기"; setTimeout(() => { if (r.isConnected) { delete r.dataset.arm; r.textContent = "기록 초기화"; } }, 3000); }
+  };
+  updateStats();
+}
+
+// ---- RESULT
+function result(title, scoreText, sub, missed, again, bestNote) {
+  clearTimers();
+  $view.innerHTML = `${bar(title)}
+  <section class="result" style="margin-top:20px">
+    <div class="ballbox" aria-hidden="true" style="margin:0 auto"><div class="ball hop" style="animation-iteration-count:3"></div></div>
+    <div class="big">${scoreText}</div>
+    <div>${sub}</div>
+    ${bestNote ? `<span class="pill combo">${bestNote}</span>` : ""}
+    ${missed.length ? `<p class="label" style="margin:12px 0 0;align-self:flex-start">다시 볼 단어 (오답노트에 저장됨)</p>
+      <div class="missed">${missed.map(it => `<div><span class="en">${esc(it.w)}</span><span>${esc(it.m)}</span></div>`).join("")}</div>`
+      : `<p class="hint">하나도 안 틀렸어요. 멋지게 튀어 올랐네요!</p>`}
+    <div class="row" style="width:100%;margin-top:8px">
+      <button class="btn primary" id="again">한 판 더</button>
+      ${missed.length ? `<button class="btn" id="towrong">오답만 연습</button>` : ""}
+    </div>
+  </section>`;
+  bindBack();
+  document.getElementById("again").onclick = again;
+  const tw = document.getElementById("towrong");
+  if (tw) tw.onclick = () => { S.scope = "wrong"; save(); again(); };
+  save();
+}
+function needWords(n) {
+  if (pool().length >= n) return true;
+  $view.innerHTML = `${bar("단어가 부족해요")}<div class="card" style="margin-top:16px"><p>이 범위에는 단어가 ${pool().length}개뿐이에요.<br>최소 ${n}개가 필요해요. 다른 범위를 골라 주세요.</p></div>`;
+  bindBack(); return false;
+}
+
+// ---- QUIZ
+function quiz() {
+  if (!needWords(4)) return;
+  const qs = shuffle(pool()).slice(0, 10);
+  let i = 0, score = 0, combo = 0, maxCombo = 0, correct = 0; const missed = [];
+  const LIMIT = 10;
+  function render() {
+    clearTimers();
+    const it = qs[i], toKo = Math.random() < .6;
+    const opts = shuffle([it, ...distractors(it, 3)]);
+    $view.innerHTML = `${bar("스피드 퀴즈", `<span class="pill">${i + 1} / ${qs.length}</span><span class="pill">${score}점</span>${combo > 1 ? `<span class="pill combo">${combo} 콤보</span>` : ""}`)}
+    <div style="display:flex;flex-direction:column;gap:14px;margin-top:16px">
+      <div class="progress timer" id="tm"><i style="width:100%"></i></div>
+      <div class="card">
+        <span class="pos">${POS[it.p]}</span>
+        ${toKo ? `<div class="q-word">${esc(it.w)}</div><button class="speak" id="sp">발음 듣기</button>` : `<div class="q-mean">${esc(it.m)}</div>`}
+        <div class="hint">${toKo ? "알맞은 뜻을 고르세요" : "알맞은 영어 표현을 고르세요"}</div>
+      </div>
+      <div class="choices">
+        ${opts.map((o, k) => `<button class="choice" data-k="${o.key}"><span class="k">${k + 1}</span><span class="${toKo ? "" : "en"}">${esc(toKo ? o.m : o.w)}</span></button>`).join("")}
+      </div>
+    </div>`;
+    bindBack();
+    const sp = document.getElementById("sp"); if (sp) sp.onclick = () => speak(it.w);
+    const start = performance.now(); let done = false;
+    const tm = document.getElementById("tm"), fill = tm.firstElementChild;
+    timers.push(setInterval(() => {
+      const left = Math.max(0, LIMIT - (performance.now() - start) / 1000);
+      fill.style.width = (left / LIMIT * 100) + "%";
+      tm.classList.toggle("low", left < 3);
+      if (left <= 0) answer(null);
+    }, 50));
+    const btns = [...$view.querySelectorAll(".choice")];
+    function answer(key) {
+      if (done) return; done = true; clearTimers();
+      const left = Math.max(0, LIMIT - (performance.now() - start) / 1000);
+      btns.forEach(b => { b.disabled = true; if (b.dataset.k === it.key) b.classList.add("right"); });
+      if (key === it.key) {
+        combo++; maxCombo = Math.max(maxCombo, combo); correct++;
+        const gain = Math.round((100 + left * 10) * (1 + Math.min(combo - 1, 5) * .2));
+        score += gain; addXp(10); markRight(it); bounce(true); pop("+" + gain);
+      } else {
+        combo = 0; missed.push(it); markWrong(it); bounce(false); pop(key ? "아쉬워요" : "시간 초과", true);
+        const b = btns.find(b => b.dataset.k === key); if (b) b.classList.add("wrong");
+      }
+      save();
+      timers.push(setTimeout(() => { i++; i < qs.length ? render() : finish(); }, key === it.key ? 700 : 1500));
+    }
+    btns.forEach(b => b.onclick = () => answer(b.dataset.k));
+    keyHandler = e => { const n = +e.key; if (n >= 1 && n <= 4 && btns[n - 1]) answer(btns[n - 1].dataset.k); };
+  }
+  function finish() {
+    const isBest = score > (S.best.quiz || 0); if (isBest) S.best.quiz = score;
+    if (correct === qs.length) addXp(30);
+    result("스피드 퀴즈", score + "점", `${qs.length}문제 중 ${correct}개 정답 · 최대 ${maxCombo} 콤보`, missed, quiz, isBest && score ? "최고 점수 갱신!" : "");
+  }
+  render();
+}
+let keyHandler = null;
+document.addEventListener("keydown", e => { if (keyHandler && !(e.target && e.target.tagName === "INPUT")) keyHandler(e); });
+
+// ---- MATCH
+function match() {
+  if (!needWords(5)) return;
+  keyHandler = null;
+  const ROUNDS = 3, PER = 5;
+  let round = 0, t0 = performance.now(), penalty = 0, mistakes = 0; const missed = [];
+  const bag = shuffle(pool());
+  function pick() {
+    const out = [];
+    for (const it of bag) { if (out.length >= PER) break; if (!out.some(o => clash(o, it))) out.push(it); }
+    out.forEach(o => bag.splice(bag.indexOf(o), 1));
+    if (out.length < PER) { for (const it of shuffle(pool())) { if (out.length >= PER) break; if (!out.some(o => clash(o, it))) out.push(it); } }
+    return out;
+  }
+  function render() {
+    clearTimers();
+    const set = pick(); let left = set.length, selL = null, selR = null;
+    $view.innerHTML = `${bar("짝맞추기", `<span class="pill">라운드 ${round + 1} / ${ROUNDS}</span><span class="pill" id="clock">0.0초</span>`)}
+    <div style="display:flex;flex-direction:column;gap:14px;margin-top:16px">
+      <p class="hint" style="margin:0">왼쪽 영어와 오른쪽 뜻을 하나씩 눌러 짝을 맞추세요. 틀리면 3초가 더해져요.</p>
+      <div class="match">
+        <div class="col">${shuffle(set).map(o => `<button class="tile en" data-k="${o.key}" data-side="L">${esc(o.w)}</button>`).join("")}</div>
+        <div class="col">${shuffle(set).map(o => `<button class="tile" data-k="${o.key}" data-side="R">${esc(o.m)}</button>`).join("")}</div>
+      </div>
+    </div>`;
+    bindBack();
+    const clock = document.getElementById("clock");
+    timers.push(setInterval(() => { clock.textContent = ((performance.now() - t0) / 1000 + penalty).toFixed(1) + "초"; }, 100));
+    $view.querySelectorAll(".tile").forEach(t => t.onclick = () => {
+      if (t.dataset.side === "L") { if (selL) selL.classList.remove("sel"); selL = t; speak(t.textContent); } else { if (selR) selR.classList.remove("sel"); selR = t; }
+      t.classList.add("sel");
+      if (selL && selR) {
+        const a = selL, b = selR; selL = selR = null;
+        if (a.dataset.k === b.dataset.k) {
+          a.classList.add("done"); b.classList.add("done"); bounce(true); addXp(5);
+          if (--left === 0) { round++; timers.push(setTimeout(() => round < ROUNDS ? render() : finish(), 450)); }
+        } else {
+          penalty += 3; mistakes++; bounce(false); pop("+3초", true);
+          const it = BANK.get(a.dataset.k); if (!missed.includes(it)) { missed.push(it); markWrong(it); }
+          [a, b].forEach(x => { x.classList.remove("sel"); x.classList.add("wrong"); setTimeout(() => x.classList.remove("wrong"), 400); });
+        }
+        save();
+      }
+    });
+  }
+  function finish() {
+    const total = (performance.now() - t0) / 1000 + penalty;
+    const isBest = !S.best.match || total < S.best.match; if (isBest) S.best.match = total;
+    addXp(20);
+    result("짝맞추기", total.toFixed(1) + "초", `${ROUNDS * PER}쌍 완료 · 실수 ${mistakes}번`, missed, match, isBest ? "최고 기록 갱신!" : "");
+  }
+  render();
+}
+
+// ---- SPELL
+const spellAnswer = it => it.w.replace(/\s*~\s*/g, " ").replace(/\s+/g, " ").trim();
+const spellable = it => !/\b[ABV]\b|-ing|\(also\)/.test(it.w) && /^[a-zA-Z' -]+$/.test(spellAnswer(it));
+const norm = s => s.toLowerCase().replace(/[^a-z' -]/g, "").replace(/\s+/g, " ").trim();
+function spell() {
+  const src = pool().filter(spellable);
+  if (src.length < 3) {
+    $view.innerHTML = `${bar("철자 바운스")}<div class="card" style="margin-top:16px"><p>이 범위에는 철자로 쓸 수 있는 단어가 부족해요. 다른 범위를 골라 주세요.</p></div>`;
+    bindBack(); return;
+  }
+  keyHandler = null;
+  const qs = shuffle(src).slice(0, 10);
+  let i = 0, score = 0, lives = 3, correct = 0; const missed = [];
+  function render() {
+    clearTimers();
+    const it = qs[i], ans = spellAnswer(it); let hints = 0, tries = 0, done = false;
+    const hearts = "●".repeat(lives) + "○".repeat(3 - lives);
+    $view.innerHTML = `${bar("철자 바운스", `<span class="pill">${i + 1} / ${qs.length}</span><span class="pill">${score}점</span><span class="pill" aria-label="남은 공 ${lives}개" style="color:var(--ball)">${hearts}</span>`)}
+    <div style="display:flex;flex-direction:column;gap:14px;margin-top:16px">
+      <div class="progress"><i style="width:${i / qs.length * 100}%"></i></div>
+      <div class="card">
+        <span class="pos">${POS[it.p]}</span>
+        <div class="q-mean">${esc(it.m)}</div>
+        <div class="slots" id="slots"></div>
+      </div>
+      <form id="f" style="display:flex;flex-direction:column;gap:10px">
+        <input class="answer" id="ans" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="영어로 쓰기" aria-label="영어 철자 입력">
+        <div class="row">
+          <button type="button" class="btn" id="hintb">힌트 (한 글자)</button>
+          <button type="submit" class="btn primary" id="ok">확인</button>
+        </div>
+      </form>
+      <div class="reveal" id="rv"></div>
+    </div>`;
+    bindBack();
+    const slots = document.getElementById("slots"), inp = document.getElementById("ans"), rv = document.getElementById("rv");
+    const drawSlots = (all) => {
+      let letterIdx = 0;
+      slots.innerHTML = [...ans].map(ch => {
+        if (ch === " ") return `<span class="sp"> </span>`;
+        const show = all || letterIdx < hints; letterIdx++;
+        return `<span class="${show ? "shown" : ""}">${show ? esc(ch) : "&nbsp;"}</span>`;
+      }).join("");
+    };
+    drawSlots(false); inp.focus();
+    document.getElementById("hintb").onclick = () => {
+      const letters = ans.replace(/ /g, "").length;
+      if (hints < letters - 1) { hints++; drawSlots(false); tone([520]); }
+      inp.focus();
+    };
+    document.getElementById("f").onsubmit = e => {
+      e.preventDefault(); if (done) return;
+      const v = norm(inp.value); if (!v) return;
+      if (v === norm(ans)) {
+        done = true; correct++;
+        const gain = Math.max(20, 100 - hints * 20 - tries * 30);
+        score += gain; addXp(12); markRight(it); bounce(true); pop("+" + gain);
+        inp.classList.add("right"); drawSlots(true); speak(ans);
+        rv.innerHTML = `정답! <b>${esc(it.w)}</b>`;
+        save(); timers.push(setTimeout(next, 1100));
+      } else {
+        tries++; bounce(false);
+        inp.classList.remove("wrong"); void inp.offsetWidth; inp.classList.add("wrong");
+        if (tries >= 2) {
+          done = true; lives--; missed.push(it); markWrong(it); drawSlots(true);
+          rv.innerHTML = `정답은 <b>${esc(it.w)}</b> · 공 하나를 잃었어요`; speak(ans);
+          save(); timers.push(setTimeout(next, 2000));
+        } else {
+          hints = Math.max(hints, 1); drawSlots(false);
+          rv.textContent = "한 번 더! 첫 글자를 보여 줄게요."; inp.select();
+        }
+      }
+    };
+  }
+  function next() { i++; (i < qs.length && lives > 0) ? render() : finish(); }
+  function finish() {
+    const isBest = score > (S.best.spell || 0); if (isBest) S.best.spell = score;
+    result("철자 바운스", score + "점", lives > 0 ? `${qs.length}문제 중 ${correct}개 정답` : `공을 모두 잃었어요 · ${correct}개 정답`, missed, spell, isBest && score ? "최고 점수 갱신!" : "");
+  }
+  render();
+}
+
+// ---- FLASHCARDS
+function flash() {
+  if (!needWords(1)) return;
+  let deck = shuffle(pool()), i = 0, knownN = 0;
+  function render() {
+    clearTimers();
+    if (i >= deck.length) {
+      $view.innerHTML = `${bar("플래시카드")}<section class="result" style="margin-top:20px"><div class="big">${knownN} / ${deck.length}</div><div>이번에 안다고 표시한 단어</div>
+      <div class="row" style="width:100%"><button class="btn primary" id="again">처음부터 다시</button><button class="btn" id="q">스피드 퀴즈로 확인</button></div></section>`;
+      bindBack(); document.getElementById("again").onclick = flash; document.getElementById("q").onclick = quiz; return;
+    }
+    const it = deck[i];
+    $view.innerHTML = `${bar("플래시카드", `<span class="pill">${i + 1} / ${deck.length}</span>`)}
+    <div style="display:flex;flex-direction:column;gap:14px;margin-top:16px">
+      <div class="progress"><i style="width:${i / deck.length * 100}%"></i></div>
+      <button class="flip" id="fc" aria-label="카드 뒤집기">
+        <div class="flip-inner">
+          <div class="face card"><span class="pos">${POS[it.p]}</span><div class="q-word">${esc(it.w)}</div><div class="hint">눌러서 뜻 보기 · 스페이스</div></div>
+          <div class="face card back-face"><div class="q-mean">${esc(it.m)}</div><div class="hint en">${esc(it.w)}</div></div>
+        </div>
+      </button>
+      <div class="row">
+        <button class="btn bad" id="no">몰라요 ←</button>
+        <button class="btn" id="sp">발음 듣기</button>
+        <button class="btn good" id="yes">알아요 →</button>
+      </div>
+    </div>`;
+    bindBack();
+    const fc = document.getElementById("fc");
+    fc.onclick = () => fc.classList.toggle("on");
+    document.getElementById("sp").onclick = () => speak(it.w);
+    const no = () => { markWrong(it); bounce(false); save(); i++; render(); };
+    const yes = () => { S.known[it.key] = 1; markRight(it); addXp(2); knownN++; bounce(true); save(); i++; render(); };
+    document.getElementById("no").onclick = no;
+    document.getElementById("yes").onclick = yes;
+    keyHandler = e => {
+      if (e.key === " ") { e.preventDefault(); fc.classList.toggle("on"); }
+      else if (e.key === "ArrowLeft") no(); else if (e.key === "ArrowRight") yes();
+    };
+  }
+  render();
+}
+
+// ---- LIST
+function list() {
+  keyHandler = null;
+  const items = pool();
+  $view.innerHTML = `${bar("단어 목록", `<span class="pill">${items.length}단어</span>`)}
+  <p class="hint">${esc(scopeName())} · 영어를 누르면 발음이 나와요.</p>
+  <div class="wordlist">${items.map(it => `<div><button class="linkbtn en" style="text-align:left;color:var(--ink);text-decoration:none" data-w="${esc(it.w)}">${esc(it.w)}</button><span class="pos">${it.p}</span><span>${esc(it.m)}</span><span class="mk ${S.wrong[it.key] ? "w" : S.known[it.key] ? "k" : ""}">${S.wrong[it.key] ? "오답 " + S.wrong[it.key] : S.known[it.key] ? "외움" : ""}</span></div>`).join("")}</div>`;
+  bindBack();
+  $view.querySelectorAll("[data-w]").forEach(b => b.onclick = () => speak(b.dataset.w));
+}
+
+const _home = home;
+home = function () { keyHandler = null; _home(); };
+home();
+</script>
+</body>
+</html>
