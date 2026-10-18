@@ -158,6 +158,31 @@ button:focus-visible, input:focus-visible { outline: 3px solid var(--blue); outl
 .btn.bad { background: var(--bad-bg); border-color: var(--bad); }
 .btn:disabled { opacity: .5; cursor: default; }
 
+/* word shower */
+.field {
+  position: relative; height: min(50vh, 460px); min-height: 280px; border-radius: 22px; overflow: hidden;
+  background: linear-gradient(180deg, var(--surface) 0%, var(--surface-2) 100%); border: 1.5px solid var(--line);
+}
+.field::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 26px; background: repeating-linear-gradient(135deg, var(--bad-bg) 0 10px, transparent 10px 20px); border-top: 2px dashed var(--bad); }
+.field.hurt { animation: hurt .45s; }
+@keyframes hurt { 30% { box-shadow: inset 0 0 0 6px var(--bad); } }
+.drop {
+  position: absolute; top: 0; left: 50%; transform: translate(-50%, -40px); max-width: 70%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  background: var(--ink); color: var(--bg); border-radius: 999px; padding: 6px 14px; font-size: 1.05rem; z-index: 2; box-shadow: 0 3px 0 rgba(0,0,0,.18);
+}
+.drop.low { background: var(--bad); color: #fff; }
+.drop.hit { animation: burst .32s ease-out forwards; background: var(--ball); color: var(--ball-ink); }
+.drop.gone { animation: sink .4s ease-in forwards; }
+@keyframes burst { to { opacity: 0; scale: 1.6; } }
+@keyframes sink { to { opacity: 0; scale: .7; } }
+.float { position: absolute; z-index: 3; font-family: var(--f-display); color: var(--good); font-size: 1.3rem; pointer-events: none; transform: translate(-50%, 0); animation: up .7s ease-out forwards; }
+@keyframes up { to { opacity: 0; margin-top: -40px; } }
+.field .start { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; padding: 20px; z-index: 4; }
+.field .start div { background: var(--surface); border: 1.5px solid var(--line); border-radius: 18px; padding: 18px; max-width: 340px; display: flex; flex-direction: column; gap: 10px; box-shadow: var(--shadow); }
+
+.choices.two { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.choices.two .choice { min-height: 54px; padding: 10px; font-size: .92rem; gap: 8px; }
+
 /* match */
 .match { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 .col { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
@@ -640,7 +665,12 @@ function home() {
     <div>
       <p class="label">게임 고르기</p>
       <div class="modes">
-        <button class="mode feature" data-mode="quiz">
+        <button class="mode feature" data-mode="rain">
+          <span class="ic">↓</span><h3>단어 소나기</h3>
+          <p>떨어지는 영어 단어를 알맞은 뜻 버튼으로 터뜨리세요. 높은 곳에서 터뜨릴수록 점수가 커지고, 바닥에 닿으면 공을 하나 잃어요.</p>
+          <span class="best">최고 점수 ${b.rain || 0}점</span>
+        </button>
+        <button class="mode" data-mode="quiz">
           <span class="ic">10</span><h3>스피드 퀴즈</h3>
           <p>10초 안에 4개 중 정답 고르기. 연속으로 맞히면 콤보 점수가 붙어요.</p>
           <span class="best">최고 점수 ${b.quiz || 0}점</span>
@@ -673,7 +703,7 @@ function home() {
     </div>
   </section>`;
   $view.querySelectorAll(".chip").forEach(c => c.onclick = () => { const v = c.dataset.scope; S.scope = (v === "all" || v === "wrong") ? v : +v; save(); home(); });
-  $view.querySelectorAll(".mode").forEach(m => m.onclick = () => ({ quiz, match, spell, flash, list })[m.dataset.mode]());
+  $view.querySelectorAll(".mode").forEach(m => m.onclick = () => ({ rain, quiz, match, spell, flash, list })[m.dataset.mode]());
   document.getElementById("mute").onclick = () => { S.mute = !S.mute; save(); home(); };
   const r = document.getElementById("reset");
   r.onclick = () => {
@@ -772,6 +802,134 @@ function quiz() {
 }
 let keyHandler = null;
 document.addEventListener("keydown", e => { if (keyHandler && !(e.target && e.target.tagName === "INPUT")) keyHandler(e); });
+
+// ---- WORD SHOWER
+function rain() {
+  if (!needWords(6)) return;
+  keyHandler = null; clearTimers();
+  let score = 0, lives = 3, combo = 0, maxCombo = 0, kills = 0, level = 1, over = false, started = false;
+  let drops = [], opts = [], spawnT = 0, last = 0, bag = shuffle(pool());
+  const missed = [];
+  $view.innerHTML = `${bar("단어 소나기", "")}
+  <div style="display:flex;flex-direction:column;gap:12px;margin-top:16px">
+    <div class="field" id="field">
+      <div class="start" id="start"><div>
+        <h3 style="font-size:1.3rem">단어 소나기</h3>
+        <p style="margin:0" class="hint">영어 단어가 위에서 내려와요. 아래 뜻 버튼 중 맞는 것을 누르면 그 단어가 터져요. 숫자 키 1~4도 돼요.</p>
+        <button class="btn primary" id="go">시작하기</button>
+      </div></div>
+    </div>
+    <div class="choices two" id="opts"></div>
+  </div>`;
+  bindBack();
+  const field = document.getElementById("field"), optBox = document.getElementById("opts"), hud = document.getElementById("hud");
+  const H = () => field.clientHeight;
+  function drawHud() {
+    hud.innerHTML = `<span class="pill">Lv ${level}</span><span class="pill">${score}점</span>${combo > 1 ? `<span class="pill combo">${combo} 콤보</span>` : ""}<span class="pill" aria-label="남은 공 ${lives}개" style="color:var(--ball)">${"●".repeat(lives)}${"○".repeat(3 - lives)}</span>`;
+  }
+  function nextWord() {
+    for (let n = 0; n < 40; n++) {
+      if (!bag.length) bag = shuffle(pool());
+      const it = bag.pop();
+      if (!drops.some(d => clash(d.it, it))) return it;
+    }
+    return null;
+  }
+  const lowest = () => drops.reduce((a, d) => (!a || d.y > a.y) ? d : a, null);
+  function drawOpts() {
+    const list = opts.length ? opts : [null, null, null, null];
+    optBox.innerHTML = list.map((o, k) => `<button class="choice" ${o ? `data-k="${o.key}"` : "disabled"}><span class="k">${k + 1}</span><span>${o ? esc(o.m) : "&nbsp;"}</span></button>`).join("");
+    optBox.querySelectorAll(".choice[data-k]").forEach(b => b.onclick = () => hit(b.dataset.k, b));
+  }
+  function buildOpts() {
+    const low = lowest();
+    if (!low) { opts = []; drawOpts(); return; }
+    const set = [low.it];
+    for (const d of drops) { if (set.length >= 3) break; if (!set.includes(d.it) && !set.some(x => clash(x, d.it))) set.push(d.it); }
+    for (const o of distractors(low.it, 12)) {
+      if (set.length >= 4) break;
+      if (!set.some(x => clash(x, o)) && !drops.some(d => clash(d.it, o))) set.push(o);
+    }
+    opts = shuffle(set); drawOpts();
+  }
+  function spawn() {
+    const it = nextWord(); if (!it) return;
+    const el = document.createElement("div");
+    el.className = "drop en"; el.textContent = it.w; el.style.left = (20 + Math.random() * 60) + "%";
+    field.appendChild(el);
+    drops.push({ it, el, y: -40 });
+    if (!opts.length) return buildOpts();
+    // swap a distractor button for the new word so its answer is reachable before it lands
+    const low = lowest();
+    const idx = opts.findIndex(o => o !== low.it && !drops.some(d => d.it === o));
+    if (idx >= 0 && !opts.some((o, i) => i !== idx && clash(o, it))) { opts[idx] = it; drawOpts(); }
+  }
+  function floatText(text, x, y, color) {
+    const f = document.createElement("div"); f.className = "float"; f.textContent = text;
+    f.style.left = x; f.style.top = Math.max(0, y) + "px"; if (color) f.style.color = color;
+    field.appendChild(f); setTimeout(() => f.remove(), 700);
+  }
+  function hit(key, btn) {
+    if (over || !started) return;
+    const d = drops.find(x => x.it.key === key);
+    if (d) {
+      combo++; kills++; maxCombo = Math.max(maxCombo, combo);
+      const height = Math.max(0, 1 - d.y / H());
+      const gain = Math.round((50 + height * 100) * (1 + Math.min(combo - 1, 5) * .2));
+      score += gain; addXp(5); markRight(d.it); bounce(true);
+      floatText("+" + gain, d.el.style.left, d.y);
+      d.el.classList.add("hit"); const el = d.el; setTimeout(() => el.remove(), 330);
+      drops.splice(drops.indexOf(d), 1);
+      if (kills % 8 === 0) { level++; pop("레벨 " + level); }
+      buildOpts();
+    } else {
+      combo = 0; score = Math.max(0, score - 20); bounce(false);
+      if (btn) { btn.classList.add("wrong"); setTimeout(() => btn.classList.remove("wrong"), 350); }
+      floatText("-20", "50%", H() / 2, "var(--bad)");
+    }
+    drawHud(); save();
+  }
+  function land(d) {
+    lives--; combo = 0; missed.push(d.it); markWrong(d.it); bounce(false);
+    d.el.classList.add("gone"); const el = d.el; setTimeout(() => el.remove(), 400);
+    drops.splice(drops.indexOf(d), 1);
+    field.classList.remove("hurt"); void field.offsetWidth; field.classList.add("hurt");
+    floatText(d.it.m, d.el.style.left, H() - 70, "var(--bad)");
+    drawHud(); save();
+    if (lives <= 0) return end();
+    buildOpts();
+  }
+  function loop(t) {
+    if (over || !field.isConnected) return;
+    const dt = Math.min(.05, (t - last) / 1000); last = t;
+    const speed = 30 + level * 8, interval = Math.max(1.0, 2.8 - level * .22);
+    spawnT -= dt;
+    if (spawnT <= 0 && drops.length < 5) { spawn(); spawnT = interval; }
+    const h = H();
+    for (const d of drops.slice()) {
+      d.y += speed * dt;
+      d.el.style.transform = `translate(-50%, ${d.y}px)`;
+      d.el.classList.toggle("low", d.y > h * .68);
+      if (d.y > h - 34) land(d);
+    }
+    if (!over) requestAnimationFrame(loop);
+  }
+  function end() {
+    over = true;
+    const isBest = score > (S.best.rain || 0); if (isBest) S.best.rain = score;
+    timers.push(setTimeout(() => result("단어 소나기", score + "점", `${kills}개 격파 · 레벨 ${level} · 최대 ${maxCombo} 콤보`, missed, rain, isBest && score ? "최고 점수 갱신!" : ""), 600));
+  }
+  drawHud(); drawOpts();
+  document.getElementById("go").onclick = () => {
+    document.getElementById("start").remove();
+    started = true; tone([440, 660, 880]);
+    last = performance.now(); requestAnimationFrame(loop);
+  };
+  keyHandler = e => {
+    const n = +e.key;
+    if (n >= 1 && n <= 4) { const b = optBox.children[n - 1]; if (b && b.dataset.k) hit(b.dataset.k, b); }
+  };
+}
 
 // ---- MATCH
 function match() {
