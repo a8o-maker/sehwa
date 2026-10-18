@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>바운스백 방명록</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jua&family=Gowun+Dodum&display=swap">
+<style>
+/* Layout: one column; a write card on top, the message feed below */
+:root {
+  --bg: #EAF3F1; --surface: #FFFFFF; --surface-2: #DCEAE6; --ink: #12302B; --muted: #557069; --line: #C5DAD4;
+  --ball: #FFB000; --ball-ink: #3A2600; --blue: #2563EB; --bad: #D93A3A; --bad-bg: #FDE3E3; --shadow: 0 2px 0 #C5DAD4;
+  --f-display: "Jua", "Gowun Dodum", system-ui, sans-serif;
+  --f-body: "Gowun Dodum", "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif;
+  color-scheme: light;
+  padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0E1B19; --surface: #162926; --surface-2: #1F3733; --ink: #E6F2EF; --muted: #93ADA7; --line: #2C4843;
+    --ball: #FFC23D; --ball-ink: #2A1B00; --blue: #6EA0FF; --bad: #FF7070; --bad-bg: #3A1A1A; --shadow: 0 2px 0 #08110F;
+    color-scheme: dark;
+  }
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 16px; line-height: 1.55;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 20px 48px;
+}
+[hidden] { display: none !important; }
+.app { max-width: 640px; margin: 0 auto; display: flex; flex-direction: column; gap: 18px; }
+h1 { font-family: var(--f-display); font-weight: 400; font-size: 1.7rem; margin: 0; }
+.top { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.top h1 { flex: 1; min-width: 0; }
+.back { color: var(--ink); text-decoration: none; background: var(--surface); border: 1.5px solid var(--line); border-radius: 12px; padding: 6px 12px; }
+.sub { margin: 0; color: var(--muted); font-size: .9rem; }
+form { background: var(--surface); border: 1.5px solid var(--line); border-radius: 18px; padding: 16px; box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 10px; }
+label { font-size: .8rem; color: var(--muted); letter-spacing: .04em; }
+input, textarea { width: 100%; font: inherit; color: var(--ink); background: var(--bg); border: 1.5px solid var(--line); border-radius: 12px; padding: 10px 12px; }
+textarea { min-height: 90px; resize: vertical; }
+input:focus-visible, textarea:focus-visible, button:focus-visible, a:focus-visible { outline: 3px solid var(--blue); outline-offset: 2px; }
+.row { display: flex; gap: 10px; align-items: center; justify-content: space-between; flex-wrap: wrap; }
+.count { font-size: .8rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+button { font-family: var(--f-display); font-size: 1.05rem; cursor: pointer; border: none; border-radius: 14px; padding: 10px 22px; background: var(--ball); color: var(--ball-ink); box-shadow: 0 3px 0 #C98A00; }
+button:disabled { opacity: .5; cursor: default; }
+.msg { font-size: .9rem; min-height: 1.4em; margin: 0; }
+.msg.err { color: var(--bad); }
+.notice { background: var(--surface); border: 1px dashed var(--line); border-radius: 14px; padding: 14px; color: var(--muted); font-size: .92rem; }
+.feed { display: flex; flex-direction: column; gap: 10px; }
+.entry { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 12px 14px; display: flex; flex-direction: column; gap: 4px; }
+.entry .who { display: flex; gap: 8px; align-items: baseline; flex-wrap: wrap; }
+.entry b { font-family: var(--f-display); font-weight: 400; font-size: 1.05rem; }
+.entry time { color: var(--muted); font-size: .8rem; }
+.entry p { margin: 0; white-space: pre-wrap; overflow-wrap: anywhere; }
+.empty { text-align: center; color: var(--muted); padding: 24px 0; }
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="top">
+    <h1>바운스백 방명록</h1>
+    <a class="back" href="./">← 게임으로</a>
+  </div>
+  <p class="sub">게임 해 본 소감, 최고 점수 자랑, 응원 한마디를 남겨 주세요.</p>
+
+  <div class="notice" id="notReady" hidden>방명록을 준비하고 있어요. 곧 글을 남길 수 있어요.</div>
+
+  <form id="form" novalidate>
+    <label for="name">이름 (별명 가능)</label>
+    <input id="name" maxlength="20" autocomplete="nickname" placeholder="예: 3반 김바운스">
+    <label for="text">남길 말</label>
+    <textarea id="text" maxlength="200" placeholder="오늘 스피드 퀴즈 1200점 찍었어요!"></textarea>
+    <div class="row">
+      <span class="count" id="count">0 / 200</span>
+      <button type="submit" id="send">남기기</button>
+    </div>
+    <p class="msg" id="msg" role="status"></p>
+  </form>
+
+  <div class="feed" id="feed"><div class="empty">글을 불러오는 중이에요…</div></div>
+</div>
+
+<script src="firebase-config.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script>
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;" }[c]));
+const cfg = window.FIREBASE_CONFIG || {};
+const ready = cfg.apiKey && cfg.projectId && window.firebase;
+
+$("text").addEventListener("input", () => { $("count").textContent = $("text").value.length + " / 200"; });
+try { $("name").value = localStorage.getItem("gb-name") || ""; } catch (e) {}
+
+if (!ready) {
+  $("notReady").hidden = false;
+  $("send").disabled = true;
+  $("feed").innerHTML = '<div class="empty">아직 남겨진 글이 없어요.</div>';
+} else {
+  firebase.initializeApp(cfg);
+  const col = firebase.firestore().collection("guestbook");
+
+  col.orderBy("createdAt", "desc").limit(100).onSnapshot(snap => {
+    if (snap.empty) { $("feed").innerHTML = '<div class="empty">첫 번째 글을 남겨 주세요!</div>'; return; }
+    $("feed").innerHTML = snap.docs.map(d => {
+      const v = d.data(), t = v.createdAt ? v.createdAt.toDate() : new Date();
+      const when = t.toLocaleString("ko-KR", { month: "long", day: "numeric", hour: "2-digit", minute: "2-digit" });
+      return `<article class="entry"><div class="who"><b>${esc(v.name)}</b><time>${when}</time></div><p>${esc(v.text)}</p></article>`;
+    }).join("");
+  }, () => {
+    $("feed").innerHTML = '<div class="empty">글을 불러오지 못했어요. 잠시 뒤 새로고침해 주세요.</div>';
+  });
+
+  let lastSent = 0;
+  $("form").addEventListener("submit", async e => {
+    e.preventDefault();
+    const name = $("name").value.trim(), text = $("text").value.trim(), msg = $("msg");
+    msg.className = "msg";
+    if (!name) { msg.className = "msg err"; msg.textContent = "이름을 적어 주세요."; $("name").focus(); return; }
+    if (!text) { msg.className = "msg err"; msg.textContent = "남길 말을 적어 주세요."; $("text").focus(); return; }
+    if (Date.now() - lastSent < 30000) { msg.className = "msg err"; msg.textContent = "30초 뒤에 다시 남길 수 있어요."; return; }
+    $("send").disabled = true;
+    try {
+      await col.add({ name: name.slice(0, 20), text: text.slice(0, 200), createdAt: firebase.firestore.FieldValue.serverTimestamp() });
+      lastSent = Date.now();
+      try { localStorage.setItem("gb-name", name); } catch (e) {}
+      $("text").value = ""; $("count").textContent = "0 / 200";
+      msg.textContent = "남겼어요. 고마워요!";
+    } catch (err) {
+      msg.className = "msg err"; msg.textContent = "저장하지 못했어요. 인터넷 연결을 확인하고 다시 눌러 주세요.";
+    }
+    $("send").disabled = false;
+  });
+}
+</script>
+</body>
+</html>

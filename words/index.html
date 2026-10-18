@@ -669,7 +669,7 @@ function home() {
     </div>
     <div class="note">
       <span>오답노트에 ${wrongN}개 · 퀴즈에서 맞히면 하나씩 빠져요.</span>
-      <span style="display:flex;gap:14px"><button class="linkbtn" id="mute">${S.mute ? "소리 켜기" : "소리 끄기"}</button><button class="linkbtn" id="reset">기록 초기화</button></span>
+      <span style="display:flex;gap:14px;flex-wrap:wrap"><a class="linkbtn" href="guestbook.html">방명록</a><button class="linkbtn" id="mute">${S.mute ? "소리 켜기" : "소리 끄기"}</button><button class="linkbtn" id="reset">기록 초기화</button></span>
     </div>
   </section>`;
   $view.querySelectorAll(".chip").forEach(c => c.onclick = () => { const v = c.dataset.scope; S.scope = (v === "all" || v === "wrong") ? v : +v; save(); home(); });
