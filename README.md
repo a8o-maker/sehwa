@@ -1,9 +1,3 @@
-제가 직접 고객님의 깃허브(GitHub) 계정에 접근하여 코드를 푸시하거나 연동해 드릴 수 있는 권한이나 도구가 없기 때문에, 깃허브에 파일을 반영하는 과정은 직접 진행해 주셔야 합니다.
-하지만 아주 간단하게 적용하실 수 있도록, 원하시는 "하늘(샌프란시스코)에서 시작해 아래로 갈수록 바다 속(부산/스노클링)으로 들어가는 감성"을 담아 완성한 최신 청첩장 전체 코드를 제공해 드립니다.
-🛠️ 적용 방법 (1분 완료)
- * GitHub의 본인 저장소(a8o-maker/sehwa/gyusooandsehwa/book/)로 이동합니다.
- * index.html 파일을 엽니다.
- * 아래의 완성된 코드를 전체 복사하여 index.html 내용에 붙여넣기(Commit changes) 하시면, 바로 [https://a8o-maker.github.io/sehwa/gyusooandsehwa/book/](https://a8o-maker.github.io/sehwa/gyusooandsehwa/book/) 링크에 실시간으로 반영됩니다!
 <!DOCTYPE html>
 <html lang="ko">
 <head>
