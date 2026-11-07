@@ -28,7 +28,7 @@
   .mont { font-family: "Montserrat", sans-serif; }
   .mono { font-family: "Share Tech Mono", ui-monospace, monospace; }
   img { display: block; max-width: 100%; }
-  main { max-width: 440px; margin: 0 auto; padding-bottom: 60px; }
+  main { max-width: 440px; margin: 0 auto; padding-bottom: 60px; overflow-x: clip; }
   .eyebrow { font-family: "Cormorant Garamond", serif; font-style: italic; font-size: 1.02rem; letter-spacing: 0.06em; color: var(--gold); margin: 0; }
   h2 { margin: 2px 0 8px; font-size: 1.12rem; font-weight: 400; letter-spacing: 0.08em; }
   .lede { margin: 0 auto 26px; max-width: 34ch; word-break: keep-all; font-size: 0.86rem; line-height: 1.85; color: var(--muted); }
@@ -177,6 +177,13 @@
   .gb-item .who time { font-family: "Montserrat"; font-size: 0.62rem; color: var(--muted); }
   .gb-item p { margin: 4px 0 0; font-size: 0.9rem; line-height: 1.75; color: #dbe2ea; white-space: pre-wrap; word-break: break-word; }
   .gb-empty { font-size: 0.84rem; color: var(--muted); text-align: center; }
+  .clovers { position: fixed; inset: 0; pointer-events: none; z-index: 55; overflow: hidden; }
+  .clover { position: absolute; top: -40px; width: var(--s); height: var(--s); color: var(--c); opacity: 0; will-change: transform;
+    animation: cfall var(--d) linear var(--dl) infinite; }
+  .clover svg { width: 100%; height: 100%; display: block; animation: cspin var(--sp) ease-in-out infinite alternate; filter: drop-shadow(0 1px 2px rgba(0,0,0,0.25)); }
+  @keyframes cfall { 0% { transform: translate(0, -40px); opacity: 0; } 8% { opacity: 0.9; } 50% { transform: translate(var(--sw), 50vh); } 90% { opacity: 0.85; } 100% { transform: translate(calc(var(--sw) * -0.6), 110vh); opacity: 0; } }
+  @keyframes cspin { from { transform: rotate(-35deg) rotateY(0deg); } to { transform: rotate(40deg) rotateY(55deg); } }
+  @media (prefers-reduced-motion: reduce) { .clovers { display: none; } }
   .back-cover { margin-top: 30px; padding: 40px 20px; border-radius: 18px; background: linear-gradient(160deg, #13213f, #0b1530 60%, #070e22); border: 1px solid rgba(201,169,110,0.35); }
   .back-cover p { margin: 0; color: #cbd5e1; font-size: 0.92rem; line-height: 2; }
   .back-cover .sg { font-family: "Cormorant Garamond", serif; font-style: italic; letter-spacing: 0.08em; font-size: 1.3rem; margin-top: 18px; }
@@ -395,6 +402,7 @@
   <button class="nav next" type="button" id="lbN" aria-label="다음 사진">›</button>
 </div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
+<div class="clovers" id="clovers" aria-hidden="true"></div>
 
 <script src="firebase-config.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
@@ -512,6 +520,20 @@ var PHOTOS = [[106, "Of all paths, I chose you"], [97, "Joy finds us anywhere"],
       }, function () { say('저장하지 못했어요. 잠시 후 다시 시도해 주세요'); }).then(function () { busy = false; check(); });
     });
     check();
+  })();
+
+  /* 하늘에서 떨어지는 네잎클로버 */
+  (function () {
+    var box = $('clovers'); if (!box || reduce) return;
+    var leaf = '<svg viewBox="0 0 40 40"><g fill="currentColor"><path d="M20 19C15 19 11 15.5 11 11.5S14 5 17 6.5c1.6.8 3 2.7 3 5zM20 19c0-5 3.5-9 7.5-9s6.5 3 5 6c-.8 1.6-2.7 3-5 3zM20 21c5 0 9 3.5 9 7.5s-3 6.5-6 5c-1.6-.8-3-2.7-3-5zM20 21c0 5-3.5 9-7.5 9s-6.5-3-5-6c.8-1.6 2.7-3 5-3z"/><path d="M20 20c2 6 3 10 6 15" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/></g><circle cx="20" cy="20" r="1.6" fill="rgba(255,255,255,.35)"/></svg>';
+    var tones = ['#4ade80', '#22c55e', '#86efac', '#16a34a', '#bbf7d0'], h = '';
+    var n = window.innerWidth < 480 ? 14 : 22;
+    for (var i = 0; i < n; i++) {
+      var size = 14 + Math.random() * 16;
+      h += '<span class="clover" style="left:' + (Math.random() * 100).toFixed(1) + '%;--s:' + size.toFixed(0) + 'px;--c:' + tones[i % tones.length] +
+        ';--d:' + (9 + Math.random() * 8).toFixed(1) + 's;--dl:' + (-Math.random() * 16).toFixed(1) + 's;--sw:' + (Math.random() * 80 - 40).toFixed(0) + 'px;--sp:' + (1.6 + Math.random() * 1.8).toFixed(1) + 's">' + leaf + '</span>';
+    }
+    box.innerHTML = h;
   })();
 
   /* 복사 · 공유 */
