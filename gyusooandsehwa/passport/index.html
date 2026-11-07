@@ -217,60 +217,29 @@
   .bgm-btn.on .eq i:nth-child(2) { animation-delay: .2s; } .bgm-btn.on .eq i:nth-child(3) { animation-delay: .4s; }
   @keyframes eq { 0%,100% { height: 3px; } 50% { height: 12px; } }
   @media (prefers-reduced-motion: reduce) { .bgm-btn.on .eq i { animation: none; height: 10px; } }
-  .seat { position: relative; margin: 0 auto; max-width: 360px; padding: 16px 14px 18px; border-radius: 34px 34px 22px 22px;
-    background: linear-gradient(180deg, #3b4252 0%, #2a303c 45%, #1f242e 100%); box-shadow: inset 0 2px 0 rgba(255,255,255,0.08), inset 0 -10px 24px rgba(0,0,0,0.35), 0 22px 44px rgba(27,42,74,0.28); }
-  .seat::before { content: ""; position: absolute; left: 50%; top: -10px; width: 46%; height: 20px; transform: translateX(-50%); border-radius: 14px 14px 0 0; background: linear-gradient(180deg, #4a5262, #3b4252); }
-  .seat-top { display: flex; align-items: center; justify-content: space-between; padding: 0 6px 10px; }
-  .seat-no { font-family: "Montserrat"; font-size: 0.56rem; letter-spacing: 0.26em; color: #aab3c2; }
-  .seat-led { width: 6px; height: 6px; border-radius: 50%; background: #34d399; box-shadow: 0 0 6px #34d399; }
-  .ife { border-radius: 10px; overflow: hidden; background: #05070b; border: 3px solid #0b0e14; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.06); text-align: left; }
-  .ife-bar { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 7px 10px; background: linear-gradient(90deg, #0e1a33, #13234a); font-family: "Montserrat"; font-size: 0.52rem; letter-spacing: 0.16em; color: #c9d4ea; }
-  .ife-air { font-weight: 800; color: #e6d3a8; letter-spacing: 0.2em; }
-  .ife-tabs { display: flex; gap: 10px; } .ife-tabs b { font-weight: 500; opacity: 0.55; } .ife-tabs b.on { opacity: 1; border-bottom: 1px solid #e6d3a8; }
+  .seat { position: relative; width: min(300px, 86%); margin: 0 auto; aspect-ratio: 320 / 540; }
+  .seat-art { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .ife { position: absolute; left: 25%; top: 22.6%; width: 50%; height: 44.2%; border-radius: 6px; overflow: hidden; background: #000; text-align: left; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08); }
+  .ife video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+  .ife-glare { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(125deg, rgba(255,255,255,0.16) 0%, transparent 30%, transparent 72%, rgba(255,255,255,0.06) 100%), repeating-linear-gradient(0deg, rgba(0,0,0,0.07) 0 1px, transparent 1px 3px); }
+  .ife-bar { position: absolute; top: 0; left: 0; right: 0; display: flex; align-items: center; justify-content: space-between; padding: 4px 6px; background: linear-gradient(180deg, rgba(10,18,40,0.85), rgba(10,18,40,0)); font-family: "Montserrat"; font-size: 0.4rem; letter-spacing: 0.12em; color: #dbe3f3; }
+  .ife-air { font-weight: 800; color: #e6d3a8; }
+  .ife-tabs b { font-weight: 600; border-bottom: 1px solid #e6d3a8; }
   .ife-clock { font-variant-numeric: tabular-nums; }
-  .ife-screen { position: relative; aspect-ratio: 9 / 13; background: #000; overflow: hidden; }
-  .ife-screen video { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .ife-glare { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(125deg, rgba(255,255,255,0.12) 0%, transparent 28%, transparent 70%, rgba(255,255,255,0.05) 100%); }
-  .ife-screen::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: repeating-linear-gradient(0deg, rgba(0,0,0,0.06) 0 1px, transparent 1px 3px); }
-  .ife-badge { position: absolute; top: 10px; left: 10px; padding: 3px 7px; border-radius: 3px; background: rgba(5,7,11,0.6); color: #e6d3a8; font-family: "Montserrat"; font-size: 0.5rem; letter-spacing: 0.2em; }
-  .ife-big { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 2.4rem; color: rgba(255,255,255,0.85); opacity: 0; transition: opacity 0.3s; pointer-events: none; text-shadow: 0 2px 12px rgba(0,0,0,0.6); }
+  .ife-big { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 1.6rem; color: rgba(255,255,255,0.88); opacity: 0; transition: opacity 0.3s; pointer-events: none; text-shadow: 0 2px 10px rgba(0,0,0,0.6); }
   .ife.paused .ife-big { opacity: 1; }
-  .ife-info { padding: 10px 12px 10px; background: linear-gradient(180deg, #0b1020, #070a12); color: #e5eaf3; }
-  .ife-title { font-family: "Cormorant Garamond", serif; font-size: 1.05rem; letter-spacing: 0.02em; }
-  .ife-meta { display: flex; justify-content: space-between; margin-top: 2px; font-family: "Montserrat"; font-size: 0.5rem; letter-spacing: 0.16em; color: #8a96ab; }
-  .ife-prog { height: 3px; margin-top: 9px; background: rgba(255,255,255,0.14); border-radius: 2px; overflow: hidden; }
+  .ife-info { position: absolute; left: 0; right: 0; bottom: 0; padding: 14px 6px 5px; background: linear-gradient(180deg, rgba(5,8,16,0), rgba(5,8,16,0.88) 40%); color: #eef2f8; }
+  .ife-title { font-family: "Cormorant Garamond", serif; font-size: 0.68rem; line-height: 1.15; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .ife-meta { display: flex; justify-content: space-between; font-family: "Montserrat"; font-size: 0.36rem; letter-spacing: 0.1em; color: #9aa6bb; margin-top: 1px; }
+  .ife-t { font-variant-numeric: tabular-nums; }
+  .ife-prog { height: 2px; margin-top: 4px; background: rgba(255,255,255,0.18); border-radius: 2px; overflow: hidden; }
   .ife-prog i { display: block; height: 100%; width: 0; background: #e6d3a8; }
-  .ife-ctrl { display: flex; align-items: center; gap: 4px; margin-top: 8px; }
-  .ife-t { flex: 1; font-family: "Montserrat"; font-size: 0.56rem; color: #8a96ab; font-variant-numeric: tabular-nums; letter-spacing: 0.08em; }
-  .ife-ctrl button { width: 40px; height: 34px; border: 1px solid rgba(255,255,255,0.12); border-radius: 6px; background: rgba(255,255,255,0.05); color: #e5eaf3; font-size: 0.8rem; cursor: pointer; }
-  .ife-ctrl button:hover, .ife-ctrl button:focus-visible { background: rgba(230,211,168,0.18); }
-  .seat-bottom { display: flex; align-items: center; gap: 10px; padding: 12px 8px 0; }
-  .jack { width: 12px; height: 12px; border-radius: 50%; background: #0b0e14; box-shadow: inset 0 0 0 3px #59616f; }
-  .seat-latch { width: 34px; height: 9px; border-radius: 3px; background: linear-gradient(180deg, #59616f, #3b4252); box-shadow: inset 0 1px 0 rgba(255,255,255,0.15); }
-  .seat-pocket { margin-left: auto; font-family: "Montserrat"; font-size: 0.48rem; letter-spacing: 0.14em; color: #8a96ab; }
-  .rsvp { position: fixed; inset: 0; z-index: 75; display: flex; align-items: center; justify-content: center; padding: 16px; background: rgba(17,24,39,0.45); -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px); }
-  .rsvp[hidden] { display: none; }
-  .rsvp-card { position: relative; width: min(380px, 100%); max-height: calc(100vh - 32px); overflow-y: auto; background: var(--bg-2); border: 1px solid var(--line); border-radius: 10px; padding: 26px 20px 18px; text-align: left; box-shadow: 0 24px 60px rgba(17,24,39,0.3); animation: rIn 0.35s cubic-bezier(.2,.8,.2,1); }
-  @keyframes rIn { from { transform: translateY(18px); opacity: 0; } to { transform: none; opacity: 1; } }
-  .rsvp-card h3 { margin: 4px 0 4px; text-align: center; color: var(--ink-nv); font-size: 1.08rem; font-weight: 400; letter-spacing: 0.04em; }
-  .rsvp-lede { margin: 0 0 16px; text-align: center; font-size: 0.82rem; color: var(--muted); line-height: 1.8; }
-  .rsvp-x { position: absolute; top: 8px; right: 8px; width: 40px; height: 40px; border: 0; background: none; font-size: 1.4rem; color: var(--muted); cursor: pointer; }
-  .rf { display: grid; gap: 4px; margin-bottom: 12px; font-size: 0.8rem; color: var(--ink-nv); }
-  .rf input, .rf select { width: 100%; height: 44px; padding: 0 12px; border: 1px solid var(--line); border-radius: 6px; background: #fff; color: var(--text); font: inherit; font-size: 0.92rem; }
-  .rf input:focus, .rf select:focus, .rg label:focus-within span { outline: 2px solid rgba(156,122,63,0.45); outline-offset: 1px; }
-  .rg { border: 0; margin: 0 0 12px; padding: 0; }
-  .rg legend { font-size: 0.8rem; color: var(--ink-nv); margin-bottom: 6px; padding: 0; }
-  .rg { display: flex; flex-wrap: wrap; gap: 6px; }
-  .rg legend { width: 100%; }
-  .rg label { flex: 1; min-width: 80px; }
-  .rg input { position: absolute; opacity: 0; pointer-events: none; }
-  .rg span { display: flex; align-items: center; justify-content: center; height: 42px; border: 1px solid var(--line); border-radius: 6px; font-size: 0.86rem; color: var(--ink-1); cursor: pointer; background: #fff; }
-  .rg input:checked + span { background: var(--ink-nv); color: #fff; border-color: var(--ink-nv); }
-  .rc { display: flex; gap: 8px; align-items: flex-start; margin: 4px 0 8px; font-size: 0.74rem; color: var(--muted); line-height: 1.6; }
-  .rc input { margin-top: 3px; width: 16px; height: 16px; accent-color: #1b2a4a; flex-shrink: 0; }
-  .rsvp-err { min-height: 1.2em; margin: 0 0 8px; font-size: 0.78rem; color: #b42318; }
-  .rsvp-card .btn.solid { width: 100%; }
-  .rsvp-later { display: block; margin: 10px auto 0; border: 0; background: none; color: var(--muted); font: inherit; font-size: 0.8rem; text-decoration: underline; cursor: pointer; }
+  .ife-ctrl { display: flex; justify-content: space-between; gap: 3px; margin-top: 4px; }
+  .ife-ctrl button { flex: 1; height: 22px; padding: 0; border: 1px solid rgba(255,255,255,0.16); border-radius: 4px; background: rgba(255,255,255,0.06); color: #eef2f8; font-size: 0.56rem; cursor: pointer; }
+  .ife-ctrl button:hover, .ife-ctrl button:focus-visible { background: rgba(230,211,168,0.22); }
+  .seat-label { position: absolute; left: 0; right: 0; bottom: -30px; margin: 0; text-align: center; font-family: "Montserrat"; font-size: 0.56rem; letter-spacing: 0.18em; color: var(--muted); }
+  .seat + * { margin-top: 40px; }
+  #seat { margin-bottom: 36px; }
   .back-cover { margin-top: 30px; padding: 40px 20px; border-radius: 18px; background: var(--bg-2); border: 1px solid var(--line); box-shadow: 0 10px 28px rgba(27,42,74,0.06); }
   .back-cover p { margin: 0; color: #374151; font-size: 0.92rem; line-height: 2; }
   .back-cover .sg { font-family: "Cormorant Garamond", serif; font-style: italic; letter-spacing: 0.08em; font-size: 1.3rem; margin-top: 18px; }
@@ -415,25 +384,46 @@
     <p class="eyebrow"><span class="no">V</span>In-flight Film</p>
     <h2>기내 상영</h2>
     <div class="seat" id="seat">
-      <div class="seat-top"><span class="seat-no">SEAT 16A</span><span class="seat-led"></span></div>
+      <svg class="seat-art" viewBox="0 0 320 540" aria-hidden="true">
+        <defs>
+          <linearGradient id="sFab" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#22304f"/><stop offset=".5" stop-color="#2f4166"/><stop offset="1" stop-color="#1d2944"/></linearGradient>
+          <linearGradient id="sHead" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#34466c"/><stop offset="1" stop-color="#26355a"/></linearGradient>
+          <linearGradient id="sCush" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2c3d61"/><stop offset="1" stop-color="#1a253f"/></linearGradient>
+          <linearGradient id="sArm" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c9ccd3"/><stop offset="1" stop-color="#8d929c"/></linearGradient>
+          <pattern id="sWeave" width="6" height="6" patternUnits="userSpaceOnUse"><path d="M0 6L6 0" stroke="rgba(255,255,255,.05)" stroke-width="1"/></pattern>
+        </defs>
+        <ellipse cx="160" cy="526" rx="140" ry="10" fill="rgba(27,42,74,.18)"/>
+        <rect x="14" y="398" width="46" height="22" rx="10" fill="url(#sArm)"/>
+        <rect x="22" y="416" width="30" height="92" rx="6" fill="#6b707a"/>
+        <rect x="260" y="398" width="46" height="22" rx="10" fill="url(#sArm)"/>
+        <rect x="268" y="416" width="30" height="92" rx="6" fill="#6b707a"/>
+        <path d="M44 452h232c10 0 16 8 14 18l-8 34c-2 8-8 12-16 12H54c-8 0-14-4-16-12l-8-34c-2-10 4-18 18-18z" fill="url(#sCush)"/>
+        <rect x="50" y="40" width="220" height="430" rx="44" fill="url(#sFab)"/>
+        <rect x="50" y="40" width="220" height="430" rx="44" fill="url(#sWeave)"/>
+        <rect x="62" y="12" width="196" height="104" rx="34" fill="url(#sHead)"/>
+        <rect x="62" y="12" width="196" height="104" rx="34" fill="url(#sWeave)"/>
+        <path d="M84 20h152c6 0 10 4 10 10v34c0 6-4 10-10 10H84c-6 0-10-4-10-10V30c0-6 4-10 10-10z" fill="#f5f2ea"/>
+        <text x="160" y="52" text-anchor="middle" font-family="Montserrat, sans-serif" font-size="13" font-weight="700" letter-spacing="3" fill="#9c7a3f">GS AIR</text>
+        <rect x="76" y="118" width="168" height="244" rx="10" fill="#0b0e14"/>
+        <rect x="140" y="372" width="40" height="10" rx="4" fill="#9aa1ad"/>
+        <circle cx="92" cy="377" r="5" fill="#0b0e14" stroke="#7d8593" stroke-width="2"/>
+        <circle cx="228" cy="377" r="3" fill="#34d399"/>
+        <path d="M74 396h172c6 0 10 4 10 10v40c0 6-4 10-10 10H74c-6 0-10-4-10-10v-40c0-6 4-10 10-10z" fill="#1a253f"/>
+        <rect x="96" y="388" width="74" height="16" rx="2" fill="#f5f2ea"/>
+        <text x="133" y="400" text-anchor="middle" font-family="Cormorant Garamond, serif" font-style="italic" font-size="10" fill="#1b2a4a">Sky Love</text>
+        <rect x="178" y="391" width="48" height="13" rx="2" fill="#c9d4ea"/>
+        <path d="M74 412h172" stroke="rgba(255,255,255,.08)" stroke-width="1.5"/>
+      </svg>
       <div class="ife">
-        <div class="ife-bar">
-          <span class="ife-air">GS AIR</span>
-          <span class="ife-tabs"><b class="on">MOVIES</b><b>MUSIC</b><b>MAP</b></span>
-          <span class="ife-clock" id="ifeClock">12:30</span>
-        </div>
-        <div class="ife-screen">
-          <video id="ifeVid" muted playsinline preload="metadata" poster="../book/clip2.jpg" aria-label="기내 상영 영상"></video>
-          <div class="ife-glare"></div>
-          <div class="ife-badge">NOW PLAYING</div>
-          <div class="ife-big" id="ifeBig" aria-hidden="true">▶</div>
-        </div>
+        <video id="ifeVid" muted playsinline preload="metadata" poster="../book/clip2.jpg" aria-label="기내 상영 영상"></video>
+        <div class="ife-glare"></div>
+        <div class="ife-bar"><span class="ife-air">GS AIR</span><span class="ife-tabs"><b class="on">MOVIES</b></span><span class="ife-clock" id="ifeClock">12:30</span></div>
+        <div class="ife-big" id="ifeBig" aria-hidden="true">▶</div>
         <div class="ife-info">
           <div class="ife-title" id="ifeTitle">Kiss under N Seoul Tower</div>
-          <div class="ife-meta"><span id="ifeEp">EP. 1 / 2</span><span>GYUSOO &amp; SEHWA · 2026</span></div>
+          <div class="ife-meta"><span id="ifeEp">EP. 1 / 2</span><span class="ife-t" id="ifeT">0:00</span></div>
           <div class="ife-prog"><i id="ifeProg"></i></div>
           <div class="ife-ctrl">
-            <span class="ife-t" id="ifeT">0:00</span>
             <button type="button" id="ifePrev" aria-label="이전 영상">⏮</button>
             <button type="button" id="ifePlay" aria-label="일시정지">❚❚</button>
             <button type="button" id="ifeNext" aria-label="다음 영상">⏭</button>
@@ -441,7 +431,7 @@
           </div>
         </div>
       </div>
-      <div class="seat-bottom"><span class="jack" aria-hidden="true"></span><span class="seat-latch" aria-hidden="true"></span><span class="seat-pocket">TRAY TABLE · 결혼식 탑승을 환영합니다</span></div>
+      <p class="seat-label">SEAT 16A · 결혼식 탑승을 환영합니다</p>
     </div>
   </section>
 
