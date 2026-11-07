@@ -189,7 +189,7 @@
   .pola { border: 0; padding: 7px 7px 24px; background: var(--paper-2); box-shadow: 0 6px 14px rgba(34,30,24,0.2); cursor: pointer; position: relative; transition: transform 0.3s ease; }
   .pola:hover { transform: translateY(-3px); }
   .pola img { display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
-  .pola span { position: absolute; left: 7px; right: 7px; bottom: 5px; text-align: center; font-family: "Nanum Pen Script", cursive; font-size: 0.98rem; color: var(--ink-2); }
+  .pola span { position: absolute; left: 7px; right: 7px; bottom: 5px; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-family: "Nanum Pen Script", cursive; font-size: 0.98rem; color: var(--ink-2); }
 
   /* 공통 본문 */
   .hand { font-family: "Nanum Pen Script", cursive; font-size: 1.5rem; line-height: 1.8; color: var(--ink-2); margin: 0; }
@@ -688,14 +688,14 @@
 <script>
 (function () {
   var ART = [
-    { src: '../r/01.jpg', cap: '꽃길에서' },
-    { src: '../r/02.jpg', cap: '산을 마주 보고' },
-    { src: '../r/03.jpg', cap: '가까이, 조용히' },
-    { src: '../r/04.jpg', cap: '흰 꽃 앞에서' },
-    { src: '../r/05.jpg', cap: '잠시 앉아' },
-    { src: '../r/06.jpg', cap: '해 질 무렵, 바다' }
+    { src: '../r/01.jpg', cap: 'Flowers on our path' },
+    { src: '../r/02.jpg', cap: 'Steady as the mountains' },
+    { src: '../r/03.jpg', cap: 'Close, and closer still' },
+    { src: '../r/04.jpg', cap: 'Pure as our promise' },
+    { src: '../r/05.jpg', cap: 'Rest here, with me' },
+    { src: '../r/06.jpg', cap: 'As vast as the sea' }
   ];
-  var PHOTO_CAPS = ['돌담길을 걸어', '슬쩍 돌아보며', '나란히, 웃으며', '수줍은 인사', '마주한 순간', '눈을 맞추고', '가만히, 오래', '마주 보고 웃다', '활짝 핀 얼굴', '올려다본 가을', '같은 곳을 보며', '함께 본 하늘', '서로를 보며 웃다', '손잡고 걷는 길', '햇살 속으로', '나란히 한 걸음', '신나는 발걸음', '웃음 가득', '손잡고 궁 앞을', '앞으로도 함께', '은행잎 아래', '가을 햇살', '함께 걷는 길', '돌담 곁에서', '돌담길을 걸어', '웃음이 번지고', '손을 꼭 잡고', '같은 하늘 아래', '나란히 서서', '눈부신 오후', '건널목 위에서', '한 걸음 더', '은행잎 아래', '가을 햇살', '함께 걷는 길', '돌담 곁에서', '마주 보며', '웃음이 번지고', '손을 꼭 잡고', '같은 하늘 아래', '나란히 서서', '눈부신 오후', '건널목 위에서', '한 걸음 더', '은행잎 아래', '가을 햇살', '함께 걷는 길', '돌담 곁에서', '마주 보며', '웃음이 번지고', '손을 꼭 잡고', '같은 하늘 아래', '나란히 서서', '눈부신 오후', '건널목 위에서', '한 걸음 더', '은행잎 아래', '가을 햇살', '함께 걷는 길', '돌담 곁에서', '마주 보며', '웃음이 번지고', '손을 꼭 잡고', '같은 하늘 아래', '나란히 서서', '눈부신 오후', '건널목 위에서', '한 걸음 더', '은행잎 아래', '가을 햇살', '함께 걷는 길', '돌담 곁에서', '마주 보며', '웃음이 번지고', '손을 꼭 잡고', '같은 하늘 아래', '나란히 서서', '눈부신 오후', '건널목 위에서', '한 걸음 더', '은행잎 아래', '가을 햇살', '함께 걷는 길', '돌담 곁에서', '마주 보며', '웃음이 번지고', '손을 꼭 잡고', '같은 하늘 아래', '나란히 서서', '눈부신 오후', '건널목 위에서', '한 걸음 더', '은행잎 아래', '가을 햇살', '함께 걷는 길', '돌담 곁에서', '남산 아래, 깜짝 친구와', '남산을 등지고', '타워가 보이는 길', '남산타워 앞에서', '억새 사이로', '억새밭 한가운데', '은빛 억새 속 우리', '바람 부는 억새밭', '억새 너머 하늘', '억새 속에 마주 보며', '가을, 억새', '남산타워 아래 입맞춤', '타워와 함께, 키스', '남산에서 웃다', '타워 앞 장난', '억새 속 웃음', '꽃다발을 건네며', '손끝이 닿을 때', '억새밭의 오후', '마주 보며 웃다', '꽃을 사이에 두고', '억새 바람', '은빛 오후', '웃음이 번지고', '억새 너머로', '눈부신 신부', '신부의 웃음', '나무 아래 춤', '빙그르, 남산', '한강 이정표 앞', '한남대교 1.3km', '시계 아래 입맞춤', '여섯 시 반의 키스', '다리 아래, 우리', '한강을 걷다', '노을빛 강변', '한강 노을 속 포옹', '꼭 안아주기', '해 질 녘, 한강', '고전의상실 앞에서'];
+  var PHOTO_CAPS = ['Fate knew before we did', 'Bound by a red thread', 'The red thread led here', 'Two paths became one', 'Two hearts, one home', 'Love', 'Love', 'Love', 'Love', 'Love', 'Love is a daily promise', 'My favorite hello', 'Together is our place', 'Love', 'A lifetime starts today', 'Love grows slowly', 'Forever looks like you', 'The best is yet to come', 'Every road led to you', 'Found you, kept you', 'Your hand fits mine', 'Home is you', 'Love is patient and kind', 'I\'d choose you again', 'Hand in hand, for life', 'In every season, us', 'Written in the stars', 'Side by side, always', 'Love chose its own time', 'Love', 'Love', 'Love', 'Love', 'Small moments, big love', 'Grow old along with me', 'You make ordinary golden', 'With you, I am home', 'Where you go, I go', 'Love, the bravest yes', 'Every day, a little more', 'Ours is a quiet forever', 'Love', 'Love', 'Love', 'Love', 'Love', 'Love', 'Love', 'Hearts tied by fate', 'Walking into forever', 'My heart knew you', 'Built on trust and joy', 'Every step, together', 'Two souls, one journey', 'Love is a verb', 'Some meetings are fate', 'Marriage: two become us', 'You, me, and always', 'Love lives in the details', 'Love', 'Love', 'Love', 'Love', 'Love', 'Love', 'Love', 'Love', 'Love', 'Love', 'Love', 'Our hearts said yes', 'Golden hours with you', 'Love never fails', 'The day fate smiled', 'Two hands, one future', 'Together, we bloom', 'Love', 'Under one sky, one heart', 'Love wears no hurry', 'Grateful for every us', 'Love', 'Forever starts here', 'Meant to be, simply', 'Love', 'A promise in the breeze', 'Love', 'Love', 'Kindness is our vow', 'We are each other\'s luck', 'Love', 'Love', 'Same steps, same heart', 'Love found its way', 'A yes for all our days', 'Love', 'Built for two', 'Joy finds us anywhere', 'Met by fate, kept', 'Love as high as the sky', 'Fate drew a map to you', 'We bend, we never break', 'Rooted in the same soil', 'Silver grass, golden us', 'Swaying, never apart', 'Two hearts, one horizon', 'Of all paths, I chose you', 'Autumn kept our secret', 'Sealed with a promise', 'A kiss that says forever', 'Love', 'Joy is our first vow', 'Laughter is our language', 'Love', 'Love', 'Love', 'Love', 'Love', 'Love', 'Love', 'Love', 'Love', 'Love', 'Love', 'Let\'s dance through life', 'Twirl with me, forever', 'Every sign points to us', 'Still choosing you, daily', 'Time stops when we kiss', 'Half past forever', 'Our story, just begun', 'The road home is you', 'Sunsets, better shared', 'Home is in your arms', 'Hold on, never let go', 'Love flows like a river', 'Old souls, new beginning'];
   var CONCEPT_FROM = 97, CONCEPT_TO = 135; /* 억새밭·남산타워·한강 = 메인 컨셉 */
   var PHOTOS = PHOTO_CAPS.map(function (c, i) {
     return { src: '../s/' + (i < 9 ? '0' : '') + (i + 1) + '.jpg', cap: c, photo: true, concept: i + 1 >= CONCEPT_FROM && i + 1 <= CONCEPT_TO };
@@ -724,7 +724,7 @@
     var mains = MAIN_P;
     var con = mains.concat(PHOTOS.filter(function (a) { return a.concept && !a.main; })), rest = PHOTOS.filter(function (a) { return !a.concept && !a.main; });
     var few = []; for (var k = 0; k < rest.length; k += 12) few.push(rest[k]);
-    var seq = [{ v: 'clip2.mp4', cap: '남산 아래, 우리' }].concat(con, [{ v: 'clip1.mp4', cap: '돌담 아래, 두 사람' }], few);
+    var seq = [{ v: 'clip2.mp4', cap: 'Fate, beneath Namsan' }].concat(con, [{ v: 'clip1.mp4', cap: 'Old walls, new forever' }], few);
     var PH = 3200, cur = -1, top = 0, timer = null, t0 = 0, dur = 0, paused = false, muted = true, raf = null;
     function rnd(a, b) { return a + Math.random() * (b - a); }
     function preload(i) { var it = seq[i % seq.length]; if (it && !it.v) { var im = new Image(); im.src = it.src; } }
