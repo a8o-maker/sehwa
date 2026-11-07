@@ -331,6 +331,7 @@
     <h2>여행 기록</h2>
     <p class="lede">잘 나온 사진보다<br>같이 웃던 순간이 더 좋았습니다.</p>
     <div class="log" id="log"></div>
+    <button class="btn more" type="button" id="more">사진 더 보기</button>
   </section>
 
   <!-- 7 오시는 길 -->
@@ -453,14 +454,17 @@ var PHOTOS = [[106, "Of all paths, I chose you"], [97, "Joy finds us anywhere"],
 
   /* 여행 기록 */
   var LOG = PHOTOS.filter(function (p) { return VISA.every(function (v) { return v.n !== p[0]; }); });
-  var logEl = $('log');
-  (function () {
-    var h = '';
-    for (var i = 0; i < LOG.length; i++) {
+  var logEl = $('log'), moreBtn = $('more'), shown = 0, PAGE = 20;
+  function more() {
+    var next = Math.min(LOG.length, shown + PAGE), h = '';
+    for (var i = shown; i < next; i++) {
       h += '<button type="button" data-i="' + i + '" aria-label="' + LOG[i][1] + ' 크게 보기"><img src="' + src(LOG[i][0]) + '" alt="' + LOG[i][1] + '" loading="lazy" decoding="async"><span>' + LOG[i][1] + '</span></button>';
     }
-    logEl.innerHTML = h;
-  })();
+    logEl.insertAdjacentHTML('beforeend', h); shown = next;
+    moreBtn.hidden = shown >= LOG.length;
+    moreBtn.textContent = '사진 더 보기 (' + (LOG.length - shown) + '장 남음)';
+  }
+  more(); moreBtn.addEventListener('click', more);
 
   /* 크게 보기 */
   var lb = $('lb'), cur = 0, last = null;
