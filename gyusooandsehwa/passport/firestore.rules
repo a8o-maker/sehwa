@@ -9,8 +9,10 @@ service cloud.firestore {
         && request.resource.data.createdAt == request.time;
       allow update, delete: if false;
     }
+    // 집계 페이지(admin.html): 아래 이메일을 Firebase 콘솔에서 만든 관리자 계정 이메일로 바꾸세요
     match /passport_rsvp/{id} {
-      allow read, update, delete: if false;
+      allow read: if request.auth != null && request.auth.token.email == 'ADMIN_EMAIL@example.com';
+      allow update, delete: if false;
       allow create: if request.resource.data.keys().hasOnly(['name', 'phone', 'attend', 'meal', 'count', 'createdAt'])
         && request.resource.data.name is string && request.resource.data.name.size() > 0 && request.resource.data.name.size() <= 20
         && request.resource.data.phone is string && request.resource.data.phone.matches('^01[0-9]{8,9}$')
