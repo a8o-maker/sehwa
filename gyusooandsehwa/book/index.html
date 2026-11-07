@@ -701,8 +701,12 @@
     return { src: '../s/' + (i < 9 ? '0' : '') + (i + 1) + '.jpg', cap: c, photo: true, concept: i + 1 >= CONCEPT_FROM && i + 1 <= CONCEPT_TO };
   });
   var MAIN = [97, 106, 136, 25, 19, 127]; /* 메인 사진 6장 */
+  var MAIN_P = MAIN.map(function (n) { return PHOTOS[n - 1]; });
   MAIN.forEach(function (n) { PHOTOS[n - 1].main = true; });
-  var ALBUM = ART.concat(MAIN.map(function (n) { return PHOTOS[n - 1]; }),
+  var REMOVED = [6, 7, 8, 9, 10, 14, 30, 31, 32, 33, 42, 43, 44, 45, 46, 47, 48, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 77, 81, 84, 86, 87, 90, 91, 95, 110, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123]; /* 신부가 덜 예쁘게 나온 사진 — 숨김 */
+  REMOVED.forEach(function (n) { PHOTOS[n - 1].removed = true; });
+  PHOTOS = PHOTOS.filter(function (a) { return !a.removed || a.main; });
+  var ALBUM = ART.concat(MAIN_P,
     PHOTOS.filter(function (a) { return a.concept && !a.main; }), PHOTOS.filter(function (a) { return !a.concept && !a.main; }));
 
   /* 표지: 남산·억새 사진이 천천히 바뀜 */
@@ -717,7 +721,7 @@
   (function () {
     var reel = document.getElementById('reel'); if (!reel) return;
     var layers = reel.querySelectorAll('.rl-layer'), capEl = $('reelCap'), bar = $('reelBar'), snd = $('reelSnd');
-    var mains = MAIN.map(function (n) { return PHOTOS[n - 1]; });
+    var mains = MAIN_P;
     var con = mains.concat(PHOTOS.filter(function (a) { return a.concept && !a.main; })), rest = PHOTOS.filter(function (a) { return !a.concept && !a.main; });
     var few = []; for (var k = 0; k < rest.length; k += 12) few.push(rest[k]);
     var seq = [{ v: 'clip2.mp4', cap: '남산 아래, 우리' }].concat(con, [{ v: 'clip1.mp4', cap: '돌담 아래, 두 사람' }], few);
