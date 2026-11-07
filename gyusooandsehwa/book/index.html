@@ -155,7 +155,8 @@
   /* 앨범 */
   .clip { margin: 0 0 16px; padding: 7px 7px 10px; background: var(--paper-2); box-shadow: 0 6px 14px rgba(34,30,24,0.2); }
   .clip[hidden] { display: none; }
-  .clip video { display: block; width: 100%; max-height: 62vh; background: #000; }
+  .clips { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; }
+  .clip video { display: block; width: 100%; aspect-ratio: 9 / 16; object-fit: cover; background: #000; }
   .clip figcaption { margin-top: 6px; text-align: center; font-family: "Nanum Pen Script", cursive; font-size: 1.05rem; color: var(--ink-2); }
   .shots { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
   .pola { border: 0; padding: 7px 7px 24px; background: var(--paper-2); box-shadow: 0 6px 14px rgba(34,30,24,0.2); cursor: pointer; position: relative; transition: transform 0.3s ease; }
@@ -439,9 +440,12 @@
           <span>Album</span>
         </p>
         <h2 class="ttl">두 사람</h2>
-        <figure class="clip" id="groomClip" hidden>
-          <video id="groomVideo" controls playsinline preload="metadata"></video>
-          <figcaption>신랑 소개</figcaption>
+        <figure class="clip" id="groomClip">
+          <div class="clips">
+            <video src="clip1.mp4" poster="clip1.jpg" autoplay muted loop playsinline controls preload="metadata" aria-label="돌담길 아래 두 사람 영상"></video>
+            <video src="clip2.mp4" poster="clip2.jpg" autoplay muted loop playsinline controls preload="metadata" aria-label="남산에서 두 사람 영상"></video>
+          </div>
+          <figcaption>움직이는 두 사람</figcaption>
         </figure>
         <div class="shots" id="shots"></div>
         <p class="pno">5</p>
@@ -1042,36 +1046,6 @@
   filmStop();
   illStop();
   paintScene(0);
-})();
-</script>
-<script>
-/* 두 사람: 신랑 소개 영상 — gyusooandsehwa/ 또는 book/ 폴더에 올린 영상을 자동으로 찾아 보여줌 */
-(function () {
-  var box = document.getElementById('groomClip'), vid = document.getElementById('groomVideo');
-  if (!box || !vid) return;
-  var RE = /\.(mp4|m4v|mov|webm)$/i;
-  var API = 'https://api.github.com/repos/a8o-maker/sehwa/contents/gyusooandsehwa';
-  var REF = '?ref=claude/github-http-link-convert-mqcllr';
-  function show(src) {
-    vid.src = src;
-    vid.addEventListener('loadedmetadata', function () { box.hidden = false; }, { once: true });
-    vid.load();
-  }
-  function pick(list, base) {
-    if (!Array.isArray(list)) return null;
-    var f = list.filter(function (x) { return x.type === 'file' && RE.test(x.name); });
-    if (!f.length) return null;
-    var g = f.filter(function (x) { return /groom|신랑/i.test(x.name); })[0] || f[0];
-    return base + encodeURIComponent(g.name);
-  }
-  function get(path) {
-    return fetch(API + path + REF).then(function (r) { return r.ok ? r.json() : []; }).catch(function () { return []; });
-  }
-  get('/book').then(function (a) {
-    var src = pick(a, './');
-    if (src) return show(src);
-    return get('').then(function (b) { var s2 = pick(b, '../'); if (s2) show(s2); });
-  });
 })();
 </script>
 <!--#artifact-end-->
