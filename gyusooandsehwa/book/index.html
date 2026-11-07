@@ -229,9 +229,8 @@
   .fam .par b { font-weight: 400; color: var(--ink-2); }
   .fam .who { display: block; margin-top: 6px; font-size: 1.02rem; color: var(--ink); }
   .fam .rel { font-size: 0.7rem; color: var(--ink-3); }
-  .tel { display: flex; margin-top: 18px; border: 1px solid var(--rule); }
-  .tel a { flex: 1; text-align: center; padding: 0.6rem 0.3rem; font-size: 0.85rem; color: var(--ink-2); text-decoration: none; }
-  .tel a + a { border-left: 1px solid var(--rule); }
+  .tel { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; margin-top: 18px; border: 1px solid var(--rule); background: var(--rule); }
+  .tel a { text-align: center; padding: 0.6rem 0.3rem; font-size: 0.85rem; color: var(--ink-2); text-decoration: none; background: var(--paper); }
   .tel a:hover, .tel a:focus-visible { background: var(--ac); color: var(--paper); }
 
   .nm2 { font-size: 1.06rem; margin: 0; }
@@ -551,7 +550,9 @@
         </div>
         <div class="tel">
           <a href="tel:01040122921">신랑에게 전화</a>
-          <a href="sms:01040122921">문자 보내기</a>
+          <a href="sms:01040122921">신랑에게 문자</a>
+          <a href="tel:01072037677">신부에게 전화</a>
+          <a href="sms:01072037677">신부에게 문자</a>
         </div>
         <p class="pno">7</p>
       </div>
