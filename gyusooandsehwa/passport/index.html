@@ -151,27 +151,26 @@
   /* 기내 상영 · 여행 기록 */
   .films { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
   .films video { width: 100%; aspect-ratio: 9 / 16; object-fit: cover; border-radius: 2px; background: #000; outline: 1px solid var(--line); outline-offset: 4px; }
-  .log { display: grid; grid-template-columns: 1fr; gap: 22px; }
-  .log img { aspect-ratio: 3 / 4 !important; }
-  .log-nav { display: flex; align-items: center; justify-content: center; gap: 18px; margin-top: 4px; }
-  .log-nav button { width: 44px; height: 44px; border-radius: 50%; border: 1px solid transparent; background: linear-gradient(var(--bg-2), var(--bg-2)) padding-box, var(--foil) border-box; color: var(--ink-nv); font-size: 1.4rem; cursor: pointer; }
-  .log-nav button:disabled { opacity: 0.35; cursor: default; }
-  .log-nav span { min-width: 64px; text-align: center; font-family: "Cormorant Garamond", serif; font-size: 1rem; letter-spacing: 0.12em; color: var(--ink-nv); font-variant-numeric: tabular-nums; }
-  .log button { position: relative; border: 0; padding: 12px 12px 30px; border-radius: 3px; cursor: pointer; text-align: left; font: inherit;
-    background: var(--paper); background-image: repeating-linear-gradient(0deg, rgba(30,58,138,0.05) 0 1px, transparent 1px 12px); box-shadow: 0 8px 20px rgba(27,42,74,0.12); }
-  .log .ph { position: relative; display: block; background: #e9e3d6; overflow: hidden; border-radius: 1px; outline: 1px solid rgba(156,127,74,0.5); outline-offset: 3px; }
-  .log img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; transition: transform 0.4s ease; }
-  .log button:hover img { transform: scale(1.04); }
-  .log .ph::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 34%; background: linear-gradient(transparent, rgba(0,0,0,0.55)); }
   .bw { filter: grayscale(1) contrast(1.08) brightness(1.03); }
-  .log .cap { position: absolute; z-index: 1; left: 12px; right: 96px; bottom: 12px; text-align: left !important; font-size: 1.05rem !important; color: #fff; font-family: "Cormorant Garamond", serif; font-style: italic; font-size: 0.8rem; line-height: 1.05; text-align: center; text-shadow: 0 1px 4px rgba(0,0,0,0.7); }
-  .log .vno { position: absolute; left: 14px; right: 14px; bottom: 8px; font-size: 0.78rem !important; display: flex; justify-content: space-between; font-family: "Cormorant Garamond", serif; font-size: 0.6rem; letter-spacing: 0.16em; color: #8a7350; text-transform: uppercase; }
-  .log .stamp { font-size: 0.56rem; padding: 6px 9px; border-width: 2px; }
-  .log .stamp b { font-size: 0.74rem; }
-  .log .stamp i { font-size: 0.48rem; }
-  .log .stamp.round { width: 92px; height: 92px; border-width: 4px; padding: 6px; }
-  .log .stamp:not(.round) { max-width: 120px; }
-  .log button.in .stamp { animation: thud 0.45s cubic-bezier(.3,1.6,.5,1) 0.25s forwards; }
+  /* ───── 갤러리 월: 액자처럼 가로 두 개씩 ───── */
+  .log { display: grid; grid-template-columns: 1fr 1fr; gap: 38px 16px; padding: 34px 14px 26px; border-radius: 14px; position: relative;
+    background: radial-gradient(ellipse at 50% 0%, rgba(255,255,255,0.7), transparent 60%), linear-gradient(180deg, #efe7d6, #e8dfcb);
+    box-shadow: inset 0 0 0 1px rgba(154,122,46,0.25), inset 0 10px 30px rgba(120,95,50,0.12); }
+  .log::before { content: ""; position: absolute; left: 12px; right: 12px; top: 12px; height: 2px; border-radius: 2px; background: var(--foil); opacity: 0.7; }
+  .log .fr { position: relative; display: block; border: 0; background: none; padding: 0; margin: 0; cursor: pointer; text-align: center; font: inherit; color: inherit; }
+  .log .fr:nth-child(even) { margin-top: 34px; }
+  .log .fr .nail { position: absolute; left: 50%; top: -22px; width: 8px; height: 8px; border-radius: 50%; transform: translateX(-50%); background: radial-gradient(circle at 30% 30%, #f6e6b0, #8a6a2f); box-shadow: 0 1px 2px rgba(0,0,0,0.45); z-index: 2; }
+  .log .fr::before { content: ""; position: absolute; left: 14%; width: 72%; top: -17px; height: 17px; z-index: 1; opacity: 0.55;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 20' preserveAspectRatio='none'%3E%3Cpath d='M50 0L4 20M50 0L96 20' stroke='%235a4630' stroke-width='1.2' fill='none'/%3E%3C/svg%3E") center / 100% 100% no-repeat; }
+  .log .fx { display: block; padding: 7px; border-radius: 2px; background: var(--foil); box-shadow: 0 12px 18px rgba(60,45,20,0.28), 0 2px 3px rgba(0,0,0,0.22), inset 0 0 0 1px rgba(255,255,255,0.35); transition: transform 0.3s ease; }
+  .log .f1 .fx { background: linear-gradient(135deg, #7a5632, #3b2a1a 45%, #5e4024); box-shadow: 0 12px 18px rgba(60,45,20,0.3), 0 2px 3px rgba(0,0,0,0.25), inset 0 0 0 1px rgba(255,255,255,0.12); }
+  .log .f2 .fx { background: linear-gradient(135deg, #ffffff, #e4dccb 50%, #ffffff); }
+  .log .fr:hover .fx, .log .fr:focus-visible .fx { transform: translateY(-3px); }
+  .log .mat { display: block; padding: 9px; background: #fffdf8; box-shadow: inset 0 0 0 1px rgba(0,0,0,0.08), inset 0 3px 8px rgba(0,0,0,0.14); }
+  .log .mat img { display: block; width: 100%; aspect-ratio: 3 / 4; object-fit: cover; background: #e9e3d6; box-shadow: 0 0 0 1px rgba(0,0,0,0.28); }
+  .log .plq { display: block; margin: 12px auto 0; padding: 6px 8px 5px; max-width: 94%; border-radius: 2px; background: linear-gradient(180deg, #ecd48c, #c9a54f); color: #2a1f08; box-shadow: 0 2px 4px rgba(0,0,0,0.22), inset 0 0 0 1px rgba(255,255,255,0.35); }
+  .log .plq i { display: block; font-family: "Cormorant Garamond", serif; font-style: italic; font-weight: 600; font-size: 0.9rem; line-height: 1.15; }
+  .log .plq b { display: block; margin-top: 2px; font-family: "Montserrat", sans-serif; font-weight: 600; font-size: 0.56rem; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.8; }
   .more { margin-top: 14px; width: 100%; }
   .lb { position: fixed; inset: 0; z-index: 60; background: rgba(2,6,23,0.96); display: none; align-items: center; justify-content: center; flex-direction: column; padding: 16px; }
   .lb.on { display: flex; }
@@ -769,10 +768,10 @@ var PHOTOS = [[106, "Fate walks through silver grass"], [97, "Joy finds us anywh
   (function () {
     var h = '';
     for (var i = 0; i < LOG.length; i++) {
-      var n = LOG[i][0], pl = placeOf(n), st = STAMP[pl], rr = ((n * 37) % 25) - 12, pos = POS[n % POS.length];
-      h += '<button type="button" data-i="' + i + '" aria-label="' + LOG[i][1] + ' 크게 보기"><span class="ph"><img' + (isBW(n) ? ' class="bw"' : '') + ' src="' + src(n) + '" alt="' + LOG[i][1] + '" loading="lazy" decoding="async"><span class="cap">' + LOG[i][1] + '</span></span>' +
-        '<span class="stamp' + (st.round ? ' round' : '') + '" style="--c:' + st.c + ';--r:' + rr + 'deg;' + pos + '"><i>' + st.s + '</i><b>' + st.t + '</b><i>' + st.d + '</i></span>' +
-        '<span class="vno"><span>Visa No. ' + (i + VISA.length + 1) + '</span></span></button>';
+      var n = LOG[i][0], pl = placeOf(n), st = STAMP[pl];
+      h += '<button type="button" class="fr f' + (i % 3) + '" data-i="' + i + '" aria-label="' + LOG[i][1] + ' 크게 보기"><span class="nail"></span>' +
+        '<span class="fx"><span class="mat"><img' + (isBW(n) ? ' class="bw"' : '') + ' src="' + src(n) + '" alt="' + LOG[i][1] + '" loading="lazy" decoding="async"></span></span>' +
+        '<span class="plq"><i>' + LOG[i][1] + '</i><b>Visa No. ' + (i + VISA.length + 1) + ' · ' + st.t + '</b></span></button>';
     }
     logEl.innerHTML = h;
     logEl.querySelectorAll('button').forEach(watch);
