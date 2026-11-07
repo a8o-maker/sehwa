@@ -372,7 +372,7 @@
     <div class="leaf" data-t="표지" data-c="#B08C44">
       <div class="side front cover">
         <div class="bg" id="coverBg" aria-hidden="true">
-          <img class="on" src="../s/106.jpg" alt=""><img src="../s/97.jpg" alt=""><img src="../s/127.jpg" alt=""><img src="../s/136.jpg" alt=""><img src="../s/25.jpg" alt=""><img src="../s/19.jpg" alt="">
+          <img class="on" src="../s/97.jpg" alt="" style="height:150%;top:-58%"><img src="../s/106.jpg" alt=""><img src="../s/127.jpg" alt=""><img src="../s/136.jpg" alt=""><img src="../s/25.jpg" alt=""><img src="../s/19.jpg" alt="">
         </div>
         <div class="frame">
           <p class="kick">Wedding Invitation</p>
@@ -883,7 +883,7 @@
   /* ---------- 영상 ---------- */
   var framesEl = $('frames'), capEl = $('filmCap'), barEl = $('filmBar'), dotsEl = $('filmDots'), stripEl = $('filmStrip');
   /* 그림이 사진으로 녹아드는 장면들 */
-  var FILM = [106, 97, 136, 25, 19, 127, 103, 108, 125, 133, 129, 101].map(function (n) {
+  var FILM = [97, 106, 136, 25, 19, 127, 103, 108, 125, 133, 129, 101].map(function (n) {
     var f = (n < 10 ? '0' : '') + n + '.jpg';
     return { paint: '../p/' + f, src: '../s/' + f, cap: PHOTO_CAPS[n - 1] };
   });
