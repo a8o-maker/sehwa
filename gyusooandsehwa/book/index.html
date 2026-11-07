@@ -714,7 +714,7 @@
   var MAIN = [97, 106, 136, 25, 19, 127]; /* 메인 사진 6장 */
   var MAIN_P = MAIN.map(function (n) { return PHOTOS[n - 1]; });
   MAIN.forEach(function (n) { PHOTOS[n - 1].main = true; });
-  var REMOVED = [2,  3,  4,  6,  7,  8,  9,  10,  13,  14,  15,  16,  17,  18,  20,  22,  24,  30,  31,  32,  33,  34,  35,  36,  37,  38,  41,  42,  43,  44,  45,  46,  47,  48,  50,  54,  55,  56,  58,  59,  60,  61,  62,  63,  64,  65,  66,  67,  68,  69,  70,  72,  73,  75,  76,  77,  79,  80,  81,  83,  84,  86,  87,  90,  91,  92,  94,  95,  96,  99,  102,  104,  105,  107,  109,  110,  113,  114,  115,  116,  117,  118,  119,  120,  121,  122,  123,  126,  128,  130,  132,  134,  135]; /* 신부가 덜 예쁘게 나온 사진 — 숨김 */
+  var REMOVED = []; /* 신부가 덜 예쁘게 나온 사진 — 숨김 */
   REMOVED.forEach(function (n) { PHOTOS[n - 1].removed = true; });
   PHOTOS = PHOTOS.filter(function (a) { return !a.removed || a.main; });
   var ALBUM = ART.concat(MAIN_P,
