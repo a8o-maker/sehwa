@@ -150,12 +150,21 @@
   /* 기내 상영 · 여행 기록 */
   .films { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
   .films video { width: 100%; aspect-ratio: 9 / 16; object-fit: cover; border-radius: 2px; background: #000; outline: 1px solid var(--line); outline-offset: 4px; }
-  .log { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
-  .log button { position: relative; border: 0; padding: 0; border-radius: 2px; overflow: hidden; cursor: pointer; background: #e9e3d6; }
+  .log { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 10px; }
+  .log button { position: relative; border: 0; padding: 8px 8px 22px; border-radius: 3px; cursor: pointer; text-align: left; font: inherit;
+    background: var(--paper); background-image: repeating-linear-gradient(0deg, rgba(30,58,138,0.05) 0 1px, transparent 1px 12px); box-shadow: 0 8px 20px rgba(27,42,74,0.12); }
+  .log .ph { position: relative; display: block; overflow: hidden; border-radius: 1px; outline: 1px solid rgba(156,127,74,0.5); outline-offset: 3px; }
   .log img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; transition: transform 0.4s ease; }
   .log button:hover img { transform: scale(1.04); }
-  .log button::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 34%; background: linear-gradient(transparent, rgba(0,0,0,0.6)); }
-  .log span { position: absolute; z-index: 1; left: 8px; right: 8px; bottom: 8px; color: #fff; font-family: "Cormorant Garamond", serif; font-style: italic; font-size: 0.86rem; letter-spacing: 0.02em; line-height: 1.05; text-align: center; text-shadow: 0 1px 4px rgba(0,0,0,0.7); }
+  .log .ph::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 34%; background: linear-gradient(transparent, rgba(0,0,0,0.55)); }
+  .log .cap { position: absolute; z-index: 1; left: 8px; right: 58px; bottom: 7px; text-align: left !important; color: #fff; font-family: "Cormorant Garamond", serif; font-style: italic; font-size: 0.8rem; line-height: 1.05; text-align: center; text-shadow: 0 1px 4px rgba(0,0,0,0.7); }
+  .log .vno { position: absolute; left: 9px; right: 9px; bottom: 5px; display: flex; justify-content: space-between; font-family: "Cormorant Garamond", serif; font-size: 0.6rem; letter-spacing: 0.16em; color: #8a7350; text-transform: uppercase; }
+  .log .stamp { font-size: 0.42rem; padding: 4px 6px; border-width: 1.6px; }
+  .log .stamp b { font-size: 0.56rem; }
+  .log .stamp i { font-size: 0.36rem; }
+  .log .stamp.round { width: 58px; height: 58px; border-width: 3px; padding: 4px; }
+  .log .stamp:not(.round) { max-width: 70px; }
+  .log button.in .stamp { animation: thud 0.45s cubic-bezier(.3,1.6,.5,1) 0.25s forwards; }
   .more { margin-top: 14px; width: 100%; }
   .lb { position: fixed; inset: 0; z-index: 60; background: rgba(2,6,23,0.96); display: none; align-items: center; justify-content: center; flex-direction: column; padding: 16px; }
   .lb.on { display: flex; }
@@ -201,6 +210,7 @@
   .gift-sub { margin: 8px 0 0; font-family: "Cormorant Garamond", serif; font-style: italic; color: var(--gold); font-size: 1rem; letter-spacing: 0.04em; }
   @media (prefers-reduced-motion: reduce) { .gift .lf { transform: none; opacity: 1; } .gift.in .lf, .gift.got .gift-clover svg { animation: none; } }
   .bgm-btn { position: fixed; top: 14px; right: 14px; z-index: 58; display: flex; align-items: center; gap: 8px; height: 36px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--line); background: rgba(255,253,248,0.9); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); color: var(--ink-nv); font-family: "Montserrat"; font-size: 0.6rem; letter-spacing: 0.22em; cursor: pointer; box-shadow: 0 4px 14px rgba(27,42,74,0.1); }
+  .bgm-btn[hidden] { display: none; }
   .bgm-btn .eq { display: flex; align-items: flex-end; gap: 2px; height: 12px; }
   .bgm-btn .eq i { width: 2px; height: 4px; background: var(--gold); }
   .bgm-btn.on .eq i { animation: eq 0.9s ease-in-out infinite; }
@@ -453,7 +463,7 @@
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 <script>
-var PHOTOS = [[106, "Of all paths, I chose you"], [97, "Joy finds us anywhere"], [136, "Old souls, new beginning"], [25, "Hand in hand, for life"], [19, "Every road led to you"], [127, "Still choosing you, daily"], [98, "Met by fate, kept"], [99, "Love as high as the sky"], [101, "We bend, we never break"], [103, "Silver grass, golden us"], [108, "Sealed with a promise"], [109, "A kiss that says forever"], [110, "Two hearts, one rhythm"], [119, "Grateful for you"], [129, "Half past forever"], [131, "The road home is you"], [1, "Fate knew before we did"], [5, "Two hearts, one home"], [7, "Lucky to have you"], [11, "Love is a daily promise"], [21, "Your hand fits mine"], [23, "Love is patient and kind"], [27, "Written in the stars"], [28, "Side by side, always"], [29, "Love chose its own time"], [31, "Smiles we share"], [39, "Love, the bravest yes"], [40, "Every day, a little more"], [43, "A little closer"], [49, "Hearts tied by fate"], [51, "My heart knew you"], [52, "Built on trust and joy"], [53, "Every step, together"], [57, "Marriage: two become us"], [58, "You, me, and always"], [61, "Every moment counts"], [66, "Hello, my forever"], [70, "Love keeps us young"], [71, "Our hearts said yes"], [74, "The day fate smiled"], [77, "Always and always"], [78, "Under one sky, one heart"], [82, "Forever starts here"], [87, "Your smile, my sun"], [90, "Just the two of us"], [93, "Love found its way"], [95, "Here's to us"]];
+var PHOTOS = [[106, "Of all paths, I chose you"], [97, "Joy finds us anywhere"], [136, "Old souls, new beginning"], [25, "Hand in hand, for life"], [19, "Every road led to you"], [127, "Still choosing you, daily"], [98, "Met by fate, kept"], [99, "Love as high as the sky"], [101, "We bend, we never break"], [108, "Sealed with a promise"], [110, "Two hearts, one rhythm"], [119, "Grateful for you"], [129, "Half past forever"], [131, "The road home is you"], [1, "Fate knew before we did"], [7, "Lucky to have you"], [11, "Love is a daily promise"], [23, "Love is patient and kind"], [28, "Side by side, always"], [29, "Love chose its own time"], [31, "Smiles we share"], [40, "Every day, a little more"], [43, "A little closer"], [49, "Hearts tied by fate"], [51, "My heart knew you"], [52, "Built on trust and joy"], [53, "Every step, together"], [61, "Every moment counts"], [66, "Hello, my forever"], [71, "Our hearts said yes"], [74, "The day fate smiled"], [77, "Always and always"], [82, "Forever starts here"], [87, "Your smile, my sun"], [90, "Just the two of us"], [93, "Love found its way"], [95, "Here's to us"]];
 (function () {
   function $(id) { return document.getElementById(id); }
   function src(n) { return '../s/' + (n < 10 ? '0' : '') + n + '.jpg'; }
@@ -512,15 +522,40 @@ var PHOTOS = [[106, "Of all paths, I chose you"], [97, "Joy finds us anywhere"],
   }
   tick(); setInterval(tick, 1000);
 
+  /* 사진마다 찍힌 장소 도장 */
+  var STAMP = {
+    wall:   { t: 'STONE WALL', s: 'DEOKSUGUNG · SEOUL', d: 'ENTRY', c: 'var(--stamp-p)', round: true, k: 'Stone Wall' },
+    palace: { t: 'PALACE GATE', s: 'SEOUL', d: 'PASSED', c: 'var(--stamp-b)', k: 'Palace' },
+    alley:  { t: 'OLD TOWN', s: 'SEOCHON · SEOUL', d: 'VISITED', c: 'var(--stamp-r)', k: 'Old Town' },
+    ginkgo: { t: 'GINKGO ROAD', s: 'AUTUMN · SEOUL', d: 'ARRIVED', c: 'var(--stamp-g)', round: true, k: 'Ginkgo Road' },
+    namsan: { t: 'N SEOUL TOWER', s: 'NAMSAN · SEOUL', d: 'ARRIVED', c: 'var(--stamp-b)', k: 'Namsan' },
+    grass:  { t: 'SILVER GRASS', s: 'SEOUL', d: 'ADMITTED', c: 'var(--stamp-g)', round: true, k: 'Silver Grass' },
+    river:  { t: 'HAN RIVER', s: 'HANNAM · SEOUL', d: 'DEPARTED', c: 'var(--stamp-r)', round: true, k: 'Han River' }
+  };
+  function placeOf(n) {
+    if (n <= 11 || (n >= 23 && n <= 29) || n === 89 || n === 90 || n === 91) return 'wall';
+    if (n <= 22) return 'palace';
+    if (n <= 70 || n === 136) return 'alley';
+    if (n <= 96) return 'ginkgo';
+    if (n <= 100 || (n >= 108 && n <= 112)) return 'namsan';
+    if (n <= 125) return 'grass';
+    return 'river';
+  }
+  var POS = ['bottom:4px;right:4px', 'bottom:8px;right:2px', 'bottom:2px;right:8px'];
+
   /* 여행 기록 */
   var LOG = PHOTOS.filter(function (p) { return VISA.every(function (v) { return v.n !== p[0]; }); });
   var logEl = $('log'), moreBtn = $('more'), shown = 0, PAGE = 20;
   function more() {
     var next = Math.min(LOG.length, shown + PAGE), h = '';
     for (var i = shown; i < next; i++) {
-      h += '<button type="button" data-i="' + i + '" aria-label="' + LOG[i][1] + ' 크게 보기"><img src="' + src(LOG[i][0]) + '" alt="' + LOG[i][1] + '" loading="lazy" decoding="async"><span>' + LOG[i][1] + '</span></button>';
+      var n = LOG[i][0], pl = placeOf(n), st = STAMP[pl], rr = ((n * 37) % 25) - 12, pos = POS[n % POS.length];
+      h += '<button type="button" data-i="' + i + '" aria-label="' + LOG[i][1] + ' 크게 보기"><span class="ph"><img src="' + src(n) + '" alt="' + LOG[i][1] + '" loading="lazy" decoding="async"><span class="cap">' + LOG[i][1] + '</span></span>' +
+        '<span class="stamp' + (st.round ? ' round' : '') + '" style="--c:' + st.c + ';--r:' + rr + 'deg;' + pos + '"><i>' + st.s + '</i><b>' + st.t + '</b><i>' + st.d + '</i></span>' +
+        '<span class="vno"><span>Visa No. ' + (i + 7) + '</span></span></button>';
     }
     logEl.insertAdjacentHTML('beforeend', h); shown = next;
+    logEl.querySelectorAll('button:not(.in)').forEach(watch);
     moreBtn.hidden = shown >= LOG.length;
     moreBtn.textContent = '사진 더 보기 (' + (LOG.length - shown) + '장 남음)';
   }
