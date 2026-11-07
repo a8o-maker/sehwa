@@ -141,7 +141,16 @@
   .film { position: relative; width: 100%; aspect-ratio: 3 / 4; overflow: hidden; background: #111; border: 1px solid var(--rule); }
   .frame { position: absolute; inset: 0; opacity: 0; transition: opacity 1.1s ease; }
   .frame.on { opacity: 1; }
-  .frame img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .frame img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+  .frame .ph { opacity: 0; }
+  @media (prefers-reduced-motion: no-preference) {
+    .frame.on.k0 .ph { animation: k0 5600ms ease-out forwards, melt 5200ms ease-in-out forwards; }
+    .frame.on.k1 .ph { animation: k1 5600ms ease-out forwards, melt 5200ms ease-in-out forwards; }
+    .frame.on.k2 .ph { animation: k2 5600ms ease-out forwards, melt 5200ms ease-in-out forwards; }
+    .frame.on.k3 .ph { animation: k3 5600ms ease-out forwards, melt 5200ms ease-in-out forwards; }
+    @keyframes melt { 0%, 22% { opacity: 0; filter: blur(7px) saturate(0.6); } 62% { opacity: 1; filter: blur(0) saturate(1.05); } 100% { opacity: 1; filter: none; } }
+  }
+  @media (prefers-reduced-motion: reduce) { .frame .ph { opacity: 1; } }
   @media (prefers-reduced-motion: no-preference) {
     .frame.on.k0 img { animation: k0 5600ms ease-out forwards; }
     .frame.on.k1 img { animation: k1 5600ms ease-out forwards; }
@@ -332,7 +341,7 @@
   }
 
   /* ---------- 필름 띠 ---------- */
-  .strip { display: flex; gap: 5px; margin-top: 12px; }
+  .strip { display: grid; grid-template-columns: repeat(6, 1fr); gap: 5px; margin-top: 12px; }
   .strip button { position: relative; flex: 1; border: 0; padding: 0; background: none; cursor: pointer; opacity: 0.4; filter: grayscale(0.5); transition: opacity 0.3s ease, filter 0.3s ease; }
   .strip button.on { opacity: 1; filter: none; }
   .strip button.on::after { content: ""; position: absolute; left: 0; right: 0; bottom: -4px; height: 2px; background: var(--ac); }
@@ -782,7 +791,7 @@
   })();
   function altOf(a) { return a.cap + (a.photo ? ' — 두 사람 사진' : ' — 그림으로 옮긴 사진'); }
   var FILM_AT = 1, ILL_AT = 2;
-  var SHOT = 3600, ILL_SHOT = 5400;
+  var SHOT = 5200, ILL_SHOT = 5400;
   var WEDDING = new Date(2027, 0, 16, 12, 30, 0);
   var ADDR = '경상남도 양산시 강변로 438 크리스탈타워 5층';
   function $(id) { return document.getElementById(id); }
@@ -872,11 +881,16 @@
 
   /* ---------- 영상 ---------- */
   var framesEl = $('frames'), capEl = $('filmCap'), barEl = $('filmBar'), dotsEl = $('filmDots'), stripEl = $('filmStrip');
+  /* 그림이 사진으로 녹아드는 장면들 */
+  var FILM = [106, 97, 136, 25, 19, 127, 103, 108, 125, 133, 129, 101].map(function (n) {
+    var f = (n < 10 ? '0' : '') + n + '.jpg';
+    return { paint: '../p/' + f, src: '../s/' + f, cap: PHOTO_CAPS[n - 1] };
+  });
   var fh = '', dh = '', th = '';
-  for (var f = 0; f < ART.length; f++) {
-    fh += '<div class="frame k' + (f % 4) + '"><img src="' + ART[f].src + '" alt="' + ART[f].cap + ' — 그림으로 옮긴 사진" decoding="async"></div>';
+  for (var f = 0; f < FILM.length; f++) {
+    fh += '<div class="frame k' + (f % 4) + '"><img class="pt" src="' + FILM[f].paint + '" alt="" decoding="async"><img class="ph" src="' + FILM[f].src + '" alt="' + FILM[f].cap + ' — 두 사람 사진" loading="' + (f < 2 ? 'eager' : 'lazy') + '" decoding="async"></div>';
     dh += '<i></i>';
-    th += '<button type="button" data-f="' + f + '" aria-label="' + ART[f].cap + '"><img src="' + ART[f].src + '" alt="" loading="lazy" decoding="async"></button>';
+    th += '<button type="button" data-f="' + f + '" aria-label="' + FILM[f].cap + '"><img src="' + FILM[f].paint + '" alt="" loading="lazy" decoding="async"></button>';
   }
   framesEl.innerHTML = fh;
   dotsEl.innerHTML = dh;
@@ -894,16 +908,16 @@
   var fi = 0, ftimer = null, playing = false;
 
   function paintFrame(n) {
-    fi = (n + ART.length) % ART.length;
+    fi = (n + FILM.length) % FILM.length;
     for (var i = 0; i < frameEls.length; i++) {
       frameEls[i].classList.toggle('on', i === fi);
       fdots[i].classList.toggle('on', i === fi);
       fthumbs[i].classList.toggle('on', i === fi);
     }
-    var img = frameEls[fi].querySelector('img');
-    if (!calm) { img.style.animation = 'none'; void img.offsetWidth; img.style.animation = ''; }
+    var imgs = frameEls[fi].querySelectorAll('img');
+    if (!calm) { for (var q = 0; q < imgs.length; q++) { imgs[q].style.animation = 'none'; void imgs[q].offsetWidth; imgs[q].style.animation = ''; } }
     capEl.style.opacity = '0';
-    setTimeout(function () { capEl.textContent = ART[fi].cap; capEl.style.opacity = '1'; }, 220);
+    setTimeout(function () { capEl.textContent = FILM[fi].cap; capEl.style.opacity = '1'; }, 220);
     barEl.style.transition = 'none';
     barEl.style.width = '0%';
     void barEl.offsetWidth;
