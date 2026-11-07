@@ -821,7 +821,7 @@ var PHOTOS = [[106, "Fate walks through silver grass"], [97, "Joy finds us anywh
     try { nameEl.value = localStorage.getItem('pp-gb-name') || ''; } catch (e) {}
     var SEED = [
       { name: '유나', date: '11.7', text: '세화야 사진 보고 울컥했어ㅠㅠ 너무 예쁘다. 우리 문세화 드디어 신부가 되는구나! 결혼 진심으로 축하해💚' },
-      { name: '이모', date: '11.3', text: '우리 문세화 결혼 진심으로 축하한다. 어릴 때부터 예쁘더니 신부 모습은 더 곱구나. 손규수 서방이랑 행복하게 잘 살아라.' }
+      { name: '정명숙', date: '11.3', text: '우리 문세화 결혼 진심으로 축하한다. 어릴 때부터 예쁘더니 신부 모습은 더 곱구나. 손규수 서방이랑 행복하게 잘 살아라.' }
     ];
     function seedHtml() { return SEED.map(function (v) { return '<div class="gb-item"><div class="who"><span>' + esc(v.name) + '</span><time>' + v.date + '</time></div><p>' + esc(v.text) + '</p></div>'; }).join(''); }
     list.innerHTML = seedHtml();
