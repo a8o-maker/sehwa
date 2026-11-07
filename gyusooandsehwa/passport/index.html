@@ -225,7 +225,6 @@
   @media (prefers-reduced-motion: reduce) { .gift .lf { transform: none; opacity: 1; } .gift.in .lf, .gift.got .gift-clover svg { animation: none; } }
   .bgm-btn { position: fixed; top: 14px; right: 14px; z-index: 58; display: flex; align-items: center; gap: 8px; height: 36px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--line); background: rgba(255,253,248,0.9); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); color: var(--ink-nv); font-family: "Montserrat"; font-size: 0.6rem; letter-spacing: 0.22em; cursor: pointer; box-shadow: 0 4px 14px rgba(59,36,22,0.1); }
   .bgm-btn[hidden] { display: none; }
-  body.locked .bgm-btn { display: none; }
   .bgm-btn .eq { display: flex; align-items: flex-end; gap: 2px; height: 12px; }
   .bgm-btn .eq i { width: 2px; height: 4px; background: var(--gold); }
   .bgm-btn.on .eq i { animation: eq 0.9s ease-in-out infinite; }
@@ -702,15 +701,25 @@ var PHOTOS = [[106, "Fate walks through silver grass"], [97, "Joy finds us anywh
 
   /* 표지 열기 */
   var cover = $('cover'), opened = false;
-  /* 배경음악: 여권을 펼칠 때 시작, 오른쪽 위 버튼으로 끄고 켜기 (bgm.mp3가 있을 때만) */
-  var bgm = $('bgm'), bgmBtn = $('bgmBtn'), hasBgm = false;
+  /* 배경음악: 페이지가 열리자마자 재생 시도, 브라우저가 막으면 화면을 처음 터치하는 순간 바로 시작 */
+  var bgm = $('bgm'), bgmBtn = $('bgmBtn'), hasBgm = false, userOff = false, armed = false;
   function bgmUi(on) { bgmBtn.classList.toggle('on', on); bgmBtn.setAttribute('aria-label', on ? '배경음악 끄기' : '배경음악 켜기'); }
-  function bgmPlay() { if (!hasBgm) return; bgm.volume = 0.6; var pr = bgm.play(); if (pr && pr.then) pr.then(function () { bgmUi(true); }, function () { bgmUi(false); }); }
-  fetch('bgm.mp3', { method: 'HEAD' }).then(function (r) { if (r.ok) { hasBgm = true; bgmBtn.hidden = false; bgm.preload = 'auto'; if (opened) bgmPlay(); } }).catch(function () {});
-  bgmBtn.addEventListener('click', function () { if (bgm.paused) bgmPlay(); else { bgm.pause(); bgmUi(false); } });
-  document.addEventListener('visibilitychange', function () { if (document.hidden && !bgm.paused) { bgm.pause(); bgm.dataset.resume = '1'; } else if (!document.hidden && bgm.dataset.resume) { delete bgm.dataset.resume; bgmPlay(); } });
+  function arm() {
+    if (armed) return; armed = true;
+    var evs = ['pointerdown', 'pointerup', 'touchend', 'click', 'keydown'];
+    function go() { evs.forEach(function (e) { document.removeEventListener(e, go, true); }); armed = false; if (bgm.paused && !userOff) bgmPlay(); }
+    evs.forEach(function (e) { document.addEventListener(e, go, true); });
+  }
+  function bgmPlay() {
+    if (!hasBgm) return; bgm.volume = 0.6;
+    var pr = bgm.play();
+    if (pr && pr.then) pr.then(function () { bgmUi(true); }, function () { bgmUi(false); arm(); });
+  }
+  fetch('bgm.mp3', { method: 'HEAD' }).then(function (r) { if (r.ok) { hasBgm = true; bgmBtn.hidden = false; bgm.preload = 'auto'; bgmPlay(); } }).catch(function () {});
+  bgmBtn.addEventListener('click', function (e) { e.stopPropagation(); if (bgm.paused) { userOff = false; bgmPlay(); } else { userOff = true; bgm.pause(); bgmUi(false); } });
+  document.addEventListener('visibilitychange', function () { if (document.hidden && !bgm.paused) { bgm.pause(); bgm.dataset.resume = '1'; } else if (!document.hidden && bgm.dataset.resume) { delete bgm.dataset.resume; if (!userOff) bgmPlay(); } });
   function openPP() {
-    if (opened) return; opened = true; bgmPlay();
+    if (opened) return; opened = true; if (bgm.paused && !userOff) bgmPlay();
     cover.classList.add('open');
     setTimeout(function () { cover.classList.add('gone'); document.body.classList.remove('locked'); }, reduce ? 0 : 900);
   }
