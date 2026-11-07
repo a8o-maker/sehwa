@@ -300,6 +300,36 @@
   .flight i { position: absolute; left: 0; top: 0; bottom: 0; width: 0; background: var(--foil); }
   .flight svg { position: absolute; top: -6px; left: 0; width: 14px; height: 14px; transform: translateX(-7px); }
   body.locked .flight { display: none; }
+  /* ───── 하단 고정 바 · 마음 보내기 시트 ───── */
+  .np { position: fixed; left: 50%; bottom: 0; transform: translateX(-50%); z-index: 56; width: 100%; max-width: 440px; padding: 10px 14px calc(10px + env(safe-area-inset-bottom)); display: flex; align-items: center; gap: 12px; background: rgba(255,253,248,0.95); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border-top: 1.5px solid transparent; border-image: var(--foil) 1; box-shadow: 0 -10px 30px rgba(27,42,74,0.1); }
+  body.locked .np { display: none; }
+  .np .info { flex: 1; min-width: 0; line-height: 1.3; }
+  .np .info small { display: block; font-family: "Cormorant Garamond", serif; font-style: italic; letter-spacing: 0.1em; color: var(--gold); font-size: 0.92rem; }
+  .np .info b { display: block; font-size: 0.98rem; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--ink-nv); }
+  .np .btn { min-height: 52px; padding: 0 20px; white-space: nowrap; font-size: 1.05rem; font-weight: 700; }
+  .np .btn.round { width: 52px; padding: 0; flex: 0 0 52px; font-size: 1.15rem; }
+  .toast { bottom: calc(86px + env(safe-area-inset-bottom)) !important; }
+  main { padding-bottom: 120px !important; }
+  .gv { position: fixed; inset: 0; z-index: 76; display: flex; align-items: flex-end; justify-content: center; background: rgba(17,24,39,0.5); -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px); opacity: 0; pointer-events: none; transition: opacity 0.25s ease; }
+  .gv.on { opacity: 1; pointer-events: auto; } .gv[hidden] { display: none; }
+  .gv-wrap { position: relative; width: 100%; max-width: 440px; }
+  .gv-panel { width: 100%; max-height: 90vh; overflow-y: auto; background: var(--bg); border-radius: 24px 24px 0 0; padding: 12px 18px calc(24px + env(safe-area-inset-bottom)); transform: translateY(40px); transition: transform 0.3s cubic-bezier(.2,.8,.2,1); box-shadow: 0 -20px 60px rgba(0,0,0,0.25); text-align: center; }
+  .gv.on .gv-panel { transform: none; }
+  .gv-grab { width: 44px; height: 5px; border-radius: 3px; background: rgba(27,42,74,0.2); margin: 0 auto 10px; }
+  .gv-panel h2 { margin: 6px 0 2px; font-size: 1.3rem; }
+  .gv-sub { margin: 0 auto 4px; color: #374151; font-size: 0.98rem; line-height: 1.7; }
+  .gv-x { position: absolute; right: 8px; top: 8px; width: 48px; height: 48px; border: 0; background: none; font-size: 1.6rem; color: var(--muted); cursor: pointer; }
+  .ac { margin-top: 14px; padding: 16px 16px 14px; border-radius: 14px; text-align: left; border: 1.5px solid transparent; background: linear-gradient(#fff, #fff) padding-box, var(--foil) border-box; box-shadow: 0 8px 20px rgba(27,42,74,0.07); }
+  .ac .who { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+  .ac .who b { font-size: 1.08rem; color: var(--ink-nv); } .ac .who span { color: var(--muted); font-size: 0.9rem; }
+  .ac .bank { margin-top: 8px; font-weight: 700; color: var(--gold); font-size: 1.02rem; }
+  .ac .num { display: block; width: 100%; margin: 2px 0 0; padding: 4px 0; border: 0; background: none; text-align: left; cursor: pointer; font-family: "Montserrat", sans-serif; font-weight: 700; font-size: clamp(1.35rem, 6.8vw, 1.7rem); letter-spacing: 0.02em; line-height: 1.35; color: #111827; font-variant-numeric: tabular-nums; word-break: normal; }
+  .ac .bt { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px; }
+  .ac .bt > :first-child { grid-column: 1 / -1; }
+  .ac .btn { min-height: 52px; font-size: 1rem; font-weight: 700; justify-content: center; }
+  .btn.gold { background: linear-gradient(180deg, #e9cf86, #c9a54f) !important; border-color: #8a6a2f !important; color: #2a1f08 !important; }
+  .btn.kakao { background: #fee500 !important; border-color: #d4bd00 !important; color: #191919 !important; }
+  .gv-note { margin: 12px 0 0; color: var(--muted); font-size: 0.88rem; line-height: 1.65; text-align: center; }
   .back-cover { margin-top: 30px; padding: 40px 20px; border-radius: 18px; background: var(--bg-2); border: 1px solid var(--line); box-shadow: 0 10px 28px rgba(27,42,74,0.06); }
   .back-cover p { margin: 0; color: #374151; font-size: 0.92rem; line-height: 2; }
   .back-cover .sg { font-family: "Cormorant Garamond", serif; font-style: italic; letter-spacing: 0.08em; font-size: 1.3rem; margin-top: 18px; }
@@ -536,9 +566,7 @@
     <h2>마음 전하실 곳</h2>
     <p class="lede">와 주시는 것만으로 충분합니다.<br>그래도 마음을 전하고 싶은 분들을 위해 적어 둡니다.</p>
     <div class="gilt card" style="padding-top:16px"><span class="orn tl"></span><span class="orn tr"></span><span class="orn bl"></span><span class="orn br"></span>
-      <div class="acct"><div><div class="who">신랑 손규수 · 부산은행</div><div class="no">166-12-011157-6</div></div><button class="btn" type="button" data-copy="166120111576">복사</button></div>
-      <div class="acct"><div><div class="who">신랑 어머니 이수자 · 경남은행</div><div class="no">679-21-003880-9</div></div><button class="btn" type="button" data-copy="679210038809">복사</button></div>
-      <div class="acct"><div><div class="who">신부 문세화 · NH농협은행</div><div class="no">302-7203-767751</div></div><button class="btn" type="button" data-copy="3027203767751">복사</button></div>
+      <div id="acInline"></div>
     </div>
     <button class="btn solid more" type="button" id="share" style="margin-top:18px">청첩장 공유하기</button>
   </section>
@@ -623,6 +651,20 @@
   </form>
 </div>
 <div class="clovers" id="clovers" aria-hidden="true"></div>
+<div class="np" id="np">
+  <div class="info"><small>NOW BOARDING</small><b id="npText">D-0 · 1.16 SAT</b></div>
+  <button class="btn round" type="button" id="npShare" aria-label="청첩장 공유하기">⤴</button>
+  <button class="btn solid" type="button" id="giveOpen">마음 보내기</button>
+</div>
+<div class="gv" id="giveSheet" hidden>
+  <div class="gv-wrap"><div class="gv-panel" role="dialog" aria-modal="true" aria-labelledby="giveT">
+    <div class="gv-grab" aria-hidden="true"></div>
+    <button class="gv-x" type="button" data-gvclose aria-label="닫기">×</button>
+    <h2 id="giveT">마음 전하실 곳</h2>
+    <p class="gv-sub">번호를 누르면 복사돼요.<br>은행 앱에 붙여 넣어 보내시면 됩니다.</p>
+    <div id="acSheet"></div>
+  </div></div>
+</div>
 <div class="flight" aria-hidden="true"><i id="flightBar"></i><svg id="flightPlane" viewBox="0 0 24 24"><path fill="#9c7a3f" d="M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5z" transform="rotate(90 12 12)"/></svg></div>
 <audio id="bgm" src="bgm.mp3" loop preload="none"></audio>
 <button type="button" class="bgm-btn" id="bgmBtn" hidden aria-label="배경음악 켜기">
@@ -914,6 +956,47 @@ var PHOTOS = [[106, "Fate walks through silver grass"], [97, "Joy finds us anywh
     var a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([ics], { type: 'text/calendar;charset=utf-8' })); a.download = 'gyusoo-sehwa-wedding.ics';
     document.body.appendChild(a); a.click(); a.remove(); say('캘린더 파일을 저장했어요');
   });
+
+  /* 마음 보내기: 큰 계좌 카드 + 토스·카카오페이 */
+  (function () {
+    var ACCTS = [
+      { who: '신랑', name: '손규수', bank: '부산은행', toss: '부산은행', kakao: '', no: '166-12-011157-6' },
+      { who: '신랑 어머니', name: '이수자', bank: '경남은행', toss: '경남은행', kakao: '', no: '679-21-003880-9' },
+      { who: '신부', name: '문세화', bank: 'NH농협은행', toss: '농협은행', kakao: '', no: '302-7203-767751' }
+    ];
+    var MOBILE = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+    function e2(x) { return String(x).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+    function card(a) {
+      var raw = a.no.replace(/\D/g, ''), msg = '계좌번호를 복사했어요. 은행 앱에 붙여 넣어 주세요';
+      return '<div class="ac"><div class="who"><b>' + e2(a.who) + ' · ' + e2(a.name) + '</b><span>예금주 ' + e2(a.name) + '</span></div><div class="bank">' + e2(a.bank) + '</div>' +
+        '<button class="num" type="button" data-copy="' + raw + '" data-msg="' + msg + '" aria-label="' + e2(a.bank) + ' ' + a.no + ' 눌러서 복사">' + a.no + '</button>' +
+        '<div class="bt"><button class="btn solid" type="button" data-copy="' + raw + '" data-msg="' + msg + '">계좌번호 복사</button>' +
+        (MOBILE ? '<button class="btn gold" type="button" data-toss="' + e2(a.toss) + '|' + raw + '">토스로 송금</button><button class="btn kakao" type="button" data-kakao="' + e2(a.kakao) + '|' + raw + '">카카오페이로 송금</button>'
+                : '<button class="btn" type="button" data-copy="' + e2(a.bank + ' ' + a.no + ' ' + a.name) + '" data-msg="은행·번호·예금주를 복사했어요">전체 복사</button>') + '</div></div>';
+    }
+    var note = '<p class="gv-note">‘토스로 송금’·‘카카오페이로 송금’은 계좌번호를 복사한 뒤 앱을 열어 줍니다. 앱에서 번호를 붙여 넣어 보내시면 돼요.</p>';
+    $('acInline').innerHTML = ACCTS.map(card).join('') + note;
+    $('acSheet').innerHTML = ACCTS.map(card).join('') + '<p class="gv-note">마음 써 주셔서 고맙습니다.</p>';
+    function appOpen(u) { (window.__openApp || function (x) { location.href = x; })(u); }
+    document.addEventListener('click', function (e) {
+      var b = e.target.closest('[data-toss]');
+      if (b) { var t = b.getAttribute('data-toss').split('|'); copy(t[1], '계좌번호를 복사했어요. 토스를 여는 중…'); setTimeout(function () { appOpen('supertoss://send?bank=' + encodeURIComponent(t[0]) + '&accountNo=' + t[1] + '&origin=qr'); }, 350); return; }
+      b = e.target.closest('[data-kakao]');
+      if (b) { var k = b.getAttribute('data-kakao').split('|'); copy(k[1], '계좌번호를 복사했어요. 카카오페이를 여는 중…'); setTimeout(function () { appOpen(k[0] ? k[0] : 'kakaotalk://kakaopay/money/to/bank'); }, 350); }
+    });
+    /* 시트 */
+    var sh = $('giveSheet'), lastF = null, reduceM = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    function openG() { lastF = document.activeElement; sh.hidden = false; void sh.offsetWidth; sh.classList.add('on'); document.body.style.overflow = 'hidden'; setTimeout(function () { var h = $('giveT'); h.setAttribute('tabindex', '-1'); h.focus(); }, 60); }
+    function closeG() { if (sh.hidden) return; sh.classList.remove('on'); document.body.style.overflow = ''; setTimeout(function () { sh.hidden = true; }, reduceM ? 0 : 260); if (lastF && lastF.focus) lastF.focus(); }
+    $('giveOpen').addEventListener('click', openG);
+    document.querySelectorAll('[data-gvclose]').forEach(function (b) { b.addEventListener('click', closeG); });
+    sh.addEventListener('click', function (e) { if (e.target === sh || e.target.classList.contains('gv-wrap')) closeG(); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !sh.hidden) closeG(); });
+    /* 바: D-day · 공유 */
+    function dd() { var n = new Date(), a = new Date(n.getFullYear(), n.getMonth(), n.getDate()), d = Math.round((new Date(2027, 0, 16) - a) / 86400000); $('npText').textContent = (d > 0 ? 'D-' + d : d === 0 ? 'D-DAY' : 'D+' + (-d)) + ' · 1.16 SAT'; }
+    dd(); setInterval(dd, 60000);
+    $('npShare').addEventListener('click', function () { $('share').click(); });
+  })();
 
   /* 복사 · 공유 */
   var toastT;
