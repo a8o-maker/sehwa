@@ -159,12 +159,12 @@
   .log::before { content: ""; position: absolute; left: 12px; right: 12px; top: 12px; height: 2px; border-radius: 2px; background: var(--foil); opacity: 0.7; }
   .log .fr { position: relative; display: block; border: 0; background: none; padding: 0; margin: 0; cursor: pointer; text-align: center; font: inherit; color: inherit; }
   .log .fr:nth-child(even) { margin-top: 34px; }
-  .log .fr .nail { position: absolute; left: 50%; top: -22px; width: 8px; height: 8px; border-radius: 50%; transform: translateX(-50%); background: radial-gradient(circle at 30% 30%, #f6e6b0, #8a6a2f); box-shadow: 0 1px 2px rgba(0,0,0,0.45); z-index: 2; }
+  .log .fr .nail { position: absolute; left: 50%; top: -22px; width: 8px; height: 8px; border-radius: 50%; transform: translateX(-50%); background: radial-gradient(circle at 30% 30%, #ffd9a8, #a4500d); box-shadow: 0 1px 2px rgba(0,0,0,0.45); z-index: 2; }
   .log .fr::before { content: ""; position: absolute; left: 14%; width: 72%; top: -17px; height: 17px; z-index: 1; opacity: 0.55;
     background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 20' preserveAspectRatio='none'%3E%3Cpath d='M50 0L4 20M50 0L96 20' stroke='%235a4630' stroke-width='1.2' fill='none'/%3E%3C/svg%3E") center / 100% 100% no-repeat; }
-  .log .fx { display: block; padding: 7px; border-radius: 2px; background: var(--foil); box-shadow: 0 12px 18px rgba(60,45,20,0.28), 0 2px 3px rgba(0,0,0,0.22), inset 0 0 0 1px rgba(255,255,255,0.35); transition: transform 0.3s ease; }
-  .log .f1 .fx { background: linear-gradient(135deg, #7a5632, #3b2a1a 45%, #5e4024); box-shadow: 0 12px 18px rgba(60,45,20,0.3), 0 2px 3px rgba(0,0,0,0.25), inset 0 0 0 1px rgba(255,255,255,0.12); }
-  .log .f2 .fx { background: linear-gradient(135deg, #ffffff, #e4dccb 50%, #ffffff); }
+  .log .fx { display: block; padding: 8px; border-radius: 2px; background: linear-gradient(135deg, #ffb25a 0%, #f57c1f 38%, #d9560b 62%, #ff9a3c 100%); box-shadow: 0 12px 18px rgba(80,35,5,0.30), 0 2px 3px rgba(0,0,0,0.25), inset 0 0 0 1px rgba(255,235,200,0.55), inset 0 0 0 3px rgba(150,60,5,0.35); transition: transform 0.3s ease; }
+  .log .f1 .fx { background: linear-gradient(135deg, #f08a2c 0%, #c2540a 45%, #e2711a 100%); }
+  .log .f2 .fx { background: linear-gradient(135deg, #ffc27a 0%, #ff8f2e 50%, #ee6a10 100%); }
   .log .fr:hover .fx, .log .fr:focus-visible .fx { transform: translateY(-3px); }
   .log .mat { display: block; padding: 9px; background: #f7fcf9; box-shadow: inset 0 0 0 1px rgba(0,0,0,0.08), inset 0 3px 8px rgba(0,0,0,0.14); }
   .log .mat img { display: block; width: 100%; aspect-ratio: 3 / 4; object-fit: cover; background: #d4ecdf; box-shadow: 0 0 0 1px rgba(0,0,0,0.28); }
