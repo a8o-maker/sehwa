@@ -150,20 +150,26 @@
   /* 기내 상영 · 여행 기록 */
   .films { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
   .films video { width: 100%; aspect-ratio: 9 / 16; object-fit: cover; border-radius: 2px; background: #000; outline: 1px solid var(--line); outline-offset: 4px; }
-  .log { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 10px; }
-  .log button { position: relative; border: 0; padding: 8px 8px 22px; border-radius: 3px; cursor: pointer; text-align: left; font: inherit;
+  .log { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 14px; padding: 6px 2px 14px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+  .log::-webkit-scrollbar { display: none; }
+  .log button { flex: 0 0 100%; scroll-snap-align: center; }
+  .log-nav { display: flex; align-items: center; justify-content: center; gap: 18px; margin-top: 4px; }
+  .log-nav button { width: 44px; height: 44px; border-radius: 50%; border: 1px solid transparent; background: linear-gradient(var(--bg-2), var(--bg-2)) padding-box, var(--foil) border-box; color: var(--ink-nv); font-size: 1.4rem; cursor: pointer; }
+  .log-nav button:disabled { opacity: 0.35; cursor: default; }
+  .log-nav span { min-width: 64px; text-align: center; font-family: "Cormorant Garamond", serif; font-size: 1rem; letter-spacing: 0.12em; color: var(--ink-nv); font-variant-numeric: tabular-nums; }
+  .log button { position: relative; border: 0; padding: 12px 12px 30px; border-radius: 3px; cursor: pointer; text-align: left; font: inherit;
     background: var(--paper); background-image: repeating-linear-gradient(0deg, rgba(30,58,138,0.05) 0 1px, transparent 1px 12px); box-shadow: 0 8px 20px rgba(27,42,74,0.12); }
   .log .ph { position: relative; display: block; overflow: hidden; border-radius: 1px; outline: 1px solid rgba(156,127,74,0.5); outline-offset: 3px; }
   .log img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; transition: transform 0.4s ease; }
   .log button:hover img { transform: scale(1.04); }
   .log .ph::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 34%; background: linear-gradient(transparent, rgba(0,0,0,0.55)); }
-  .log .cap { position: absolute; z-index: 1; left: 8px; right: 58px; bottom: 7px; text-align: left !important; color: #fff; font-family: "Cormorant Garamond", serif; font-style: italic; font-size: 0.8rem; line-height: 1.05; text-align: center; text-shadow: 0 1px 4px rgba(0,0,0,0.7); }
-  .log .vno { position: absolute; left: 9px; right: 9px; bottom: 5px; display: flex; justify-content: space-between; font-family: "Cormorant Garamond", serif; font-size: 0.6rem; letter-spacing: 0.16em; color: #8a7350; text-transform: uppercase; }
-  .log .stamp { font-size: 0.42rem; padding: 4px 6px; border-width: 1.6px; }
-  .log .stamp b { font-size: 0.56rem; }
-  .log .stamp i { font-size: 0.36rem; }
-  .log .stamp.round { width: 58px; height: 58px; border-width: 3px; padding: 4px; }
-  .log .stamp:not(.round) { max-width: 70px; }
+  .log .cap { position: absolute; z-index: 1; left: 12px; right: 96px; bottom: 12px; text-align: left !important; font-size: 1.05rem !important; color: #fff; font-family: "Cormorant Garamond", serif; font-style: italic; font-size: 0.8rem; line-height: 1.05; text-align: center; text-shadow: 0 1px 4px rgba(0,0,0,0.7); }
+  .log .vno { position: absolute; left: 14px; right: 14px; bottom: 8px; font-size: 0.78rem !important; display: flex; justify-content: space-between; font-family: "Cormorant Garamond", serif; font-size: 0.6rem; letter-spacing: 0.16em; color: #8a7350; text-transform: uppercase; }
+  .log .stamp { font-size: 0.56rem; padding: 6px 9px; border-width: 2px; }
+  .log .stamp b { font-size: 0.74rem; }
+  .log .stamp i { font-size: 0.48rem; }
+  .log .stamp.round { width: 92px; height: 92px; border-width: 4px; padding: 6px; }
+  .log .stamp:not(.round) { max-width: 120px; }
   .log button.in .stamp { animation: thud 0.45s cubic-bezier(.3,1.6,.5,1) 0.25s forwards; }
   .more { margin-top: 14px; width: 100%; }
   .lb { position: fixed; inset: 0; z-index: 60; background: rgba(2,6,23,0.96); display: none; align-items: center; justify-content: center; flex-direction: column; padding: 16px; }
@@ -495,7 +501,11 @@
     <h2>여행 기록</h2>
     <p class="lede">잘 나온 사진보다<br>같이 웃던 순간이 더 좋았습니다.</p>
     <div class="log" id="log"></div>
-    <button class="btn more" type="button" id="more">사진 더 보기</button>
+    <div class="log-nav">
+      <button type="button" id="logPrev" aria-label="이전 사진">‹</button>
+      <span id="logCount">1 / 1</span>
+      <button type="button" id="logNext" aria-label="다음 사진">›</button>
+    </div>
   </section>
 
   <!-- 7 오시는 길 -->
@@ -700,21 +710,31 @@ var PHOTOS = [[106, "Of all paths, I chose you"], [97, "Joy finds us anywhere"],
 
   /* 여행 기록 */
   var LOG = PHOTOS.filter(function (p) { return VISA.every(function (v) { return v.n !== p[0]; }); });
-  var logEl = $('log'), moreBtn = $('more'), shown = 0, PAGE = 20;
-  function more() {
-    var next = Math.min(LOG.length, shown + PAGE), h = '';
-    for (var i = shown; i < next; i++) {
+  var logEl = $('log');
+  (function () {
+    var h = '';
+    for (var i = 0; i < LOG.length; i++) {
       var n = LOG[i][0], pl = placeOf(n), st = STAMP[pl], rr = ((n * 37) % 25) - 12, pos = POS[n % POS.length];
       h += '<button type="button" data-i="' + i + '" aria-label="' + LOG[i][1] + ' 크게 보기"><span class="ph"><img src="' + src(n) + '" alt="' + LOG[i][1] + '" loading="lazy" decoding="async"><span class="cap">' + LOG[i][1] + '</span></span>' +
         '<span class="stamp' + (st.round ? ' round' : '') + '" style="--c:' + st.c + ';--r:' + rr + 'deg;' + pos + '"><i>' + st.s + '</i><b>' + st.t + '</b><i>' + st.d + '</i></span>' +
         '<span class="vno"><span>Visa No. ' + (i + 7) + '</span></span></button>';
     }
-    logEl.insertAdjacentHTML('beforeend', h); shown = next;
-    logEl.querySelectorAll('button:not(.in)').forEach(watch);
-    moreBtn.hidden = shown >= LOG.length;
-    moreBtn.textContent = '사진 더 보기 (' + (LOG.length - shown) + '장 남음)';
-  }
-  more(); moreBtn.addEventListener('click', more);
+    logEl.innerHTML = h;
+    var cur = 0, items = logEl.children;
+    function upd() {
+      cur = Math.round(logEl.scrollLeft / (logEl.clientWidth || 1));
+      cur = Math.max(0, Math.min(items.length - 1, cur));
+      $('logCount').textContent = (cur + 1) + ' / ' + items.length;
+      $('logPrev').disabled = cur === 0; $('logNext').disabled = cur === items.length - 1;
+      if (items[cur]) items[cur].classList.add('in');
+    }
+    function goTo(i) { logEl.scrollTo({ left: i * logEl.clientWidth, behavior: reduce ? 'auto' : 'smooth' }); }
+    $('logPrev').addEventListener('click', function () { goTo(cur - 1); });
+    $('logNext').addEventListener('click', function () { goTo(cur + 1); });
+    var t; logEl.addEventListener('scroll', function () { clearTimeout(t); t = setTimeout(upd, 60); }, { passive: true });
+    window.addEventListener('resize', upd);
+    upd();
+  })();
 
   /* 크게 보기 */
   var lb = $('lb'), cur = 0, last = null;
