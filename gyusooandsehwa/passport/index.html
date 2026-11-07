@@ -246,32 +246,36 @@
   .seat-label { position: absolute; left: 0; right: 0; bottom: -30px; margin: 0; text-align: center; font-family: "Montserrat"; font-size: 0.56rem; letter-spacing: 0.18em; color: var(--muted); }
   .seat + * { margin-top: 40px; }
   #seat { margin-bottom: 36px; }
-  .rsvp { position: fixed; inset: 0; z-index: 75; display: flex; align-items: center; justify-content: center; padding: 16px; background: rgba(17,24,39,0.45); -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px); }
-  .rsvp[hidden] { display: none; }
-  .rsvp-card { position: relative; width: min(290px, 100%); max-height: calc(100vh - 32px); overflow-y: auto; background: var(--bg-2); border: 1px solid var(--line); border-radius: 10px; padding: 14px 14px 10px; text-align: left; box-shadow: 0 20px 50px rgba(17,24,39,0.3); animation: rIn 0.3s cubic-bezier(.2,.8,.2,1); }
-  @keyframes rIn { from { transform: translateY(14px); opacity: 0; } to { transform: none; opacity: 1; } }
-  .rsvp-card .eyebrow { font-size: 0.82rem; }
-  .rsvp-card .eyebrow::before, .rsvp-card .eyebrow::after { width: 22px; }
-  .rsvp-card h3 { margin: 0 0 10px; text-align: center; color: var(--ink-nv); font-size: 0.9rem; font-weight: 400; letter-spacing: 0.02em; }
-  .rsvp-x { position: absolute; top: 2px; right: 2px; width: 34px; height: 34px; border: 0; background: none; font-size: 1.15rem; color: var(--muted); cursor: pointer; }
-  .r2 { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 6px; }
-  .rf { display: grid; gap: 2px; margin-bottom: 7px; font-size: 0.68rem; color: var(--ink-nv); }
-  .rf[hidden] { display: none; }
-  .rf input, .rf select { width: 100%; height: 34px; padding: 0 8px; border: 1px solid var(--line); border-radius: 5px; background: #fff; color: var(--text); font: inherit; font-size: 0.82rem; }
-  .rf-row { grid-template-columns: 1fr 72px; align-items: center; }
-  .rf input:focus, .rf select:focus, .rg label:focus-within span { outline: 2px solid rgba(156,122,63,0.45); outline-offset: 1px; }
-  .rg { border: 0; margin: 0 0 7px; padding: 0; display: flex; flex-wrap: wrap; gap: 4px; }
-  .rg[hidden] { display: none; }
-  .rg legend { width: 100%; font-size: 0.68rem; color: var(--ink-nv); margin-bottom: 2px; padding: 0; }
-  .rg label { flex: 1; min-width: 60px; }
-  .rg input { position: absolute; opacity: 0; pointer-events: none; }
-  .rg span { display: flex; align-items: center; justify-content: center; height: 30px; border: 1px solid var(--line); border-radius: 5px; font-size: 0.76rem; color: var(--ink-1); cursor: pointer; background: #fff; }
-  .rg input:checked + span { background: var(--ink-nv); color: #fff; border-color: var(--ink-nv); }
-  .rc { display: flex; gap: 6px; align-items: center; margin: 2px 0; font-size: 0.66rem; color: var(--muted); }
-  .rc input { width: 14px; height: 14px; accent-color: #1b2a4a; flex-shrink: 0; margin: 0; }
-  .rsvp-err { min-height: 1.1em; margin: 0 0 4px; font-size: 0.68rem; color: #b42318; }
-  .rsvp-card .btn.solid { width: 100%; min-height: 36px; font-size: 0.8rem; }
-  .rsvp-later { display: block; margin: 6px auto 0; border: 0; background: none; color: var(--muted); font: inherit; font-size: 0.68rem; text-decoration: underline; cursor: pointer; }
+  /* ───── 참석·식사 여부: 페이지 안에 남기기 ───── */
+  .rv { text-align: left; }
+  .rv .rf { display: grid; gap: 4px; margin: 14px 0 0; font-size: 0.95rem; color: var(--ink-nv); font-weight: 500; }
+  .rv .rf input, .rv .rf select { width: 100%; height: 52px; padding: 0 14px; border: 1.5px solid rgba(27,42,74,0.28); border-radius: 10px; background: #fff; color: #111827; font: inherit; font-size: 1.05rem; }
+  .rv .rf input:focus, .rv .rf select:focus { outline: 3px solid rgba(201,165,79,0.55); outline-offset: 1px; }
+  .rv .seg { border: 0; padding: 0; margin: 14px 0 0; display: flex; gap: 8px; flex-wrap: wrap; }
+  .rv .seg[hidden], .rv .rf[hidden] { display: none; }
+  .rv .seg legend { width: 100%; padding: 0; margin-bottom: 4px; font-size: 0.95rem; font-weight: 500; color: var(--ink-nv); }
+  .rv .seg label { flex: 1; min-width: 92px; position: relative; }
+  .rv .seg input { position: absolute; opacity: 0; inset: 0; }
+  .rv .seg span { display: flex; align-items: center; justify-content: center; min-height: 52px; border: 1.5px solid rgba(27,42,74,0.28); border-radius: 10px; background: #fff; color: #111827; font-weight: 500; }
+  .rv .seg input:checked + span { background: var(--ink-nv); color: #f6e6b0; border-color: var(--ink-nv); font-weight: 700; }
+  .rv .seg input:focus-visible + span { outline: 3px solid rgba(201,165,79,0.7); outline-offset: 2px; }
+  .rv .agree { display: flex; gap: 10px; align-items: flex-start; margin: 16px 0 0; font-size: 0.9rem; color: #374151; line-height: 1.55; }
+  .rv .agree input { width: 22px; height: 22px; margin-top: 2px; accent-color: #1b2a4a; flex-shrink: 0; }
+  .rv .rv-err { min-height: 1.3em; margin: 8px 0 0; color: #b42318; font-size: 0.92rem; font-weight: 500; }
+  .rv .btn.solid { width: 100%; min-height: 54px; font-size: 1.05rem; font-weight: 700; }
+  .rv-done { text-align: center; padding: 8px 0 2px; }
+  .rv-done .ck { width: 56px; height: 56px; margin: 0 auto 10px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.7rem; color: #f6e6b0; background: var(--ink-nv); }
+  .rv-done p { margin: 0; line-height: 1.9; color: #1f2937; }
+  .rv-done .btn { display: inline-flex; margin-top: 14px; padding: 0 26px; min-height: 48px; }
+  /* 끝까지 읽었을 때·창을 닫으려 할 때 뜨는 작은 안내(팝업창 아님) */
+  .exit { position: fixed; left: 50%; bottom: calc(92px + env(safe-area-inset-bottom)); transform: translate(-50%, 20px); z-index: 57; width: calc(100% - 28px); max-width: 412px; padding: 14px 16px; border-radius: 14px; background: #fffdf8; border: 1.5px solid transparent; background: linear-gradient(#fffdf8, #fffdf8) padding-box, var(--foil) border-box; box-shadow: 0 14px 34px rgba(27,42,74,0.22); opacity: 0; pointer-events: none; transition: opacity 0.3s ease, transform 0.3s ease; text-align: left; }
+  .exit.on { opacity: 1; transform: translate(-50%, 0); pointer-events: auto; }
+  .exit[hidden] { display: none; }
+  .exit b { display: block; color: var(--ink-nv); font-size: 1.02rem; }
+  .exit span { display: block; margin-top: 2px; color: #374151; font-size: 0.92rem; line-height: 1.6; }
+  .exit .row { display: flex; gap: 8px; margin-top: 10px; }
+  .exit .btn { flex: 1; min-height: 46px; font-weight: 700; }
+  @media (prefers-reduced-motion: reduce) { .exit { transition: none; } }
 
   /* 금장(골드 포일) 장식 */
   :root { --foil: linear-gradient(115deg, #8a6a2f 0%, #d9b968 22%, #f6e6b0 38%, #b8913f 55%, #e9cf86 72%, #8a6a2f 100%); }
@@ -429,7 +433,7 @@
       <div><div class="n" id="cd-m">00</div><div class="u">MIN</div></div>
       <div><div class="n" id="cd-s">00</div><div class="u">SEC</div></div>
     </div>
-    <button class="btn solid more" type="button" id="rsvpOpen" style="margin-top:18px">참석 · 식사 여부 알려주기</button>
+    <button class="btn solid more" type="button" id="rsvpOpen" style="margin-top:18px">참석 · 식사 여부 남기기</button>
     <div class="btn-row" style="margin-top:8px">
       <button class="btn" type="button" id="calIcs">캘린더에 저장</button>
       <a class="btn" id="calG" target="_blank" rel="noopener" href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=%EC%86%90%EA%B7%9C%EC%88%98%20%E2%99%A5%20%EB%AC%B8%EC%84%B8%ED%99%94%20%EA%B2%B0%ED%98%BC%EC%8B%9D&amp;dates=20270116T033000Z/20270116T053000Z&amp;location=%EC%96%91%EC%82%B0%20W%EC%9B%A8%EB%94%A9%205%EC%B8%B5%20%ED%8C%B0%EB%A6%AC%EC%8A%A4%ED%99%80%2C%20%EA%B2%BD%EC%83%81%EB%82%A8%EB%8F%84%20%EC%96%91%EC%82%B0%EC%8B%9C%20%EA%B0%95%EB%B3%80%EB%A1%9C%20438&amp;details=%EC%86%90%EA%B7%9C%EC%88%98%20%C2%B7%20%EB%AC%B8%EC%84%B8%ED%99%94%20%EA%B2%B0%ED%98%BC%EC%8B%9D">구글 캘린더</a>
@@ -558,10 +562,38 @@
     </div>
   </section>
 
-  <!-- 8 마음 전하실 곳 -->
+  <!-- 참석·식사 여부 남기기 -->
+  <i class="divider" aria-hidden="true"></i>
+  <section class="reveal" id="rsvpSec">
+    <p class="eyebrow"><span class="no">VIII</span>R.S.V.P</p>
+    <h2>참석 · 식사 여부</h2>
+    <p class="lede">식사 준비를 위해 미리 남겨 주시면<br>정성껏 준비하겠습니다.</p>
+    <div class="gilt card rv"><span class="orn tl"></span><span class="orn tr"></span><span class="orn bl"></span><span class="orn br"></span>
+      <form id="rsvpForm" novalidate>
+        <label class="rf"><span>이름</span><input id="rName" type="text" maxlength="20" autocomplete="name"></label>
+        <label class="rf"><span>휴대전화</span><input id="rPhone" type="tel" inputmode="numeric" maxlength="13" placeholder="010-0000-0000" autocomplete="tel"></label>
+        <fieldset class="seg"><legend>참석 여부</legend>
+          <label><input type="radio" name="rAtt" value="참석" checked><span>참석</span></label>
+          <label><input type="radio" name="rAtt" value="불참"><span>불참</span></label>
+        </fieldset>
+        <fieldset class="seg" id="rMealSet"><legend>식사 여부</legend>
+          <label><input type="radio" name="rMeal" value="식사함" checked><span>식사함</span></label>
+          <label><input type="radio" name="rMeal" value="식사 안 함"><span>식사 안 함</span></label>
+          <label><input type="radio" name="rMeal" value="미정"><span>미정</span></label>
+        </fieldset>
+        <label class="rf" id="rCountSet"><span>본인 포함 인원</span><select id="rCount"><option>1</option><option selected>2</option><option>3</option><option>4</option><option>5</option></select></label>
+        <label class="agree"><input type="checkbox" id="rAgree"><span>참석 확인을 위해 이름·연락처를 수집하는 데 동의합니다. (예식 후 파기)</span></label>
+        <p class="rv-err" id="rsvpErr" role="alert"></p>
+        <button type="submit" class="btn solid" id="rsvpSend">남기기</button>
+      </form>
+      <div class="rv-done" id="rvDone" hidden><div class="ck" aria-hidden="true">✓</div><p>남겨 주셔서 고맙습니다.<br>그날 만나요!</p><button class="btn" type="button" id="rvAgain">다시 남기기</button></div>
+    </div>
+  </section>
+
+  <!-- 마음 전하실 곳 -->
   <i class="divider" aria-hidden="true"></i>
   <section class="reveal">
-    <p class="eyebrow"><span class="no">VIII</span>With Love</p>
+    <p class="eyebrow"><span class="no">IX</span>With Love</p>
     <h2>마음 전하실 곳</h2>
     <p class="lede">와 주시는 것만으로 충분합니다.<br>그래도 마음을 전하고 싶은 분들을 위해 적어 둡니다.</p>
     <div class="gilt card" style="padding-top:16px"><span class="orn tl"></span><span class="orn tr"></span><span class="orn bl"></span><span class="orn br"></span>
@@ -573,7 +605,7 @@
   <!-- 방명록 -->
   <i class="divider" aria-hidden="true"></i>
   <section class="reveal">
-    <p class="eyebrow"><span class="no">IX</span>Guestbook</p>
+    <p class="eyebrow"><span class="no">X</span>Guestbook</p>
     <h2>축하 한마디</h2>
     <p class="lede">짧은 한 줄이어도 좋아요.<br>오래 꺼내 읽겠습니다.</p>
     <div class="card gb">
@@ -622,32 +654,10 @@
   <button class="nav next" type="button" id="lbN" aria-label="다음 사진">›</button>
 </div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
-<div class="rsvp" id="rsvp" role="dialog" aria-modal="true" aria-labelledby="rsvpTitle" hidden>
-  <form class="rsvp-card" id="rsvpForm" novalidate>
-    <button type="button" class="rsvp-x" id="rsvpX" aria-label="닫기">×</button>
-    <p class="eyebrow" style="justify-content:center">R.S.V.P</p>
-    <h3 id="rsvpTitle">참석 여부를 알려 주세요</h3>
-    <div class="r2">
-      <label class="rf"><span>이름</span><input id="rName" type="text" maxlength="20" autocomplete="name" required></label>
-      <label class="rf"><span>휴대전화</span><input id="rPhone" type="tel" inputmode="numeric" maxlength="13" placeholder="010-0000-0000" autocomplete="tel" required></label>
-    </div>
-    <fieldset class="rg"><legend>참석 여부</legend>
-      <label><input type="radio" name="rAtt" value="참석" checked><span>참석</span></label>
-      <label><input type="radio" name="rAtt" value="불참"><span>불참</span></label>
-    </fieldset>
-    <fieldset class="rg" id="rMealSet"><legend>식사 여부</legend>
-      <label><input type="radio" name="rMeal" value="식사함" checked><span>식사함</span></label>
-      <label><input type="radio" name="rMeal" value="식사 안 함"><span>식사 안 함</span></label>
-      <label><input type="radio" name="rMeal" value="미정"><span>미정</span></label>
-    </fieldset>
-    <label class="rf rf-row" id="rCountSet"><span>본인 포함 인원</span>
-      <select id="rCount"><option>1</option><option selected>2</option><option>3</option><option>4</option><option>5</option></select>
-    </label>
-    <label class="rc"><input type="checkbox" id="rAgree"><span>이름·연락처 수집 동의 (예식 후 파기)</span></label>
-    <p class="rsvp-err" id="rsvpErr" role="alert"></p>
-    <button type="submit" class="btn solid" id="rsvpSend">전달하기</button>
-    <button type="button" class="rsvp-later" id="rsvpLater">다음에 할게요</button>
-  </form>
+<div class="exit" id="exitCard" role="region" aria-label="참석 여부 남기기" hidden>
+  <b>가시기 전에 잠깐만요</b>
+  <span>참석 · 식사 여부를 남겨 주시면 큰 도움이 돼요.</span>
+  <div class="row"><button class="btn solid" type="button" id="exitGo">지금 남기기</button><button class="btn" type="button" id="exitNo">다음에</button></div>
 </div>
 <div class="clovers" id="clovers" aria-hidden="true"></div>
 <div class="np" id="np">
@@ -896,29 +906,24 @@ var PHOTOS = [[106, "Fate walks through silver grass"], [97, "Joy finds us anywh
     $('ifePlay').addEventListener('click', function () { v.dataset.userPaused = v.paused ? '1' : ''; });
   })();
 
-  /* 참석·식사 여부 (R.S.V.P) */
+  /* 참석·식사 여부 (R.S.V.P): 페이지 안에서 남기기 + 끝에서 안내 */
   (function () {
-    var box = $('rsvp'); if (!box) return;
-    var form = $('rsvpForm'), err = $('rsvpErr'), last = null, cfg = window.FIREBASE_CONFIG || {}, col = null;
-    var GROOM = '01040122921';
+    var form = $('rsvpForm'); if (!form) return;
+    var err = $('rsvpErr'), cfg = window.FIREBASE_CONFIG || {}, col = null, GROOM = '01040122921';
     try { if (cfg.apiKey && cfg.projectId && window.firebase) { if (!firebase.apps.length) firebase.initializeApp(cfg); col = firebase.firestore().collection('passport_rsvp'); } } catch (e) { col = null; }
     function val(n) { var c = form.querySelector('input[name="' + n + '"]:checked'); return c ? c.value : ''; }
     function sync() { var att = val('rAtt') === '참석'; $('rMealSet').hidden = !att; $('rCountSet').hidden = !att; }
     form.addEventListener('change', sync); sync();
-    function open() { last = document.activeElement; box.hidden = false; document.body.style.overflow = 'hidden'; setTimeout(function () { $('rName').focus(); }, 50); }
-    function close() { box.hidden = true; document.body.style.overflow = ''; if (last && last.focus) last.focus(); }
-    $('rsvpOpen').addEventListener('click', open);
-    $('rsvpX').addEventListener('click', close);
-    $('rsvpLater').addEventListener('click', close);
-    box.addEventListener('click', function (e) { if (e.target === box) close(); });
-    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !box.hidden) close(); });
     $('rPhone').addEventListener('input', function () {
       var d = this.value.replace(/\D/g, '').slice(0, 11);
       this.value = d.length > 7 ? d.slice(0, 3) + '-' + d.slice(3, d.length - 4) + '-' + d.slice(-4) : d.length > 3 ? d.slice(0, 3) + '-' + d.slice(3) : d;
     });
     var done = false; try { done = localStorage.getItem('pp-rsvp') === '1'; } catch (e) {}
-    /* 여권을 펼치고 잠시 뒤 한 번만 자동으로 띄움 */
-    $('lid').addEventListener('click', function () { if (!done) setTimeout(function () { if (box.hidden && !done) open(); }, 6000); }, { once: true });
+    function showDone(on) { $('rvDone').hidden = !on; form.hidden = on; }
+    showDone(done);
+    $('rvAgain').addEventListener('click', function () { done = false; try { localStorage.removeItem('pp-rsvp'); } catch (e) {} showDone(false); $('rName').focus(); });
+    function goForm() { var sec = $('rsvpSec'); sec.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' }); setTimeout(function () { if (!done) $('rName').focus({ preventScroll: true }); }, 700); }
+    $('rsvpOpen').addEventListener('click', goForm);
     form.addEventListener('submit', function (e) {
       e.preventDefault(); err.textContent = '';
       var name = $('rName').value.trim(), phone = $('rPhone').value.replace(/\D/g, '');
@@ -926,17 +931,30 @@ var PHOTOS = [[106, "Fate walks through silver grass"], [97, "Joy finds us anywh
       if (!/^01\d{8,9}$/.test(phone)) { err.textContent = '휴대전화 번호를 확인해 주세요.'; $('rPhone').focus(); return; }
       if (!$('rAgree').checked) { err.textContent = '개인정보 수집에 동의해 주세요.'; return; }
       var att = val('rAtt'), data = { name: name.slice(0, 20), phone: phone, attend: att, meal: att === '참석' ? val('rMeal') : '-', count: att === '참석' ? +$('rCount').value : 0 };
-      function ok() { try { localStorage.setItem('pp-rsvp', '1'); } catch (e2) {} done = true; close(); form.reset(); sync(); say('전달해 주셔서 감사합니다'); }
+      function ok() { try { localStorage.setItem('pp-rsvp', '1'); } catch (e2) {} done = true; hideExit(); showDone(true); form.reset(); sync(); say('남겨 주셔서 고맙습니다'); }
       if (col) {
         $('rsvpSend').disabled = true;
         data.createdAt = firebase.firestore.FieldValue.serverTimestamp();
         col.add(data).then(ok, function () { err.textContent = '전송하지 못했어요. 잠시 후 다시 시도해 주세요.'; }).then(function () { $('rsvpSend').disabled = false; });
       } else {
         var body = '[참석 회신] ' + data.name + ' / ' + phone.replace(/(\d{3})(\d+)(\d{4})/, '$1-$2-$3') + ' / ' + data.attend + (att === '참석' ? ' / ' + data.meal + ' / ' + data.count + '명' : '');
-        location.href = 'sms:' + GROOM + (/iPhone|iPad|iPod/.test(navigator.userAgent) ? '&' : '?') + 'body=' + encodeURIComponent(body);
-        ok();
+        ok(); location.href = 'sms:' + GROOM + (/iPhone|iPad|iPod/.test(navigator.userAgent) ? '&' : '?') + 'body=' + encodeURIComponent(body);
       }
     });
+    /* 끝까지 읽었을 때, 또는 창을 닫으려 할 때(컴퓨터) 한 번만 부드럽게 안내 (팝업창 아님) */
+    var card = $('exitCard'), shown = false;
+    try { shown = sessionStorage.getItem('pp-exit') === '1'; } catch (e) {}
+    function hideExit() { card.classList.remove('on'); setTimeout(function () { card.hidden = true; }, 320); }
+    function showExit() {
+      if (done || shown || document.body.classList.contains('locked')) return;
+      var s = $('rsvpSec').getBoundingClientRect(); if (s.top < innerHeight && s.bottom > 0) return; /* 폼을 보고 있으면 안 띄움 */
+      shown = true; try { sessionStorage.setItem('pp-exit', '1'); } catch (e) {}
+      card.hidden = false; void card.offsetWidth; card.classList.add('on');
+    }
+    $('exitGo').addEventListener('click', function () { hideExit(); goForm(); });
+    $('exitNo').addEventListener('click', hideExit);
+    var tk = 0; addEventListener('scroll', function () { if (tk) return; tk = requestAnimationFrame(function () { tk = 0; if (scrollY + innerHeight >= document.documentElement.scrollHeight - 140) showExit(); }); }, { passive: true });
+    document.addEventListener('mouseout', function (e) { if (!e.relatedTarget && e.clientY <= 0) showExit(); });
   })();
 
   /* 비행 진행 막대 */

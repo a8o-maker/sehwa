@@ -189,6 +189,12 @@
   .lb button { position: absolute; border: 0; background: rgba(255,255,255,0.1); color: #fff; width: 52px; height: 52px; border-radius: 50%; font-size: 1.5rem; cursor: pointer; }
   .lb .x2 { top: 14px; right: 14px; } .lb .pv { left: 10px; top: 50%; } .lb .nx { right: 10px; top: 50%; }
 
+  .rdone { text-align: center; padding: 8px 0 2px; } .rdone .ck { width: 56px; height: 56px; margin: 0 auto 10px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.7rem; color: #f6e6b0; background: var(--ink); } .rdone p { margin: 0; line-height: 1.9; } .rdone .btn { display: inline-flex; margin-top: 14px; padding: 0 26px; min-height: 48px; }
+  #rsvpForm[hidden] { display: none; }
+  .exit { position: fixed; left: 50%; bottom: calc(var(--bar) + 12px); transform: translate(-50%, 20px); z-index: 45; width: calc(100% - 28px); max-width: 452px; padding: 14px 16px; border-radius: 14px; background: var(--card); border: 1.5px solid rgba(154,122,46,0.55); box-shadow: 0 14px 34px rgba(20,33,61,0.22); opacity: 0; pointer-events: none; transition: opacity 0.3s ease, transform 0.3s ease; }
+  .exit.on { opacity: 1; transform: translate(-50%, 0); pointer-events: auto; } .exit[hidden] { display: none; }
+  .exit b { display: block; font-size: 1.05rem; } .exit span { display: block; margin-top: 2px; color: var(--ink-2); font-size: 0.95rem; line-height: 1.6; }
+  .exit .row { display: flex; gap: 8px; margin-top: 10px; } .exit .btn { flex: 1; min-height: 48px; }
   .toast { position: fixed; left: 50%; bottom: calc(var(--bar) + 14px); transform: translateX(-50%) translateY(14px); z-index: 90; max-width: calc(100% - 32px); padding: 12px 20px; border-radius: 999px; background: var(--ink); color: #fff; font-weight: 500; font-size: 0.98rem; line-height: 1.4; text-align: center; opacity: 0; pointer-events: none; transition: opacity 0.25s ease, transform 0.25s ease; }
   .toast.on { opacity: 1; transform: translateX(-50%); }
 
@@ -278,7 +284,24 @@
       <button class="t-head" type="button" aria-expanded="false" aria-controls="p6" id="h6"><span class="no">06</span><span class="tt"><b>참석 알리기<span class="eq" aria-hidden="true"><i></i><i></i><i></i></span></b><small>R.S.V.P</small></span><span class="len">3:00</span><span class="chev" aria-hidden="true"></span></button>
       <div class="t-body" id="p6" role="region" aria-labelledby="h6"><div class="t-in"><div class="t-pad">
         <p class="greet" style="font-size:1.02rem;line-height:1.9">식사 준비를 위해<br>참석 여부를 미리 알려 주시면 정성껏 준비하겠습니다.</p>
-        <div class="btns" style="grid-template-columns:1fr"><button class="btn solid" type="button" id="rsvpOpen">참석 · 식사 여부 알려주기</button></div>
+        <form id="rsvpForm" novalidate>
+          <label class="rf"><span>이름</span><input id="rName" type="text" maxlength="20" autocomplete="name"></label>
+          <label class="rf"><span>휴대전화</span><input id="rPhone" type="tel" inputmode="numeric" maxlength="13" placeholder="010-0000-0000" autocomplete="tel"></label>
+          <fieldset class="seg"><legend>참석 여부</legend>
+            <label><input type="radio" name="att" value="참석" checked><span>참석</span></label>
+            <label><input type="radio" name="att" value="불참"><span>불참</span></label>
+          </fieldset>
+          <fieldset class="seg" id="mealSet"><legend>식사 여부</legend>
+            <label><input type="radio" name="meal" value="식사함" checked><span>식사함</span></label>
+            <label><input type="radio" name="meal" value="식사 안 함"><span>식사 안 함</span></label>
+            <label><input type="radio" name="meal" value="미정"><span>미정</span></label>
+          </fieldset>
+          <label class="rf" id="countSet"><span>본인 포함 인원</span><select id="rCount"><option>1</option><option selected>2</option><option>3</option><option>4</option><option>5</option></select></label>
+          <label class="agree"><input type="checkbox" id="rAgree"><span>참석 확인을 위해 이름·연락처를 수집하는 데 동의합니다. (예식 후 파기)</span></label>
+          <p class="err" id="rErr" role="alert"></p>
+          <button class="btn solid" type="submit" style="width:100%" id="rSend">남기기</button>
+        </form>
+        <div class="rdone" id="rvDone" hidden><div class="ck" aria-hidden="true">✓</div><p>남겨 주셔서 고맙습니다.<br>그날 만나요!</p><button class="btn soft" type="button" id="rvAgain">다시 남기기</button></div>
       </div></div></div>
     </li>
 
@@ -315,29 +338,10 @@
   </div></div>
 </div>
 
-<!-- 참석 시트 -->
-<div class="sheet" id="rsvpSheet" hidden>
-  <div class="panel-wrap"><form class="panel" id="rsvpForm" novalidate role="dialog" aria-modal="true" aria-labelledby="rsvpT">
-    <div class="grab" aria-hidden="true"></div>
-    <button class="x" type="button" data-close aria-label="닫기">×</button>
-    <h2 id="rsvpT">참석 여부를 알려 주세요</h2>
-    <p class="sub">식사 준비에 큰 도움이 됩니다.</p>
-    <label class="rf"><span>이름</span><input id="rName" type="text" maxlength="20" autocomplete="name"></label>
-    <label class="rf"><span>휴대전화</span><input id="rPhone" type="tel" inputmode="numeric" maxlength="13" placeholder="010-0000-0000" autocomplete="tel"></label>
-    <fieldset class="seg"><legend>참석 여부</legend>
-      <label><input type="radio" name="att" value="참석" checked><span>참석</span></label>
-      <label><input type="radio" name="att" value="불참"><span>불참</span></label>
-    </fieldset>
-    <fieldset class="seg" id="mealSet"><legend>식사 여부</legend>
-      <label><input type="radio" name="meal" value="식사함" checked><span>식사함</span></label>
-      <label><input type="radio" name="meal" value="식사 안 함"><span>식사 안 함</span></label>
-      <label><input type="radio" name="meal" value="미정"><span>미정</span></label>
-    </fieldset>
-    <label class="rf" id="countSet"><span>본인 포함 인원</span><select id="rCount"><option>1</option><option selected>2</option><option>3</option><option>4</option><option>5</option></select></label>
-    <label class="agree"><input type="checkbox" id="rAgree"><span>참석 확인을 위해 이름·연락처를 수집하는 데 동의합니다. (예식 후 파기)</span></label>
-    <p class="err" id="rErr" role="alert"></p>
-    <button class="btn solid" type="submit" style="width:100%" id="rSend">전달하기</button>
-  </form></div>
+<div class="exit" id="exitCard" role="region" aria-label="참석 여부 남기기" hidden>
+  <b>가시기 전에 잠깐만요</b>
+  <span>참석 · 식사 여부를 남겨 주시면 큰 도움이 돼요.</span>
+  <div class="row"><button class="btn solid" type="button" id="exitGo">지금 남기기</button><button class="btn" type="button" id="exitNo">다음에</button></div>
 </div>
 
 <div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="사진 크게 보기">
@@ -469,7 +473,6 @@
     setTimeout(function () { sh.hidden = true; }, reduce ? 0 : 260); if (lastFocus && lastFocus.focus) lastFocus.focus();
   }
   $('giveOpen').addEventListener('click', function () { open($('giveSheet')); });
-  $('rsvpOpen').addEventListener('click', function () { open($('rsvpSheet')); });
   document.querySelectorAll('[data-close]').forEach(function (b) { b.addEventListener('click', close); });
   document.querySelectorAll('.sheet').forEach(function (sh) { sh.addEventListener('click', function (e) { if (e.target === sh || e.target.classList.contains('panel-wrap')) close(); }); });
   document.addEventListener('keydown', function (e) {
@@ -498,6 +501,19 @@
   var cfg = window.FIREBASE_CONFIG || {}, col = null;
   try { if (cfg.apiKey && cfg.projectId && window.firebase) { if (!firebase.apps.length) firebase.initializeApp(cfg); col = firebase.firestore().collection('passport_rsvp'); } } catch (e) { col = null; }
   function val(n) { var c = document.querySelector('#rsvpForm input[name="' + n + '"]:checked'); return c ? c.value : ''; }
+  var rdone = false; try { rdone = localStorage.getItem('al-rsvp') === '1'; } catch (e) {}
+  function setDone(on) { rdone = on; $('rvDone').hidden = !on; $('rsvpForm').hidden = on; }
+  setDone(rdone);
+  $('rvAgain').addEventListener('click', function () { try { localStorage.removeItem('al-rsvp'); } catch (e) {} setDone(false); $('rName').focus(); });
+  function goForm() { var tr = $('p6').closest('.track'); tracks.forEach(function (o) { if (o !== tr) setOpen(o, false); }); setOpen(tr, true); setTimeout(function () { tr.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' }); if (!rdone) $('rName').focus({ preventScroll: true }); }, 450); }
+  /* 끝까지 읽었을 때·창을 닫으려 할 때(컴퓨터) 한 번만 부드럽게 안내 (팝업창 아님) */
+  var xcard = $('exitCard'), xshown = false; try { xshown = sessionStorage.getItem('al-exit') === '1'; } catch (e) {}
+  function hideExit() { xcard.classList.remove('on'); setTimeout(function () { xcard.hidden = true; }, 320); }
+  function showExit() { if (rdone || xshown) return; var f = $('rsvpForm').getBoundingClientRect(); if (f.top < innerHeight && f.bottom > 0 && $('p6').closest('.track').classList.contains('open')) return;
+    xshown = true; try { sessionStorage.setItem('al-exit', '1'); } catch (e) {} xcard.hidden = false; void xcard.offsetWidth; xcard.classList.add('on'); }
+  $('exitGo').addEventListener('click', function () { hideExit(); goForm(); }); $('exitNo').addEventListener('click', hideExit);
+  var xt = 0; addEventListener('scroll', function () { if (xt) return; xt = requestAnimationFrame(function () { xt = 0; if (scrollY + innerHeight >= document.documentElement.scrollHeight - 140) showExit(); }); }, { passive: true });
+  document.addEventListener('mouseout', function (e) { if (!e.relatedTarget && e.clientY <= 0) showExit(); });
   function syncR() { var a = val('att') === '참석'; $('mealSet').hidden = !a; $('countSet').hidden = !a; }
   $('rsvpForm').addEventListener('change', syncR); syncR();
   $('rPhone').addEventListener('input', function () { var d = this.value.replace(/\D/g, '').slice(0, 11); this.value = d.length > 7 ? d.slice(0, 3) + '-' + d.slice(3, d.length - 4) + '-' + d.slice(-4) : d.length > 3 ? d.slice(0, 3) + '-' + d.slice(3) : d; });
@@ -508,7 +524,7 @@
     if (!/^01\d{8,9}$/.test(phone)) { er.textContent = '휴대전화 번호를 확인해 주세요.'; $('rPhone').focus(); return; }
     if (!$('rAgree').checked) { er.textContent = '개인정보 수집에 동의해 주세요.'; return; }
     var att = val('att'), data = { name: name.slice(0, 20), phone: phone, attend: att, meal: att === '참석' ? val('meal') : '-', count: att === '참석' ? +$('rCount').value : 0 };
-    function ok() { close(); say('전달해 주셔서 고맙습니다'); }
+    function ok() { try { localStorage.setItem('al-rsvp', '1'); } catch (e2) {} setDone(true); hideExit(); say('남겨 주셔서 고맙습니다'); }
     if (col) { $('rSend').disabled = true; data.createdAt = firebase.firestore.FieldValue.serverTimestamp(); col.add(data).then(ok, function () { er.textContent = '전송하지 못했어요. 잠시 후 다시 시도해 주세요.'; }).then(function () { $('rSend').disabled = false; }); }
     else {
       var body = '[참석 회신] ' + data.name + ' / ' + phone.replace(/(\d{3})(\d+)(\d{4})/, '$1-$2-$3') + ' / ' + att + (att === '참석' ? ' / ' + data.meal + ' / ' + data.count + '명' : '');
