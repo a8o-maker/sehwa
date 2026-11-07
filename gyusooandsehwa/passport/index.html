@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f7f3ea">
 <title>Wedding Passport · Son Gyusoo &amp; Mun Sehwa</title>
 <meta name="description" content="Wedding Passport of Son Gyusoo &amp; Mun Sehwa — Saturday, January 16, 2027, 12:30 PM, Palace Hall 5F, W Wedding Yangsan">
 <meta property="og:title" content="Wedding Passport · Son Gyusoo ♥ Mun Sehwa">
@@ -124,7 +125,7 @@
   .stub-t { font-family: "Montserrat"; font-size: 0.6rem; letter-spacing: 0.16em; color: var(--muted); text-align: right; line-height: 1.5; }
   .stub-t b { color: var(--gold-2); font-size: 0.8rem; }
   .cnt { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 18px; }
-  .cnt div { background: var(--bg-2); border: 1px solid var(--line); border-radius: 12px; padding: 10px 0 8px; }
+  .cnt > div { background: var(--bg-2); border: 1px solid var(--line); border-radius: 12px; padding: 10px 0 8px; }
   .cnt .n { font-family: "Cormorant Garamond", serif; font-weight: 500; font-size: 1.35rem; color: var(--gold-2); line-height: 1.1; font-variant-numeric: tabular-nums; }
   .cnt .u { font-family: "Montserrat"; font-size: 0.55rem; letter-spacing: 0.2em; color: var(--muted); }
 
@@ -288,12 +289,16 @@
   .divider { display: block; width: 150px; height: 18px; margin: 34px auto -6px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 150 18'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' x2='1'%3E%3Cstop offset='0' stop-color='%23b8913f' stop-opacity='0'/%3E%3Cstop offset='.5' stop-color='%23f6e6b0'/%3E%3Cstop offset='1' stop-color='%23b8913f' stop-opacity='0'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M0 9h60M90 9h60' stroke='url(%23g)' stroke-width='1.2'/%3E%3Cpath d='M75 2l5 7-5 7-5-7z' fill='%23c9a14f'/%3E%3Ccircle cx='64' cy='9' r='1.6' fill='%23c9a14f'/%3E%3Ccircle cx='86' cy='9' r='1.6' fill='%23c9a14f'/%3E%3C/svg%3E") no-repeat center / contain; }
   section + section::before { display: none; }
   .btn.solid { background: linear-gradient(180deg, #23365e, #1b2a4a) !important; box-shadow: inset 0 0 0 1px rgba(233,207,134,0.65), 0 6px 16px rgba(27,42,74,0.18); color: #f6e6b0 !important; letter-spacing: 0.08em; }
-  .cnt div { border: 1px solid transparent !important; background: linear-gradient(var(--bg-2), var(--bg-2)) padding-box, var(--foil) border-box !important; }
+  .cnt > div { border: 1px solid transparent !important; background: linear-gradient(var(--bg-2), var(--bg-2)) padding-box, var(--foil) border-box !important; }
   .bp { border: 1px solid transparent !important; background: linear-gradient(var(--bg-2), var(--bg-2)) padding-box, var(--foil) border-box !important; }
   .route .code { background: var(--foil); -webkit-background-clip: text; background-clip: text; color: transparent !important; }
   .cnt .n { color: #8a6a2f !important; text-shadow: 0 1px 0 rgba(246,230,176,0.8); }
   .gift-clover svg { filter: drop-shadow(0 8px 18px rgba(156,122,63,0.35)) drop-shadow(0 0 1px rgba(246,230,176,0.9)); }
   @media (prefers-reduced-motion: reduce) { .foil-text { animation: none; } }
+  .flight { position: fixed; top: 0; left: 0; right: 0; height: 2px; z-index: 57; pointer-events: none; background: rgba(27,42,74,0.06); }
+  .flight i { position: absolute; left: 0; top: 0; bottom: 0; width: 0; background: var(--foil); }
+  .flight svg { position: absolute; top: -6px; left: 0; width: 14px; height: 14px; transform: translateX(-7px); }
+  body.locked .flight { display: none; }
   .back-cover { margin-top: 30px; padding: 40px 20px; border-radius: 18px; background: var(--bg-2); border: 1px solid var(--line); box-shadow: 0 10px 28px rgba(27,42,74,0.06); }
   .back-cover p { margin: 0; color: #374151; font-size: 0.92rem; line-height: 2; }
   .back-cover .sg { font-family: "Cormorant Garamond", serif; font-style: italic; letter-spacing: 0.08em; font-size: 1.3rem; margin-top: 18px; }
@@ -395,6 +400,10 @@
       <div><div class="n" id="cd-s">00</div><div class="u">SEC</div></div>
     </div>
     <button class="btn solid more" type="button" id="rsvpOpen" style="margin-top:18px">참석 · 식사 여부 알려주기</button>
+    <div class="btn-row" style="margin-top:8px">
+      <button class="btn" type="button" id="calIcs">캘린더에 저장</button>
+      <a class="btn" id="calG" target="_blank" rel="noopener" href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=%EC%86%90%EA%B7%9C%EC%88%98%20%E2%99%A5%20%EB%AC%B8%EC%84%B8%ED%99%94%20%EA%B2%B0%ED%98%BC%EC%8B%9D&amp;dates=20270116T033000Z/20270116T053000Z&amp;location=%EC%96%91%EC%82%B0%20W%EC%9B%A8%EB%94%A9%205%EC%B8%B5%20%ED%8C%B0%EB%A6%AC%EC%8A%A4%ED%99%80%2C%20%EA%B2%BD%EC%83%81%EB%82%A8%EB%8F%84%20%EC%96%91%EC%82%B0%EC%8B%9C%20%EA%B0%95%EB%B3%80%EB%A1%9C%20438&amp;details=%EC%86%90%EA%B7%9C%EC%88%98%20%C2%B7%20%EB%AC%B8%EC%84%B8%ED%99%94%20%EA%B2%B0%ED%98%BC%EC%8B%9D">구글 캘린더</a>
+    </div>
   </section>
 
   <!-- 3 초대의 글 · 양가 -->
@@ -614,6 +623,7 @@
   </form>
 </div>
 <div class="clovers" id="clovers" aria-hidden="true"></div>
+<div class="flight" aria-hidden="true"><i id="flightBar"></i><svg id="flightPlane" viewBox="0 0 24 24"><path fill="#9c7a3f" d="M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5z" transform="rotate(90 12 12)"/></svg></div>
 <audio id="bgm" src="bgm.mp3" loop preload="none"></audio>
 <button type="button" class="bgm-btn" id="bgmBtn" hidden aria-label="배경음악 켜기">
   <span class="eq" aria-hidden="true"><i></i><i></i><i></i></span><span class="bgm-t">MUSIC</span>
@@ -882,6 +892,23 @@ var PHOTOS = [[106, "Of all paths, I chose you"], [97, "Joy finds us anywhere"],
       }
     });
   })();
+
+  /* 비행 진행 막대 */
+  (function () {
+    var bar = $('flightBar'), pl = $('flightPlane'), raf = 0;
+    function upd() { raf = 0; var h = document.documentElement.scrollHeight - innerHeight, r = h > 0 ? Math.min(1, scrollY / h) : 0; bar.style.width = (r * 100) + '%'; pl.style.left = (r * 100) + '%'; }
+    addEventListener('scroll', function () { if (!raf) raf = requestAnimationFrame(upd); }, { passive: true }); addEventListener('resize', upd); upd();
+  })();
+
+  /* 캘린더에 저장 (.ics) */
+  $('calIcs').addEventListener('click', function () {
+    var ics = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//GS AIR//Wedding Passport//KO', 'BEGIN:VEVENT', 'UID:gyusoo-sehwa-20270116@passport',
+      'DTSTAMP:20261101T000000Z', 'DTSTART:20270116T033000Z', 'DTEND:20270116T053000Z', 'SUMMARY:손규수 ♥ 문세화 결혼식',
+      'LOCATION:양산 W웨딩 5층 팰리스홀\\, 경상남도 양산시 강변로 438 크리스탈타워 5층', 'DESCRIPTION:' + location.href.split('#')[0],
+      'BEGIN:VALARM', 'TRIGGER:-P1D', 'ACTION:DISPLAY', 'DESCRIPTION:내일은 규수 · 세화 결혼식', 'END:VALARM', 'END:VEVENT', 'END:VCALENDAR'].join('\r\n');
+    var a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([ics], { type: 'text/calendar;charset=utf-8' })); a.download = 'gyusoo-sehwa-wedding.ics';
+    document.body.appendChild(a); a.click(); a.remove(); say('캘린더 파일을 저장했어요');
+  });
 
   /* 복사 · 공유 */
   var toastT;
