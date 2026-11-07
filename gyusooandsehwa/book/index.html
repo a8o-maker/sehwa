@@ -72,6 +72,11 @@
     overflow: hidden;
   }
   .cover::after { display: none; }
+  .cover .bg { position: absolute; inset: 0; z-index: 0; }
+  .cover .bg img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 20%; opacity: 0; transition: opacity 1.6s ease; }
+  .cover .bg img.on { opacity: 1; }
+  @media (prefers-reduced-motion: no-preference) { .cover .bg img.on { animation: cvz 9s ease-out both; } @keyframes cvz { from { transform: scale(1.14); } to { transform: scale(1.02); } } }
+  .cover .bg::after { content: ""; position: absolute; inset: 0; background: linear-gradient(rgba(20,16,10,0.35), transparent 22%, transparent 42%, rgba(20,16,10,0.62) 62%, rgba(20,16,10,0.88)); }
   .cover .frame { border: 1px solid rgba(176, 140, 68, 0.6); padding: 32px 18px; position: relative; }
   .cover .kick { font-family: "Spectral", serif; text-transform: uppercase; letter-spacing: 0.42em; font-size: 0.6rem; color: var(--gold); margin: 0; }
   .cover .nm {
@@ -96,11 +101,21 @@
   .cover .line { width: 46px; height: 1px; background: var(--gold); margin: 20px auto; }
   .cover .dt { font-family: "Spectral", serif; letter-spacing: 0.24em; font-size: 0.8rem; color: rgba(251, 246, 234, 0.82); margin: 0; }
   .cover .open { margin-top: 24px; font-size: 0.8rem; letter-spacing: 0.18em; color: rgba(251, 246, 234, 0.55); }
-  .cover .petal2 { position: absolute; width: 9px; height: 7px; border-radius: 50% 0 50% 0; background: rgba(176,140,68,0.5); pointer-events: none; }
+  .cover .petal2 { position: absolute; width: 9px; height: 7px; border-radius: 50% 0 50% 0; background: rgba(245,236,214,0.75); pointer-events: none; }
   @media (prefers-reduced-motion: no-preference) {
     .cover .petal2 { animation: drift 9s linear infinite; }
     @keyframes drift { from { transform: translateY(-20px) rotate(0); opacity: 0; } 12% { opacity: 0.9; } 90% { opacity: 0.6; } to { transform: translateY(620px) rotate(420deg); opacity: 0; } }
   }
+
+  /* 표지: 사진 위 글씨는 아래쪽에 */
+  .cover.side { justify-content: flex-end; padding: 0 22px 26px; }
+  .cover .frame { z-index: 1; border: 0; padding: 0; }
+  .cover .nm { margin-top: 8px; font-size: clamp(1.6rem, 7.4vw, 1.95rem); }
+  .cover .covart { width: 52%; margin-top: 6px; }
+  .cover .ko { margin-top: 8px; }
+  .cover .line { margin: 12px auto; }
+  .cover .open { margin-top: 12px; }
+  .cover .petal2 { z-index: 1; }
 
   /* 속장 머리 */
   .head { display: flex; align-items: center; gap: 8px; margin: 0 0 4px; }
@@ -347,19 +362,24 @@
     <!-- 1 표지 -->
     <div class="leaf" data-t="표지" data-c="#B08C44">
       <div class="side front cover">
+        <div class="bg" id="coverBg" aria-hidden="true">
+          <img class="on" src="../s/110.jpg" alt=""><img src="../s/103.jpg" alt=""><img src="../s/108.jpg" alt=""><img src="../s/122.jpg" alt=""><img src="../s/100.jpg" alt="">
+        </div>
         <div class="frame">
           <p class="kick">Wedding Invitation</p>
           <h1 class="nm">Gyusoo<i>and</i>Sehwa</h1>
-        <svg class="covart" viewBox="0 0 200 92" fill="none" stroke="#C9A758" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path class="dw" d="M10 80 C34 20 166 20 190 80"/>
+        <svg class="covart" viewBox="0 0 200 92" fill="none" stroke="#E6CF96" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-label="남산타워와 억새">
+          <path class="dw" d="M6 90H194"/>
+          <path class="dw" d="M100 90V44M96 44h8M97.5 44l2.5-14 2.5 14M100 30V8"/>
           <g class="bl">
-            <circle cx="27" cy="57" r="4.4"/><circle cx="55" cy="42" r="3.8"/><circle cx="100" cy="35" r="5"/><circle cx="145" cy="42" r="3.8"/><circle cx="173" cy="57" r="4.4"/>
-            <ellipse cx="39" cy="49" rx="4.6" ry="2.3" transform="rotate(-40 39 49)"/>
-            <ellipse cx="77" cy="37" rx="4.6" ry="2.3" transform="rotate(-15 77 37)"/>
-            <ellipse cx="123" cy="37" rx="4.6" ry="2.3" transform="rotate(15 123 37)"/>
-            <ellipse cx="161" cy="49" rx="4.6" ry="2.3" transform="rotate(40 161 49)"/>
+            <ellipse cx="100" cy="27" rx="6" ry="3"/>
+            <path d="M30 90C32 72 38 58 50 46M50 46c-3 1-6 0-8-2M50 46c0 3-1 6-3 8M46 50c-3 1-6 0-8-2"/>
+            <path d="M44 90C46 76 52 64 64 56M64 56c-3 1-6 0-8-2M64 56c0 3-1 6-3 8"/>
+            <path d="M20 90C20 76 18 66 12 56M12 56c3 0 5 2 6 4M12 56c-1 3 0 6 1 8"/>
+            <path d="M170 90C168 72 162 58 150 46M150 46c3 1 6 0 8-2M150 46c0 3 1 6 3 8M154 50c3 1 6 0 8-2"/>
+            <path d="M156 90C154 76 148 64 136 56M136 56c3 1 6 0 8-2M136 56c0 3 1 6 3 8"/>
+            <path d="M180 90C180 76 182 66 188 56M188 56c-3 0-5 2-6 4M188 56c1 3 0 6-1 8"/>
           </g>
-          <path class="dw" d="M100 92V62M100 72c-8 0-12-4-12-10 6 0 12 4 12 10zM100 72c8 0 12-4 12-10-6 0-12 4-12 10z"/>
         </svg>
           <p class="ko">손규수 · 문세화</p>
           <div class="line"></div>
@@ -675,19 +695,28 @@
     { src: '../r/05.jpg', cap: '잠시 앉아' },
     { src: '../r/06.jpg', cap: '해 질 무렵, 바다' }
   ];
-  var PHOTO_CAPS = ['돌담길을 걸어', '슬쩍 돌아보며', '나란히, 웃으며', '수줍은 인사', '마주한 순간', '눈을 맞추고', '가만히, 오래', '마주 보고 웃다', '활짝 핀 얼굴', '올려다본 가을', '같은 곳을 보며', '함께 본 하늘', '서로를 보며 웃다', '손잡고 걷는 길', '햇살 속으로', '나란히 한 걸음', '신나는 발걸음', '웃음 가득', '우리 둘', '앞으로도 함께', '은행잎 아래', '가을 햇살', '함께 걷는 길', '돌담 곁에서', '마주 보며', '웃음이 번지고', '손을 꼭 잡고', '같은 하늘 아래', '나란히 서서', '눈부신 오후', '건널목 위에서', '한 걸음 더', '은행잎 아래', '가을 햇살', '함께 걷는 길', '돌담 곁에서', '마주 보며', '웃음이 번지고', '손을 꼭 잡고', '같은 하늘 아래', '나란히 서서', '눈부신 오후', '건널목 위에서', '한 걸음 더', '은행잎 아래', '가을 햇살', '함께 걷는 길', '돌담 곁에서', '마주 보며', '웃음이 번지고', '손을 꼭 잡고', '같은 하늘 아래', '나란히 서서', '눈부신 오후', '건널목 위에서', '한 걸음 더', '은행잎 아래', '가을 햇살', '함께 걷는 길', '돌담 곁에서', '마주 보며', '웃음이 번지고', '손을 꼭 잡고', '같은 하늘 아래', '나란히 서서', '눈부신 오후', '건널목 위에서', '한 걸음 더', '은행잎 아래', '가을 햇살', '함께 걷는 길', '돌담 곁에서', '마주 보며', '웃음이 번지고', '손을 꼭 잡고', '같은 하늘 아래', '나란히 서서', '눈부신 오후', '건널목 위에서', '한 걸음 더', '은행잎 아래', '가을 햇살', '함께 걷는 길', '돌담 곁에서', '마주 보며', '웃음이 번지고', '손을 꼭 잡고', '같은 하늘 아래', '나란히 서서', '눈부신 오후', '건널목 위에서', '한 걸음 더', '은행잎 아래', '가을 햇살', '함께 걷는 길', '돌담 곁에서', '남산 아래에서', '깜짝 친구와', '억새 사이로', '억새밭의 오후', '서로를 바라보며', '바람 부는 날', '남산 아래에서', '깜짝 친구와', '억새 사이로', '억새밭의 오후', '서로를 바라보며', '억새 속 웃음', '손끝이 닿을 때', '꽃다발을 건네며', '춤추듯 빙그르', '한강 이정표 앞', '해 질 녘 한강', '시계 아래 입맞춤', '다리 아래에서', '꼭 안아주기', '노을 속 포옹', '억새 속 웃음', '손끝이 닿을 때', '꽃다발을 건네며', '춤추듯 빙그르', '한강 이정표 앞', '해 질 녘 한강', '시계 아래 입맞춤', '다리 아래에서', '꼭 안아주기', '노을 속 포옹', '억새 속 웃음', '손끝이 닿을 때', '꽃다발을 건네며', '춤추듯 빙그르', '한강 이정표 앞', '해 질 녘 한강', '시계 아래 입맞춤', '다리 아래에서'];
-  var ALBUM = ART.concat(PHOTO_CAPS.map(function (c, i) {
-    return { src: '../s/' + (i < 9 ? '0' : '') + (i + 1) + '.jpg', cap: c, photo: true };
-  }));
+  var PHOTO_CAPS = ['돌담길을 걸어', '슬쩍 돌아보며', '나란히, 웃으며', '수줍은 인사', '마주한 순간', '눈을 맞추고', '가만히, 오래', '마주 보고 웃다', '활짝 핀 얼굴', '올려다본 가을', '같은 곳을 보며', '함께 본 하늘', '서로를 보며 웃다', '손잡고 걷는 길', '햇살 속으로', '나란히 한 걸음', '신나는 발걸음', '웃음 가득', '우리 둘', '앞으로도 함께', '은행잎 아래', '가을 햇살', '함께 걷는 길', '돌담 곁에서', '마주 보며', '웃음이 번지고', '손을 꼭 잡고', '같은 하늘 아래', '나란히 서서', '눈부신 오후', '건널목 위에서', '한 걸음 더', '은행잎 아래', '가을 햇살', '함께 걷는 길', '돌담 곁에서', '마주 보며', '웃음이 번지고', '손을 꼭 잡고', '같은 하늘 아래', '나란히 서서', '눈부신 오후', '건널목 위에서', '한 걸음 더', '은행잎 아래', '가을 햇살', '함께 걷는 길', '돌담 곁에서', '마주 보며', '웃음이 번지고', '손을 꼭 잡고', '같은 하늘 아래', '나란히 서서', '눈부신 오후', '건널목 위에서', '한 걸음 더', '은행잎 아래', '가을 햇살', '함께 걷는 길', '돌담 곁에서', '마주 보며', '웃음이 번지고', '손을 꼭 잡고', '같은 하늘 아래', '나란히 서서', '눈부신 오후', '건널목 위에서', '한 걸음 더', '은행잎 아래', '가을 햇살', '함께 걷는 길', '돌담 곁에서', '마주 보며', '웃음이 번지고', '손을 꼭 잡고', '같은 하늘 아래', '나란히 서서', '눈부신 오후', '건널목 위에서', '한 걸음 더', '은행잎 아래', '가을 햇살', '함께 걷는 길', '돌담 곁에서', '마주 보며', '웃음이 번지고', '손을 꼭 잡고', '같은 하늘 아래', '나란히 서서', '눈부신 오후', '건널목 위에서', '한 걸음 더', '은행잎 아래', '가을 햇살', '함께 걷는 길', '돌담 곁에서', '남산 아래 소풍', '남산을 등지고', '타워가 보이는 길', '남산타워 앞에서', '억새 사이로', '억새밭 한가운데', '은빛 억새 속 우리', '바람 부는 억새밭', '억새 너머 하늘', '억새 속에 나란히', '가을, 억새', '남산타워 아래 입맞춤', '타워와 함께, 키스', '남산에서 웃다', '타워 앞 장난', '억새 속 웃음', '꽃다발을 건네며', '손끝이 닿을 때', '억새밭의 오후', '마주 보며 웃다', '꽃을 사이에 두고', '억새 바람', '은빛 오후', '웃음이 번지고', '억새 너머로', '눈부신 신부', '신부의 웃음', '나무 아래 춤', '빙그르, 남산', '꼭 안아주기', '노을 속 포옹', '억새 속 웃음', '손끝이 닿을 때', '꽃다발을 건네며', '춤추듯 빙그르', '한강 이정표 앞', '해 질 녘 한강', '시계 아래 입맞춤', '다리 아래에서'];
+  var CONCEPT_FROM = 97, CONCEPT_TO = 125; /* 남산타워·억새밭 = 메인 컨셉 */
+  var PHOTOS = PHOTO_CAPS.map(function (c, i) {
+    return { src: '../s/' + (i < 9 ? '0' : '') + (i + 1) + '.jpg', cap: c, photo: true, concept: i + 1 >= CONCEPT_FROM && i + 1 <= CONCEPT_TO };
+  });
+  var ALBUM = ART.concat(PHOTOS.filter(function (a) { return a.concept; }), PHOTOS.filter(function (a) { return !a.concept; }));
+
+  /* 표지: 남산·억새 사진이 천천히 바뀜 */
+  (function () {
+    var bg = document.getElementById('coverBg'); if (!bg) return;
+    var ims = bg.querySelectorAll('img'), i = 0;
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    setInterval(function () { ims[i].classList.remove('on'); i = (i + 1) % ims.length; ims[i].classList.add('on'); }, 4500);
+  })();
 
   /* ---------- 두 사람: 영상처럼 흐르는 릴 ---------- */
   (function () {
     var reel = document.getElementById('reel'); if (!reel) return;
     var layers = reel.querySelectorAll('.rl-layer'), capEl = $('reelCap'), bar = $('reelBar'), snd = $('reelSnd');
-    var photos = ALBUM.filter(function (a) { return a.photo; });
-    var pick = [], step = Math.max(1, Math.floor(photos.length / 32));
-    for (var k = 0; k < photos.length; k += step) pick.push(photos[k]);
-    var seq = [{ v: 'clip1.mp4', cap: '돌담 아래, 두 사람' }].concat(pick.slice(0, 14), [{ v: 'clip2.mp4', cap: '남산에서, 우리' }], pick.slice(14));
+    var con = PHOTOS.filter(function (a) { return a.concept; }), rest = PHOTOS.filter(function (a) { return !a.concept; });
+    var few = []; for (var k = 0; k < rest.length; k += 12) few.push(rest[k]);
+    var seq = [{ v: 'clip2.mp4', cap: '남산 아래, 우리' }].concat(con, [{ v: 'clip1.mp4', cap: '돌담 아래, 두 사람' }], few);
     var PH = 3200, cur = -1, top = 0, timer = null, t0 = 0, dur = 0, paused = false, muted = true, raf = null;
     function rnd(a, b) { return a + Math.random() * (b - a); }
     function preload(i) { var it = seq[i % seq.length]; if (it && !it.v) { var im = new Image(); im.src = it.src; } }
