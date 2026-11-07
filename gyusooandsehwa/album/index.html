@@ -95,11 +95,20 @@
   .place p { margin: 0 4px; color: var(--mute); font-family: "Cormorant Garamond", serif; font-style: italic; font-size: 1.05rem; line-height: 1.35; }
   .rail-hint { margin: 0; text-align: center; color: var(--mute); font-size: 0.86rem; }
 
-  .grid { columns: 2; column-gap: 8px; margin-top: 14px; }
-  .grid button { display: block; width: 100%; margin: 0 0 8px; padding: 0; border: 0; border-radius: 10px; overflow: hidden; cursor: pointer; background: #e7dfcf; break-inside: avoid; }
-  .grid img { width: 100%; height: auto; transition: transform 0.5s ease; }
-  .grid button:hover img { transform: scale(1.03); }
-
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 38px 14px; margin-top: 16px; padding: 32px 12px 22px; border-radius: 14px; position: relative;
+    background: radial-gradient(ellipse at 50% 0%, rgba(255,255,255,0.7), transparent 60%), linear-gradient(180deg, #efe7d6, #e8dfcb); box-shadow: inset 0 0 0 1px rgba(154,122,46,0.25), inset 0 10px 30px rgba(120,95,50,0.12); }
+  .grid .fr { position: relative; display: block; width: 100%; border: 0; background: none; padding: 0; margin: 0; cursor: pointer; text-align: center; }
+  .grid .fr:nth-child(even) { margin-top: 32px; }
+  .grid .nail { position: absolute; left: 50%; top: -22px; width: 8px; height: 8px; border-radius: 50%; transform: translateX(-50%); background: radial-gradient(circle at 30% 30%, #f6e6b0, #8a6a2f); box-shadow: 0 1px 2px rgba(0,0,0,0.45); z-index: 2; }
+  .grid .fr::before { content: ""; position: absolute; left: 14%; width: 72%; top: -17px; height: 17px; z-index: 1; opacity: 0.55;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 20' preserveAspectRatio='none'%3E%3Cpath d='M50 0L4 20M50 0L96 20' stroke='%235a4630' stroke-width='1.2' fill='none'/%3E%3C/svg%3E") center / 100% 100% no-repeat; }
+  .grid .fx { display: block; padding: 7px; border-radius: 2px; background: var(--foil); box-shadow: 0 12px 18px rgba(60,45,20,0.28), 0 2px 3px rgba(0,0,0,0.22), inset 0 0 0 1px rgba(255,255,255,0.35); transition: transform 0.3s ease; }
+  .grid .f1 .fx { background: linear-gradient(135deg, #7a5632, #3b2a1a 45%, #5e4024); }
+  .grid .f2 .fx { background: linear-gradient(135deg, #ffffff, #e4dccb 50%, #ffffff); }
+  .grid .fr:hover .fx, .grid .fr:focus-visible .fx { transform: translateY(-3px); }
+  .grid .mat { display: block; padding: 9px; background: #fffdf8; box-shadow: inset 0 0 0 1px rgba(0,0,0,0.08), inset 0 3px 8px rgba(0,0,0,0.14); }
+  .grid .mat img { display: block; width: 100%; aspect-ratio: 3 / 4; object-fit: cover; background: #e9e3d6; box-shadow: 0 0 0 1px rgba(0,0,0,0.28); }
+  .grid .plq { display: block; margin: 12px auto 0; padding: 6px 8px; max-width: 94%; border-radius: 2px; background: linear-gradient(180deg, #ecd48c, #c9a54f); color: #2a1f08; font-family: "Cormorant Garamond", serif; font-style: italic; font-weight: 600; font-size: 0.92rem; line-height: 1.2; box-shadow: 0 2px 4px rgba(0,0,0,0.22), inset 0 0 0 1px rgba(255,255,255,0.35); }
   .big-date { text-align: center; padding: 4px 0 2px; }
   .big-date .n { font-family: "Cormorant Garamond", serif; font-weight: 600; font-style: italic; font-size: 3.4rem; line-height: 1; }
   .big-date .n span { background: var(--foil); -webkit-background-clip: text; background-clip: text; color: transparent; }
@@ -423,7 +432,7 @@
     return '<figure class="place" style="margin:0"><div class="ph"><img src="' + src(p.n) + '" alt="' + esc(p.ko) + '에서 찍은 두 사람 사진" loading="lazy" decoding="async"><span class="st">No. ' + (i + 1) + '</span></div><h3>' + esc(p.ko) + '</h3><p>' + esc(p.en) + '</p></figure>';
   }).join('');
   $('grid').innerHTML = GALLERY.map(function (g, i) {
-    return '<button type="button" data-i="' + i + '" aria-label="' + esc(g[1]) + ' 크게 보기"><img src="' + src(g[0]) + '" alt="' + esc(g[1]) + '" loading="lazy" decoding="async"></button>';
+    return '<button type="button" class="fr f' + (i % 3) + '" data-i="' + i + '" aria-label="' + esc(g[1]) + ' 크게 보기"><span class="nail"></span><span class="fx"><span class="mat"><img src="' + src(g[0]) + '" alt="' + esc(g[1]) + '" loading="lazy" decoding="async"></span></span><span class="plq">' + esc(g[1]) + '</span></button>';
   }).join('');
 
   /* 계좌 (아래 고정 바 시트 + 07 트랙 같은 카드) */
