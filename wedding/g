@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>손규수 ♥ 문세화 결혼식 청첩장</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Cinzel & Pretendard -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      background-color: #0b0f19;
+      color: #e2e8f0;
+    }
+    .font-cinzel {
+      font-family: 'Cinzel', serif;
+    }
+    .font-garamond {
+      font-family: 'Cormorant Garamond', serif;
+    }
+    .gold-gradient-text {
+      background: linear-gradient(135deg, #f3e7c4 0%, #d4af37 50%, #aa7c11 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .gold-border {
+      border-color: #d4af37;
+    }
+    .gold-bg {
+      background-color: #d4af37;
+    }
+    /* 스무스 스크롤 및 커스텀 스크롤바 */
+    html {
+      scroll-behavior: smooth;
+    }
+  </style>
+</head>
+<body class="antialiased selection:bg-amber-500 selection:text-white">
+
+  <!-- 토스트 메시지 컴포넌트 -->
+  <div id="toast" class="fixed bottom-10 left-1/2 transform -translate-x-1/2 bg-slate-900/90 text-amber-300 px-6 py-3 rounded-full border border-amber-500/50 shadow-2xl text-sm font-medium opacity-0 transition-opacity duration-300 pointer-events-none z-50 flex items-center gap-2">
+    <span>✨</span> <span id="toast-msg">복사되었습니다.</span>
+  </div>
+
+  <!-- 메인 컨테이너 -->
+  <main class="max-w-md mx-auto bg-[#0f172a] min-h-screen shadow-2xl border-x border-slate-800 relative overflow-hidden pb-20">
+
+    <!-- 1. 패스포트 표지 (Cover) 섹션 -->
+    <section class="relative min-h-[92vh] flex flex-col items-center justify-between p-8 text-center bg-gradient-to-b from-[#0a1128] via-[#0f172a] to-[#1e293b] border-b border-amber-500/20">
+      <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#d4af37_1px,transparent_1px)] [background-size:16px_16px]"></div>
+
+      <!-- 상단 엠블럼 -->
+      <div class="pt-8 z-10">
+        <span class="text-xs uppercase tracking-[0.3em] text-amber-400 font-cinzel">Republic of Marriage</span>
+        <div class="w-12 h-[1px] bg-amber-500/50 mx-auto mt-2"></div>
+      </div>
+
+      <!-- 중앙 여권 표지 아트워크 -->
+      <div class="z-10 w-full max-w-[280px] aspect-[1/1.3] bg-gradient-to-br from-[#111c38] to-[#070b14] rounded-2xl border-2 gold-border shadow-[0_0_30px_rgba(212,175,55,0.15)] flex flex-col items-center justify-between p-6 relative overflow-hidden">
+        <div class="absolute inset-2 border border-amber-500/20 rounded-xl pointer-events-none"></div>
+        
+        <!-- 골드 엠블럼 심볼 -->
+        <div class="w-16 h-16 rounded-full border gold-border flex items-center justify-center mt-2 shadow-inner">
+          <span class="text-2xl">💍</span>
+        </div>
+
+        <div class="space-y-3">
+          <h1 class="text-xs uppercase tracking-[0.4em] text-amber-300/80 font-cinzel">Passport of Love</h1>
+          <p class="font-cinzel text-2xl font-bold gold-gradient-text tracking-wider">WEDDING</p>
+          <div class="text-[11px] tracking-widest text-slate-300 font-light">손규수 &amp; 문세화</div>
+        </div>
+
+        <div class="text-[9px] text-amber-400/60 tracking-widest font-cinzel pb-1">NO. GS-SH-2027</div>
+      </div>
+
+      <!-- 하단 안내 -->
+      <div class="z-10 pb-4 animate-pulse">
+        <p class="text-xs text-amber-300/70 tracking-widest font-light">↓ SCROLL TO BOARDING ↓</p>
+      </div>
+    </section>
+
+    <!-- 2. 신원 정보 (Identity) 섹션 -->
+    <section class="p-8 border-b border-slate-800">
+      <div class="flex items-center gap-2 text-xs uppercase tracking-widest text-amber-400 font-cinzel mb-2">
+        <span class="w-2 h-2 rounded-full bg-amber-400"><span></span></span>
+        <span>Section I · Identity</span>
+      </div>
+      <h2 class="text-2xl font-bold text-white mb-3 font-cinzel">신원 정보</h2>
+      <p class="text-sm text-slate-400 leading-relaxed mb-8">
+        서로 다른 이름으로 살아왔지만<br>이제 같은 목적지를 적습니다.
+      </p>
+
+      <div class="bg-slate-900/80 rounded-2xl p-5 border border-slate-800 shadow-xl relative">
+        <div class="flex gap-4 items-center border-b border-slate-800 pb-5 mb-5">
+          <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&q=80&w=300" alt="웨딩 스냅" class="w-20 h-24 object-cover rounded-lg border border-amber-500/30">
+          <div>
+            <span class="text-[10px] text-amber-400 uppercase tracking-widest block font-cinzel">First Class Couple</span>
+            <h3 class="text-lg font-bold text-white mt-1">Gyusoo &amp; Sehwa</h3>
+            <p class="text-xs text-slate-400 mt-0.5">2027. 01. 16 SAT</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-y-3 text-xs">
+          <div>
+            <span class="text-slate-500 block text-[10px] font-cinzel">TYPE / CODE</span>
+            <span class="text-slate-200 font-medium">P · LOV</span>
+          </div>
+          <div>
+            <span class="text-slate-500 block text-[10px] font-cinzel">PASSPORT NO.</span>
+            <span class="text-slate-200 font-medium">GS-SH-2027</span>
+          </div>
+          <div>
+            <span class="text-slate-500 block text-[10px] font-cinzel">GROOM / 신랑</span>
+            <span class="text-slate-200 font-medium">SON GYUSOO <span class="text-amber-400/80">손규수</span></span>
+          </div>
+          <div>
+            <span class="text-slate-500 block text-[10px] font-cinzel">BRIDE / 신부</span>
+            <span class="text-slate-200 font-medium">MUN SEHWA <span class="text-amber-400/80">문세화</span></span>
+          </div>
+          <div>
+            <span class="text-slate-500 block text-[10px] font-cinzel">DESTINATION</span>
+            <span class="text-slate-200 font-medium">FOREVER <span class="text-slate-400">(평생)</span></span>
+          </div>
+          <div>
+            <span class="text-slate-500 block text-[10px] font-cinzel">AUTHORITY</span>
+            <span class="text-slate-200 font-medium">LOVE MINISTRY</span>
+          </div>
+        </div>
+
+        <!-- MRZ 바코드 라인 -->
+        <div class="mt-6 pt-4 border-t border-slate-800 text-[10px] font-mono text-slate-500 tracking-tighter leading-none break-all select-none">
+          P&lt;LOVSON&lt;&lt;GYUSOO&lt;&lt;&lt;MUN&lt;&lt;SEHWA&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;<br>
+          GS20270116&lt;4LOV2701166&lt;FOREVER&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;08
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. 탑승권 (Boarding Pass) & 디데이 섹션 -->
+    <section class="p-8 border-b border-slate-800">
+      <div class="flex items-center gap-2 text-xs uppercase tracking-widest text-amber-400 font-cinzel mb-2">
+        <span class="w-2 h-2 rounded-full bg-amber-400"></span>
+        <span>Section II · Boarding Pass</span>
+      </div>
+      <h2 class="text-2xl font-bold text-white mb-3 font-cinzel">결혼식 탑승권</h2>
+      <p class="text-sm text-slate-400 leading-relaxed mb-6">
+        따로 정해진 좌석은 없어요.<br>와 주시는 자리가 가장 좋은 자리입니다.
+      </p>
+
+      <!-- 보딩패스 티켓 디자인 -->
+      <div class="bg-gradient-to-r from-slate-900 to-[#162038] rounded-2xl p-5 border border-amber-500/30 shadow-xl text-xs relative overflow-hidden mb-6">
+        <div class="flex justify-between items-center pb-4 border-b border-slate-800 text-amber-300 font-cinzel font-bold tracking-wider">
+          <span>FLIGHT GS 0116</span>
+          <span class="bg-amber-500/10 text-amber-400 px-2.5 py-1 rounded-full border border-amber-500/30 text-[10px]">FIRST CLASS</span>
+        </div>
+
+        <div class="py-4 grid grid-cols-3 gap-2 text-center border-b border-slate-800">
+          <div>
+            <span class="text-[10px] text-slate-500 block font-cinzel">FROM</span>
+            <span class="font-bold text-white text-sm">LOVE</span>
+            <span class="block text-[10px] text-slate-400">두 사람의 인연</span>
+          </div>
+          <div class="flex items-center justify-center text-amber-400 text-lg">✈</div>
+          <div>
+            <span class="text-[10px] text-slate-500 block font-cinzel">TO</span>
+            <span class="font-bold text-white text-sm">FOREVER</span>
+            <span class="block text-[10px] text-slate-400">평생의 여행</span>
+          </div>
+        </div>
+
+        <div class="py-4 space-y-2.5">
+          <div class="flex justify-between">
+            <span class="text-slate-500 font-cinzel">PASSENGERS</span>
+            <span class="text-slate-200 font-medium">손규수 · 문세화</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-slate-500 font-cinzel">DATE</span>
+            <span class="text-slate-200 font-medium">2027. 01. 16 (토)</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-slate-500 font-cinzel">DEPARTURE</span>
+            <span class="text-amber-300 font-bold">12:30 PM (낮 12시 30분)</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-slate-500 font-cinzel">GATE &amp; VENUE</span>
+            <span class="text-slate-200 font-medium">양산 W웨딩 · 5층 팰리스홀</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- D-DAY 카운트다운 박스 -->
+      <div class="grid grid-cols-4 gap-2 text-center mb-6" id="dday-box">
+        <div class="bg-slate-900/60 p-3 rounded-xl border border-slate-800">
+          <div id="days" class="text-xl font-bold text-amber-400 font-cinzel">00</div>
+          <div class="text-[10px] text-slate-500 mt-1 uppercase font-cinzel">Days</div>
+        </div>
+        <div class="bg-slate-900/60 p-3 rounded-xl border border-slate-800">
+          <div id="hours" class="text-xl font-bold text-amber-400 font-cinzel">00</div>
+          <div class="text-[10px] text-slate-500 mt-1 uppercase font-cinzel">Hours</div>
+        </div>
+        <div class="bg-slate-900/60 p-3 rounded-xl border border-slate-800">
+          <div id="minutes" class="text-xl font-bold text-amber-400 font-cinzel">00</div>
+          <div class="text-[10px] text-slate-500 mt-1 uppercase font-cinzel">Mins</div>
+        </div>
+        <div class="bg-slate-900/60 p-3 rounded-xl border border-slate-800">
+          <div id="seconds" class="text-xl font-bold text-amber-400 font-cinzel">00</div>
+          <div class="text-[10px] text-slate-500 mt-1 uppercase font-cinzel">Secs</div>
+        </div>
+      </div>
+
+      <!-- 캘린더 등록 버튼 -->
+      <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=%EC%86%90%EA%B7%9C%EC%88%98+%E2%99%A5+%EB%AC%B8%EC%84%B8%ED%99%94+%EA%B2%B0%ED%98%BC%EC%8B%9D&dates=20270116T033000Z/20270116T053000Z&location=%EC%96%91%EC%82%B0+W%EC%9B%A8%EB%94%A9+5%EC%B8%B5+%ED%8C%B0%EB%A6%AC%EC%8A%A4%ED%99%80&details=%EC%86%90%EC%88%98%EA%B7%9C+%C2%B7+%EB%AC%B8%EC%84%B8%ED%99%94+%EA%B2%B0%ED%98%BC%EC%8B%9D%EC%97%90+%EC%B4%88%EB%8C%80%ED%95%A9%EB%8B%88%EB%8B%A4." target="_blank" rel="noopener" class="w-full py-3.5 bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 text-slate-950 font-bold rounded-xl text-sm flex items-center justify-center gap-2 shadow-lg transition-all">
+        <span>📅 구글 캘린더에 일정 추가하기</span>
+      </a>
+    </section>
+
+    <!-- 4. 초대의 글 (Invitation) 섹션 -->
+    <section class="p-8 border-b border-slate-800 text-center">
+      <div class="flex items-center justify-center gap-2 text-xs uppercase tracking-widest text-amber-400 font-cinzel mb-2">
+        <span class="w-2 h-2 rounded-full bg-amber-400"></span>
+        <span>Section III · Invitation</span>
+      </div>
+      <h2 class="text-2xl font-bold text-white mb-6 font-cinzel">초대의 글</h2>
+
+      <div class="bg-slate-900/60 p-6 rounded-2xl border border-slate-800 space-y-6 text-sm text-slate-300 leading-relaxed font-garamond text-lg">
+        <p>
+          특별한 날보다<br>
+          평범한 날이 더 좋은 사람을 만났습니다.
+        </p>
+        <p>
+          같이 밥을 먹고, 같이 걷고,<br>
+          별것 아닌 일에 함께 웃다 보니<br>
+          어느새 평생을 같이 걷고 싶어졌습니다.
+        </p>
+        <p>
+          거창한 약속 대신<br>
+          매일 서로의 편이 되어 주겠다는 다짐으로<br>
+          첫 여행을 떠나려 합니다.<br>
+          그 출발을 곁에서 지켜봐 주세요.
+        </p>
+      </div>
+
+      <!-- 혼주 정보 -->
+      <div class="mt-8 space-y-3 text-sm text-slate-300">
+        <div class="flex justify-center items-center gap-2">
+          <span class="text-slate-500 text-xs">신랑 아버지 故 손현석 · 어머니 이수자</span>
+          <span class="text-slate-400">의 장남</span>
+          <span class="font-bold text-white">손규수</span>
+        </div>
+        <div class="flex justify-center items-center gap-2">
+          <span class="text-slate-500 text-xs">신부 아버지 故 문종문 · 어머니 최장심</span>
+          <span class="text-slate-400">의 장녀</span>
+          <span class="font-bold text-white">문세화</span>
+        </div>
+      </div>
+
+      <!-- 연락하기 버튼 그룹 -->
+      <div class="grid grid-cols-2 gap-3 mt-8">
+        <a href="tel:010-0000-0000" class="py-3 bg-slate-900 hover:bg-slate-800 border border-slate-700 rounded-xl text-xs text-amber-300 font-medium flex items-center justify-center gap-1.5 transition">
+          <span>📞 신랑에게 전화</span>
+        </a>
+        <a href="sms:010-0000-0000" class="py-3 bg-slate-900 hover:bg-slate-800 border border-slate-700 rounded-xl text-xs text-amber-300 font-medium flex items-center justify-center gap-1.5 transition">
+          <span>💬 신랑에게 문자</span>
+        </a>
+        <a href="tel:010-0000-0000" class="py-3 bg-slate-900 hover:bg-slate-800 border border-slate-700 rounded-xl text-xs text-amber-300 font-medium flex items-center justify-center gap-1.5 transition">
+          <span>📞 신부에게 전화</span>
+        </a>
+        <a href="sms:010-0000-0000" class="py-3 bg-slate-900 hover:bg-slate-800 border border-slate-700 rounded-xl text-xs text-amber-300 font-medium flex items-center justify-center gap-1.5 transition">
+          <span>💬 신부에게 문자</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- 5. 오시는 길 (Route) 섹션 -->
+    <section class="p-8 border-b border-slate-800 text-center">
+      <div class="flex items-center justify-center gap-2 text-xs uppercase tracking-widest text-amber-400 font-cinzel mb-2">
+        <span class="w-2 h-2 rounded-full bg-amber-400"></span>
+        <span>Section VII · Route</span>
+      </div>
+      <h2 class="text-2xl font-bold text-white mb-2 font-cinzel">오시는 길</h2>
+      <p class="text-sm text-slate-400 mb-6">먼 걸음 해 주시는 만큼 더 고마운 마음으로 기다리겠습니다.</p>
+
+      <div class="bg-slate-900/60 p-6 rounded-2xl border border-slate-800 text-left space-y-4 mb-6">
+        <div>
+          <h3 class="font-bold text-white text-base">양산 W웨딩 · 5층 팰리스홀</h3>
+          <p class="text-xs text-slate-400 mt-1">경상남도 양산시 강변로 438 크리스탈타워 5층</p>
+        </div>
+        <div class="text-xs text-slate-400 space-y-1.5 pt-2 border-t border-slate-800">
+          <p>🚌 <strong class="text-slate-300">버스:</strong> 양산시외버스터미널 도보 5분</p>
+          <p>🚗 <strong class="text-slate-300">자가용:</strong> 건물 내 주차장 완비 (혼잡 시 안내 요원 유도)</p>
+        </div>
+      </div>
+
+      <!-- 지도 링크 버튼 -->
+      <div class="grid grid-cols-2 gap-3">
+        <a href="https://map.naver.com/p/search/%EC%96%91%EC%82%B0%20W%EC%9B%A8%EB%94%A9" target="_blank" rel="noopener" class="py-3 bg-emerald-600/20 hover:bg-emerald-600/30 border border-emerald-500/40 text-emerald-300 text-xs font-bold rounded-xl transition flex items-center justify-center gap-1.5">
+          <span>💚 네이버 지도 보기</span>
+        </a>
+        <a href="https://map.kakao.com/link/search/%EC%96%91%EC%82%B0%20W%EC%9B%A8%EB%94%A9" target="_blank" rel="noopener" class="py-3 bg-yellow-500/20 hover:bg-yellow-500/30 border border-yellow-500/40 text-yellow-300 text-xs font-bold rounded-xl transition flex items-center justify-center gap-1.5">
+          <span>💛 카카오맵 보기</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- 6. 마음 전하실 곳 (With Love) 섹션 -->
+    <section class="p-8 border-b border-slate-800 text-center">
+      <div class="flex items-center justify-center gap-2 text-xs uppercase tracking-widest text-amber-400 font-cinzel mb-2">
+        <span class="w-2 h-2 rounded-full bg-amber-400"></span>
+        <span>Section VIII · With Love</span>
+      </div>
+      <h2 class="text-2xl font-bold text-white mb-2 font-cinzel">마음 전하실 곳</h2>
+      <p class="text-sm text-slate-400 mb-6">와 주시는 것만으로 충분합니다.<br>그래도 마음을 전하고 싶은 분들을 위해 적어
