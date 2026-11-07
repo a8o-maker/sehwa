@@ -189,6 +189,19 @@
   @keyframes cfall { 0% { transform: translate(0, -40px); opacity: 0; } 8% { opacity: 0.7; } 50% { transform: translate(var(--sw), 50vh); } 90% { opacity: 0.85; } 100% { transform: translate(calc(var(--sw) * -0.6), 110vh); opacity: 0; } }
   @keyframes cspin { from { transform: rotate(-35deg) rotateY(0deg); } to { transform: rotate(40deg) rotateY(55deg); } }
   @media (prefers-reduced-motion: reduce) { .clovers { display: none; } }
+  .gift { margin-top: 44px; padding: 34px 16px 10px; text-align: center; }
+  .gift-clover { display: block; margin: 18px auto 6px; width: 148px; height: 148px; padding: 0; border: 0; background: none; cursor: pointer; border-radius: 50%; }
+  .gift-clover svg { width: 100%; height: 100%; overflow: visible; filter: drop-shadow(0 0 18px rgba(201,169,110,0.35)); transition: transform 0.5s cubic-bezier(.3,1.6,.5,1); }
+  .gift-clover:hover svg, .gift-clover:focus-visible svg { transform: scale(1.05) rotate(-4deg); }
+  .gift .lf { transform-origin: 60px 60px; transform: scale(0) rotate(-40deg); opacity: 0; }
+  .gift.in .lf { animation: bloom 0.9s cubic-bezier(.3,1.5,.5,1) forwards; }
+  .gift.in .lf:nth-child(2) { animation-delay: .18s; } .gift.in .lf:nth-child(3) { animation-delay: .36s; } .gift.in .lf:nth-child(4) { animation-delay: .54s; }
+  @keyframes bloom { to { transform: none; opacity: 1; } }
+  .gift.got .gift-clover svg { animation: glow 1.6s ease-in-out; }
+  @keyframes glow { 0% { transform: scale(1); } 30% { transform: scale(1.18) rotate(8deg); filter: drop-shadow(0 0 34px rgba(243,227,184,0.8)); } 100% { transform: scale(1); } }
+  .gift-msg { margin: 10px 0 0; font-size: 0.95rem; line-height: 2; color: #dbe2ea; }
+  .gift-sub { margin: 8px 0 0; font-family: "Cormorant Garamond", serif; font-style: italic; color: var(--gold); font-size: 1rem; letter-spacing: 0.04em; }
+  @media (prefers-reduced-motion: reduce) { .gift .lf { transform: none; opacity: 1; } .gift.in .lf, .gift.got .gift-clover svg { animation: none; } }
   .back-cover { margin-top: 30px; padding: 40px 20px; border-radius: 18px; background: linear-gradient(160deg, #13213f, #0b1530 60%, #070e22); border: 1px solid rgba(201,169,110,0.35); }
   .back-cover p { margin: 0; color: #cbd5e1; font-size: 0.92rem; line-height: 2; }
   .back-cover .sg { font-family: "Cormorant Garamond", serif; font-style: italic; letter-spacing: 0.08em; font-size: 1.3rem; margin-top: 18px; }
@@ -396,6 +409,24 @@
       <p>여기까지 올 수 있었던 건<br>곁에 있어 준 여러분 덕분입니다.<br>이제 둘이서, 잘 살아 보겠습니다.<br>고맙습니다.</p>
       <p class="sg gold">Gyusoo &amp; Sehwa</p>
     </div>
+    <div class="gift" id="gift">
+      <p class="eyebrow" style="justify-content:center">A Gift for You</p>
+      <button type="button" class="gift-clover" id="giftBtn" aria-label="네잎클로버 받기">
+        <svg viewBox="0 0 120 120" aria-hidden="true">
+          <defs><linearGradient id="gcg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f3e3b8"/><stop offset=".5" stop-color="#c9a96e"/><stop offset="1" stop-color="#8e7244"/></linearGradient></defs>
+          <g fill="url(#gcg)">
+            <path class="lf" d="M60 57C45 57 33 46.5 33 34.5S42 15 51 19.5c4.8 2.4 9 8.1 9 15z"/>
+            <path class="lf" d="M60 57c0-15 10.5-27 22.5-27s19.5 9 15 18c-2.4 4.8-8.1 9-15 9z"/>
+            <path class="lf" d="M60 63c15 0 27 10.5 27 22.5s-9 19.5-18 15c-4.8-2.4-9-8.1-9-15z"/>
+            <path class="lf" d="M60 63c0 15-10.5 27-22.5 27s-19.5-9-15-18c2.4-4.8 8.1-9 15-9z"/>
+          </g>
+          <path d="M60 60c6 18 9 30 18 45" stroke="#b08f58" stroke-width="3.2" fill="none" stroke-linecap="round"/>
+          <circle cx="60" cy="60" r="4" fill="#fbf3e0"/>
+        </svg>
+      </button>
+      <p class="gift-msg">이 청첩장을 끝까지 읽어 주신 당신께<br>네잎클로버 하나를 선물합니다.</p>
+      <p class="gift-sub" id="giftSub">클로버를 눌러 행운을 받아 가세요</p>
+    </div>
   </section>
 </main>
 
@@ -544,6 +575,25 @@ var PHOTOS = [[106, "Of all paths, I chose you"], [97, "Joy finds us anywhere"],
         ';--d:' + (9 + Math.random() * 8).toFixed(1) + 's;--dl:' + (-Math.random() * 16).toFixed(1) + 's;--sw:' + (Math.random() * 80 - 40).toFixed(0) + 'px;--sp:' + (1.6 + Math.random() * 1.8).toFixed(1) + 's">' + leaf + '</span>';
     }
     box.innerHTML = h;
+  })();
+
+  /* 마지막 선물: 네잎클로버 */
+  (function () {
+    var g = $('gift'); if (!g) return; watch(g);
+    var leaf = '<svg viewBox="0 0 40 40"><g fill="currentColor"><path d="M20 19C15 19 11 15.5 11 11.5S14 5 17 6.5c1.6.8 3 2.7 3 5zM20 19c0-5 3.5-9 7.5-9s6.5 3 5 6c-.8 1.6-2.7 3-5 3zM20 21c5 0 9 3.5 9 7.5s-3 6.5-6 5c-1.6-.8-3-2.7-3-5zM20 21c0 5-3.5 9-7.5 9s-6.5-3-5-6c.8-1.6 2.7-3 5-3z"/></g></svg>';
+    var tones = ['#f3e3b8', '#c9a96e', '#e6d3a8', '#9fb59a', '#d9c08f'];
+    $('giftBtn').addEventListener('click', function () {
+      g.classList.remove('got'); void g.offsetWidth; g.classList.add('got');
+      $('giftSub').textContent = '행운이 늘 당신과 함께하기를 🍀';
+      if (reduce || !document.body.animate) return;
+      for (var i = 0; i < 26; i++) {
+        var el = document.createElement('span'), sz = 14 + Math.random() * 18;
+        el.innerHTML = leaf; el.style.cssText = 'position:fixed;left:' + (Math.random() * 100) + 'vw;top:-30px;width:' + sz + 'px;height:' + sz + 'px;color:' + tones[i % tones.length] + ';z-index:65;pointer-events:none';
+        document.body.appendChild(el);
+        el.animate([{ transform: 'translate(0,0) rotate(0deg)', opacity: 1 }, { transform: 'translate(' + (Math.random() * 120 - 60) + 'px,' + (window.innerHeight + 60) + 'px) rotate(' + (300 + Math.random() * 400) + 'deg)', opacity: 0.85 }],
+          { duration: 2400 + Math.random() * 1800, delay: Math.random() * 500, easing: 'cubic-bezier(.3,.5,.5,1)' }).onfinish = function () { this.effect.target.remove(); };
+      }
+    });
   })();
 
   /* 복사 · 공유 */
