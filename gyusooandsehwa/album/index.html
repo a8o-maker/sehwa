@@ -136,6 +136,8 @@
   .acct .bank { margin-top: 8px; font-weight: 700; color: var(--gold); font-size: 1.02rem; }
   .acct .num { display: block; width: 100%; margin: 2px 0 0; padding: 4px 0; border: 0; background: none; text-align: left; cursor: pointer; font-family: "Noto Sans KR", sans-serif; font-weight: 700; font-size: clamp(1.45rem, 7.4vw, 1.8rem); letter-spacing: 0.03em; line-height: 1.3; color: var(--ink); font-variant-numeric: tabular-nums; word-break: normal; }
   .acct .btns { margin-top: 10px; }
+  .acct .btns.m > :first-child { grid-column: 1 / -1; }
+  .btn.kakao { background: #fee500; border-color: #d4bd00; color: #191919; }
 
   /* ───── 하단 고정 바 ───── */
   .np { position: fixed; left: 50%; bottom: 0; transform: translateX(-50%); z-index: 40; width: 100%; max-width: 480px; padding: 10px 14px calc(10px + env(safe-area-inset-bottom)); display: flex; align-items: center; gap: 12px; background: rgba(255,253,248,0.94); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border-top: 1px solid var(--line); box-shadow: 0 -10px 30px rgba(20,33,61,0.1); }
@@ -354,9 +356,9 @@
   var PLACES = [{"n": 106, "ko": "억새밭", "en": "Fate walks through silver grass"}, {"n": 97, "ko": "남산", "en": "Joy finds us anywhere"}, {"n": 136, "ko": "자하문로 고전의상실", "en": "Time-worn doors, new vows"}, {"n": 223, "ko": "자하문로 벽돌담", "en": "Found you, kept you"}, {"n": 25, "ko": "돌담길", "en": "Holding on, holding hands"}, {"n": 19, "ko": "궁 앞 광장", "en": "All roads led here"}, {"n": 127, "ko": "한강변", "en": "Choosing you, every single day"}, {"n": 234, "ko": "카페 테라스", "en": "Love lives in the details"}];
   var GALLERY = [[106, "Fate walks through silver grass"], [210, "Of all paths, I chose you"], [97, "Joy finds us anywhere"], [209, "A kiss that says forever"], [208, "Let's run into forever"], [136, "Time-worn doors, new vows"], [227, "A promise, face to face"], [223, "Found you, kept you"], [25, "Holding on, holding hands"], [236, "Hand in hand, for life"], [19, "All roads led here"], [243, "Palace gates, open hearts"], [251, "Eyes that say forever"], [234, "Love lives in the details"], [201, "Home is in your arms"], [127, "Choosing you, every single day"], [214, "Love, by heart"]];
   var ACCTS = [
-    { who: '신랑', name: '손규수', bank: '부산은행', toss: '부산은행', no: '166-12-011157-6' },
-    { who: '신랑 어머니', name: '이수자', bank: '경남은행', toss: '경남은행', no: '679-21-003880-9' },
-    { who: '신부', name: '문세화', bank: 'NH농협은행', toss: '농협은행', no: '302-7203-767751' }
+    { who: '신랑', name: '손규수', bank: '부산은행', toss: '부산은행', kakao: '', no: '166-12-011157-6' },
+    { who: '신랑 어머니', name: '이수자', bank: '경남은행', toss: '경남은행', kakao: '', no: '679-21-003880-9' },
+    { who: '신부', name: '문세화', bank: 'NH농협은행', toss: '농협은행', kakao: '', no: '302-7203-767751' }
   ];
   function src(n) { return '../s/' + (n < 10 ? '0' : '') + n + '.jpg'; }
 
@@ -430,16 +432,21 @@
     return '<div class="acct"><div class="who"><b>' + esc(a.who) + ' · ' + esc(a.name) + '</b><span>예금주 ' + esc(a.name) + '</span></div>' +
       '<div class="bank">' + esc(a.bank) + '</div>' +
       '<button class="num" type="button" data-copy="' + raw + '" data-msg="계좌번호를 복사했어요. 은행 앱에 붙여 넣어 주세요" aria-label="' + esc(a.bank) + ' ' + a.no + ' 눌러서 복사">' + a.no + '</button>' +
-      '<div class="btns' + (IS_MOBILE ? '' : '') + '"><button class="btn solid" type="button" data-copy="' + raw + '" data-msg="계좌번호를 복사했어요. 은행 앱에 붙여 넣어 주세요">계좌번호 복사</button>' +
-      (IS_MOBILE ? '<button class="btn gold" type="button" data-toss="' + esc(a.toss) + '|' + raw + '">토스로 송금</button>' : '<button class="btn" type="button" data-copy="' + esc(a.bank + ' ' + a.no + ' ' + a.name) + '" data-msg="은행·번호·예금주를 복사했어요">전체 복사</button>') +
+      '<div class="btns' + (IS_MOBILE ? ' m' : '') + '"><button class="btn solid" type="button" data-copy="' + raw + '" data-msg="계좌번호를 복사했어요. 은행 앱에 붙여 넣어 주세요">계좌번호 복사</button>' +
+      (IS_MOBILE ? '<button class="btn gold" type="button" data-toss="' + esc(a.toss) + '|' + raw + '">토스로 송금</button><button class="btn kakao" type="button" data-kakao="' + esc(a.kakao || '') + '|' + raw + '">카카오페이로 송금</button>' : '<button class="btn" type="button" data-copy="' + esc(a.bank + ' ' + a.no + ' ' + a.name) + '" data-msg="은행·번호·예금주를 복사했어요">전체 복사</button>') +
       '</div></div>';
   }
-  $('acctInline').innerHTML = ACCTS.map(acctHtml).join('') + '<p class="note">‘토스로 송금’은 계좌번호를 복사한 뒤 토스를 열어 줍니다. 토스가 없으면 복사한 번호를 은행 앱에 붙여 넣어 주세요.</p>';
+  $('acctInline').innerHTML = ACCTS.map(acctHtml).join('') + '<p class="note">‘토스로 송금’·‘카카오페이로 송금’은 계좌번호를 복사한 뒤 앱을 열어 줍니다. 앱에서 번호를 붙여 넣어 보내시면 돼요.</p>';
   $('acctSheet').innerHTML = ACCTS.map(acctHtml).join('') + '<p class="note" style="text-align:center">마음 써 주셔서 고맙습니다.</p>';
+  function appOpen(u) { (window.__openApp || function (x) { location.href = x; })(u); }
   document.addEventListener('click', function (e) {
-    var b = e.target.closest('[data-toss]'); if (!b) return;
-    var p = b.getAttribute('data-toss').split('|'); copy(p[1], '계좌번호를 복사했어요. 토스를 여는 중…');
-    setTimeout(function () { location.href = 'supertoss://send?bank=' + encodeURIComponent(p[0]) + '&accountNo=' + p[1] + '&origin=qr'; }, 350);
+    var b = e.target.closest('[data-toss]');
+    if (b) { var p = b.getAttribute('data-toss').split('|'); copy(p[1], '계좌번호를 복사했어요. 토스를 여는 중…');
+      setTimeout(function () { appOpen('supertoss://send?bank=' + encodeURIComponent(p[0]) + '&accountNo=' + p[1] + '&origin=qr'); }, 350); return; }
+    b = e.target.closest('[data-kakao]');
+    if (b) { var k = b.getAttribute('data-kakao').split('|'); copy(k[1], '계좌번호를 복사했어요. 카카오페이를 여는 중…');
+      /* 계좌별 카카오페이 송금 링크가 있으면 그 링크로, 없으면 카카오페이 계좌송금 화면으로 */
+      setTimeout(function () { appOpen(k[0] ? k[0] : 'kakaotalk://kakaopay/money/to/bank'); }, 350); }
   });
 
   /* 시트 열고 닫기 */
