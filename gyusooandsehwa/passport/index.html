@@ -338,7 +338,7 @@
   .ac .bt { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px; }
   .ac .bt > :first-child { grid-column: 1 / -1; }
   .ac .btn { min-height: 52px; font-size: 1rem; font-weight: 700; justify-content: center; }
-  .btn.gold { background: linear-gradient(180deg, #e9cf86, #c9a54f) !important; border-color: #8a6a2f !important; color: #2a1f08 !important; }
+  .btn.toss { background: #0064ff !important; border-color: #0050cc !important; color: #fff !important; }
   .btn.kakao { background: #fee500 !important; border-color: #d4bd00 !important; color: #191919 !important; }
   .gv-note { margin: 12px 0 0; color: var(--muted); font-size: 0.88rem; line-height: 1.65; text-align: center; }
   .back-cover .emblem { color: var(--mint-d); filter: none; }
@@ -998,7 +998,7 @@ var PHOTOS = [[106, "Fate walks through silver grass"], [97, "Joy finds us anywh
       return '<div class="ac"><div class="who"><b>' + e2(a.who) + ' · ' + e2(a.name) + '</b><span>예금주 ' + e2(a.name) + '</span></div><div class="bank">' + e2(a.bank) + '</div>' +
         '<button class="num" type="button" data-copy="' + raw + '" data-msg="' + msg + '" aria-label="' + e2(a.bank) + ' ' + a.no + ' 눌러서 복사">' + a.no + '</button>' +
         '<div class="bt"><button class="btn solid" type="button" data-copy="' + raw + '" data-msg="' + msg + '">계좌번호 복사</button>' +
-        (MOBILE ? '<button class="btn gold" type="button" data-toss="' + e2(a.toss) + '|' + raw + '">토스로 송금</button><button class="btn kakao" type="button" data-kakao="' + e2(a.kakao) + '|' + raw + '">카카오페이로 송금</button>'
+        (MOBILE ? '<button class="btn toss" type="button" data-toss="' + e2(a.toss) + '|' + raw + '">토스로 송금</button><button class="btn kakao" type="button" data-kakao="' + e2(a.kakao) + '|' + raw + '">카카오페이로 송금</button>'
                 : '<button class="btn" type="button" data-copy="' + e2(a.bank + ' ' + a.no + ' ' + a.name) + '" data-msg="은행·번호·예금주를 복사했어요">전체 복사</button>') + '</div></div>';
     }
     var note = '<p class="gv-note">‘토스로 송금’·‘카카오페이로 송금’은 계좌번호를 복사한 뒤 앱을 열어 줍니다. 앱에서 번호를 붙여 넣어 보내시면 돼요.</p>';
