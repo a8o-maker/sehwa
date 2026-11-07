@@ -266,6 +266,29 @@
   .rsvp-err { min-height: 1.1em; margin: 0 0 4px; font-size: 0.68rem; color: #b42318; }
   .rsvp-card .btn.solid { width: 100%; min-height: 36px; font-size: 0.8rem; }
   .rsvp-later { display: block; margin: 6px auto 0; border: 0; background: none; color: var(--muted); font: inherit; font-size: 0.68rem; text-decoration: underline; cursor: pointer; }
+
+  /* 금장(골드 포일) 장식 */
+  :root { --foil: linear-gradient(115deg, #8a6a2f 0%, #d9b968 22%, #f6e6b0 38%, #b8913f 55%, #e9cf86 72%, #8a6a2f 100%); }
+  .foil-text { background: var(--foil); background-size: 200% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; animation: foil 7s ease-in-out infinite; }
+  @keyframes foil { 0%,100% { background-position: 0 0; } 50% { background-position: 100% 0; } }
+  .gilt { position: relative; }
+  .gilt::before { content: ""; position: absolute; inset: 6px; pointer-events: none; border: 1px solid transparent; border-radius: inherit;
+    background: var(--foil) border-box; -webkit-mask: linear-gradient(#000 0 0) padding-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; opacity: 0.85; z-index: 1; }
+  .gilt > .orn { position: absolute; width: 34px; height: 34px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%238a6a2f'/%3E%3Cstop offset='.45' stop-color='%23f6e6b0'/%3E%3Cstop offset='1' stop-color='%23a8823a'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cg fill='none' stroke='url(%23g)' stroke-width='1.4' stroke-linecap='round'%3E%3Cpath d='M4 40V12a8 8 0 0 1 8-8h28'/%3E%3Cpath d='M9 34V16a7 7 0 0 1 7-7h18'/%3E%3Cpath d='M16 22c4-1 6-3 7-7M22 16c-1 4-3 6-7 7'/%3E%3Ccircle cx='16' cy='16' r='2.2' fill='url(%23g)'/%3E%3Cpath d='M40 4c3 0 5 2 5 5M4 40c0 3 2 5 5 5'/%3E%3C/g%3E%3C/svg%3E") no-repeat center / contain; pointer-events: none; z-index: 2; }
+  .gilt > .orn.tl { top: 2px; left: 2px; } .gilt > .orn.tr { top: 2px; right: 2px; transform: scaleX(-1); }
+  .gilt > .orn.bl { bottom: 2px; left: 2px; transform: scaleY(-1); } .gilt > .orn.br { bottom: 2px; right: 2px; transform: scale(-1,-1); }
+  .eyebrow::before, .eyebrow::after { height: 1.5px !important; background: var(--foil) !important; }
+  .eyebrow::before { -webkit-mask: linear-gradient(90deg, transparent, #000); mask: linear-gradient(90deg, transparent, #000); }
+  .eyebrow::after { -webkit-mask: linear-gradient(90deg, #000, transparent); mask: linear-gradient(90deg, #000, transparent); }
+  .divider { display: block; width: 150px; height: 18px; margin: 34px auto -6px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 150 18'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' x2='1'%3E%3Cstop offset='0' stop-color='%23b8913f' stop-opacity='0'/%3E%3Cstop offset='.5' stop-color='%23f6e6b0'/%3E%3Cstop offset='1' stop-color='%23b8913f' stop-opacity='0'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M0 9h60M90 9h60' stroke='url(%23g)' stroke-width='1.2'/%3E%3Cpath d='M75 2l5 7-5 7-5-7z' fill='%23c9a14f'/%3E%3Ccircle cx='64' cy='9' r='1.6' fill='%23c9a14f'/%3E%3Ccircle cx='86' cy='9' r='1.6' fill='%23c9a14f'/%3E%3C/svg%3E") no-repeat center / contain; }
+  section + section::before { display: none; }
+  .btn.solid { background: linear-gradient(180deg, #23365e, #1b2a4a) !important; box-shadow: inset 0 0 0 1px rgba(233,207,134,0.65), 0 6px 16px rgba(27,42,74,0.18); color: #f6e6b0 !important; letter-spacing: 0.08em; }
+  .cnt div { border: 1px solid transparent !important; background: linear-gradient(var(--bg-2), var(--bg-2)) padding-box, var(--foil) border-box !important; }
+  .bp { border: 1px solid transparent !important; background: linear-gradient(var(--bg-2), var(--bg-2)) padding-box, var(--foil) border-box !important; }
+  .route .code { background: var(--foil); -webkit-background-clip: text; background-clip: text; color: transparent !important; }
+  .cnt .n { color: #8a6a2f !important; text-shadow: 0 1px 0 rgba(246,230,176,0.8); }
+  .gift-clover svg { filter: drop-shadow(0 8px 18px rgba(156,122,63,0.35)) drop-shadow(0 0 1px rgba(246,230,176,0.9)); }
+  @media (prefers-reduced-motion: reduce) { .foil-text { animation: none; } }
   .back-cover { margin-top: 30px; padding: 40px 20px; border-radius: 18px; background: var(--bg-2); border: 1px solid var(--line); box-shadow: 0 10px 28px rgba(27,42,74,0.06); }
   .back-cover p { margin: 0; color: #374151; font-size: 0.92rem; line-height: 2; }
   .back-cover .sg { font-family: "Cormorant Garamond", serif; font-style: italic; letter-spacing: 0.08em; font-size: 1.3rem; margin-top: 18px; }
@@ -293,7 +316,7 @@
         </svg>
         <div>
           <div class="t1 gold">WEDDING</div>
-          <div class="t2 gold">PASSPORT</div>
+          <div class="t2 gold foil-text">PASSPORT</div>
           <div class="t3" style="color:#efe3c4;opacity:.8">여권 · 손규수 &amp; 문세화</div>
         </div>
         <div class="chip" aria-hidden="true"></div>
@@ -311,7 +334,7 @@
     <p class="eyebrow"><span class="no">I</span>Identity</p>
     <h2>신원 정보</h2>
     <p class="lede">서로 다른 이름으로 살아왔지만<br>이제 같은 목적지를 적습니다.</p>
-    <div class="datapage">
+    <div class="gilt datapage"><span class="orn tl"></span><span class="orn tr"></span><span class="orn bl"></span><span class="orn br"></span>
       <div class="dp-top"><span>PASSPORT · 여권</span><span>REPUBLIC OF LOVE</span></div>
       <div class="dp-body">
         <div>
@@ -333,6 +356,7 @@
   </section>
 
   <!-- 2 탑승권 -->
+  <i class="divider" aria-hidden="true"></i>
   <section class="reveal">
     <p class="eyebrow"><span class="no">II</span>Boarding Pass</p>
     <h2>결혼식 탑승권</h2>
@@ -369,10 +393,11 @@
   </section>
 
   <!-- 3 초대의 글 · 양가 -->
+  <i class="divider" aria-hidden="true"></i>
   <section class="reveal">
     <p class="eyebrow"><span class="no">III</span>Invitation</p>
     <h2>초대의 글</h2>
-    <div class="card">
+    <div class="gilt card"><span class="orn tl"></span><span class="orn tr"></span><span class="orn bl"></span><span class="orn br"></span>
       <p class="msg">
         특별한 날보다<br>
         평범한 날이 더 좋은 사람을 만났습니다.<br><br>
@@ -398,6 +423,7 @@
   </section>
 
   <!-- 4 비자 · 출입국 도장 -->
+  <i class="divider" aria-hidden="true"></i>
   <section>
     <p class="eyebrow reveal"><span class="no">IV</span>Visas &amp; Stamps</p>
     <h2 class="reveal">우리가 지나온 곳</h2>
@@ -406,6 +432,7 @@
   </section>
 
   <!-- 5 기내 상영 -->
+  <i class="divider" aria-hidden="true"></i>
   <section class="reveal">
     <p class="eyebrow"><span class="no">V</span>In-flight Film</p>
     <h2>기내 상영</h2>
@@ -462,6 +489,7 @@
   </section>
 
   <!-- 6 여행 기록 -->
+  <i class="divider" aria-hidden="true"></i>
   <section class="reveal">
     <p class="eyebrow"><span class="no">VI</span>Travel Log</p>
     <h2>여행 기록</h2>
@@ -471,11 +499,12 @@
   </section>
 
   <!-- 7 오시는 길 -->
+  <i class="divider" aria-hidden="true"></i>
   <section class="reveal">
     <p class="eyebrow"><span class="no">VII</span>Route</p>
     <h2>오시는 길</h2>
     <p class="lede">먼 걸음 해 주시는 만큼<br>더 고마운 마음으로 기다리겠습니다.</p>
-    <div class="card">
+    <div class="gilt card"><span class="orn tl"></span><span class="orn tr"></span><span class="orn bl"></span><span class="orn br"></span>
       <h3>양산 W웨딩 · 5층 팰리스홀</h3>
       <p class="addr">경상남도 양산시 강변로 438<br>크리스탈타워 5층</p>
       <div class="btn-row three">
@@ -487,11 +516,12 @@
   </section>
 
   <!-- 8 마음 전하실 곳 -->
+  <i class="divider" aria-hidden="true"></i>
   <section class="reveal">
     <p class="eyebrow"><span class="no">VIII</span>With Love</p>
     <h2>마음 전하실 곳</h2>
     <p class="lede">와 주시는 것만으로 충분합니다.<br>그래도 마음을 전하고 싶은 분들을 위해 적어 둡니다.</p>
-    <div class="card" style="padding-top:16px">
+    <div class="gilt card" style="padding-top:16px"><span class="orn tl"></span><span class="orn tr"></span><span class="orn bl"></span><span class="orn br"></span>
       <div class="acct"><div><div class="who">신랑 손규수 · 부산은행</div><div class="no">166-12-011157-6</div></div><button class="btn" type="button" data-copy="166120111576">복사</button></div>
       <div class="acct"><div><div class="who">신랑 어머니 이수자 · 경남은행</div><div class="no">679-21-003880-9</div></div><button class="btn" type="button" data-copy="679210038809">복사</button></div>
       <div class="acct"><div><div class="who">신부 문세화 · NH농협은행</div><div class="no">302-7203-767751</div></div><button class="btn" type="button" data-copy="3027203767751">복사</button></div>
@@ -500,6 +530,7 @@
   </section>
 
   <!-- 방명록 -->
+  <i class="divider" aria-hidden="true"></i>
   <section class="reveal">
     <p class="eyebrow"><span class="no">IX</span>Guestbook</p>
     <h2>축하 한마디</h2>
@@ -514,11 +545,12 @@
   </section>
 
   <!-- 뒤표지 -->
+  <i class="divider" aria-hidden="true"></i>
   <section class="reveal">
-    <div class="back-cover">
+    <div class="gilt back-cover"><span class="orn tl"></span><span class="orn tr"></span><span class="orn bl"></span><span class="orn br"></span>
       <svg class="emblem" style="width:70px;height:70px;margin:0 auto 14px" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="60" cy="60" r="54"/><path d="M60 26v12M56.5 38l3.5 22 3.5-22M60 60v30M34 90h52"/><path d="M48 98c3-4 6-4 12 0 6-4 9-4 12 0-3 5-12 9-12 9s-9-4-12-9z" fill="currentColor" stroke="none"/></svg>
       <p>여기까지 올 수 있었던 건<br>곁에 있어 준 여러분 덕분입니다.<br>이제 둘이서, 잘 살아 보겠습니다.<br>고맙습니다.</p>
-      <p class="sg" style="color:var(--ink-nv)">Gyusoo &amp; Sehwa</p>
+      <p class="sg foil-text">Gyusoo &amp; Sehwa</p>
     </div>
     <div class="gift" id="gift">
       <p class="eyebrow" style="justify-content:center">A Gift for You</p>
