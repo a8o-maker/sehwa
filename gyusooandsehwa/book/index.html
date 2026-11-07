@@ -714,7 +714,7 @@
   var MAIN = [97, 106, 136, 25, 19, 127]; /* 메인 사진 6장 */
   var MAIN_P = MAIN.map(function (n) { return PHOTOS[n - 1]; });
   MAIN.forEach(function (n) { PHOTOS[n - 1].main = true; });
-  var REMOVED = []; /* 신부가 덜 예쁘게 나온 사진 — 숨김 */
+  var REMOVED = [47,  48,  84,  112,  113,  114,  115,  116,  124,  125]; /* 신부가 덜 예쁘게 나온 사진 — 숨김 */
   REMOVED.forEach(function (n) { PHOTOS[n - 1].removed = true; });
   PHOTOS = PHOTOS.filter(function (a) { return !a.removed || a.main; });
   var ALBUM = ART.concat(MAIN_P,
@@ -883,7 +883,7 @@
   /* ---------- 영상 ---------- */
   var framesEl = $('frames'), capEl = $('filmCap'), barEl = $('filmBar'), dotsEl = $('filmDots'), stripEl = $('filmStrip');
   /* 그림이 사진으로 녹아드는 장면들 */
-  var FILM = [106, 97, 136, 25, 19, 127, 103, 108, 125, 133, 129, 101].map(function (n) {
+  var FILM = [106, 97, 136, 25, 19, 127, 103, 108, 109, 133, 129, 101].map(function (n) {
     var f = (n < 10 ? '0' : '') + n + '.jpg';
     return { paint: '../p/' + f, src: '../s/' + f, cap: PHOTO_CAPS[n - 1] };
   });
