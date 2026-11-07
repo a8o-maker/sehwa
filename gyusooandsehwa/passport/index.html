@@ -200,6 +200,13 @@
   .gift-msg { margin: 10px 0 0; font-size: 0.95rem; line-height: 2; color: #1f2937; }
   .gift-sub { margin: 8px 0 0; font-family: "Cormorant Garamond", serif; font-style: italic; color: var(--gold); font-size: 1rem; letter-spacing: 0.04em; }
   @media (prefers-reduced-motion: reduce) { .gift .lf { transform: none; opacity: 1; } .gift.in .lf, .gift.got .gift-clover svg { animation: none; } }
+  .bgm-btn { position: fixed; top: 14px; right: 14px; z-index: 58; display: flex; align-items: center; gap: 8px; height: 36px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--line); background: rgba(255,253,248,0.9); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); color: var(--ink-nv); font-family: "Montserrat"; font-size: 0.6rem; letter-spacing: 0.22em; cursor: pointer; box-shadow: 0 4px 14px rgba(27,42,74,0.1); }
+  .bgm-btn .eq { display: flex; align-items: flex-end; gap: 2px; height: 12px; }
+  .bgm-btn .eq i { width: 2px; height: 4px; background: var(--gold); }
+  .bgm-btn.on .eq i { animation: eq 0.9s ease-in-out infinite; }
+  .bgm-btn.on .eq i:nth-child(2) { animation-delay: .2s; } .bgm-btn.on .eq i:nth-child(3) { animation-delay: .4s; }
+  @keyframes eq { 0%,100% { height: 3px; } 50% { height: 12px; } }
+  @media (prefers-reduced-motion: reduce) { .bgm-btn.on .eq i { animation: none; height: 10px; } }
   .back-cover { margin-top: 30px; padding: 40px 20px; border-radius: 18px; background: var(--bg-2); border: 1px solid var(--line); box-shadow: 0 10px 28px rgba(27,42,74,0.06); }
   .back-cover p { margin: 0; color: #374151; font-size: 0.92rem; line-height: 2; }
   .back-cover .sg { font-family: "Cormorant Garamond", serif; font-style: italic; letter-spacing: 0.08em; font-size: 1.3rem; margin-top: 18px; }
@@ -437,6 +444,10 @@
 </div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 <div class="clovers" id="clovers" aria-hidden="true"></div>
+<audio id="bgm" src="bgm.mp3" loop preload="none"></audio>
+<button type="button" class="bgm-btn" id="bgmBtn" hidden aria-label="배경음악 켜기">
+  <span class="eq" aria-hidden="true"><i></i><i></i><i></i></span><span class="bgm-t">MUSIC</span>
+</button>
 
 <script src="firebase-config.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
@@ -450,8 +461,15 @@ var PHOTOS = [[106, "Of all paths, I chose you"], [97, "Joy finds us anywhere"],
 
   /* 표지 열기 */
   var cover = $('cover'), opened = false;
+  /* 배경음악: 여권을 펼칠 때 시작, 오른쪽 위 버튼으로 끄고 켜기 (bgm.mp3가 있을 때만) */
+  var bgm = $('bgm'), bgmBtn = $('bgmBtn'), hasBgm = false;
+  function bgmUi(on) { bgmBtn.classList.toggle('on', on); bgmBtn.setAttribute('aria-label', on ? '배경음악 끄기' : '배경음악 켜기'); }
+  function bgmPlay() { if (!hasBgm) return; bgm.volume = 0.6; var pr = bgm.play(); if (pr && pr.then) pr.then(function () { bgmUi(true); }, function () { bgmUi(false); }); }
+  fetch('bgm.mp3', { method: 'HEAD' }).then(function (r) { if (r.ok) { hasBgm = true; bgmBtn.hidden = false; bgm.preload = 'auto'; if (opened) bgmPlay(); } }).catch(function () {});
+  bgmBtn.addEventListener('click', function () { if (bgm.paused) bgmPlay(); else { bgm.pause(); bgmUi(false); } });
+  document.addEventListener('visibilitychange', function () { if (document.hidden && !bgm.paused) { bgm.pause(); bgm.dataset.resume = '1'; } else if (!document.hidden && bgm.dataset.resume) { delete bgm.dataset.resume; bgmPlay(); } });
   function openPP() {
-    if (opened) return; opened = true;
+    if (opened) return; opened = true; bgmPlay();
     cover.classList.add('open');
     setTimeout(function () { cover.classList.add('gone'); document.body.classList.remove('locked'); }, reduce ? 0 : 900);
   }
