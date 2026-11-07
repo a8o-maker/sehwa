@@ -153,11 +153,23 @@
   .film-bar .dots i.on { background: var(--ac); }
 
   /* 앨범 */
-  .clip { margin: 0 0 16px; padding: 7px 7px 10px; background: var(--paper-2); box-shadow: 0 6px 14px rgba(34,30,24,0.2); }
-  .clip[hidden] { display: none; }
-  .clips { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; }
-  .clip video { display: block; width: 100%; aspect-ratio: 9 / 16; object-fit: cover; background: #000; }
-  .clip figcaption { margin-top: 6px; text-align: center; font-family: "Nanum Pen Script", cursive; font-size: 1.05rem; color: var(--ink-2); }
+  .reel { position: relative; flex: 0 0 auto; width: 100%; margin: 0 0 18px; aspect-ratio: 4 / 5; overflow: hidden; background: #111; box-shadow: 0 10px 24px rgba(34,30,24,0.35); cursor: pointer; }
+  .rl-layer { position: absolute; inset: 0; opacity: 0; transition: opacity 0.7s ease; overflow: hidden; }
+  .rl-layer.on { opacity: 1; }
+  .rl-layer img, .rl-layer video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .rl-layer img.kb { animation: kb var(--d, 3.2s) linear both; }
+  @keyframes kb { from { transform: scale(var(--s0)) translate(var(--x0), var(--y0)); } to { transform: scale(var(--s1)) translate(var(--x1), var(--y1)); } }
+  @media (prefers-reduced-motion: reduce) { .rl-layer img.kb { animation: none; } .rl-layer { transition: none; } }
+  .rl-shade { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(transparent 62%, rgba(0,0,0,0.55)); }
+  .rl-cap { position: absolute; left: 14px; right: 50px; bottom: 16px; margin: 0; color: #fff; font-family: "Nanum Pen Script", cursive; font-size: 1.45rem; text-shadow: 0 1px 6px rgba(0,0,0,0.6); opacity: 0; transform: translateY(8px); transition: opacity 0.5s ease, transform 0.5s ease; }
+  .rl-cap.on { opacity: 1; transform: none; }
+  .rl-tag { position: absolute; top: 10px; left: 12px; color: #fff; font-family: "Spectral", serif; font-size: 0.58rem; letter-spacing: 0.25em; opacity: 0.85; }
+  .rl-tag::first-letter { color: #e5484d; }
+  .rl-snd { position: absolute; right: 10px; bottom: 12px; width: 34px; height: 34px; border-radius: 50%; border: 0; background: rgba(0,0,0,0.45); color: #fff; font-size: 0.95rem; cursor: pointer; }
+  .rl-bar { position: absolute; left: 0; right: 0; top: 0; height: 3px; background: rgba(255,255,255,0.25); }
+  .rl-bar i { display: block; height: 100%; width: 0; background: #fff; }
+  .rl-pause { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); color: #fff; font-size: 2rem; opacity: 0; transition: opacity 0.25s; pointer-events: none; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
+  .reel.paused .rl-pause { opacity: 0.9; }
   .shots { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
   .pola { border: 0; padding: 7px 7px 24px; background: var(--paper-2); box-shadow: 0 6px 14px rgba(34,30,24,0.2); cursor: pointer; position: relative; transition: transform 0.3s ease; }
   .pola:hover { transform: translateY(-3px); }
@@ -440,13 +452,15 @@
           <span>Album</span>
         </p>
         <h2 class="ttl">두 사람</h2>
-        <figure class="clip" id="groomClip">
-          <div class="clips">
-            <video src="clip1.mp4" poster="clip1.jpg" autoplay muted loop playsinline controls preload="metadata" aria-label="돌담길 아래 두 사람 영상"></video>
-            <video src="clip2.mp4" poster="clip2.jpg" autoplay muted loop playsinline controls preload="metadata" aria-label="남산에서 두 사람 영상"></video>
-          </div>
-          <figcaption>움직이는 두 사람</figcaption>
-        </figure>
+        <div class="reel" id="reel" role="region" aria-label="두 사람 영상 — 누르면 멈춤/재생">
+          <div class="rl-layer"></div><div class="rl-layer"></div>
+          <div class="rl-shade"></div>
+          <p class="rl-cap" id="reelCap"></p>
+          <span class="rl-tag">&#9679; FILM</span>
+          <button type="button" class="rl-snd" id="reelSnd" aria-label="소리 켜기">&#128263;</button>
+          <div class="rl-bar"><i id="reelBar"></i></div>
+          <span class="rl-pause" id="reelPause" aria-hidden="true">&#10073;&#10073;</span>
+        </div>
         <div class="shots" id="shots"></div>
         <p class="pno">5</p>
       </div>
@@ -665,6 +679,69 @@
   var ALBUM = ART.concat(PHOTO_CAPS.map(function (c, i) {
     return { src: '../s/' + (i < 9 ? '0' : '') + (i + 1) + '.jpg', cap: c, photo: true };
   }));
+
+  /* ---------- 두 사람: 영상처럼 흐르는 릴 ---------- */
+  (function () {
+    var reel = document.getElementById('reel'); if (!reel) return;
+    var layers = reel.querySelectorAll('.rl-layer'), capEl = $('reelCap'), bar = $('reelBar'), snd = $('reelSnd');
+    var photos = ALBUM.filter(function (a) { return a.photo; });
+    var pick = [], step = Math.max(1, Math.floor(photos.length / 32));
+    for (var k = 0; k < photos.length; k += step) pick.push(photos[k]);
+    var seq = [{ v: 'clip1.mp4', cap: '돌담 아래, 두 사람' }].concat(pick.slice(0, 14), [{ v: 'clip2.mp4', cap: '남산에서, 우리' }], pick.slice(14));
+    var PH = 3200, cur = -1, top = 0, timer = null, t0 = 0, dur = 0, paused = false, muted = true, raf = null;
+    function rnd(a, b) { return a + Math.random() * (b - a); }
+    function preload(i) { var it = seq[i % seq.length]; if (it && !it.v) { var im = new Image(); im.src = it.src; } }
+    function tick() {
+      if (!paused && dur) bar.style.width = Math.min(100, (Date.now() - t0) / dur * 100) + '%';
+      raf = requestAnimationFrame(tick);
+    }
+    function play(i) {
+      clearTimeout(timer);
+      cur = (i + seq.length) % seq.length;
+      var it = seq[cur], L = layers[top = 1 - top], old = layers[1 - top];
+      L.innerHTML = '';
+      capEl.classList.remove('on');
+      if (it.v) {
+        var v = document.createElement('video');
+        v.src = it.v; v.muted = muted; v.playsInline = true; v.setAttribute('playsinline', ''); v.preload = 'auto';
+        L.appendChild(v);
+        v.addEventListener('loadedmetadata', function () { dur = v.duration * 1000 * 2; }, { once: true });
+        var loops = 0;
+        v.addEventListener('ended', function () { if (++loops < 2 && !paused) { v.currentTime = 0; v.play(); } else next(); });
+        var pr = v.play(); if (pr && pr.catch) pr.catch(function () { timer = setTimeout(next, 4000); });
+        dur = 6000;
+      } else {
+        var img = document.createElement('img');
+        img.src = it.src; img.alt = it.cap; img.className = 'kb'; img.decoding = 'async';
+        var zin = Math.random() < 0.5, s0 = zin ? 1.02 : rnd(1.18, 1.26), s1 = zin ? rnd(1.18, 1.26) : 1.02;
+        img.style.cssText = '--d:' + (PH + 700) + 'ms;--s0:' + s0 + ';--s1:' + s1 + ';--x0:' + rnd(-3, 3) + '%;--y0:' + rnd(-3, 3) + '%;--x1:' + rnd(-4, 4) + '%;--y1:' + rnd(-4, 4) + '%';
+        L.appendChild(img);
+        dur = PH; timer = setTimeout(next, PH);
+      }
+      t0 = Date.now(); bar.style.width = '0';
+      L.classList.add('on'); old.classList.remove('on');
+      setTimeout(function () { var ov = old.querySelector('video'); if (ov) ov.pause(); }, 700);
+      setTimeout(function () { capEl.textContent = it.cap; capEl.classList.add('on'); }, 350);
+      preload(cur + 1);
+    }
+    function next() { if (!paused) play(cur + 1); }
+    var pausedAt = 0;
+    reel.addEventListener('click', function (e) {
+      if (e.target === snd) return;
+      e.stopPropagation();
+      if (!paused) { pausedAt = Date.now() - t0; paused = true; reel.classList.add('paused'); clearTimeout(timer); var pv = layers[top].querySelector('video'), pi = layers[top].querySelector('img'); if (pv) pv.pause(); if (pi) pi.style.animationPlayState = 'paused'; }
+      else { t0 = Date.now() - pausedAt; paused = false; reel.classList.remove('paused'); var v = layers[top].querySelector('video'), img = layers[top].querySelector('img'); if (v) v.play(); else { if (img) img.style.animationPlayState = 'running'; timer = setTimeout(next, Math.max(300, dur - pausedAt)); } }
+    });
+    snd.addEventListener('click', function (e) {
+      e.stopPropagation(); muted = !muted;
+      snd.innerHTML = muted ? '&#128263;' : '&#128264;'; snd.setAttribute('aria-label', muted ? '소리 켜기' : '소리 끄기');
+      var v = layers[top].querySelector('video'); if (v) v.muted = muted;
+    });
+    document.addEventListener('visibilitychange', function () {
+      var v = layers[top].querySelector('video'); if (document.hidden && v) v.pause(); else if (!document.hidden && v && !paused) v.play();
+    });
+    play(0); tick();
+  })();
   function altOf(a) { return a.cap + (a.photo ? ' — 두 사람 사진' : ' — 그림으로 옮긴 사진'); }
   var FILM_AT = 1, ILL_AT = 2;
   var SHOT = 3600, ILL_SHOT = 5400;
