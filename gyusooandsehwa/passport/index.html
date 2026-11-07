@@ -217,6 +217,37 @@
   .bgm-btn.on .eq i:nth-child(2) { animation-delay: .2s; } .bgm-btn.on .eq i:nth-child(3) { animation-delay: .4s; }
   @keyframes eq { 0%,100% { height: 3px; } 50% { height: 12px; } }
   @media (prefers-reduced-motion: reduce) { .bgm-btn.on .eq i { animation: none; height: 10px; } }
+  .seat { position: relative; margin: 0 auto; max-width: 360px; padding: 16px 14px 18px; border-radius: 34px 34px 22px 22px;
+    background: linear-gradient(180deg, #3b4252 0%, #2a303c 45%, #1f242e 100%); box-shadow: inset 0 2px 0 rgba(255,255,255,0.08), inset 0 -10px 24px rgba(0,0,0,0.35), 0 22px 44px rgba(27,42,74,0.28); }
+  .seat::before { content: ""; position: absolute; left: 50%; top: -10px; width: 46%; height: 20px; transform: translateX(-50%); border-radius: 14px 14px 0 0; background: linear-gradient(180deg, #4a5262, #3b4252); }
+  .seat-top { display: flex; align-items: center; justify-content: space-between; padding: 0 6px 10px; }
+  .seat-no { font-family: "Montserrat"; font-size: 0.56rem; letter-spacing: 0.26em; color: #aab3c2; }
+  .seat-led { width: 6px; height: 6px; border-radius: 50%; background: #34d399; box-shadow: 0 0 6px #34d399; }
+  .ife { border-radius: 10px; overflow: hidden; background: #05070b; border: 3px solid #0b0e14; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.06); text-align: left; }
+  .ife-bar { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 7px 10px; background: linear-gradient(90deg, #0e1a33, #13234a); font-family: "Montserrat"; font-size: 0.52rem; letter-spacing: 0.16em; color: #c9d4ea; }
+  .ife-air { font-weight: 800; color: #e6d3a8; letter-spacing: 0.2em; }
+  .ife-tabs { display: flex; gap: 10px; } .ife-tabs b { font-weight: 500; opacity: 0.55; } .ife-tabs b.on { opacity: 1; border-bottom: 1px solid #e6d3a8; }
+  .ife-clock { font-variant-numeric: tabular-nums; }
+  .ife-screen { position: relative; aspect-ratio: 9 / 13; background: #000; overflow: hidden; }
+  .ife-screen video { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .ife-glare { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(125deg, rgba(255,255,255,0.12) 0%, transparent 28%, transparent 70%, rgba(255,255,255,0.05) 100%); }
+  .ife-screen::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: repeating-linear-gradient(0deg, rgba(0,0,0,0.06) 0 1px, transparent 1px 3px); }
+  .ife-badge { position: absolute; top: 10px; left: 10px; padding: 3px 7px; border-radius: 3px; background: rgba(5,7,11,0.6); color: #e6d3a8; font-family: "Montserrat"; font-size: 0.5rem; letter-spacing: 0.2em; }
+  .ife-big { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 2.4rem; color: rgba(255,255,255,0.85); opacity: 0; transition: opacity 0.3s; pointer-events: none; text-shadow: 0 2px 12px rgba(0,0,0,0.6); }
+  .ife.paused .ife-big { opacity: 1; }
+  .ife-info { padding: 10px 12px 10px; background: linear-gradient(180deg, #0b1020, #070a12); color: #e5eaf3; }
+  .ife-title { font-family: "Cormorant Garamond", serif; font-size: 1.05rem; letter-spacing: 0.02em; }
+  .ife-meta { display: flex; justify-content: space-between; margin-top: 2px; font-family: "Montserrat"; font-size: 0.5rem; letter-spacing: 0.16em; color: #8a96ab; }
+  .ife-prog { height: 3px; margin-top: 9px; background: rgba(255,255,255,0.14); border-radius: 2px; overflow: hidden; }
+  .ife-prog i { display: block; height: 100%; width: 0; background: #e6d3a8; }
+  .ife-ctrl { display: flex; align-items: center; gap: 4px; margin-top: 8px; }
+  .ife-t { flex: 1; font-family: "Montserrat"; font-size: 0.56rem; color: #8a96ab; font-variant-numeric: tabular-nums; letter-spacing: 0.08em; }
+  .ife-ctrl button { width: 40px; height: 34px; border: 1px solid rgba(255,255,255,0.12); border-radius: 6px; background: rgba(255,255,255,0.05); color: #e5eaf3; font-size: 0.8rem; cursor: pointer; }
+  .ife-ctrl button:hover, .ife-ctrl button:focus-visible { background: rgba(230,211,168,0.18); }
+  .seat-bottom { display: flex; align-items: center; gap: 10px; padding: 12px 8px 0; }
+  .jack { width: 12px; height: 12px; border-radius: 50%; background: #0b0e14; box-shadow: inset 0 0 0 3px #59616f; }
+  .seat-latch { width: 34px; height: 9px; border-radius: 3px; background: linear-gradient(180deg, #59616f, #3b4252); box-shadow: inset 0 1px 0 rgba(255,255,255,0.15); }
+  .seat-pocket { margin-left: auto; font-family: "Montserrat"; font-size: 0.48rem; letter-spacing: 0.14em; color: #8a96ab; }
   .back-cover { margin-top: 30px; padding: 40px 20px; border-radius: 18px; background: var(--bg-2); border: 1px solid var(--line); box-shadow: 0 10px 28px rgba(27,42,74,0.06); }
   .back-cover p { margin: 0; color: #374151; font-size: 0.92rem; line-height: 2; }
   .back-cover .sg { font-family: "Cormorant Garamond", serif; font-style: italic; letter-spacing: 0.08em; font-size: 1.3rem; margin-top: 18px; }
@@ -359,9 +390,34 @@
   <section class="reveal">
     <p class="eyebrow"><span class="no">V</span>In-flight Film</p>
     <h2>기내 상영</h2>
-    <div class="films">
-      <video src="../book/clip2.mp4" poster="../book/clip2.jpg" autoplay muted loop playsinline preload="metadata" aria-label="남산에서 입맞춤하는 두 사람"></video>
-      <video src="../book/clip1.mp4" poster="../book/clip1.jpg" autoplay muted loop playsinline preload="metadata" aria-label="돌담 아래 하늘을 올려다보는 두 사람"></video>
+    <div class="seat" id="seat">
+      <div class="seat-top"><span class="seat-no">SEAT 16A</span><span class="seat-led"></span></div>
+      <div class="ife">
+        <div class="ife-bar">
+          <span class="ife-air">GS AIR</span>
+          <span class="ife-tabs"><b class="on">MOVIES</b><b>MUSIC</b><b>MAP</b></span>
+          <span class="ife-clock" id="ifeClock">12:30</span>
+        </div>
+        <div class="ife-screen">
+          <video id="ifeVid" muted playsinline preload="metadata" poster="../book/clip2.jpg" aria-label="기내 상영 영상"></video>
+          <div class="ife-glare"></div>
+          <div class="ife-badge">NOW PLAYING</div>
+          <div class="ife-big" id="ifeBig" aria-hidden="true">▶</div>
+        </div>
+        <div class="ife-info">
+          <div class="ife-title" id="ifeTitle">Kiss under N Seoul Tower</div>
+          <div class="ife-meta"><span id="ifeEp">EP. 1 / 2</span><span>GYUSOO &amp; SEHWA · 2026</span></div>
+          <div class="ife-prog"><i id="ifeProg"></i></div>
+          <div class="ife-ctrl">
+            <span class="ife-t" id="ifeT">0:00</span>
+            <button type="button" id="ifePrev" aria-label="이전 영상">⏮</button>
+            <button type="button" id="ifePlay" aria-label="일시정지">❚❚</button>
+            <button type="button" id="ifeNext" aria-label="다음 영상">⏭</button>
+            <button type="button" id="ifeSnd" aria-label="소리 켜기">🔇</button>
+          </div>
+        </div>
+      </div>
+      <div class="seat-bottom"><span class="jack" aria-hidden="true"></span><span class="seat-latch" aria-hidden="true"></span><span class="seat-pocket">TRAY TABLE · 결혼식 탑승을 환영합니다</span></div>
     </div>
   </section>
 
@@ -645,6 +701,39 @@ var PHOTOS = [[106, "Of all paths, I chose you"], [97, "Joy finds us anywhere"],
           { duration: 2400 + Math.random() * 1800, delay: Math.random() * 500, easing: 'cubic-bezier(.3,.5,.5,1)' }).onfinish = function () { this.effect.target.remove(); };
       }
     });
+  })();
+
+  /* 기내 상영: 좌석 화면 */
+  (function () {
+    var v = $('ifeVid'); if (!v) return;
+    var box = v.closest('.ife'), list = [
+      { src: '../book/clip2.mp4', poster: '../book/clip2.jpg', t: 'Kiss under N Seoul Tower' },
+      { src: '../book/clip1.mp4', poster: '../book/clip1.jpg', t: 'Looking up, side by side' }
+    ], k = 0, loops = 0, started = false;
+    function load(i, play) {
+      k = (i + list.length) % list.length; loops = 0;
+      v.src = list[k].src; v.poster = list[k].poster;
+      $('ifeTitle').textContent = list[k].t; $('ifeEp').textContent = 'EP. ' + (k + 1) + ' / ' + list.length;
+      if (play) go();
+    }
+    function go() { var pr = v.play(); if (pr && pr.catch) pr.catch(function () {}); }
+    function ui() { box.classList.toggle('paused', v.paused); $('ifePlay').textContent = v.paused ? '▶' : '❚❚'; $('ifePlay').setAttribute('aria-label', v.paused ? '재생' : '일시정지'); }
+    function fmt(x) { x = Math.max(0, Math.floor(x || 0)); return Math.floor(x / 60) + ':' + (x % 60 < 10 ? '0' : '') + x % 60; }
+    v.addEventListener('play', ui); v.addEventListener('pause', ui);
+    v.addEventListener('timeupdate', function () { $('ifeProg').style.width = (v.duration ? v.currentTime / v.duration * 100 : 0) + '%'; $('ifeT').textContent = fmt(v.currentTime) + ' / ' + fmt(v.duration); });
+    v.addEventListener('ended', function () { if (++loops < 3) { v.currentTime = 0; go(); } else load(k + 1, true); });
+    $('ifePlay').addEventListener('click', function () { if (v.paused) go(); else v.pause(); });
+    $('ifePrev').addEventListener('click', function () { load(k - 1, true); });
+    $('ifeNext').addEventListener('click', function () { load(k + 1, true); });
+    v.addEventListener('click', function () { if (v.paused) go(); else v.pause(); });
+    $('ifeSnd').addEventListener('click', function () { v.muted = !v.muted; this.textContent = v.muted ? '🔇' : '🔊'; this.setAttribute('aria-label', v.muted ? '소리 켜기' : '소리 끄기'); });
+    function clock() { var d = new Date(); $('ifeClock').textContent = (d.getHours() < 10 ? '0' : '') + d.getHours() + ':' + (d.getMinutes() < 10 ? '0' : '') + d.getMinutes(); }
+    clock(); setInterval(clock, 30000);
+    load(0, false); ui();
+    var seat = $('seat');
+    if ('IntersectionObserver' in window) new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { if (!started || !v.dataset.userPaused) go(); started = true; } else if (!v.paused) v.pause(); }); }, { threshold: 0.35 }).observe(seat);
+    else go();
+    $('ifePlay').addEventListener('click', function () { v.dataset.userPaused = v.paused ? '1' : ''; });
   })();
 
   /* 복사 · 공유 */
