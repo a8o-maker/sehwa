@@ -150,9 +150,8 @@
   /* 기내 상영 · 여행 기록 */
   .films { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
   .films video { width: 100%; aspect-ratio: 9 / 16; object-fit: cover; border-radius: 2px; background: #000; outline: 1px solid var(--line); outline-offset: 4px; }
-  .log { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 14px; padding: 6px 2px 14px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
-  .log::-webkit-scrollbar { display: none; }
-  .log button { flex: 0 0 100%; scroll-snap-align: center; }
+  .log { display: grid; grid-template-columns: 1fr; gap: 22px; }
+  .log img { aspect-ratio: 3 / 4 !important; }
   .log-nav { display: flex; align-items: center; justify-content: center; gap: 18px; margin-top: 4px; }
   .log-nav button { width: 44px; height: 44px; border-radius: 50%; border: 1px solid transparent; background: linear-gradient(var(--bg-2), var(--bg-2)) padding-box, var(--foil) border-box; color: var(--ink-nv); font-size: 1.4rem; cursor: pointer; }
   .log-nav button:disabled { opacity: 0.35; cursor: default; }
@@ -501,11 +500,7 @@
     <h2>여행 기록</h2>
     <p class="lede">잘 나온 사진보다<br>같이 웃던 순간이 더 좋았습니다.</p>
     <div class="log" id="log"></div>
-    <div class="log-nav">
-      <button type="button" id="logPrev" aria-label="이전 사진">‹</button>
-      <span id="logCount">1 / 1</span>
-      <button type="button" id="logNext" aria-label="다음 사진">›</button>
-    </div>
+    <button class="btn more" type="button" id="more">사진 더 보기</button>
   </section>
 
   <!-- 7 오시는 길 -->
@@ -670,8 +665,8 @@ var PHOTOS = [[106, "Of all paths, I chose you"], [97, "Joy finds us anywhere"],
 
   /* 스크롤 등장 */
   var io = 'IntersectionObserver' in window ? new IntersectionObserver(function (es) {
-    es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
-  }, { threshold: 0.18 }) : null;
+    es.forEach(function (e) { if (e.isIntersecting && (e.intersectionRatio >= 0.18 || e.intersectionRect.height > window.innerHeight * 0.25)) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: [0, 0.05, 0.1, 0.18, 0.3] }) : null;
   function watch(el) { if (io) io.observe(el); else el.classList.add('in'); }
   document.querySelectorAll('.reveal, .visa').forEach(watch);
 
@@ -710,31 +705,21 @@ var PHOTOS = [[106, "Of all paths, I chose you"], [97, "Joy finds us anywhere"],
 
   /* 여행 기록 */
   var LOG = PHOTOS.filter(function (p) { return VISA.every(function (v) { return v.n !== p[0]; }); });
-  var logEl = $('log');
-  (function () {
-    var h = '';
-    for (var i = 0; i < LOG.length; i++) {
+  var logEl = $('log'), moreBtn = $('more'), shown = 0, PAGE = 20;
+  function more() {
+    var next = Math.min(LOG.length, shown + PAGE), h = '';
+    for (var i = shown; i < next; i++) {
       var n = LOG[i][0], pl = placeOf(n), st = STAMP[pl], rr = ((n * 37) % 25) - 12, pos = POS[n % POS.length];
       h += '<button type="button" data-i="' + i + '" aria-label="' + LOG[i][1] + ' 크게 보기"><span class="ph"><img src="' + src(n) + '" alt="' + LOG[i][1] + '" loading="lazy" decoding="async"><span class="cap">' + LOG[i][1] + '</span></span>' +
         '<span class="stamp' + (st.round ? ' round' : '') + '" style="--c:' + st.c + ';--r:' + rr + 'deg;' + pos + '"><i>' + st.s + '</i><b>' + st.t + '</b><i>' + st.d + '</i></span>' +
         '<span class="vno"><span>Visa No. ' + (i + 7) + '</span></span></button>';
     }
-    logEl.innerHTML = h;
-    var cur = 0, items = logEl.children;
-    function upd() {
-      cur = Math.round(logEl.scrollLeft / (logEl.clientWidth || 1));
-      cur = Math.max(0, Math.min(items.length - 1, cur));
-      $('logCount').textContent = (cur + 1) + ' / ' + items.length;
-      $('logPrev').disabled = cur === 0; $('logNext').disabled = cur === items.length - 1;
-      if (items[cur]) items[cur].classList.add('in');
-    }
-    function goTo(i) { logEl.scrollTo({ left: i * logEl.clientWidth, behavior: reduce ? 'auto' : 'smooth' }); }
-    $('logPrev').addEventListener('click', function () { goTo(cur - 1); });
-    $('logNext').addEventListener('click', function () { goTo(cur + 1); });
-    var t; logEl.addEventListener('scroll', function () { clearTimeout(t); t = setTimeout(upd, 60); }, { passive: true });
-    window.addEventListener('resize', upd);
-    upd();
-  })();
+    logEl.insertAdjacentHTML('beforeend', h); shown = next;
+    logEl.querySelectorAll('button:not(.in)').forEach(watch);
+    moreBtn.hidden = shown >= LOG.length;
+    moreBtn.textContent = '사진 더 보기 (' + (LOG.length - shown) + '장 남음)';
+  }
+  more(); moreBtn.addEventListener('click', more);
 
   /* 크게 보기 */
   var lb = $('lb'), cur = 0, last = null;
