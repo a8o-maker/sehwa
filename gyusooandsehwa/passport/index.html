@@ -509,7 +509,6 @@
     <h2>여행 기록</h2>
     <p class="lede">잘 나온 사진보다<br>같이 웃던 순간이 더 좋았습니다.</p>
     <div class="log" id="log"></div>
-    <button class="btn more" type="button" id="more">사진 더 보기</button>
   </section>
 
   <!-- 7 오시는 길 -->
@@ -715,21 +714,18 @@ var PHOTOS = [[106, "Of all paths, I chose you"], [97, "Joy finds us anywhere"],
 
   /* 여행 기록 */
   var LOG = PHOTOS.filter(function (p) { return VISA.every(function (v) { return v.n !== p[0]; }); });
-  var logEl = $('log'), moreBtn = $('more'), shown = 0, PAGE = 20;
-  function more() {
-    var next = Math.min(LOG.length, shown + PAGE), h = '';
-    for (var i = shown; i < next; i++) {
+  var logEl = $('log');
+  (function () {
+    var h = '';
+    for (var i = 0; i < LOG.length; i++) {
       var n = LOG[i][0], pl = placeOf(n), st = STAMP[pl], rr = ((n * 37) % 25) - 12, pos = POS[n % POS.length];
       h += '<button type="button" data-i="' + i + '" aria-label="' + LOG[i][1] + ' 크게 보기"><span class="ph"><img src="' + src(n) + '" alt="' + LOG[i][1] + '" loading="lazy" decoding="async"><span class="cap">' + LOG[i][1] + '</span></span>' +
         '<span class="stamp' + (st.round ? ' round' : '') + '" style="--c:' + st.c + ';--r:' + rr + 'deg;' + pos + '"><i>' + st.s + '</i><b>' + st.t + '</b><i>' + st.d + '</i></span>' +
         '<span class="vno"><span>Visa No. ' + (i + 7) + '</span></span></button>';
     }
-    logEl.insertAdjacentHTML('beforeend', h); shown = next;
-    logEl.querySelectorAll('button:not(.in)').forEach(watch);
-    moreBtn.hidden = shown >= LOG.length;
-    moreBtn.textContent = '사진 더 보기 (' + (LOG.length - shown) + '장 남음)';
-  }
-  more(); moreBtn.addEventListener('click', more);
+    logEl.innerHTML = h;
+    logEl.querySelectorAll('button').forEach(watch);
+  })();
 
   /* 크게 보기 */
   var lb = $('lb'), cur = 0, last = null;
