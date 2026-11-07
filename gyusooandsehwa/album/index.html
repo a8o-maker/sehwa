@@ -95,20 +95,17 @@
   .place p { margin: 0 4px; color: var(--mute); font-family: "Cormorant Garamond", serif; font-style: italic; font-size: 1.05rem; line-height: 1.35; }
   .rail-hint { margin: 0; text-align: center; color: var(--mute); font-size: 0.86rem; }
 
-  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 38px 14px; margin-top: 16px; padding: 32px 12px 22px; border-radius: 14px; position: relative;
-    background: radial-gradient(ellipse at 50% 0%, rgba(255,255,255,0.7), transparent 60%), linear-gradient(180deg, #e0f1e8, #cfe9dc); box-shadow: inset 0 0 0 1px rgba(154,122,46,0.25), inset 0 10px 30px rgba(120,95,50,0.12); }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 26px 12px; margin-top: 16px; }
   .grid .fr { position: relative; display: block; width: 100%; border: 0; background: none; padding: 0; margin: 0; cursor: pointer; text-align: center; }
-  .grid .fr:nth-child(even) { margin-top: 32px; }
-  .grid .nail { position: absolute; left: 50%; top: -22px; width: 8px; height: 8px; border-radius: 50%; transform: translateX(-50%); background: radial-gradient(circle at 30% 30%, #ffd9a8, #a4500d); box-shadow: 0 1px 2px rgba(0,0,0,0.45); z-index: 2; }
-  .grid .fr::before { content: ""; position: absolute; left: 14%; width: 72%; top: -17px; height: 17px; z-index: 1; opacity: 0.55;
-    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 20' preserveAspectRatio='none'%3E%3Cpath d='M50 0L4 20M50 0L96 20' stroke='%235a4630' stroke-width='1.2' fill='none'/%3E%3C/svg%3E") center / 100% 100% no-repeat; }
-  .grid .fx { display: block; padding: 8px; border-radius: 2px; background: linear-gradient(135deg, #ffb25a 0%, #f57c1f 38%, #d9560b 62%, #ff9a3c 100%); box-shadow: 0 12px 18px rgba(80,35,5,0.30), 0 2px 3px rgba(0,0,0,0.25), inset 0 0 0 1px rgba(255,235,200,0.55), inset 0 0 0 3px rgba(150,60,5,0.35); transition: transform 0.3s ease; }
+  .grid .fx { display: block; padding: 7px; border-radius: 2px; background: linear-gradient(135deg, #ffb25a 0%, #f57c1f 38%, #d9560b 62%, #ff9a3c 100%); box-shadow: 0 10px 16px rgba(80,35,5,0.28), 0 2px 3px rgba(0,0,0,0.22), inset 0 0 0 1px rgba(255,235,200,0.55), inset 0 0 0 3px rgba(150,60,5,0.35); transition: transform 0.3s ease; }
   .grid .f1 .fx { background: linear-gradient(135deg, #f08a2c 0%, #c2540a 45%, #e2711a 100%); }
   .grid .f2 .fx { background: linear-gradient(135deg, #ffc27a 0%, #ff8f2e 50%, #ee6a10 100%); }
   .grid .fr:hover .fx, .grid .fr:focus-visible .fx { transform: translateY(-3px); }
-  .grid .mat { display: block; padding: 9px; background: #f7fcf9; box-shadow: inset 0 0 0 1px rgba(0,0,0,0.08), inset 0 3px 8px rgba(0,0,0,0.14); }
+  .grid .mat { display: block; padding: 7px; background: #f7fcf9; box-shadow: inset 0 0 0 1px rgba(0,0,0,0.08), inset 0 3px 8px rgba(0,0,0,0.14); }
   .grid .mat img { display: block; width: 100%; aspect-ratio: 3 / 4; object-fit: cover; background: #d4ecdf; box-shadow: 0 0 0 1px rgba(0,0,0,0.28); }
-  .grid .plq { display: block; margin: 12px auto 0; padding: 6px 8px; max-width: 94%; border-radius: 2px; background: linear-gradient(180deg, #ecd48c, #c9a54f); color: #2a1f08; font-family: "Cormorant Garamond", serif; font-style: italic; font-weight: 600; font-size: 0.92rem; line-height: 1.2; box-shadow: 0 2px 4px rgba(0,0,0,0.22), inset 0 0 0 1px rgba(255,255,255,0.35); }
+  .grid .plq { display: block; margin-top: 8px; padding: 7px 9px 8px; border-radius: 6px; background: #4a2410; text-align: center; }
+  .grid .plq i { display: block; font-family: "Cormorant Garamond", serif; font-style: italic; font-weight: 600; font-size: 1rem; line-height: 1.2; color: #3ff0bf; }
+  .grid .plq small { display: block; margin-top: 2px; font-family: "Noto Sans KR", sans-serif; font-style: normal; font-weight: 500; font-size: 0.6rem; line-height: 1.3; color: #ff9a3c; }
   .big-date { text-align: center; padding: 4px 0 2px; }
   .big-date .n { font-family: "Cormorant Garamond", serif; font-weight: 600; font-style: italic; font-size: 3.4rem; line-height: 1; }
   .big-date .n span { background: var(--foil); -webkit-background-clip: text; background-clip: text; color: transparent; }
@@ -185,7 +182,10 @@
   .lb { position: fixed; inset: 0; z-index: 70; background: rgba(25,14,8,0.96); display: none; align-items: center; justify-content: center; flex-direction: column; padding: 16px; }
   .lb.on { display: flex; }
   .lb img { max-height: 78vh; width: auto; max-width: 100%; border-radius: 8px; }
-  .lb p { margin: 14px 0 0; color: #fff; font-family: "Cormorant Garamond", serif; font-style: italic; font-size: 1.25rem; text-align: center; }
+  .lb p { margin: 14px 0 0; text-align: center; font-family: "Cormorant Garamond", serif; font-style: italic; color: #fff; }
+  .lb p .e { display: block; font-size: 1.35rem; color: #3ff0bf; font-weight: 600; }
+  .lb p small { display: block; margin-top: 2px; font-family: "Noto Sans KR", sans-serif; font-style: normal; font-size: 0.85rem; color: #ff9a3c; }
+  .lb p em { display: block; margin-top: 4px; font-style: normal; font-family: "Noto Sans KR", sans-serif; font-weight: 700; font-size: 0.75rem; letter-spacing: 0.12em; opacity: 0.8; }
   .lb button { position: absolute; border: 0; background: rgba(255,255,255,0.1); color: #fff; width: 52px; height: 52px; border-radius: 50%; font-size: 1.5rem; cursor: pointer; }
   .lb .x2 { top: 14px; right: 14px; } .lb .pv { left: 10px; top: 50%; } .lb .nx { right: 10px; top: 50%; }
 
@@ -301,7 +301,7 @@
           <p class="err" id="rErr" role="alert"></p>
           <button class="btn solid" type="submit" style="width:100%" id="rSend">남기기</button>
         </form>
-        <div class="rdone" id="rvDone" hidden><div class="ck" aria-hidden="true">✓</div><p>남겨 주셔서 고맙습니다.<br>그날 만나요!</p><button class="btn soft" type="button" id="rvAgain">다시 남기기</button></div>
+        <div class="rdone" id="rvDone" hidden><div class="ck" aria-hidden="true">✓</div><p>남겨 주셔서 고맙습니다.</p><button class="btn soft" type="button" id="rvAgain">다시 남기기</button></div>
       </div></div></div>
     </li>
 
@@ -366,13 +366,15 @@
   var IS_MOBILE = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 
   /* 데이터 */
-  var PLACES = [{"n": 106, "ko": "억새밭", "en": "Fate walks through silver grass"}, {"n": 97, "ko": "남산", "en": "Joy finds us anywhere"}, {"n": 136, "ko": "자하문로 고전의상실", "en": "Time-worn doors, new vows"}, {"n": 223, "ko": "자하문로 벽돌담", "en": "Found you, kept you"}, {"n": 25, "ko": "돌담길", "en": "Holding on, holding hands"}, {"n": 19, "ko": "궁 앞 광장", "en": "All roads led here"}, {"n": 127, "ko": "한강변", "en": "Choosing you, every single day"}, {"n": 234, "ko": "카페 테라스", "en": "Love lives in the details"}];
-  var GALLERY = [[106, "Fate walks through silver grass"], [210, "Of all paths, I chose you"], [97, "Joy finds us anywhere"], [209, "A kiss that says forever"], [208, "Let's run into forever"], [136, "Time-worn doors, new vows"], [227, "A promise, face to face"], [223, "Found you, kept you"], [25, "Holding on, holding hands"], [236, "Hand in hand, for life"], [19, "All roads led here"], [243, "Palace gates, open hearts"], [251, "Eyes that say forever"], [234, "Love lives in the details"], [201, "Home is in your arms"], [127, "Choosing you, every single day"], [214, "Love, by heart"]];
+  var PLACES = [{"n": 106, "ko": "억새밭", "en": "Fate walks through silver grass"}, {"n": 97, "ko": "남산", "en": "Joy finds us anywhere"}, {"n": 136, "ko": "자하문로 고전의상실", "en": "Time-worn doors, new vows"}, {"n": 25, "ko": "돌담길", "en": "Holding on, holding hands"}, {"n": 19, "ko": "궁 앞 광장", "en": "All roads led here"}, {"n": 127, "ko": "한강변", "en": "Choosing you, every single day"}, {"n": 234, "ko": "카페 테라스", "en": "Love lives in the details"}];
+  var GALLERY = [[106, "Fate walks through silver grass"], [210, "Of all paths, I chose you"], [97, "Joy finds us anywhere"], [209, "A kiss that says forever"], [208, "Let's run into forever"], [136, "Time-worn doors, new vows"], [227, "A promise, face to face"], [25, "Holding on, holding hands"], [236, "Hand in hand, for life"], [19, "All roads led here"], [243, "Palace gates, open hearts"], [251, "Eyes that say forever"], [234, "Love lives in the details"], [201, "Home is in your arms"], [127, "Choosing you, every single day"], [214, "Love, by heart"]];
   var ACCTS = [
     { who: '신랑', name: '손규수', bank: '부산은행', toss: '부산은행', kakao: '', no: '166-12-011157-6' },
     { who: '신랑 어머니', name: '이수자', bank: '경남은행', toss: '경남은행', kakao: '', no: '679-21-003880-9' },
     { who: '신부', name: '문세화', bank: 'NH농협은행', toss: '농협은행', kakao: '', no: '302-7203-767751' }
   ];
+  var KO = {"Fate walks through silver grass": "인연은 억새밭을 지나 걸어옵니다", "Joy finds us anywhere": "기쁨은 어디서든 우리를 찾아와요", "Time-worn doors, new vows": "오래된 문 앞, 새로운 약속", "Holding on, holding hands": "손을 맞잡고, 놓지 않고", "All roads led here": "모든 길이 여기로 이어졌어요", "Choosing you, every single day": "매일, 당신을 선택합니다", "Of all paths, I chose you": "수많은 길 중에 당신을 택했어요", "A kiss that says forever": "영원을 말하는 입맞춤", "Love, by heart": "사랑은 마음으로", "Every sign points to us": "모든 이정표가 우리를 가리켜요", "Two hearts, one horizon": "두 마음, 하나의 지평선", "Still choosing you, daily": "오늘도 당신을 선택해요", "Golden hours with you": "당신과 함께한 황금빛 시간", "Let's run into forever": "영원 속으로 달려가요", "Home is in your arms": "집은 당신의 품 안에 있어요", "Two paths became one": "두 갈래 길이 하나가 되었어요", "Laughing into forever": "웃으며 영원으로", "Hand in hand, for life": "손잡고, 평생토록", "Coffee and forever": "커피 한 잔과 영원", "Walk with me": "나와 함께 걸어요", "Two hearts, one home": "두 마음, 하나의 집", "Coffee for two, always": "언제나 둘이 마시는 커피", "Laughter is our language": "웃음은 우리의 언어", "You make ordinary golden": "당신이 평범한 날을 빛나게 해요", "Walk with me, always": "언제나 함께 걸어요", "A promise, face to face": "마주 보고 하는 약속", "Running toward forever": "영원을 향해 달려가요", "Old souls, new beginning": "오랜 인연, 새로운 시작", "Love lives in the details": "사랑은 작은 것에 깃들어요", "Hand in hand, for life ♡": "손잡고, 평생토록", "Every road led to you": "모든 길은 당신에게로", "Looking back, still us": "돌아봐도 여전히 우리", "Side by side, always": "언제나 나란히", "Our story, just begun": "우리 이야기는 이제 시작", "Veil in the autumn wind": "가을바람에 날리는 베일", "Walking into our vows": "서약을 향해 걸어가요", "Palace gates, open hearts": "궁궐 문 앞, 활짝 열린 마음", "Side by side, sunlit": "햇살 아래 나란히", "Every crosswalk, together": "모든 횡단보도를 함께", "The world can wait": "세상은 잠시 기다려도 돼요", "Hand in hand, unhurried": "손잡고, 서두르지 않고", "Two shadows, one path": "두 그림자, 하나의 길", "Under old eaves, new love": "오래된 처마 아래 새로운 사랑", "Looking up, together": "함께 올려다봐요", "Eyes that say forever": "영원을 말하는 눈빛", "Before the vow, a smile": "서약 전, 미소 하나", "Quiet promises": "조용한 약속"};
+  function koOf(c) { return KO[String(c).replace(/\s*♡$/, '')] || ''; }
   function src(n) { return '../s/' + (n < 10 ? '0' : '') + n + '.jpg'; }
 
   /* 토스트 · 복사 */
@@ -436,7 +438,7 @@
     return '<figure class="place" style="margin:0"><div class="ph"><img src="' + src(p.n) + '" alt="' + esc(p.ko) + '에서 찍은 두 사람 사진" loading="lazy" decoding="async"><span class="st">No. ' + (i + 1) + '</span></div><h3>' + esc(p.ko) + '</h3><p>' + esc(p.en) + '</p></figure>';
   }).join('');
   $('grid').innerHTML = GALLERY.map(function (g, i) {
-    return '<button type="button" class="fr f' + (i % 3) + '" data-i="' + i + '" aria-label="' + esc(g[1]) + ' 크게 보기"><span class="nail"></span><span class="fx"><span class="mat"><img src="' + src(g[0]) + '" alt="' + esc(g[1]) + '" loading="lazy" decoding="async"></span></span><span class="plq">' + esc(g[1]) + '</span></button>';
+    return '<button type="button" class="fr f' + (i % 3) + '" data-i="' + i + '" aria-label="' + esc(g[1]) + ' 크게 보기"><span class="fx"><span class="mat"><img src="' + src(g[0]) + '" alt="' + esc(g[1]) + '" loading="lazy" decoding="async"></span></span><span class="plq"><i>' + esc(g[1]) + '</i><small>' + esc(koOf(g[1])) + '</small></span></button>';
   }).join('');
 
   /* 계좌 (아래 고정 바 시트 + 07 트랙 같은 카드) */
@@ -489,7 +491,7 @@
 
   /* 사진 크게 보기 */
   var cur = 0, lastLb = null;
-  function showLb(i) { cur = (i + GALLERY.length) % GALLERY.length; $('lbImg').src = src(GALLERY[cur][0]); $('lbImg').alt = GALLERY[cur][1]; $('lbCap').textContent = GALLERY[cur][1] + '   ·   ' + (cur + 1) + ' / ' + GALLERY.length; }
+  function showLb(i) { cur = (i + GALLERY.length) % GALLERY.length; $('lbImg').src = src(GALLERY[cur][0]); $('lbImg').alt = GALLERY[cur][1]; var lc = $('lbCap'); lc.innerHTML = ''; var e1 = document.createElement('span'); e1.className = 'e'; e1.textContent = GALLERY[cur][1]; var k1 = document.createElement('small'); k1.textContent = koOf(GALLERY[cur][1]); var c1 = document.createElement('em'); c1.textContent = (cur + 1) + ' / ' + GALLERY.length; lc.appendChild(e1); lc.appendChild(k1); lc.appendChild(c1); }
   function closeLb() { $('lb').classList.remove('on'); document.body.style.overflow = ''; if (lastLb && lastLb.focus) lastLb.focus(); }
   $('grid').addEventListener('click', function (e) { var b = e.target.closest('button[data-i]'); if (!b) return; lastLb = b; showLb(+b.getAttribute('data-i')); $('lb').classList.add('on'); document.body.style.overflow = 'hidden'; $('lbX').focus(); });
   $('lbX').addEventListener('click', closeLb); $('lbP').addEventListener('click', function () { showLb(cur - 1); }); $('lbN').addEventListener('click', function () { showLb(cur + 1); });
