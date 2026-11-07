@@ -1,0 +1,462 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wedding Passport · Gyusoo &amp; Sehwa</title>
+<meta name="description" content="손규수 · 문세화 결혼식 여권 청첩장 — 2027년 1월 16일 토요일 낮 12시 30분, 양산 W웨딩 5층 팰리스홀">
+<meta property="og:title" content="손규수 ♥ 문세화 웨딩 여권">
+<meta property="og:description" content="2027.01.16 SAT 12:30 · 양산 W웨딩 5층 팰리스홀">
+<meta property="og:image" content="../s/106.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Montserrat:wght@400;500;600;700;800&family=Nanum+Pen+Script&family=Share+Tech+Mono&display=swap">
+<style>
+  :root {
+    --navy: #0f172a; --navy-2: #1e293b; --navy-3: #334155;
+    --gold: #f59e0b; --gold-2: #fcd34d; --gold-3: #fde68a;
+    --text: #f8fafc; --muted: #94a3b8; --line: rgba(245, 158, 11, 0.28);
+    --paper: #f6f1e4; --paper-ink: #1f2937; --paper-mute: #6b7280;
+    --stamp-r: #b91c1c; --stamp-b: #1d4ed8; --stamp-g: #15803d; --stamp-p: #7e22ce;
+  }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --navy: #0b1120; } }
+  :root[data-theme="dark"] { --navy: #0b1120; }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body { margin: 0; background: var(--navy); color: var(--text); font-family: "Gowun Batang", serif; line-height: 1.75; overflow-x: hidden; }
+  body.locked { overflow: hidden; height: 100vh; }
+  .mont { font-family: "Montserrat", sans-serif; }
+  .mono { font-family: "Share Tech Mono", ui-monospace, monospace; }
+  img { display: block; max-width: 100%; }
+  main { max-width: 440px; margin: 0 auto; padding-bottom: 60px; }
+  .eyebrow { font-family: "Montserrat", sans-serif; font-size: 0.68rem; letter-spacing: 0.32em; text-transform: uppercase; color: var(--gold); font-weight: 600; }
+  h2 { margin: 6px 0 22px; font-size: 1.28rem; font-weight: 700; }
+  section { padding: 56px 16px 8px; text-align: center; }
+  .reveal { opacity: 0; transform: translateY(26px); transition: opacity 0.8s ease, transform 0.8s cubic-bezier(.2,.7,.2,1); }
+  .reveal.in { opacity: 1; transform: none; }
+
+  /* 여권 표지 */
+  .cover-wrap { position: fixed; inset: 0; z-index: 50; display: flex; align-items: center; justify-content: center; padding: 18px 16px; background: radial-gradient(ellipse at 50% 30%, #1e293b, #020617 75%); perspective: 1600px; }
+  .cover-wrap.gone { pointer-events: none; transition: opacity 0.6s ease 0.7s, visibility 0s linear 1.3s; opacity: 0; visibility: hidden; }
+  .pp { position: relative; width: min(330px, 100%); aspect-ratio: 125 / 176; transform-style: preserve-3d; }
+  .pp .inner { position: absolute; inset: 0; border-radius: 6px 16px 16px 6px; background: var(--paper); overflow: hidden; box-shadow: inset 10px 0 18px -10px rgba(0,0,0,0.4); }
+  .pp .inner img { width: 100%; height: 100%; object-fit: cover; opacity: 0.92; }
+  .pp .lid { position: absolute; inset: 0; transform-origin: left center; transition: transform 1.25s cubic-bezier(.6,.05,.25,1); transform-style: preserve-3d; cursor: pointer; }
+  .cover-wrap.open .pp .lid { transform: rotateY(-165deg); }
+  .lid .face { position: absolute; inset: 0; border-radius: 6px 16px 16px 6px; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+  .lid .front { display: flex; flex-direction: column; align-items: center; justify-content: space-between; padding: 34px 20px 26px; text-align: center;
+    background: radial-gradient(circle at 30% 20%, rgba(255,255,255,0.06), transparent 50%), repeating-linear-gradient(45deg, rgba(255,255,255,0.025) 0 2px, transparent 2px 5px), linear-gradient(160deg, #13213f, #0b1530 60%, #070e22);
+    border: 1px solid rgba(245,158,11,0.35); box-shadow: 0 30px 60px rgba(0,0,0,0.6), inset 0 0 0 6px rgba(245,158,11,0.08); }
+  .lid .back { transform: rotateY(180deg); background: linear-gradient(160deg, #0b1530, #13213f); }
+  .gold { background: linear-gradient(100deg, #b45309 0%, #fcd34d 40%, #fff7d6 50%, #fcd34d 60%, #b45309 100%); background-size: 250% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; animation: shine 6s ease-in-out infinite; }
+  @keyframes shine { 0%,100% { background-position: 100% 0; } 50% { background-position: 0 0; } }
+  .lid .t1 { font-family: "Montserrat"; font-weight: 600; letter-spacing: 0.34em; font-size: 0.7rem; }
+  .lid .t2 { font-family: "Montserrat"; font-weight: 800; letter-spacing: 0.24em; font-size: 1.85rem; margin: 6px 0 0; }
+  .lid .t3 { font-family: "Montserrat"; letter-spacing: 0.3em; font-size: 0.6rem; margin-top: 4px; }
+  .emblem { width: 112px; height: 112px; color: var(--gold-2); filter: drop-shadow(0 0 10px rgba(245,158,11,0.35)); }
+  .chip { width: 30px; height: 20px; border: 1.4px solid var(--gold-2); border-radius: 4px; position: relative; opacity: 0.85; }
+  .chip::before { content: ""; position: absolute; inset: 4px 9px; border: 1.2px solid var(--gold-2); border-radius: 2px; }
+  .tap { margin-top: 18px; font-family: "Montserrat"; font-size: 0.7rem; letter-spacing: 0.28em; color: var(--gold-3); opacity: 0.85; animation: bob 1.8s ease-in-out infinite; }
+  @keyframes bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(5px); } }
+  @media (prefers-reduced-motion: reduce) { .gold, .tap { animation: none; } .pp .lid { transition: none; } .reveal { opacity: 1; transform: none; transition: none; } }
+
+  /* 신원 정보면 */
+  .datapage { position: relative; background: var(--paper); color: var(--paper-ink); border-radius: 14px; padding: 16px 14px 12px; text-align: left; overflow: hidden; box-shadow: 0 20px 44px rgba(0,0,0,0.45);
+    background-image: repeating-radial-gradient(circle at 80% 30%, rgba(30,64,175,0.07) 0 1px, transparent 1px 7px), repeating-radial-gradient(circle at 10% 90%, rgba(180,83,9,0.07) 0 1px, transparent 1px 9px); }
+  .dp-top { display: flex; justify-content: space-between; align-items: baseline; font-family: "Montserrat"; font-size: 0.6rem; letter-spacing: 0.2em; color: #1e3a8a; font-weight: 700; border-bottom: 1px solid rgba(30,58,138,0.25); padding-bottom: 6px; margin-bottom: 12px; }
+  .dp-body { display: grid; grid-template-columns: 42% 1fr; gap: 12px; }
+  .dp-photo { position: relative; aspect-ratio: 4 / 5; border-radius: 6px; overflow: hidden; background: #ddd; }
+  .dp-photo img { width: 100%; height: 100%; object-fit: cover; }
+  .dp-photo::after { content: ""; position: absolute; inset: 0; background: linear-gradient(115deg, transparent 30%, rgba(255,255,255,0.45) 45%, rgba(147,197,253,0.35) 50%, rgba(253,224,71,0.3) 55%, transparent 70%); background-size: 260% 100%; mix-blend-mode: screen; animation: holo 4.5s ease-in-out infinite; }
+  @keyframes holo { 0%,100% { background-position: 120% 0; } 50% { background-position: -20% 0; } }
+  .f { margin-bottom: 7px; }
+  .f .k { font-family: "Montserrat"; font-size: 0.52rem; letter-spacing: 0.14em; color: var(--paper-mute); text-transform: uppercase; line-height: 1.3; }
+  .f .v { font-family: "Montserrat"; font-size: 0.8rem; font-weight: 700; line-height: 1.3; }
+  .f .v small { font-family: "Gowun Batang"; font-weight: 400; font-size: 0.72rem; color: var(--paper-mute); }
+  .sig { font-family: "Nanum Pen Script", cursive; font-size: 1.35rem; color: #1e3a8a; line-height: 1; margin-top: 2px; }
+  .mrz { margin-top: 12px; padding-top: 8px; border-top: 1px dashed rgba(31,41,55,0.25); font-family: "Share Tech Mono", monospace; font-size: clamp(0.56rem, 2.7vw, 0.72rem); letter-spacing: 0.05em; line-height: 1.45; color: #111827; white-space: nowrap; overflow: hidden; }
+
+  /* 비자 · 출입국 도장 */
+  .visas { display: grid; gap: 22px; }
+  .visa { position: relative; background: var(--paper); color: var(--paper-ink); border-radius: 12px; padding: 10px 10px 12px; text-align: left; box-shadow: 0 16px 36px rgba(0,0,0,0.4);
+    background-image: repeating-linear-gradient(0deg, rgba(30,58,138,0.05) 0 1px, transparent 1px 14px); }
+  .visa .ph { position: relative; aspect-ratio: 4 / 5; border-radius: 6px; overflow: hidden; }
+  .visa .ph img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.06); transition: transform 6s ease-out; }
+  .visa.in .ph img { transform: scale(1); }
+  .visa .ph::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 30%; background: linear-gradient(transparent, rgba(0,0,0,0.55)); }
+  .visa .line { position: absolute; z-index: 1; left: 12px; right: 12px; bottom: 10px; color: #fff; font-family: "Nanum Pen Script", cursive; font-size: 1.15rem; text-align: center; text-shadow: 0 1px 4px rgba(0,0,0,0.7); }
+  .visa .meta { display: flex; justify-content: space-between; margin-top: 8px; font-family: "Montserrat"; font-size: 0.58rem; letter-spacing: 0.14em; color: var(--paper-mute); font-weight: 600; }
+  .stamp { position: absolute; z-index: 2; pointer-events: none; font-family: "Montserrat"; font-weight: 800; text-transform: uppercase; text-align: center; line-height: 1.15; color: var(--c); border: 2.5px solid var(--c); padding: 7px 10px; letter-spacing: 0.08em; font-size: 0.62rem; background: rgba(246,241,228,0.18);
+    mix-blend-mode: multiply; opacity: 0; transform: rotate(var(--r)) scale(2.4); }
+  .stamp.round { border-radius: 50%; width: 104px; height: 104px; display: flex; flex-direction: column; align-items: center; justify-content: center; border-style: double; border-width: 5px; padding: 6px; }
+  .stamp b { display: block; font-size: 0.82rem; letter-spacing: 0.04em; }
+  .stamp i { display: block; font-style: normal; font-size: 0.52rem; letter-spacing: 0.16em; font-weight: 600; }
+  .visa.in .stamp { animation: thud 0.45s cubic-bezier(.3,1.6,.5,1) 0.35s forwards; }
+  @keyframes thud { 0% { opacity: 0; transform: rotate(var(--r)) scale(2.4); } 70% { opacity: 0.9; transform: rotate(var(--r)) scale(0.94); } 100% { opacity: 0.86; transform: rotate(var(--r)) scale(1); } }
+  @media (prefers-reduced-motion: reduce) { .stamp { opacity: 0.86; transform: rotate(var(--r)); } .visa.in .stamp { animation: none; } .dp-photo::after { animation: none; } }
+
+  /* 탑승권 */
+  .bp { background: var(--navy-2); border: 1px solid var(--line); border-radius: 18px; text-align: left; overflow: hidden; box-shadow: 0 18px 40px rgba(0,0,0,0.45); }
+  .bp-head { display: flex; justify-content: space-between; align-items: center; padding: 14px 18px; background: linear-gradient(90deg, #b45309, #f59e0b); color: #1c1203; font-family: "Montserrat"; font-weight: 800; letter-spacing: 0.14em; font-size: 0.74rem; }
+  .bp-main { padding: 18px; }
+  .route { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; text-align: center; }
+  .route .code { font-family: "Montserrat"; font-weight: 800; font-size: 1.7rem; color: var(--gold-2); letter-spacing: 0.06em; line-height: 1.1; }
+  .route .sub { font-size: 0.72rem; color: var(--muted); }
+  .route .k { font-family: "Montserrat"; font-size: 0.56rem; letter-spacing: 0.2em; color: var(--muted); }
+  .plane { position: relative; width: 74px; height: 22px; }
+  .plane::before { content: ""; position: absolute; left: 0; right: 0; top: 50%; border-top: 1.5px dashed rgba(245,158,11,0.5); }
+  .plane svg { position: absolute; top: 0; left: 0; width: 22px; height: 22px; color: var(--gold); animation: fly 3.2s ease-in-out infinite; }
+  @keyframes fly { 0% { left: 0; opacity: 0; } 15% { opacity: 1; } 85% { opacity: 1; } 100% { left: calc(100% - 22px); opacity: 0; } }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 14px; margin-top: 16px; padding-top: 14px; border-top: 1px dashed rgba(148,163,184,0.35); }
+  .grid2 .k { font-family: "Montserrat"; font-size: 0.56rem; letter-spacing: 0.18em; color: var(--muted); }
+  .grid2 .v { font-family: "Montserrat"; font-weight: 700; font-size: 0.86rem; color: var(--text); line-height: 1.35; }
+  .grid2 .v.ko { font-family: "Gowun Batang"; }
+  .tear { position: relative; height: 0; border-top: 2px dashed rgba(148,163,184,0.35); margin: 0 14px; }
+  .tear::before, .tear::after { content: ""; position: absolute; top: -12px; width: 22px; height: 22px; border-radius: 50%; background: var(--navy); }
+  .tear::before { left: -26px; } .tear::after { right: -26px; }
+  .bp-stub { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 18px 16px; }
+  .barcode { height: 40px; flex: 1; background: repeating-linear-gradient(90deg, #e2e8f0 0 2px, transparent 2px 4px, #e2e8f0 4px 5px, transparent 5px 8px, #e2e8f0 8px 11px, transparent 11px 12px); opacity: 0.85; border-radius: 2px; }
+  .stub-t { font-family: "Montserrat"; font-size: 0.6rem; letter-spacing: 0.16em; color: var(--muted); text-align: right; line-height: 1.5; }
+  .stub-t b { color: var(--gold-2); font-size: 0.8rem; }
+  .cnt { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 18px; }
+  .cnt div { background: var(--navy-2); border: 1px solid var(--line); border-radius: 12px; padding: 10px 0 8px; }
+  .cnt .n { font-family: "Montserrat"; font-weight: 800; font-size: 1.35rem; color: var(--gold-2); line-height: 1.1; font-variant-numeric: tabular-nums; }
+  .cnt .u { font-family: "Montserrat"; font-size: 0.55rem; letter-spacing: 0.2em; color: var(--muted); }
+
+  /* 공통 카드 */
+  .card { background: rgba(30, 41, 59, 0.72); border: 1px solid var(--line); border-radius: 22px; padding: 26px 20px; }
+  .card h3 { margin: 0 0 14px; color: var(--gold-2); font-size: 1.04rem; }
+  .msg { font-size: 0.95rem; line-height: 2.05; color: #e2e8f0; margin: 0; }
+  .fam { margin-top: 22px; padding-top: 18px; border-top: 1px solid rgba(51,65,85,0.8); display: grid; gap: 8px; font-size: 0.92rem; color: #cbd5e1; }
+  .fam b { color: var(--text); font-weight: 700; }
+  .fam .rel { color: var(--gold); font-size: 0.8rem; margin: 0 4px; }
+  .fam .nm { color: var(--gold-2); font-weight: 700; }
+  .btn-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 16px; }
+  .btn-row.three { grid-template-columns: repeat(3, 1fr); }
+  .btn { display: flex; align-items: center; justify-content: center; gap: 6px; min-height: 44px; border-radius: 12px; border: 1px solid var(--line); background: rgba(245,158,11,0.12); color: var(--gold-3); font-family: inherit; font-size: 0.84rem; text-decoration: none; cursor: pointer; }
+  .btn:hover, .btn:focus-visible { background: rgba(245,158,11,0.25); }
+  .btn.solid { background: linear-gradient(90deg, #d97706, #f59e0b); color: #1c1203; border: 0; font-weight: 700; }
+  .acct { display: flex; align-items: center; justify-content: space-between; gap: 10px; text-align: left; padding: 14px; border-radius: 14px; background: rgba(15,23,42,0.75); border: 1px solid var(--navy-3); margin-top: 10px; }
+  .acct .who { font-size: 0.78rem; color: var(--gold-2); }
+  .acct .no { font-family: "Montserrat"; font-size: 0.86rem; color: var(--text); font-weight: 600; }
+  .acct .btn { min-height: 36px; padding: 0 14px; flex-shrink: 0; }
+  .addr { color: var(--muted); font-size: 0.86rem; margin: 2px 0 0; }
+
+  /* 기내 상영 · 여행 기록 */
+  .films { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .films video { width: 100%; aspect-ratio: 9 / 16; object-fit: cover; border-radius: 12px; background: #000; }
+  .log { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .log button { position: relative; border: 0; padding: 0; border-radius: 10px; overflow: hidden; cursor: pointer; background: var(--navy-2); }
+  .log img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; transition: transform 0.4s ease; }
+  .log button:hover img { transform: scale(1.04); }
+  .log button::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 34%; background: linear-gradient(transparent, rgba(0,0,0,0.6)); }
+  .log span { position: absolute; z-index: 1; left: 8px; right: 8px; bottom: 7px; color: #fff; font-family: "Nanum Pen Script", cursive; font-size: 0.92rem; line-height: 1.05; text-align: center; text-shadow: 0 1px 4px rgba(0,0,0,0.7); }
+  .more { margin-top: 14px; width: 100%; }
+  .lb { position: fixed; inset: 0; z-index: 60; background: rgba(2,6,23,0.96); display: none; align-items: center; justify-content: center; flex-direction: column; padding: 16px; }
+  .lb.on { display: flex; }
+  .lb img { max-height: 76vh; width: auto; max-width: 100%; border-radius: 8px; }
+  .lb p { font-family: "Nanum Pen Script", cursive; font-size: 1.4rem; color: #fff; margin: 12px 0 0; }
+  .lb .x { position: absolute; top: 12px; right: 12px; width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--line); background: none; color: #fff; font-size: 1.3rem; cursor: pointer; }
+  .lb .nav { position: absolute; top: 50%; width: 44px; height: 64px; border: 0; background: rgba(15,23,42,0.5); color: #fff; font-size: 1.6rem; cursor: pointer; }
+  .lb .prev { left: 4px; } .lb .next { right: 4px; }
+  .toast { position: fixed; left: 50%; bottom: 26px; transform: translateX(-50%) translateY(20px); background: var(--gold); color: #1c1203; font-size: 0.86rem; padding: 10px 18px; border-radius: 999px; opacity: 0; transition: 0.3s; z-index: 70; pointer-events: none; }
+  .toast.on { opacity: 1; transform: translateX(-50%); }
+  .back-cover { margin-top: 30px; padding: 40px 20px; border-radius: 18px; background: linear-gradient(160deg, #13213f, #0b1530 60%, #070e22); border: 1px solid rgba(245,158,11,0.35); }
+  .back-cover p { margin: 0; color: #cbd5e1; font-size: 0.92rem; line-height: 2; }
+  .back-cover .sg { font-family: "Montserrat"; font-weight: 700; letter-spacing: 0.24em; font-size: 0.9rem; margin-top: 18px; }
+</style>
+</head>
+<body class="locked">
+
+<!-- 여권 표지 -->
+<div class="cover-wrap" id="cover">
+  <div class="pp" id="pp">
+    <div class="inner"><img src="../s/106.jpg" alt=""></div>
+    <div class="lid" id="lid" role="button" tabindex="0" aria-label="여권 열기">
+      <div class="face front">
+        <div>
+          <div class="t1 gold">REPUBLIC OF LOVE</div>
+          <div class="t3" style="color:var(--gold-3);opacity:.8">사랑 공화국</div>
+        </div>
+        <svg class="emblem" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="60" cy="60" r="54"/><circle cx="60" cy="60" r="48" stroke-dasharray="2 4"/>
+          <path d="M60 22v12M57 34h6M56.5 34l3.5 22 3.5-22M60 56v34"/><ellipse cx="60" cy="40" rx="8" ry="3.4"/>
+          <path d="M30 92h60"/>
+          <path d="M38 92c1-12 5-21 13-28M51 64c-3 1-6 0-8-2M51 64c0 3-1 6-3 8"/>
+          <path d="M82 92c-1-12-5-21-13-28M69 64c3 1 6 0 8-2M69 64c0 3 1 6 3 8"/>
+          <path d="M30 92c0-9-2-15-6-21M24 71c2 0 4 2 4 4M90 92c0-9 2-15 6-21M96 71c-2 0-4 2-4 4"/>
+          <path d="M52 100c2.5-3 5.5-3 8 0 2.5-3 5.5-3 8 0-2 4-8 7-8 7s-6-3-8-7z" fill="currentColor" stroke="none" opacity=".9"/>
+        </svg>
+        <div>
+          <div class="t1 gold">WEDDING</div>
+          <div class="t2 gold">PASSPORT</div>
+          <div class="t3" style="color:var(--gold-3);opacity:.8">여권 · 손규수 &amp; 문세화</div>
+        </div>
+        <div class="chip" aria-hidden="true"></div>
+      </div>
+      <div class="face back"></div>
+    </div>
+  </div>
+  <p class="tap" id="tapHint" style="position:absolute;bottom:22px;left:0;right:0;text-align:center">TAP TO OPEN · 눌러서 여권 펼치기</p>
+</div>
+
+<main>
+
+  <!-- 1 신원 정보면 -->
+  <section class="reveal">
+    <p class="eyebrow">Passport · 여권</p>
+    <h2>신원 정보</h2>
+    <div class="datapage">
+      <div class="dp-top"><span>PASSPORT · 여권</span><span>REPUBLIC OF LOVE</span></div>
+      <div class="dp-body">
+        <div>
+          <div class="dp-photo"><img src="../s/106.jpg" alt="억새밭에서 마주 보는 두 사람"></div>
+          <div class="sig" style="margin-top:6px">Gyusoo ♥ Sehwa</div>
+        </div>
+        <div>
+          <div class="f"><div class="k">Type / Code</div><div class="v">P · LOV</div></div>
+          <div class="f"><div class="k">Passport No.</div><div class="v">GS-20270116</div></div>
+          <div class="f"><div class="k">Groom / 신랑</div><div class="v">SON GYUSOO <small>손규수</small></div></div>
+          <div class="f"><div class="k">Bride / 신부</div><div class="v">MUN SEHWA <small>문세화</small></div></div>
+          <div class="f"><div class="k">Date of Union</div><div class="v">16 JAN 2027</div></div>
+          <div class="f"><div class="k">Destination</div><div class="v">FOREVER <small>평생</small></div></div>
+          <div class="f"><div class="k">Authority</div><div class="v">LOVE &amp; FATE</div></div>
+        </div>
+      </div>
+      <div class="mrz" aria-hidden="true">P&lt;LOVSON&lt;&lt;GYUSOO&lt;&lt;&lt;MUN&lt;&lt;SEHWA&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;<br>GS20270116&lt;4LOV2701166&lt;FOREVER&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;08</div>
+    </div>
+  </section>
+
+  <!-- 2 탑승권 -->
+  <section class="reveal">
+    <p class="eyebrow">Boarding Pass</p>
+    <h2>결혼식 탑승권</h2>
+    <div class="bp">
+      <div class="bp-head"><span>FLIGHT GS 0116</span><span>FIRST CLASS</span></div>
+      <div class="bp-main">
+        <div class="route">
+          <div><div class="k">FROM</div><div class="code">LOVE</div><div class="sub">두 사람의 인연</div></div>
+          <div class="plane"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5z" transform="rotate(90 12 12)"/></svg></div>
+          <div><div class="k">TO</div><div class="code">FOREVER</div><div class="sub">평생의 여행</div></div>
+        </div>
+        <div class="grid2">
+          <div><div class="k">PASSENGERS</div><div class="v ko">손규수 · 문세화</div></div>
+          <div><div class="k">DATE</div><div class="v">2027.01.16 SAT</div></div>
+          <div><div class="k">DEPARTURE</div><div class="v">12:30 PM <span class="ko" style="font-weight:400;font-size:.76rem;color:var(--muted)">낮 12시 30분</span></div></div>
+          <div><div class="k">GATE</div><div class="v ko">5층 팰리스홀</div></div>
+          <div style="grid-column:1/-1"><div class="k">TERMINAL</div><div class="v ko">양산 W웨딩 · 크리스탈타워 5층</div></div>
+        </div>
+      </div>
+      <div class="tear"></div>
+      <div class="bp-stub">
+        <div class="barcode" aria-hidden="true"></div>
+        <div class="stub-t">SEAT<br><b>WITH US</b></div>
+      </div>
+    </div>
+    <div class="cnt" aria-label="결혼식까지 남은 시간">
+      <div><div class="n" id="cd-d">0</div><div class="u">DAYS</div></div>
+      <div><div class="n" id="cd-h">00</div><div class="u">HRS</div></div>
+      <div><div class="n" id="cd-m">00</div><div class="u">MIN</div></div>
+      <div><div class="n" id="cd-s">00</div><div class="u">SEC</div></div>
+    </div>
+  </section>
+
+  <!-- 3 초대의 글 · 양가 -->
+  <section class="reveal">
+    <p class="eyebrow">Invitation</p>
+    <h2>초대의 글</h2>
+    <div class="card">
+      <p class="msg">
+        함께 밥을 먹고, 함께 걷고,<br>
+        함께 웃던 평범한 날들이<br>
+        쌓이고 쌓여 여기까지 왔습니다.<br><br>
+        이제 사랑이라는 이름의 여권을 들고<br>
+        평생이라는 목적지로 함께 떠나려 합니다.<br>
+        첫 출발의 자리에 오셔서 축복해 주세요.
+      </p>
+      <div class="fam">
+        <div><b>故 손현석 · 이수자</b><span class="rel">의 장남</span><span class="nm">규수</span></div>
+        <div><b>故 문종문 · 최장심</b><span class="rel">의 장녀</span><span class="nm">세화</span></div>
+      </div>
+      <div class="btn-row">
+        <a class="btn" href="tel:01040122921">신랑에게 전화</a>
+        <a class="btn" href="sms:01040122921">문자 보내기</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 비자 · 출입국 도장 -->
+  <section>
+    <p class="eyebrow reveal">Visas &amp; Stamps</p>
+    <h2 class="reveal">우리가 지나온 곳</h2>
+    <div class="visas" id="visas"></div>
+  </section>
+
+  <!-- 5 기내 상영 -->
+  <section class="reveal">
+    <p class="eyebrow">In-flight Film</p>
+    <h2>기내 상영</h2>
+    <div class="films">
+      <video src="../book/clip2.mp4" poster="../book/clip2.jpg" autoplay muted loop playsinline preload="metadata" aria-label="남산에서 입맞춤하는 두 사람"></video>
+      <video src="../book/clip1.mp4" poster="../book/clip1.jpg" autoplay muted loop playsinline preload="metadata" aria-label="돌담 아래 하늘을 올려다보는 두 사람"></video>
+    </div>
+  </section>
+
+  <!-- 6 여행 기록 -->
+  <section class="reveal">
+    <p class="eyebrow">Travel Log</p>
+    <h2>여행 기록</h2>
+    <div class="log" id="log"></div>
+    <button class="btn more" type="button" id="more">사진 더 보기</button>
+  </section>
+
+  <!-- 7 오시는 길 -->
+  <section class="reveal">
+    <p class="eyebrow">Route</p>
+    <h2>오시는 길</h2>
+    <div class="card">
+      <h3>양산 W웨딩 · 5층 팰리스홀</h3>
+      <p class="addr">경상남도 양산시 강변로 438<br>크리스탈타워 5층</p>
+      <div class="btn-row three">
+        <a class="btn" href="https://map.naver.com/p/search/%EC%96%91%EC%82%B0%20W%EC%9B%A8%EB%94%A9" target="_blank" rel="noopener">네이버 지도</a>
+        <a class="btn" href="https://map.kakao.com/link/search/%EC%96%91%EC%82%B0%20W%EC%9B%A8%EB%94%A9" target="_blank" rel="noopener">카카오맵</a>
+        <button class="btn" type="button" data-copy="경상남도 양산시 강변로 438 크리스탈타워 5층" data-msg="주소가 복사되었습니다">주소 복사</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8 마음 전하실 곳 -->
+  <section class="reveal">
+    <p class="eyebrow">Customs Declaration</p>
+    <h2>마음 전하실 곳</h2>
+    <div class="card" style="padding-top:16px">
+      <div class="acct"><div><div class="who">신랑 손규수 · 부산은행</div><div class="no">166-12-011157-6</div></div><button class="btn" type="button" data-copy="166120111576">복사</button></div>
+      <div class="acct"><div><div class="who">신랑 어머니 이수자 · 경남은행</div><div class="no">679-21-003880-9</div></div><button class="btn" type="button" data-copy="679210038809">복사</button></div>
+      <div class="acct"><div><div class="who">신부 문세화 · NH농협은행</div><div class="no">302-7203-767751</div></div><button class="btn" type="button" data-copy="3027203767751">복사</button></div>
+    </div>
+    <button class="btn solid more" type="button" id="share" style="margin-top:18px">청첩장 공유하기</button>
+  </section>
+
+  <!-- 뒤표지 -->
+  <section class="reveal">
+    <div class="back-cover">
+      <svg class="emblem" style="width:70px;height:70px;margin:0 auto 14px" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="60" cy="60" r="54"/><path d="M60 26v12M56.5 38l3.5 22 3.5-22M60 60v30M34 90h52"/><path d="M48 98c3-4 6-4 12 0 6-4 9-4 12 0-3 5-12 9-12 9s-9-4-12-9z" fill="currentColor" stroke="none"/></svg>
+      <p>여러분 한 분 한 분의 축하가<br>저희 두 사람의 첫 여행을 채웁니다.<br>함께해 주셔서 감사합니다.</p>
+      <p class="sg gold">GYUSOO &amp; SEHWA</p>
+    </div>
+  </section>
+</main>
+
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="사진 크게 보기">
+  <button class="x" type="button" id="lbX" aria-label="닫기">×</button>
+  <button class="nav prev" type="button" id="lbP" aria-label="이전 사진">‹</button>
+  <img id="lbImg" alt="">
+  <p id="lbCap"></p>
+  <button class="nav next" type="button" id="lbN" aria-label="다음 사진">›</button>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+var PHOTOS = [[106, "Of all paths, I chose you"], [97, "Joy finds us anywhere"], [136, "Old souls, new beginning"], [25, "Hand in hand, for life"], [19, "Every road led to you"], [127, "Still choosing you, daily"], [98, "Met by fate, kept"], [99, "Love as high as the sky"], [100, "Fate drew a map to you"], [101, "We bend, we never break"], [102, "Rooted in the same soil"], [103, "Silver grass, golden us"], [104, "Swaying, never apart"], [105, "Two hearts, one horizon"], [107, "Autumn kept our secret"], [108, "Sealed with a promise"], [109, "A kiss that says forever"], [111, "Joy is our first vow"], [112, "Laughter is our language"], [124, "Let's dance through life"], [125, "Twirl with me, forever"], [126, "Every sign points to us"], [128, "Time stops when we kiss"], [129, "Half past forever"], [130, "Our story, just begun"], [131, "The road home is you"], [132, "Sunsets, better shared"], [133, "Home is in your arms"], [134, "Hold on, never let go"], [135, "Love flows like a river"], [1, "Fate knew before we did"], [2, "Bound by a red thread"], [3, "The red thread led here"], [4, "Two paths became one"], [5, "Two hearts, one home"], [11, "Love is a daily promise"], [12, "My favorite hello"], [13, "Together is our place"], [15, "A lifetime starts today"], [16, "Love grows slowly"], [17, "Forever looks like you"], [18, "The best is yet to come"], [20, "Found you, kept you"], [21, "Your hand fits mine"], [22, "Home is you"], [23, "Love is patient and kind"], [24, "I'd choose you again"], [26, "In every season, us"], [27, "Written in the stars"], [28, "Side by side, always"], [29, "Love chose its own time"], [34, "Small moments, big love"], [35, "Grow old along with me"], [36, "You make ordinary golden"], [37, "With you, I am home"], [38, "Where you go, I go"], [39, "Love, the bravest yes"], [40, "Every day, a little more"], [41, "Ours is a quiet forever"], [49, "Hearts tied by fate"], [50, "Walking into forever"], [51, "My heart knew you"], [52, "Built on trust and joy"], [53, "Every step, together"], [54, "Two souls, one journey"], [55, "Love is a verb"], [56, "Some meetings are fate"], [57, "Marriage: two become us"], [58, "You, me, and always"], [59, "Love lives in the details"], [71, "Our hearts said yes"], [72, "Golden hours with you"], [73, "Love never fails"], [74, "The day fate smiled"], [75, "Two hands, one future"], [76, "Together, we bloom"], [78, "Under one sky, one heart"], [79, "Love wears no hurry"], [80, "Grateful for every us"], [82, "Forever starts here"], [83, "Meant to be, simply"], [85, "A promise in the breeze"], [88, "Kindness is our vow"], [89, "We are each other's luck"], [92, "Same steps, same heart"], [93, "Love found its way"], [94, "A yes for all our days"], [96, "Built for two"]];
+(function () {
+  function $(id) { return document.getElementById(id); }
+  function src(n) { return '../s/' + (n < 10 ? '0' : '') + n + '.jpg'; }
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* 표지 열기 */
+  var cover = $('cover'), opened = false;
+  function openPP() {
+    if (opened) return; opened = true;
+    cover.classList.add('open');
+    setTimeout(function () { cover.classList.add('gone'); document.body.classList.remove('locked'); }, reduce ? 0 : 900);
+  }
+  $('lid').addEventListener('click', openPP);
+  $('lid').addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openPP(); } });
+  cover.addEventListener('click', openPP);
+
+  /* 도장 찍힌 비자 */
+  var VISA = [
+    { n: 106, c: 'var(--stamp-g)', r: '-14deg', round: true, t: 'SILVER GRASS', s: 'SEOUL', d: 'ADMITTED', pos: 'top:14px;right:12px' },
+    { n: 97,  c: 'var(--stamp-b)', r: '8deg', t: 'N SEOUL TOWER', s: 'NAMSAN · SEOUL', d: 'ARRIVED', pos: 'top:18px;left:14px' },
+    { n: 136, c: 'var(--stamp-r)', r: '-6deg', t: 'OLD TOWN', s: 'VINTAGE ATELIER', d: 'ENTRY', pos: 'top:150px;right:14px' },
+    { n: 25,  c: 'var(--stamp-p)', r: '12deg', round: true, t: 'STONE WALL', s: 'ROAD · SEOUL', d: 'VISITED', pos: 'top:16px;left:12px' },
+    { n: 19,  c: 'var(--stamp-b)', r: '-10deg', t: 'PALACE GATE', s: 'SEOUL', d: 'PASSED', pos: 'top:20px;right:14px' },
+    { n: 127, c: 'var(--stamp-r)', r: '9deg', round: true, t: 'HAN RIVER', s: 'HANNAM 1.3KM', d: 'DEPARTED', pos: 'top:16px;right:12px' }
+  ];
+  var capOf = {}; PHOTOS.forEach(function (p) { capOf[p[0]] = p[1]; });
+  $('visas').innerHTML = VISA.map(function (v, i) {
+    return '<div class="visa"><div class="ph"><img src="' + src(v.n) + '" alt="' + capOf[v.n] + '" loading="lazy" decoding="async"><p class="line">' + capOf[v.n] + '</p></div>' +
+      '<div class="stamp' + (v.round ? ' round' : '') + '" style="--c:' + v.c + ';--r:' + v.r + ';' + v.pos + '"><i>' + v.s + '</i><b>' + v.t + '</b><i>' + v.d + ' · AUTUMN 2026</i></div>' +
+      '<div class="meta"><span>VISA No. ' + (i + 1) + '</span><span>REPUBLIC OF LOVE</span></div></div>';
+  }).join('');
+
+  /* 스크롤 등장 */
+  var io = 'IntersectionObserver' in window ? new IntersectionObserver(function (es) {
+    es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.18 }) : null;
+  function watch(el) { if (io) io.observe(el); else el.classList.add('in'); }
+  document.querySelectorAll('.reveal, .visa').forEach(watch);
+
+  /* 카운트다운 */
+  var WED = new Date(2027, 0, 16, 12, 30, 0).getTime();
+  function pad(x) { return (x < 10 ? '0' : '') + x; }
+  function tick() {
+    var t = Math.max(0, Math.floor((WED - Date.now()) / 1000));
+    $('cd-d').textContent = Math.floor(t / 86400);
+    $('cd-h').textContent = pad(Math.floor(t % 86400 / 3600));
+    $('cd-m').textContent = pad(Math.floor(t % 3600 / 60));
+    $('cd-s').textContent = pad(t % 60);
+  }
+  tick(); setInterval(tick, 1000);
+
+  /* 여행 기록 */
+  var LOG = PHOTOS.filter(function (p) { return VISA.every(function (v) { return v.n !== p[0]; }); });
+  var shown = 0, logEl = $('log'), moreBtn = $('more');
+  function more() {
+    var next = Math.min(LOG.length, shown + 12), h = '';
+    for (var i = shown; i < next; i++) {
+      h += '<button type="button" data-i="' + i + '" aria-label="' + LOG[i][1] + ' 크게 보기"><img src="' + src(LOG[i][0]) + '" alt="' + LOG[i][1] + '" loading="lazy" decoding="async"><span>' + LOG[i][1] + '</span></button>';
+    }
+    logEl.insertAdjacentHTML('beforeend', h); shown = next;
+    moreBtn.hidden = shown >= LOG.length;
+    moreBtn.textContent = '사진 더 보기 (' + (LOG.length - shown) + ')';
+  }
+  more(); moreBtn.addEventListener('click', more);
+
+  /* 크게 보기 */
+  var lb = $('lb'), cur = 0, last = null;
+  function show(i) { cur = (i + LOG.length) % LOG.length; $('lbImg').src = src(LOG[cur][0]); $('lbImg').alt = LOG[cur][1]; $('lbCap').textContent = LOG[cur][1]; }
+  logEl.addEventListener('click', function (e) { var b = e.target.closest('button[data-i]'); if (!b) return; last = b; show(+b.getAttribute('data-i')); lb.classList.add('on'); $('lbX').focus(); });
+  function close() { lb.classList.remove('on'); if (last) last.focus(); }
+  $('lbX').addEventListener('click', close);
+  $('lbP').addEventListener('click', function () { show(cur - 1); });
+  $('lbN').addEventListener('click', function () { show(cur + 1); });
+  lb.addEventListener('click', function (e) { if (e.target === lb) close(); });
+  document.addEventListener('keydown', function (e) {
+    if (!lb.classList.contains('on')) return;
+    if (e.key === 'Escape') close(); else if (e.key === 'ArrowLeft') show(cur - 1); else if (e.key === 'ArrowRight') show(cur + 1);
+  });
+  var sx = 0;
+  lb.addEventListener('touchstart', function (e) { sx = e.touches[0].clientX; }, { passive: true });
+  lb.addEventListener('touchend', function (e) { var d = e.changedTouches[0].clientX - sx; if (Math.abs(d) > 50) show(cur + (d < 0 ? 1 : -1)); });
+
+  /* 복사 · 공유 */
+  var toastT;
+  function say(m) { var t = $('toast'); t.textContent = m; t.classList.add('on'); clearTimeout(toastT); toastT = setTimeout(function () { t.classList.remove('on'); }, 1800); }
+  function copy(text, msg) {
+    function fb() { var ta = document.createElement('textarea'); ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0'; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); say(msg); } catch (e) { say('복사하지 못했어요'); } ta.remove(); }
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(function () { say(msg); }, fb); else fb();
+  }
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-copy]'); if (!b) return;
+    copy(b.getAttribute('data-copy'), b.getAttribute('data-msg') || '계좌번호가 복사되었습니다');
+  });
+  $('share').addEventListener('click', function () {
+    var url = location.href.split('#')[0];
+    if (navigator.share) navigator.share({ title: '손규수 ♥ 문세화 웨딩 여권', text: '2027.01.16 SAT 12:30 · 양산 W웨딩', url: url }).catch(function () {});
+    else copy(url, '청첩장 링크가 복사되었습니다');
+  });
+})();
+</script>
+</body>
+</html>
