@@ -194,6 +194,7 @@
   .rl-bar i { display: block; height: 100%; width: 0; background: #fff; }
   .rl-pause { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); color: #fff; font-size: 2rem; opacity: 0; transition: opacity 0.25s; pointer-events: none; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
   .reel.paused .rl-pause { opacity: 0.9; }
+  .bw { filter: grayscale(1) contrast(1.08) brightness(1.03); }
   .shots { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
   .pola { border: 0; padding: 6px; background: var(--paper-2); box-shadow: 0 6px 14px rgba(34,30,24,0.2); cursor: pointer; position: relative; transition: transform 0.3s ease; }
   .pola:hover { transform: translateY(-3px); }
@@ -710,6 +711,7 @@
   var PHOTOS = PHOTO_CAPS.map(function (c, i) {
     return { src: '../s/' + (i < 9 ? '0' : '') + (i + 1) + '.jpg', cap: c, photo: true, concept: i + 1 > 200 };
   });
+  var BW = [211,212,213,202,203,204,218,221,222,224,225,226,229,231,232,237,238,239,240,242,244,245,247,248,250,252,253]; /* 비슷한 사진은 한 장만 컬러, 나머지는 흑백 */
   var MAIN = [210, 209, 214, 204]; /* 메인 사진 6장 */
   var MAIN_P = MAIN.map(function (n) { return PHOTOS[n - 1]; });
   MAIN.forEach(function (n) { PHOTOS[n - 1].main = true; });
@@ -998,7 +1000,7 @@
   var sh = '';
   for (var s = 0; s < ALBUM.length; s++) {
     sh += '<button class="pola" type="button" data-i="' + s + '" aria-label="' + ALBUM[s].cap + ' 크게 보기">' +
-      '<img src="' + ALBUM[s].src + '" alt="' + altOf(ALBUM[s]) + '" loading="lazy" decoding="async">' +
+      '<img' + (ALBUM[s].photo && BW.indexOf(parseInt(ALBUM[s].src.replace(/\D/g, ''), 10)) >= 0 ? ' class="bw"' : '') + ' src="' + ALBUM[s].src + '" alt="' + altOf(ALBUM[s]) + '" loading="lazy" decoding="async">' +
       '<span>' + ALBUM[s].cap + '</span></button>';
   }
   $('shots').innerHTML = sh;
@@ -1007,7 +1009,7 @@
   var lb = $('lightbox'), lbImg = $('lbImg'), cur = 0, lastFocus = null;
   function show(n) {
     cur = (n + ALBUM.length) % ALBUM.length;
-    lbImg.src = ALBUM[cur].src;
+    lbImg.src = ALBUM[cur].src; lbImg.style.filter = (ALBUM[cur].photo && BW.indexOf(parseInt(ALBUM[cur].src.replace(/\D/g, ''), 10)) >= 0) ? 'grayscale(1) contrast(1.08) brightness(1.03)' : '';
     lbImg.alt = altOf(ALBUM[cur]);
     $('lbCount').textContent = ALBUM[cur].cap + ' · ' + (cur + 1) + ' / ' + ALBUM.length;
   }

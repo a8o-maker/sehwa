@@ -163,6 +163,7 @@
   .log img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; transition: transform 0.4s ease; }
   .log button:hover img { transform: scale(1.04); }
   .log .ph::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 34%; background: linear-gradient(transparent, rgba(0,0,0,0.55)); }
+  .bw { filter: grayscale(1) contrast(1.08) brightness(1.03); }
   .log .cap { position: absolute; z-index: 1; left: 12px; right: 96px; bottom: 12px; text-align: left !important; font-size: 1.05rem !important; color: #fff; font-family: "Cormorant Garamond", serif; font-style: italic; font-size: 0.8rem; line-height: 1.05; text-align: center; text-shadow: 0 1px 4px rgba(0,0,0,0.7); }
   .log .vno { position: absolute; left: 14px; right: 14px; bottom: 8px; font-size: 0.78rem !important; display: flex; justify-content: space-between; font-family: "Cormorant Garamond", serif; font-size: 0.6rem; letter-spacing: 0.16em; color: #8a7350; text-transform: uppercase; }
   .log .stamp { font-size: 0.56rem; padding: 6px 9px; border-width: 2px; }
@@ -718,13 +719,16 @@ var PHOTOS = [[106, "Fate walks through silver grass"], [97, "Joy finds us anywh
   var POS = ['bottom:4px;right:4px', 'bottom:8px;right:2px', 'bottom:2px;right:8px'];
 
   /* 여행 기록 */
+  /* 비슷한 사진은 한 장만 컬러, 나머지는 흑백 */
+  var BW = [211,212,213,202,203,204,218,221,222,224,225,226,229,231,232,237,238,239,240,242,244,245,247,248,250,252,253];
+  function isBW(n) { return BW.indexOf(n) >= 0; }
   var LOG = PHOTOS.filter(function (p) { return VISA.every(function (v) { return v.n !== p[0]; }); });
   var logEl = $('log');
   (function () {
     var h = '';
     for (var i = 0; i < LOG.length; i++) {
       var n = LOG[i][0], pl = placeOf(n), st = STAMP[pl], rr = ((n * 37) % 25) - 12, pos = POS[n % POS.length];
-      h += '<button type="button" data-i="' + i + '" aria-label="' + LOG[i][1] + ' 크게 보기"><span class="ph"><img src="' + src(n) + '" alt="' + LOG[i][1] + '" loading="lazy" decoding="async"><span class="cap">' + LOG[i][1] + '</span></span>' +
+      h += '<button type="button" data-i="' + i + '" aria-label="' + LOG[i][1] + ' 크게 보기"><span class="ph"><img' + (isBW(n) ? ' class="bw"' : '') + ' src="' + src(n) + '" alt="' + LOG[i][1] + '" loading="lazy" decoding="async"><span class="cap">' + LOG[i][1] + '</span></span>' +
         '<span class="stamp' + (st.round ? ' round' : '') + '" style="--c:' + st.c + ';--r:' + rr + 'deg;' + pos + '"><i>' + st.s + '</i><b>' + st.t + '</b><i>' + st.d + '</i></span>' +
         '<span class="vno"><span>Visa No. ' + (i + VISA.length + 1) + '</span></span></button>';
     }
@@ -734,7 +738,7 @@ var PHOTOS = [[106, "Fate walks through silver grass"], [97, "Joy finds us anywh
 
   /* 크게 보기 */
   var lb = $('lb'), cur = 0, last = null;
-  function show(i) { cur = (i + LOG.length) % LOG.length; $('lbImg').src = src(LOG[cur][0]); $('lbImg').alt = LOG[cur][1]; $('lbCap').textContent = LOG[cur][1]; }
+  function show(i) { cur = (i + LOG.length) % LOG.length; $('lbImg').src = src(LOG[cur][0]); $('lbImg').style.filter = isBW(LOG[cur][0]) ? 'grayscale(1) contrast(1.08) brightness(1.03)' : ''; $('lbImg').alt = LOG[cur][1]; $('lbCap').textContent = LOG[cur][1]; }
   logEl.addEventListener('click', function (e) { var b = e.target.closest('button[data-i]'); if (!b) return; last = b; show(+b.getAttribute('data-i')); lb.classList.add('on'); $('lbX').focus(); });
   function close() { lb.classList.remove('on'); if (last) last.focus(); }
   $('lbX').addEventListener('click', close);
