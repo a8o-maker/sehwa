@@ -657,6 +657,29 @@
     { src: '../r/05.jpg', cap: '잠시 앉아' },
     { src: '../r/06.jpg', cap: '해 질 무렵, 바다' }
   ];
+  var ALBUM = ART.concat([
+    { src: '../s/01.jpg', cap: '돌담길을 걸어', photo: true },
+    { src: '../s/02.jpg', cap: '슬쩍 돌아보며', photo: true },
+    { src: '../s/03.jpg', cap: '나란히, 웃으며', photo: true },
+    { src: '../s/04.jpg', cap: '수줍은 인사', photo: true },
+    { src: '../s/05.jpg', cap: '마주한 순간', photo: true },
+    { src: '../s/06.jpg', cap: '눈을 맞추고', photo: true },
+    { src: '../s/07.jpg', cap: '가만히, 오래', photo: true },
+    { src: '../s/08.jpg', cap: '마주 보고 웃다', photo: true },
+    { src: '../s/09.jpg', cap: '활짝 핀 얼굴', photo: true },
+    { src: '../s/10.jpg', cap: '올려다본 가을', photo: true },
+    { src: '../s/11.jpg', cap: '같은 곳을 보며', photo: true },
+    { src: '../s/12.jpg', cap: '함께 본 하늘', photo: true },
+    { src: '../s/13.jpg', cap: '서로를 보며 웃다', photo: true },
+    { src: '../s/14.jpg', cap: '손잡고 걷는 길', photo: true },
+    { src: '../s/15.jpg', cap: '햇살 속으로', photo: true },
+    { src: '../s/16.jpg', cap: '나란히 한 걸음', photo: true },
+    { src: '../s/17.jpg', cap: '신나는 발걸음', photo: true },
+    { src: '../s/18.jpg', cap: '웃음 가득', photo: true },
+    { src: '../s/19.jpg', cap: '우리 둘', photo: true },
+    { src: '../s/20.jpg', cap: '앞으로도 함께', photo: true }
+  ]);
+  function altOf(a) { return a.cap + (a.photo ? ' — 두 사람 사진' : ' — 그림으로 옮긴 사진'); }
   var FILM_AT = 1, ILL_AT = 2;
   var SHOT = 3600, ILL_SHOT = 5400;
   var WEDDING = new Date(2027, 0, 16, 12, 30, 0);
@@ -858,20 +881,20 @@
 
   /* ---------- 앨범 ---------- */
   var sh = '';
-  for (var s = 0; s < ART.length; s++) {
-    sh += '<button class="pola" type="button" data-i="' + s + '" aria-label="' + ART[s].cap + ' 크게 보기">' +
-      '<img src="' + ART[s].src + '" alt="' + ART[s].cap + ' — 그림으로 옮긴 사진" loading="lazy" decoding="async">' +
-      '<span>' + ART[s].cap + '</span></button>';
+  for (var s = 0; s < ALBUM.length; s++) {
+    sh += '<button class="pola" type="button" data-i="' + s + '" aria-label="' + ALBUM[s].cap + ' 크게 보기">' +
+      '<img src="' + ALBUM[s].src + '" alt="' + altOf(ALBUM[s]) + '" loading="lazy" decoding="async">' +
+      '<span>' + ALBUM[s].cap + '</span></button>';
   }
   $('shots').innerHTML = sh;
 
   /* ---------- 크게 보기 ---------- */
   var lb = $('lightbox'), lbImg = $('lbImg'), cur = 0, lastFocus = null;
   function show(n) {
-    cur = (n + ART.length) % ART.length;
-    lbImg.src = ART[cur].src;
-    lbImg.alt = ART[cur].cap + ' — 그림으로 옮긴 사진';
-    $('lbCount').textContent = ART[cur].cap + ' · ' + (cur + 1) + ' / ' + ART.length;
+    cur = (n + ALBUM.length) % ALBUM.length;
+    lbImg.src = ALBUM[cur].src;
+    lbImg.alt = altOf(ALBUM[cur]);
+    $('lbCount').textContent = ALBUM[cur].cap + ' · ' + (cur + 1) + ' / ' + ALBUM.length;
   }
   function openLb(n) { lastFocus = document.activeElement; show(n); lb.classList.add('on'); $('lbClose').focus(); }
   function closeLb() { lb.classList.remove('on'); if (lastFocus && lastFocus.focus) { lastFocus.focus(); } }
