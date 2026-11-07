@@ -17,7 +17,7 @@
     --gold: #c9a96e; --gold-2: #e6d3a8; --gold-3: #efe3c4;
     --text: #f1f5f9; --muted: #8b97a8; --line: rgba(201, 169, 110, 0.26);
     --paper: #f6f1e4; --paper-ink: #1f2937; --paper-mute: #6b7280;
-    --stamp-r: #b91c1c; --stamp-b: #1d4ed8; --stamp-g: #15803d; --stamp-p: #7e22ce;
+    --stamp-r: #7a2534; --stamp-b: #1f3a68; --stamp-g: #3d5a45; --stamp-p: #8a6a32;
   }
   @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --navy: #0b1120; } }
   :root[data-theme="dark"] { --navy: #0b1120; }
@@ -25,11 +25,16 @@
   html { -webkit-text-size-adjust: 100%; }
   body { margin: 0; background: var(--navy); color: var(--text); font-family: "Gowun Batang", serif; word-break: keep-all; line-height: 1.75; overflow-x: hidden; }
   body.locked { overflow: hidden; height: 100vh; }
+  body::before { content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 1; opacity: 0.05; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+  main { position: relative; z-index: 2; }
   .mont { font-family: "Montserrat", sans-serif; }
   .mono { font-family: "Share Tech Mono", ui-monospace, monospace; }
   img { display: block; max-width: 100%; }
   main { max-width: 440px; margin: 0 auto; padding-bottom: 60px; overflow-x: clip; }
-  .eyebrow { font-family: "Cormorant Garamond", serif; font-style: italic; font-size: 1.02rem; letter-spacing: 0.06em; color: var(--gold); margin: 0; }
+  .eyebrow { font-family: "Cormorant Garamond", serif; font-style: italic; font-size: 1.02rem; letter-spacing: 0.06em; color: var(--gold); margin: 0; display: flex; align-items: center; justify-content: center; gap: 14px; }
+  .eyebrow::before, .eyebrow::after { content: ""; width: 34px; height: 1px; background: linear-gradient(90deg, transparent, var(--gold)); }
+  .eyebrow::after { background: linear-gradient(90deg, var(--gold), transparent); }
+  .eyebrow .no { font-style: normal; font-size: 0.72rem; letter-spacing: 0.24em; margin-right: 6px; opacity: 0.8; }
   h2 { margin: 2px 0 8px; font-size: 1.12rem; font-weight: 400; letter-spacing: 0.08em; }
   .lede { margin: 0 auto 26px; max-width: 34ch; word-break: keep-all; font-size: 0.86rem; line-height: 1.85; color: var(--muted); }
   section { padding: 72px 16px 8px; text-align: center; }
@@ -63,7 +68,7 @@
   @media (prefers-reduced-motion: reduce) { .gold, .tap { animation: none; } .pp .lid { transition: none; } .reveal { opacity: 1; transform: none; transition: none; } }
 
   /* 신원 정보면 */
-  .datapage { position: relative; background: var(--paper); color: var(--paper-ink); border-radius: 14px; padding: 16px 14px 12px; text-align: left; overflow: hidden; box-shadow: 0 20px 44px rgba(0,0,0,0.45);
+  .datapage { position: relative; background: var(--paper); color: var(--paper-ink); border-radius: 6px; padding: 16px 14px 12px; text-align: left; overflow: hidden; box-shadow: 0 20px 44px rgba(0,0,0,0.45);
     background-image: repeating-radial-gradient(circle at 80% 30%, rgba(30,64,175,0.07) 0 1px, transparent 1px 7px), repeating-radial-gradient(circle at 10% 90%, rgba(180,83,9,0.07) 0 1px, transparent 1px 9px); }
   .dp-top { display: flex; justify-content: space-between; align-items: baseline; font-family: "Montserrat"; font-size: 0.6rem; letter-spacing: 0.2em; color: #1e3a8a; font-weight: 700; border-bottom: 1px solid rgba(30,58,138,0.25); padding-bottom: 6px; margin-bottom: 12px; }
   .dp-body { display: grid; grid-template-columns: 42% 1fr; gap: 12px; }
@@ -80,21 +85,21 @@
 
   /* 비자 · 출입국 도장 */
   .visas { display: grid; gap: 22px; }
-  .visa { position: relative; background: var(--paper); color: var(--paper-ink); border-radius: 12px; padding: 10px 10px 12px; text-align: left; box-shadow: 0 16px 36px rgba(0,0,0,0.4);
+  .visa { position: relative; background: var(--paper); color: var(--paper-ink); border-radius: 4px; padding: 14px 14px 12px; text-align: left; box-shadow: 0 16px 36px rgba(0,0,0,0.4);
     background-image: repeating-linear-gradient(0deg, rgba(30,58,138,0.05) 0 1px, transparent 1px 14px); }
-  .visa .ph { position: relative; aspect-ratio: 4 / 5; border-radius: 6px; overflow: hidden; }
+  .visa .ph { position: relative; aspect-ratio: 4 / 5; border-radius: 2px; overflow: hidden; outline: 1px solid rgba(156,127,74,0.55); outline-offset: 4px; }
   .visa .ph img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.06); transition: transform 6s ease-out; }
   .visa.in .ph img { transform: scale(1); }
   .visa .ph::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 30%; background: linear-gradient(transparent, rgba(0,0,0,0.55)); }
-  .visa .line { position: absolute; z-index: 1; left: 12px; right: 12px; bottom: 10px; color: #fff; font-family: "Nanum Pen Script", cursive; font-size: 1.15rem; text-align: center; text-shadow: 0 1px 4px rgba(0,0,0,0.7); }
-  .visa .meta { display: flex; justify-content: space-between; margin-top: 8px; font-family: "Montserrat"; font-size: 0.58rem; letter-spacing: 0.14em; color: var(--paper-mute); font-weight: 600; }
+  .visa .line { position: absolute; z-index: 1; left: 12px; right: 12px; bottom: 12px; color: #fff; font-family: "Cormorant Garamond", serif; font-style: italic; font-size: 1.12rem; letter-spacing: 0.02em; text-align: center; text-shadow: 0 1px 4px rgba(0,0,0,0.7); }
+  .visa .meta { display: flex; justify-content: space-between; margin-top: 12px; font-family: "Cormorant Garamond", serif; font-size: 0.8rem; letter-spacing: 0.18em; color: #8a7350; text-transform: uppercase; }
   .stamp { position: absolute; z-index: 2; pointer-events: none; font-family: "Montserrat"; font-weight: 800; text-transform: uppercase; text-align: center; line-height: 1.15; color: var(--c); border: 2.5px solid var(--c); padding: 7px 10px; letter-spacing: 0.08em; font-size: 0.62rem; background: rgba(246,241,228,0.18);
-    mix-blend-mode: multiply; opacity: 0; transform: rotate(var(--r)) scale(2.4); }
+    mix-blend-mode: multiply; opacity: 0; transform: rotate(var(--r)) scale(2.4); font-weight: 700; letter-spacing: 0.12em; }
   .stamp.round { border-radius: 50%; width: 104px; height: 104px; display: flex; flex-direction: column; align-items: center; justify-content: center; border-style: double; border-width: 5px; padding: 6px; }
   .stamp b { display: block; font-size: 0.82rem; letter-spacing: 0.04em; }
   .stamp i { display: block; font-style: normal; font-size: 0.52rem; letter-spacing: 0.16em; font-weight: 600; }
   .visa.in .stamp { animation: thud 0.45s cubic-bezier(.3,1.6,.5,1) 0.35s forwards; }
-  @keyframes thud { 0% { opacity: 0; transform: rotate(var(--r)) scale(2.4); } 70% { opacity: 0.9; transform: rotate(var(--r)) scale(0.94); } 100% { opacity: 0.86; transform: rotate(var(--r)) scale(1); } }
+  @keyframes thud { 0% { opacity: 0; transform: rotate(var(--r)) scale(2.4); } 70% { opacity: 0.9; transform: rotate(var(--r)) scale(0.94); } 100% { opacity: 0.72; transform: rotate(var(--r)) scale(1); } }
   @media (prefers-reduced-motion: reduce) { .stamp { opacity: 0.86; transform: rotate(var(--r)); } .visa.in .stamp { animation: none; } .dp-photo::after { animation: none; } }
 
   /* 탑승권 */
@@ -146,18 +151,18 @@
 
   /* 기내 상영 · 여행 기록 */
   .films { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-  .films video { width: 100%; aspect-ratio: 9 / 16; object-fit: cover; border-radius: 12px; background: #000; }
-  .log { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-  .log button { position: relative; border: 0; padding: 0; border-radius: 10px; overflow: hidden; cursor: pointer; background: var(--navy-2); }
+  .films video { width: 100%; aspect-ratio: 9 / 16; object-fit: cover; border-radius: 2px; background: #000; outline: 1px solid var(--line); outline-offset: 4px; }
+  .log { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+  .log button { position: relative; border: 0; padding: 0; border-radius: 2px; overflow: hidden; cursor: pointer; background: var(--navy-2); }
   .log img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; transition: transform 0.4s ease; }
   .log button:hover img { transform: scale(1.04); }
   .log button::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 34%; background: linear-gradient(transparent, rgba(0,0,0,0.6)); }
-  .log span { position: absolute; z-index: 1; left: 8px; right: 8px; bottom: 7px; color: #fff; font-family: "Nanum Pen Script", cursive; font-size: 0.92rem; line-height: 1.05; text-align: center; text-shadow: 0 1px 4px rgba(0,0,0,0.7); }
+  .log span { position: absolute; z-index: 1; left: 8px; right: 8px; bottom: 8px; color: #fff; font-family: "Cormorant Garamond", serif; font-style: italic; font-size: 0.86rem; letter-spacing: 0.02em; line-height: 1.05; text-align: center; text-shadow: 0 1px 4px rgba(0,0,0,0.7); }
   .more { margin-top: 14px; width: 100%; }
   .lb { position: fixed; inset: 0; z-index: 60; background: rgba(2,6,23,0.96); display: none; align-items: center; justify-content: center; flex-direction: column; padding: 16px; }
   .lb.on { display: flex; }
   .lb img { max-height: 76vh; width: auto; max-width: 100%; border-radius: 8px; }
-  .lb p { font-family: "Nanum Pen Script", cursive; font-size: 1.4rem; color: #fff; margin: 12px 0 0; }
+  .lb p { font-family: "Cormorant Garamond", serif; font-style: italic; font-size: 1.15rem; letter-spacing: 0.04em; color: #fff; margin: 12px 0 0; }
   .lb .x { position: absolute; top: 12px; right: 12px; width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--line); background: none; color: #fff; font-size: 1.3rem; cursor: pointer; }
   .lb .nav { position: absolute; top: 50%; width: 44px; height: 64px; border: 0; background: rgba(15,23,42,0.5); color: #fff; font-size: 1.6rem; cursor: pointer; }
   .lb .prev { left: 4px; } .lb .next { right: 4px; }
@@ -180,8 +185,8 @@
   .clovers { position: fixed; inset: 0; pointer-events: none; z-index: 55; overflow: hidden; }
   .clover { position: absolute; top: -40px; width: var(--s); height: var(--s); color: var(--c); opacity: 0; will-change: transform;
     animation: cfall var(--d) linear var(--dl) infinite; }
-  .clover svg { width: 100%; height: 100%; display: block; animation: cspin var(--sp) ease-in-out infinite alternate; filter: drop-shadow(0 1px 2px rgba(0,0,0,0.25)); }
-  @keyframes cfall { 0% { transform: translate(0, -40px); opacity: 0; } 8% { opacity: 0.9; } 50% { transform: translate(var(--sw), 50vh); } 90% { opacity: 0.85; } 100% { transform: translate(calc(var(--sw) * -0.6), 110vh); opacity: 0; } }
+  .clover svg { width: 100%; height: 100%; display: block; animation: cspin var(--sp) ease-in-out infinite alternate; filter: drop-shadow(0 0 4px rgba(201,169,110,0.35)); }
+  @keyframes cfall { 0% { transform: translate(0, -40px); opacity: 0; } 8% { opacity: 0.7; } 50% { transform: translate(var(--sw), 50vh); } 90% { opacity: 0.85; } 100% { transform: translate(calc(var(--sw) * -0.6), 110vh); opacity: 0; } }
   @keyframes cspin { from { transform: rotate(-35deg) rotateY(0deg); } to { transform: rotate(40deg) rotateY(55deg); } }
   @media (prefers-reduced-motion: reduce) { .clovers { display: none; } }
   .back-cover { margin-top: 30px; padding: 40px 20px; border-radius: 18px; background: linear-gradient(160deg, #13213f, #0b1530 60%, #070e22); border: 1px solid rgba(201,169,110,0.35); }
@@ -226,7 +231,7 @@
 
   <!-- 1 신원 정보면 -->
   <section class="reveal">
-    <p class="eyebrow">Identity</p>
+    <p class="eyebrow"><span class="no">I</span>Identity</p>
     <h2>신원 정보</h2>
     <p class="lede">서로 다른 이름으로 살아왔지만<br>이제 같은 목적지를 적습니다.</p>
     <div class="datapage">
@@ -252,7 +257,7 @@
 
   <!-- 2 탑승권 -->
   <section class="reveal">
-    <p class="eyebrow">Boarding Pass</p>
+    <p class="eyebrow"><span class="no">II</span>Boarding Pass</p>
     <h2>결혼식 탑승권</h2>
     <p class="lede">따로 정해진 좌석은 없어요.<br>와 주시는 자리가 가장 좋은 자리입니다.</p>
     <div class="bp">
@@ -287,7 +292,7 @@
 
   <!-- 3 초대의 글 · 양가 -->
   <section class="reveal">
-    <p class="eyebrow">Invitation</p>
+    <p class="eyebrow"><span class="no">III</span>Invitation</p>
     <h2>초대의 글</h2>
     <div class="card">
       <p class="msg">
@@ -302,8 +307,8 @@
         그 출발을 곁에서 지켜봐 주세요.
       </p>
       <div class="fam">
-        <div><b>故 손현석 · 이수자</b><span class="rel">의 장남</span><span class="nm">규수</span></div>
-        <div><b>故 문종문 · 최장심</b><span class="rel">의 장녀</span><span class="nm">세화</span></div>
+        <div><b>故 손현석 · 이수자</b><span class="rel">의 장남</span><span class="nm">손규수</span></div>
+        <div><b>故 문종문 · 최장심</b><span class="rel">의 장녀</span><span class="nm">문세화</span></div>
       </div>
       <div class="btn-row">
         <a class="btn" href="tel:01040122921">신랑에게 전화</a>
@@ -316,7 +321,7 @@
 
   <!-- 4 비자 · 출입국 도장 -->
   <section>
-    <p class="eyebrow reveal">Visas &amp; Stamps</p>
+    <p class="eyebrow reveal"><span class="no">IV</span>Visas &amp; Stamps</p>
     <h2 class="reveal">우리가 지나온 곳</h2>
     <p class="lede reveal">멀리 가지 않아도 괜찮았어요.<br>둘이 걸으면 그게 여행이었으니까.</p>
     <div class="visas" id="visas"></div>
@@ -324,7 +329,7 @@
 
   <!-- 5 기내 상영 -->
   <section class="reveal">
-    <p class="eyebrow">In-flight Film</p>
+    <p class="eyebrow"><span class="no">V</span>In-flight Film</p>
     <h2>기내 상영</h2>
     <div class="films">
       <video src="../book/clip2.mp4" poster="../book/clip2.jpg" autoplay muted loop playsinline preload="metadata" aria-label="남산에서 입맞춤하는 두 사람"></video>
@@ -334,7 +339,7 @@
 
   <!-- 6 여행 기록 -->
   <section class="reveal">
-    <p class="eyebrow">Travel Log</p>
+    <p class="eyebrow"><span class="no">VI</span>Travel Log</p>
     <h2>여행 기록</h2>
     <p class="lede">잘 나온 사진보다<br>같이 웃던 순간이 더 좋았습니다.</p>
     <div class="log" id="log"></div>
@@ -343,7 +348,7 @@
 
   <!-- 7 오시는 길 -->
   <section class="reveal">
-    <p class="eyebrow">Route</p>
+    <p class="eyebrow"><span class="no">VII</span>Route</p>
     <h2>오시는 길</h2>
     <p class="lede">먼 걸음 해 주시는 만큼<br>더 고마운 마음으로 기다리겠습니다.</p>
     <div class="card">
@@ -359,7 +364,7 @@
 
   <!-- 8 마음 전하실 곳 -->
   <section class="reveal">
-    <p class="eyebrow">With Love</p>
+    <p class="eyebrow"><span class="no">VIII</span>With Love</p>
     <h2>마음 전하실 곳</h2>
     <p class="lede">와 주시는 것만으로 충분합니다.<br>그래도 마음을 전하고 싶은 분들을 위해 적어 둡니다.</p>
     <div class="card" style="padding-top:16px">
@@ -372,7 +377,7 @@
 
   <!-- 방명록 -->
   <section class="reveal">
-    <p class="eyebrow">Guestbook</p>
+    <p class="eyebrow"><span class="no">IX</span>Guestbook</p>
     <h2>축하 한마디</h2>
     <p class="lede">짧은 한 줄이어도 좋아요.<br>오래 꺼내 읽겠습니다.</p>
     <div class="card gb">
@@ -531,10 +536,10 @@ var PHOTOS = [[106, "Of all paths, I chose you"], [97, "Joy finds us anywhere"],
   (function () {
     var box = $('clovers'); if (!box || reduce) return;
     var leaf = '<svg viewBox="0 0 40 40"><g fill="currentColor"><path d="M20 19C15 19 11 15.5 11 11.5S14 5 17 6.5c1.6.8 3 2.7 3 5zM20 19c0-5 3.5-9 7.5-9s6.5 3 5 6c-.8 1.6-2.7 3-5 3zM20 21c5 0 9 3.5 9 7.5s-3 6.5-6 5c-1.6-.8-3-2.7-3-5zM20 21c0 5-3.5 9-7.5 9s-6.5-3-5-6c.8-1.6 2.7-3 5-3z"/><path d="M20 20c2 6 3 10 6 15" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/></g><circle cx="20" cy="20" r="1.6" fill="rgba(255,255,255,.35)"/></svg>';
-    var tones = ['#4ade80', '#22c55e', '#86efac', '#16a34a', '#bbf7d0'], h = '';
-    var n = window.innerWidth < 480 ? 14 : 22;
+    var tones = ['#c9a96e', '#e6d3a8', '#9fb59a', '#b7c9a8', '#d9c08f'], h = '';
+    var n = window.innerWidth < 480 ? 9 : 14;
     for (var i = 0; i < n; i++) {
-      var size = 14 + Math.random() * 16;
+      var size = 11 + Math.random() * 10;
       h += '<span class="clover" style="left:' + (Math.random() * 100).toFixed(1) + '%;--s:' + size.toFixed(0) + 'px;--c:' + tones[i % tones.length] +
         ';--d:' + (9 + Math.random() * 8).toFixed(1) + 's;--dl:' + (-Math.random() * 16).toFixed(1) + 's;--sw:' + (Math.random() * 80 - 40).toFixed(0) + 'px;--sp:' + (1.6 + Math.random() * 1.8).toFixed(1) + 's">' + leaf + '</span>';
     }
