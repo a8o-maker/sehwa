@@ -13,17 +13,15 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Gowun+Batang:wght@400;700&family=Montserrat:wght@400;500;600;700;800&family=Nanum+Pen+Script&family=Share+Tech+Mono&display=swap">
 <style>
   :root {
-    --navy: #0f172a; --navy-2: #1e293b; --navy-3: #334155;
-    --gold: #c9a96e; --gold-2: #e6d3a8; --gold-3: #efe3c4;
-    --text: #f1f5f9; --muted: #8b97a8; --line: rgba(201, 169, 110, 0.26);
+    --navy: #0f172a; --navy-2: #1e293b; --navy-3: #334155; --bg: #f7f3ea; --bg-2: #fffdf8; --ink-1: #111827; --ink-nv: #1b2a4a; --ink-mu: #5b6475;
+    --gold: #9c7a3f; --gold-2: #1b2a4a; --gold-3: #6b5428;
+    --text: #111827; --muted: #5b6475; --line: rgba(27, 42, 74, 0.18);
     --paper: #f6f1e4; --paper-ink: #1f2937; --paper-mute: #6b7280;
     --stamp-r: #7a2534; --stamp-b: #1f3a68; --stamp-g: #3d5a45; --stamp-p: #8a6a32;
   }
-  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --navy: #0b1120; } }
-  :root[data-theme="dark"] { --navy: #0b1120; }
-  * { box-sizing: border-box; }
+    * { box-sizing: border-box; }
   html { -webkit-text-size-adjust: 100%; }
-  body { margin: 0; background: var(--navy); color: var(--text); font-family: "Gowun Batang", serif; word-break: keep-all; line-height: 1.75; overflow-x: hidden; }
+  body { margin: 0; background: var(--bg); color: var(--text); font-family: "Gowun Batang", serif; word-break: keep-all; line-height: 1.75; overflow-x: hidden; }
   body.locked { overflow: hidden; height: 100vh; }
   body::before { content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 1; opacity: 0.05; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
   main { position: relative; z-index: 2; }
@@ -43,7 +41,7 @@
   .reveal.in { opacity: 1; transform: none; }
 
   /* 여권 표지 */
-  .cover-wrap { position: fixed; inset: 0; z-index: 50; display: flex; align-items: center; justify-content: center; padding: 18px 16px; background: radial-gradient(ellipse at 50% 30%, #1e293b, #020617 75%); perspective: 1600px; }
+  .cover-wrap { position: fixed; inset: 0; z-index: 50; display: flex; align-items: center; justify-content: center; padding: 18px 16px; background: radial-gradient(ellipse at 50% 30%, #fffdf8, #ece4d3 80%); perspective: 1600px; }
   .cover-wrap.gone { pointer-events: none; transition: opacity 0.6s ease 0.7s, visibility 0s linear 1.3s; opacity: 0; visibility: hidden; }
   .pp { position: relative; width: min(330px, 100%); aspect-ratio: 125 / 176; transform-style: preserve-3d; }
   .pp .inner { position: absolute; inset: 0; border-radius: 6px 16px 16px 6px; background: var(--paper); overflow: hidden; box-shadow: inset 10px 0 18px -10px rgba(0,0,0,0.4); }
@@ -103,7 +101,7 @@
   @media (prefers-reduced-motion: reduce) { .stamp { opacity: 0.86; transform: rotate(var(--r)); } .visa.in .stamp { animation: none; } .dp-photo::after { animation: none; } }
 
   /* 탑승권 */
-  .bp { background: var(--navy-2); border: 1px solid var(--line); border-radius: 12px; text-align: left; overflow: hidden; box-shadow: 0 18px 40px rgba(0,0,0,0.45); }
+  .bp { background: var(--bg-2); border: 1px solid var(--line); border-radius: 12px; text-align: left; overflow: hidden; box-shadow: 0 14px 34px rgba(27,42,74,0.10); }
   .bp-head { display: flex; justify-content: space-between; align-items: center; padding: 14px 18px; border-bottom: 1px solid var(--line); color: var(--gold-2); font-family: "Montserrat"; font-weight: 500; letter-spacing: 0.24em; font-size: 0.62rem; }
   .bp-main { padding: 18px; }
   .route { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; text-align: center; }
@@ -119,22 +117,22 @@
   .grid2 .v { font-family: "Montserrat"; font-weight: 700; font-size: 0.86rem; color: var(--text); line-height: 1.35; }
   .grid2 .v.ko { font-family: "Gowun Batang"; }
   .tear { position: relative; height: 0; border-top: 2px dashed rgba(148,163,184,0.35); margin: 0 14px; }
-  .tear::before, .tear::after { content: ""; position: absolute; top: -12px; width: 22px; height: 22px; border-radius: 50%; background: var(--navy); }
+  .tear::before, .tear::after { content: ""; position: absolute; top: -12px; width: 22px; height: 22px; border-radius: 50%; background: var(--bg); }
   .tear::before { left: -26px; } .tear::after { right: -26px; }
   .bp-stub { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 18px 16px; }
-  .barcode { height: 40px; flex: 1; background: repeating-linear-gradient(90deg, #e2e8f0 0 2px, transparent 2px 4px, #e2e8f0 4px 5px, transparent 5px 8px, #e2e8f0 8px 11px, transparent 11px 12px); opacity: 0.85; border-radius: 2px; }
+  .barcode { height: 40px; flex: 1; background: repeating-linear-gradient(90deg, #1b2a4a 0 2px, transparent 2px 4px, #1b2a4a 4px 5px, transparent 5px 8px, #1b2a4a 8px 11px, transparent 11px 12px); opacity: 0.85; border-radius: 2px; }
   .stub-t { font-family: "Montserrat"; font-size: 0.6rem; letter-spacing: 0.16em; color: var(--muted); text-align: right; line-height: 1.5; }
   .stub-t b { color: var(--gold-2); font-size: 0.8rem; }
   .cnt { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 18px; }
-  .cnt div { background: var(--navy-2); border: 1px solid var(--line); border-radius: 12px; padding: 10px 0 8px; }
+  .cnt div { background: var(--bg-2); border: 1px solid var(--line); border-radius: 12px; padding: 10px 0 8px; }
   .cnt .n { font-family: "Cormorant Garamond", serif; font-weight: 500; font-size: 1.35rem; color: var(--gold-2); line-height: 1.1; font-variant-numeric: tabular-nums; }
   .cnt .u { font-family: "Montserrat"; font-size: 0.55rem; letter-spacing: 0.2em; color: var(--muted); }
 
   /* 공통 카드 */
-  .card { background: rgba(30, 41, 59, 0.5); border: 1px solid var(--line); border-radius: 12px; padding: 28px 20px; }
+  .card { background: var(--bg-2); box-shadow: 0 10px 28px rgba(27,42,74,0.06); border: 1px solid var(--line); border-radius: 12px; padding: 28px 20px; }
   .card h3 { margin: 0 0 8px; color: var(--gold-2); font-size: 0.98rem; font-weight: 400; letter-spacing: 0.04em; }
-  .msg { font-size: 0.93rem; line-height: 2.1; color: #dbe2ea; margin: 0; }
-  .fam { margin-top: 22px; padding-top: 18px; border-top: 1px solid rgba(51,65,85,0.8); display: grid; gap: 8px; font-size: 0.92rem; color: #cbd5e1; }
+  .msg { font-size: 0.93rem; line-height: 2.1; color: #1f2937; margin: 0; }
+  .fam { margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--line); display: grid; gap: 8px; font-size: 0.92rem; color: #374151; }
   .fam b { color: var(--text); font-weight: 700; }
   .fam .rel { color: var(--gold); font-size: 0.8rem; margin: 0 4px; }
   .fam .nm { color: var(--gold-2); font-weight: 700; }
@@ -142,8 +140,8 @@
   .btn-row.three { grid-template-columns: repeat(3, 1fr); }
   .btn { display: flex; align-items: center; justify-content: center; gap: 6px; min-height: 44px; border-radius: 6px; border: 1px solid var(--line); background: transparent; color: var(--gold-3); font-family: inherit; font-size: 0.84rem; text-decoration: none; cursor: pointer; }
   .btn:hover, .btn:focus-visible { background: rgba(201,169,110,0.25); }
-  .btn.solid { background: var(--gold-2); color: #1a1408; border: 0; font-weight: 600; letter-spacing: 0.04em; }
-  .acct { display: flex; align-items: center; justify-content: space-between; gap: 10px; text-align: left; padding: 14px; border-radius: 8px; background: rgba(15,23,42,0.75); border: 1px solid var(--navy-3); margin-top: 10px; }
+  .btn.solid { background: var(--ink-nv); color: #fff; border: 0; font-weight: 600; letter-spacing: 0.04em; }
+  .acct { display: flex; align-items: center; justify-content: space-between; gap: 10px; text-align: left; padding: 14px; border-radius: 8px; background: #f7f3ea; border: 1px solid var(--line); margin-top: 10px; }
   .acct .who { font-size: 0.78rem; color: var(--gold-2); }
   .acct .no { font-family: "Montserrat"; font-size: 0.86rem; color: var(--text); font-weight: 600; }
   .acct .btn { min-height: 36px; padding: 0 14px; flex-shrink: 0; }
@@ -153,7 +151,7 @@
   .films { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
   .films video { width: 100%; aspect-ratio: 9 / 16; object-fit: cover; border-radius: 2px; background: #000; outline: 1px solid var(--line); outline-offset: 4px; }
   .log { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
-  .log button { position: relative; border: 0; padding: 0; border-radius: 2px; overflow: hidden; cursor: pointer; background: var(--navy-2); }
+  .log button { position: relative; border: 0; padding: 0; border-radius: 2px; overflow: hidden; cursor: pointer; background: #e9e3d6; }
   .log img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; transition: transform 0.4s ease; }
   .log button:hover img { transform: scale(1.04); }
   .log button::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 34%; background: linear-gradient(transparent, rgba(0,0,0,0.6)); }
@@ -166,10 +164,10 @@
   .lb .x { position: absolute; top: 12px; right: 12px; width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--line); background: none; color: #fff; font-size: 1.3rem; cursor: pointer; }
   .lb .nav { position: absolute; top: 50%; width: 44px; height: 64px; border: 0; background: rgba(15,23,42,0.5); color: #fff; font-size: 1.6rem; cursor: pointer; }
   .lb .prev { left: 4px; } .lb .next { right: 4px; }
-  .toast { position: fixed; left: 50%; bottom: 26px; transform: translateX(-50%) translateY(20px); background: var(--gold); color: #1c1203; font-size: 0.86rem; padding: 10px 18px; border-radius: 999px; opacity: 0; transition: 0.3s; z-index: 70; pointer-events: none; }
+  .toast { position: fixed; left: 50%; bottom: 26px; transform: translateX(-50%) translateY(20px); background: var(--ink-nv); color: #fff; font-size: 0.86rem; padding: 10px 18px; border-radius: 999px; opacity: 0; transition: 0.3s; z-index: 70; pointer-events: none; }
   .toast.on { opacity: 1; transform: translateX(-50%); }
   .gb { text-align: left; display: grid; gap: 10px; padding: 18px; }
-  .gb input, .gb textarea { width: 100%; background: rgba(15,23,42,0.6); border: 1px solid var(--line); border-radius: 6px; color: var(--text); font: inherit; font-size: 0.9rem; padding: 11px 12px; resize: vertical; }
+  .gb input, .gb textarea { width: 100%; background: #fff; border: 1px solid var(--line); border-radius: 6px; color: var(--text); font: inherit; font-size: 0.9rem; padding: 11px 12px; resize: vertical; }
   .gb input:focus, .gb textarea:focus { outline: none; border-color: var(--gold); }
   .gb-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
   .gb-row span { font-family: "Montserrat"; font-size: 0.66rem; color: var(--muted); letter-spacing: 0.1em; }
@@ -177,21 +175,21 @@
   .gb-row .btn:disabled { opacity: 0.45; cursor: default; }
   .gb-note { margin: 0; font-size: 0.8rem; color: var(--muted); }
   .gb-list { display: grid; gap: 10px; margin-top: 16px; text-align: left; }
-  .gb-item { padding: 14px 16px; border-left: 2px solid var(--gold); background: rgba(30,41,59,0.45); border-radius: 0 8px 8px 0; }
+  .gb-item { padding: 14px 16px; border-left: 2px solid var(--gold); background: var(--bg-2); border-radius: 0 8px 8px 0; box-shadow: 0 4px 14px rgba(27,42,74,0.05); }
   .gb-item .who { font-size: 0.8rem; color: var(--gold-2); display: flex; justify-content: space-between; gap: 8px; }
   .gb-item .who time { font-family: "Montserrat"; font-size: 0.62rem; color: var(--muted); }
-  .gb-item p { margin: 4px 0 0; font-size: 0.9rem; line-height: 1.75; color: #dbe2ea; white-space: pre-wrap; word-break: break-word; }
+  .gb-item p { margin: 4px 0 0; font-size: 0.9rem; line-height: 1.75; color: #1f2937; white-space: pre-wrap; word-break: break-word; }
   .gb-empty { font-size: 0.84rem; color: var(--muted); text-align: center; }
   .clovers { position: fixed; inset: 0; pointer-events: none; z-index: 55; overflow: hidden; }
   .clover { position: absolute; top: -40px; width: var(--s); height: var(--s); color: var(--c); opacity: 0; will-change: transform;
     animation: cfall var(--d) linear var(--dl) infinite; }
-  .clover svg { width: 100%; height: 100%; display: block; animation: cspin var(--sp) ease-in-out infinite alternate; filter: drop-shadow(0 0 4px rgba(201,169,110,0.35)); }
-  @keyframes cfall { 0% { transform: translate(0, -40px); opacity: 0; } 8% { opacity: 0.7; } 50% { transform: translate(var(--sw), 50vh); } 90% { opacity: 0.85; } 100% { transform: translate(calc(var(--sw) * -0.6), 110vh); opacity: 0; } }
+  .clover svg { width: 100%; height: 100%; display: block; animation: cspin var(--sp) ease-in-out infinite alternate; filter: drop-shadow(0 1px 2px rgba(27,42,74,0.18)); }
+  @keyframes cfall { 0% { transform: translate(0, -40px); opacity: 0; } 8% { opacity: 0.85; } 50% { transform: translate(var(--sw), 50vh); } 90% { opacity: 0.85; } 100% { transform: translate(calc(var(--sw) * -0.6), 110vh); opacity: 0; } }
   @keyframes cspin { from { transform: rotate(-35deg) rotateY(0deg); } to { transform: rotate(40deg) rotateY(55deg); } }
   @media (prefers-reduced-motion: reduce) { .clovers { display: none; } }
   .gift { margin-top: 44px; padding: 34px 16px 10px; text-align: center; }
   .gift-clover { display: block; margin: 18px auto 26px; width: 148px; height: 148px; padding: 0; border: 0; background: none; cursor: pointer; border-radius: 50%; }
-  .gift-clover svg { width: 100%; height: 100%; overflow: visible; filter: drop-shadow(0 0 18px rgba(201,169,110,0.35)); transition: transform 0.5s cubic-bezier(.3,1.6,.5,1); }
+  .gift-clover svg { width: 100%; height: 100%; overflow: visible; filter: drop-shadow(0 8px 16px rgba(156,122,63,0.3)); transition: transform 0.5s cubic-bezier(.3,1.6,.5,1); }
   .gift-clover:hover svg, .gift-clover:focus-visible svg { transform: scale(1.05) rotate(-4deg); }
   .gift .lf { transform-origin: 60px 58px; transform: scale(0) rotate(-40deg); opacity: 0; }
   .gift.in .lf { animation: bloom 0.9s cubic-bezier(.3,1.5,.5,1) forwards; }
@@ -199,11 +197,11 @@
   @keyframes bloom { to { transform: none; opacity: 1; } }
   .gift.got .gift-clover svg { animation: glow 1.6s ease-in-out; }
   @keyframes glow { 0% { transform: scale(1); } 30% { transform: scale(1.18) rotate(8deg); filter: drop-shadow(0 0 34px rgba(243,227,184,0.8)); } 100% { transform: scale(1); } }
-  .gift-msg { margin: 10px 0 0; font-size: 0.95rem; line-height: 2; color: #dbe2ea; }
+  .gift-msg { margin: 10px 0 0; font-size: 0.95rem; line-height: 2; color: #1f2937; }
   .gift-sub { margin: 8px 0 0; font-family: "Cormorant Garamond", serif; font-style: italic; color: var(--gold); font-size: 1rem; letter-spacing: 0.04em; }
   @media (prefers-reduced-motion: reduce) { .gift .lf { transform: none; opacity: 1; } .gift.in .lf, .gift.got .gift-clover svg { animation: none; } }
-  .back-cover { margin-top: 30px; padding: 40px 20px; border-radius: 18px; background: linear-gradient(160deg, #13213f, #0b1530 60%, #070e22); border: 1px solid rgba(201,169,110,0.35); }
-  .back-cover p { margin: 0; color: #cbd5e1; font-size: 0.92rem; line-height: 2; }
+  .back-cover { margin-top: 30px; padding: 40px 20px; border-radius: 18px; background: var(--bg-2); border: 1px solid var(--line); box-shadow: 0 10px 28px rgba(27,42,74,0.06); }
+  .back-cover p { margin: 0; color: #374151; font-size: 0.92rem; line-height: 2; }
   .back-cover .sg { font-family: "Cormorant Garamond", serif; font-style: italic; letter-spacing: 0.08em; font-size: 1.3rem; margin-top: 18px; }
 </style>
 </head>
@@ -230,14 +228,14 @@
         <div>
           <div class="t1 gold">WEDDING</div>
           <div class="t2 gold">PASSPORT</div>
-          <div class="t3" style="color:var(--gold-3);opacity:.8">여권 · 손규수 &amp; 문세화</div>
+          <div class="t3" style="color:#efe3c4;opacity:.8">여권 · 손규수 &amp; 문세화</div>
         </div>
         <div class="chip" aria-hidden="true"></div>
       </div>
       <div class="face back"></div>
     </div>
   </div>
-  <p class="tap" id="tapHint" style="position:absolute;bottom:22px;left:0;right:0;text-align:center">TAP TO OPEN · 눌러서 여권 펼치기</p>
+  <p class="tap" id="tapHint" style="position:absolute;bottom:22px;left:0;right:0;text-align:center;color:#1b2a4a">TAP TO OPEN · 눌러서 여권 펼치기</p>
 </div>
 
 <main>
@@ -407,7 +405,7 @@
     <div class="back-cover">
       <svg class="emblem" style="width:70px;height:70px;margin:0 auto 14px" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="60" cy="60" r="54"/><path d="M60 26v12M56.5 38l3.5 22 3.5-22M60 60v30M34 90h52"/><path d="M48 98c3-4 6-4 12 0 6-4 9-4 12 0-3 5-12 9-12 9s-9-4-12-9z" fill="currentColor" stroke="none"/></svg>
       <p>여기까지 올 수 있었던 건<br>곁에 있어 준 여러분 덕분입니다.<br>이제 둘이서, 잘 살아 보겠습니다.<br>고맙습니다.</p>
-      <p class="sg gold">Gyusoo &amp; Sehwa</p>
+      <p class="sg" style="color:var(--ink-nv)">Gyusoo &amp; Sehwa</p>
     </div>
     <div class="gift" id="gift">
       <p class="eyebrow" style="justify-content:center">A Gift for You</p>
@@ -567,7 +565,7 @@ var PHOTOS = [[106, "Of all paths, I chose you"], [97, "Joy finds us anywhere"],
   (function () {
     var box = $('clovers'); if (!box || reduce) return;
     var leaf = '<svg viewBox="0 0 40 40"><path d="M20 19c2 8 5 14 11 20" stroke="currentColor" stroke-width="1.9" fill="none" stroke-linecap="round"/><g fill="currentColor"><path transform="translate(20 19) rotate(45) scale(.78)" d="M0 0C-3.2-3.6-11-7.4-11-13.6C-11-18.6-5.4-21-0-15.6C5.4-21 11-18.6 11-13.6C11-7.4 3.2-3.6 0 0Z"/><path transform="translate(20 19) rotate(135) scale(.78)" d="M0 0C-3.2-3.6-11-7.4-11-13.6C-11-18.6-5.4-21-0-15.6C5.4-21 11-18.6 11-13.6C11-7.4 3.2-3.6 0 0Z"/><path transform="translate(20 19) rotate(225) scale(.78)" d="M0 0C-3.2-3.6-11-7.4-11-13.6C-11-18.6-5.4-21-0-15.6C5.4-21 11-18.6 11-13.6C11-7.4 3.2-3.6 0 0Z"/><path transform="translate(20 19) rotate(315) scale(.78)" d="M0 0C-3.2-3.6-11-7.4-11-13.6C-11-18.6-5.4-21-0-15.6C5.4-21 11-18.6 11-13.6C11-7.4 3.2-3.6 0 0Z"/></g><g stroke="rgba(255,255,255,.35)" stroke-width="1" stroke-linecap="round" fill="none"><path transform="translate(20 19) rotate(45) scale(.78)" d="M0 0V-13"/><path transform="translate(20 19) rotate(135) scale(.78)" d="M0 0V-13"/><path transform="translate(20 19) rotate(225) scale(.78)" d="M0 0V-13"/><path transform="translate(20 19) rotate(315) scale(.78)" d="M0 0V-13"/></g></svg>';
-    var tones = ['#c9a96e', '#e6d3a8', '#9fb59a', '#b7c9a8', '#d9c08f'], h = '';
+    var tones = ['#7fa36f', '#5f8c55', '#a8c49a', '#b59a5e', '#8fb382'], h = '';
     var n = window.innerWidth < 480 ? 9 : 14;
     for (var i = 0; i < n; i++) {
       var size = 11 + Math.random() * 10;
@@ -581,7 +579,7 @@ var PHOTOS = [[106, "Of all paths, I chose you"], [97, "Joy finds us anywhere"],
   (function () {
     var g = $('gift'); if (!g) return; watch(g);
     var leaf = '<svg viewBox="0 0 40 40"><path d="M20 19c2 8 5 14 11 20" stroke="currentColor" stroke-width="1.9" fill="none" stroke-linecap="round"/><g fill="currentColor"><path transform="translate(20 19) rotate(45) scale(.78)" d="M0 0C-3.2-3.6-11-7.4-11-13.6C-11-18.6-5.4-21-0-15.6C5.4-21 11-18.6 11-13.6C11-7.4 3.2-3.6 0 0Z"/><path transform="translate(20 19) rotate(135) scale(.78)" d="M0 0C-3.2-3.6-11-7.4-11-13.6C-11-18.6-5.4-21-0-15.6C5.4-21 11-18.6 11-13.6C11-7.4 3.2-3.6 0 0Z"/><path transform="translate(20 19) rotate(225) scale(.78)" d="M0 0C-3.2-3.6-11-7.4-11-13.6C-11-18.6-5.4-21-0-15.6C5.4-21 11-18.6 11-13.6C11-7.4 3.2-3.6 0 0Z"/><path transform="translate(20 19) rotate(315) scale(.78)" d="M0 0C-3.2-3.6-11-7.4-11-13.6C-11-18.6-5.4-21-0-15.6C5.4-21 11-18.6 11-13.6C11-7.4 3.2-3.6 0 0Z"/></g><g stroke="rgba(255,255,255,.35)" stroke-width="1" stroke-linecap="round" fill="none"><path transform="translate(20 19) rotate(45) scale(.78)" d="M0 0V-13"/><path transform="translate(20 19) rotate(135) scale(.78)" d="M0 0V-13"/><path transform="translate(20 19) rotate(225) scale(.78)" d="M0 0V-13"/><path transform="translate(20 19) rotate(315) scale(.78)" d="M0 0V-13"/></g></svg>';
-    var tones = ['#f3e3b8', '#c9a96e', '#e6d3a8', '#9fb59a', '#d9c08f'];
+    var tones = ['#c9a96e', '#7fa36f', '#b59a5e', '#5f8c55', '#a8c49a'];
     $('giftBtn').addEventListener('click', function () {
       g.classList.remove('got'); void g.offsetWidth; g.classList.add('got');
       $('giftSub').textContent = '행운이 늘 당신과 함께하기를 🍀';
