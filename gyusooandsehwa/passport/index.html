@@ -456,15 +456,18 @@ var PHOTOS = [[106, "Of all paths, I chose you"], [97, "Joy finds us anywhere"],
   var logEl = $('log');
   (function () {
     var h = '';
-    for (var i = 0; i < LOG.length; i++) {
+    for (var i = 0; i < Math.min(10, LOG.length); i++) {
       h += '<button type="button" data-i="' + i + '" aria-label="' + LOG[i][1] + ' 크게 보기"><img src="' + src(LOG[i][0]) + '" alt="' + LOG[i][1] + '" loading="lazy" decoding="async"><span>' + LOG[i][1] + '</span></button>';
     }
     logEl.innerHTML = h;
+    var note = document.createElement('p'); note.className = 'lede'; note.style.margin = '14px auto 0';
+    note.textContent = '사진을 누르면 전체 ' + LOG.length + '장을 넘겨 볼 수 있어요';
+    logEl.parentNode.insertBefore(note, logEl.nextSibling);
   })();
 
   /* 크게 보기 */
   var lb = $('lb'), cur = 0, last = null;
-  function show(i) { cur = (i + LOG.length) % LOG.length; $('lbImg').src = src(LOG[cur][0]); $('lbImg').alt = LOG[cur][1]; $('lbCap').textContent = LOG[cur][1]; }
+  function show(i) { cur = (i + LOG.length) % LOG.length; $('lbImg').src = src(LOG[cur][0]); $('lbImg').alt = LOG[cur][1]; $('lbCap').textContent = LOG[cur][1] + '  ·  ' + (cur + 1) + ' / ' + LOG.length; }
   logEl.addEventListener('click', function (e) { var b = e.target.closest('button[data-i]'); if (!b) return; last = b; show(+b.getAttribute('data-i')); lb.classList.add('on'); $('lbX').focus(); });
   function close() { lb.classList.remove('on'); if (last) last.focus(); }
   $('lbX').addEventListener('click', close);
