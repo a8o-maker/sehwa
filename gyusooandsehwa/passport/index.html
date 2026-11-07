@@ -8,7 +8,7 @@
 <meta name="description" content="Wedding Passport of Son Gyusoo &amp; Mun Sehwa — Saturday, January 16, 2027, 12:30 PM, Palace Hall 5F, W Wedding Yangsan">
 <meta property="og:title" content="Wedding Passport · Son Gyusoo ♥ Mun Sehwa">
 <meta property="og:description" content="SAT, JAN 16, 2027 · 12:30 PM · W Wedding Yangsan, Palace Hall 5F">
-<meta property="og:image" content="../s/106.jpg">
+<meta property="og:image" content="../s/210.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Gowun+Batang:wght@400;700&family=Montserrat:wght@400;500;600;700;800&family=Nanum+Pen+Script&family=Share+Tech+Mono&display=swap">
@@ -309,7 +309,7 @@
 <!-- 여권 표지 -->
 <div class="cover-wrap" id="cover">
   <div class="pp" id="pp">
-    <div class="inner"><img src="../s/106.jpg" alt=""></div>
+    <div class="inner"><img src="../s/210.jpg" alt=""></div>
     <div class="lid" id="lid" role="button" tabindex="0" aria-label="여권 열기">
       <div class="face front">
         <div>
@@ -348,7 +348,7 @@
       <div class="dp-top"><span>PASSPORT · 여권</span><span>REPUBLIC OF LOVE</span></div>
       <div class="dp-body">
         <div>
-          <div class="dp-photo"><img src="../s/106.jpg" alt="억새밭에서 마주 보는 두 사람"></div>
+          <div class="dp-photo"><img src="../s/210.jpg" alt="억새밭에서 마주 보는 두 사람"></div>
           <div class="sig" style="margin-top:6px">Gyusoo ♥ Sehwa</div>
         </div>
         <div>
@@ -632,7 +632,7 @@
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 <script>
-var PHOTOS = [[106, "Of all paths, I chose you"], [97, "Joy finds us anywhere"], [136, "Old souls, new beginning"], [25, "Hand in hand, for life"], [19, "Every road led to you"], [127, "Still choosing you, daily"], [99, "Love as high as the sky"], [101, "We bend, we never break"], [108, "Sealed with a promise"], [110, "Two hearts, one rhythm"], [129, "Half past forever"], [131, "The road home is you"], [1, "Fate knew before we did"], [7, "Lucky to have you"], [11, "Love is a daily promise"], [49, "Hearts tied by fate"], [52, "Built on trust and joy"], [74, "The day fate smiled"], [90, "Just the two of us"], [95, "Here's to us"]];
+var PHOTOS = [[210, "Of all paths, I chose you"], [209, "A kiss that says forever"], [219, "Same steps, same heart"], [215, "Under golden leaves, us"], [214, "Love, by heart"], [204, "Every sign points to us"], [205, "Hold on, never let go"], [211, "Two hearts, one horizon"], [212, "Still choosing you, daily"], [213, "Golden hours with you"], [206, "Joy is our first vow"], [207, "Your smile, my sun"], [208, "Let's run into forever"], [201, "Home is in your arms"], [202, "Two paths became one"], [203, "Laughing into forever"], [216, "Hand in hand, for life"], [217, "Coffee and forever"], [218, "Walk with me"], [220, "Every day, a little more"], [221, "Two hearts, one home"], [222, "Coffee for two, always"], [223, "Found you, kept you"], [224, "Laughter is our language"], [225, "You make ordinary golden"], [226, "Walk with me, always"], [227, "A promise, face to face"], [228, "Running toward forever"], [229, "Old souls, new beginning"], [230, "Simply, deeply yours"], [231, "Bloom where love is"], [232, "My heart knew you"], [233, "Lucky to have you"], [234, "Love lives in the details"], [235, "Waiting just for you"], [236, "Hand in hand, for life ♡"], [237, "Every road led to you"], [238, "Looking back, still us"], [239, "Side by side, always"], [240, "Our story, just begun"], [241, "Veil in the autumn wind"], [242, "Walking into our vows"], [243, "Palace gates, open hearts"], [244, "Side by side, sunlit"], [245, "Every crosswalk, together"], [246, "The world can wait"], [247, "Hand in hand, unhurried"], [248, "Two shadows, one path"], [249, "Under old eaves, new love"], [250, "Looking up, together"], [251, "Eyes that say forever"], [252, "Before the vow, a smile"], [253, "Quiet promises"]];
 (function () {
   function $(id) { return document.getElementById(id); }
   function src(n) { return '../s/' + (n < 10 ? '0' : '') + n + '.jpg'; }
@@ -658,12 +658,12 @@ var PHOTOS = [[106, "Of all paths, I chose you"], [97, "Joy finds us anywhere"],
 
   /* 도장 찍힌 비자 */
   var VISA = [
-    { n: 106, c: 'var(--stamp-g)', r: '-14deg', round: true, t: 'SILVER GRASS', s: 'SEOUL', d: 'ADMITTED', pos: 'top:14px;right:12px' },
-    { n: 97,  c: 'var(--stamp-b)', r: '8deg', t: 'N SEOUL TOWER', s: 'NAMSAN · SEOUL', d: 'ARRIVED', pos: 'top:18px;left:14px' },
-    { n: 136, c: 'var(--stamp-r)', r: '-6deg', t: 'OLD TOWN', s: 'VINTAGE ATELIER', d: 'ENTRY', pos: 'top:26px;left:18px' },
-    { n: 25,  c: 'var(--stamp-p)', r: '12deg', round: true, t: 'STONE WALL', s: 'ROAD · SEOUL', d: 'VISITED', pos: 'top:16px;left:12px' },
-    { n: 19,  c: 'var(--stamp-b)', r: '-10deg', t: 'PALACE GATE', s: 'SEOUL', d: 'PASSED', pos: 'top:20px;right:14px' },
-    { n: 127, c: 'var(--stamp-r)', r: '9deg', round: true, t: 'HAN RIVER', s: 'HANNAM 1.3KM', d: 'DEPARTED', pos: 'top:16px;right:12px' }
+    { n: 210, c: 'var(--stamp-g)', r: '-14deg', round: true, t: 'SILVER GRASS', s: 'SEOUL', d: 'ADMITTED', pos: 'top:14px;right:12px' },
+    { n: 209, c: 'var(--stamp-b)', r: '8deg', t: 'N SEOUL TOWER', s: 'NAMSAN · SEOUL', d: 'ARRIVED', pos: 'top:18px;left:14px' },
+    { n: 219, c: 'var(--stamp-r)', r: '-6deg', t: 'OLD TOWN', s: 'VINTAGE ATELIER', d: 'ENTRY', pos: 'top:26px;left:18px' },
+    { n: 215, c: 'var(--stamp-p)', r: '12deg', round: true, t: 'GINKGO ROAD', s: 'AUTUMN · SEOUL', d: 'VISITED', pos: 'top:16px;left:12px' },
+    { n: 214, c: 'var(--stamp-b)', r: '-10deg', t: 'SARANGCHAE', s: 'CHEONGWADAE · SEOUL', d: 'PASSED', pos: 'top:20px;right:14px' },
+    { n: 204, c: 'var(--stamp-r)', r: '9deg', round: true, t: 'HAN RIVER', s: 'HANNAM 1.3KM', d: 'DEPARTED', pos: 'top:16px;right:12px' }
   ];
   var capOf = {}; PHOTOS.forEach(function (p) { capOf[p[0]] = p[1]; });
   $('visas').innerHTML = VISA.map(function (v, i) {
@@ -702,6 +702,9 @@ var PHOTOS = [[106, "Of all paths, I chose you"], [97, "Joy finds us anywhere"],
     river:  { t: 'HAN RIVER', s: 'HANNAM · SEOUL', d: 'DEPARTED', c: 'var(--stamp-r)', round: true, k: 'Han River' }
   };
   function placeOf(n) {
+    if (n > 240) return n <= 248 ? 'palace' : 'wall';
+    if (n > 220) return n >= 235 ? 'wall' : 'alley';
+    if (n > 200) return n <= 204 ? 'river' : n === 209 ? 'namsan' : n <= 213 ? 'grass' : n === 214 ? 'palace' : n <= 216 ? 'ginkgo' : 'alley';
     if (n <= 11 || (n >= 23 && n <= 29) || n === 89 || n === 90 || n === 91) return 'wall';
     if (n <= 22) return 'palace';
     if (n <= 70 || n === 136) return 'alley';
