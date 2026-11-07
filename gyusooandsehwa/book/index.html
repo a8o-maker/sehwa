@@ -186,10 +186,11 @@
   .rl-pause { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); color: #fff; font-size: 2rem; opacity: 0; transition: opacity 0.25s; pointer-events: none; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
   .reel.paused .rl-pause { opacity: 0.9; }
   .shots { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
-  .pola { border: 0; padding: 7px 7px 24px; background: var(--paper-2); box-shadow: 0 6px 14px rgba(34,30,24,0.2); cursor: pointer; position: relative; transition: transform 0.3s ease; }
+  .pola { border: 0; padding: 6px; background: var(--paper-2); box-shadow: 0 6px 14px rgba(34,30,24,0.2); cursor: pointer; position: relative; transition: transform 0.3s ease; }
   .pola:hover { transform: translateY(-3px); }
   .pola img { display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
-  .pola span { position: absolute; left: 7px; right: 7px; bottom: 5px; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-family: "Nanum Pen Script", cursive; font-size: 0.98rem; color: var(--ink-2); }
+  .pola::after { content: ""; position: absolute; left: 6px; right: 6px; bottom: 6px; height: 42%; background: linear-gradient(transparent, rgba(0,0,0,0.62)); pointer-events: none; }
+  .pola span { position: absolute; z-index: 1; left: 12px; right: 12px; bottom: 11px; text-align: center; font-family: "Nanum Pen Script", cursive; font-size: 1.12rem; line-height: 1.05; color: #fff; text-shadow: 0 1px 4px rgba(0,0,0,0.75); }
 
   /* 공통 본문 */
   .hand { font-family: "Nanum Pen Script", cursive; font-size: 1.5rem; line-height: 1.8; color: var(--ink-2); margin: 0; }
