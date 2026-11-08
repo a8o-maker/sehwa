@@ -238,10 +238,13 @@
   .bgm-btn.on .eq i:nth-child(2) { animation-delay: .2s; } .bgm-btn.on .eq i:nth-child(3) { animation-delay: .4s; }
   @keyframes eq { 0%,100% { height: 3px; } 50% { height: 12px; } }
   @media (prefers-reduced-motion: reduce) { .bgm-btn.on .eq i { animation: none; height: 10px; } }
-  .seat { position: relative; width: min(300px, 86%); margin: 0 auto; aspect-ratio: 320 / 540; }
+  .seat { position: relative; width: min(340px, 92%); margin: 0 auto; aspect-ratio: 320 / 540; }
   .seat-art { position: absolute; inset: 0; width: 100%; height: 100%; }
   .ife { position: absolute; left: 25%; top: 22.6%; width: 50%; height: 44.2%; border-radius: 6px; overflow: hidden; background: #000; text-align: left; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08); }
-  .ife video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+  .ife video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; display: block; background: #000; }
+  .ife-bar, .ife-info { transition: opacity 0.35s ease; } .ife.hide-ui .ife-bar, .ife.hide-ui .ife-info { opacity: 0; pointer-events: none; }
+  .seat-cta { display: inline-flex; gap: 8px; min-height: 48px; padding: 0 22px; border-radius: 999px; font-size: 0.92rem; }
+  .seat-cta small { font-size: 0.7rem; opacity: 0.75; letter-spacing: 0; }
   .ife-glare { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(125deg, rgba(255,255,255,0.16) 0%, transparent 30%, transparent 72%, rgba(255,255,255,0.06) 100%), repeating-linear-gradient(0deg, rgba(0,0,0,0.07) 0 1px, transparent 1px 3px); }
   .ife-bar { position: absolute; top: 0; left: 0; right: 0; display: flex; align-items: center; justify-content: space-between; padding: 4px 6px; background: linear-gradient(180deg, rgba(42,23,14,0.85), rgba(42,23,14,0)); font-family: "Montserrat"; font-size: 0.4rem; letter-spacing: 0.12em; color: #f1e6d6; }
   .ife-air { font-weight: 800; color: #e6d3a8; }
@@ -569,24 +572,25 @@
         <path d="M74 412h172" stroke="rgba(255,255,255,.08)" stroke-width="1.5"/>
       </svg>
       <div class="ife">
-        <video id="ifeVid" muted playsinline preload="metadata" poster="../book/clip1.jpg" aria-label="기내 상영 영상"></video>
+        <video id="ifeVid" muted playsinline preload="metadata" poster="../v/fantastic.jpg" aria-label="기내 상영: 신랑 성장기 FANTASTIC BABY"></video>
         <div class="ife-glare"></div>
         <div class="ife-bar"><span class="ife-air">GS AIR</span><span class="ife-tabs"><b class="on">MOVIES</b></span><span class="ife-clock" id="ifeClock">12:30</span></div>
         <div class="ife-big" id="ifeBig" aria-hidden="true">▶</div>
         <div class="ife-info">
-          <div class="ife-title" id="ifeTitle">Looking up, side by side</div>
-          <div class="ife-meta"><span id="ifeEp">EP. 1 / 2</span><span class="ife-t" id="ifeT">0:00</span></div>
+          <div class="ife-title" id="ifeTitle">FANTASTIC BABY · 신랑 성장기</div>
+          <div class="ife-meta"><span id="ifeEp">NOW SHOWING</span><span class="ife-t" id="ifeT">0:00</span></div>
           <div class="ife-prog"><i id="ifeProg"></i></div>
           <div class="ife-ctrl">
-            <button type="button" id="ifePrev" aria-label="이전 영상">⏮</button>
+            <button type="button" id="ifePrev" aria-label="처음부터">⏮</button>
             <button type="button" id="ifePlay" aria-label="일시정지">❚❚</button>
-            <button type="button" id="ifeNext" aria-label="다음 영상">⏭</button>
+            <button type="button" id="ifeFull" aria-label="크게 보기">⤢</button>
             <button type="button" id="ifeSnd" aria-label="소리 켜기">🔇</button>
           </div>
         </div>
       </div>
       <p class="seat-label">SEAT 16A · 결혼식 탑승을 환영합니다</p>
     </div>
+    <button class="btn solid seat-cta" type="button" id="ifeCta">▶ 신랑 소개 크게 보기 <small>소리 켜짐</small></button>
   </section>
 
   <!-- 6 여행 기록 -->
@@ -766,7 +770,8 @@ var PHOTOS = [[106, "Fate walks through silver grass"], [97, "Joy finds us anywh
   }
   fetch(bgm.getAttribute('src'), { method: 'HEAD' }).then(function (r) { if (r.ok) { hasBgm = true; bgmBtn.hidden = false; bgm.preload = 'auto'; bgmPlay(); } }).catch(function () {});
   bgmBtn.addEventListener('click', function (e) { e.stopPropagation(); if (bgm.paused) { userOff = false; bgmPlay(); } else { userOff = true; bgm.pause(); bgmUi(false); } });
-  document.addEventListener('visibilitychange', function () { if (document.hidden && !bgm.paused) { bgm.pause(); bgm.dataset.resume = '1'; } else if (!document.hidden && bgm.dataset.resume) { delete bgm.dataset.resume; if (!userOff) bgmPlay(); } });
+  document.addEventListener('visibilitychange', function () { if (document.hidden && !bgm.paused) { bgm.pause(); bgm.dataset.resume = '1'; } else if (!document.hidden && bgm.dataset.resume) { delete bgm.dataset.resume; if (!userOff && !window.__filmAudible) bgmPlay(); } });
+  bgm.addEventListener('pause', function () { bgmUi(false); }); bgm.addEventListener('play', function () { bgmUi(true); });
   function openPP() {
     if (opened) return; opened = true; if (bgm.paused && !userOff) bgmPlay();
     cover.classList.add('open'); $('wall').classList.add('go');
@@ -960,13 +965,12 @@ var PHOTOS = [[106, "Fate walks through silver grass"], [97, "Joy finds us anywh
   (function () {
     var v = $('ifeVid'); if (!v) return;
     var box = v.closest('.ife'), list = [
-      { src: '../book/clip1.mp4', poster: '../book/clip1.jpg', t: 'Looking up, side by side' },
-      { src: '../book/clip2.mp4', poster: '../book/clip2.jpg', t: 'Kiss under N Seoul Tower' }
+      { src: '../v/fantastic.mp4', poster: '../v/fantastic.jpg', t: 'FANTASTIC BABY · 신랑 성장기' }
     ], k = 0, loops = 0, started = false;
     function load(i, play) {
       k = (i + list.length) % list.length; loops = 0;
       v.src = list[k].src; v.poster = list[k].poster;
-      $('ifeTitle').textContent = list[k].t; $('ifeEp').textContent = 'EP. ' + (k + 1) + ' / ' + list.length;
+      $('ifeTitle').textContent = list[k].t; $('ifeEp').textContent = list.length > 1 ? 'EP. ' + (k + 1) + ' / ' + list.length : 'NOW SHOWING';
       if (play) go();
     }
     function go() { if (v.ended && k === list.length - 1) load(0, false); var pr = v.play(); if (pr && pr.catch) pr.catch(function () {}); }
@@ -976,10 +980,28 @@ var PHOTOS = [[106, "Fate walks through silver grass"], [97, "Joy finds us anywh
     v.addEventListener('timeupdate', function () { $('ifeProg').style.width = (v.duration ? v.currentTime / v.duration * 100 : 0) + '%'; $('ifeT').textContent = fmt(v.currentTime) + ' / ' + fmt(v.duration); });
     v.addEventListener('ended', function () { if (k < list.length - 1) load(k + 1, true); else ui(); });  /* 반복 없이 한 번씩만, 끝나면 멈춤 */
     $('ifePlay').addEventListener('click', function () { if (v.paused) go(); else v.pause(); });
-    $('ifePrev').addEventListener('click', function () { load(k - 1, true); });
-    $('ifeNext').addEventListener('click', function () { load(k + 1, true); });
-    v.addEventListener('click', function () { if (v.paused) go(); else v.pause(); });
-    $('ifeSnd').addEventListener('click', function () { v.muted = !v.muted; this.textContent = v.muted ? '🔇' : '🔊'; this.setAttribute('aria-label', v.muted ? '소리 켜기' : '소리 끄기'); });
+    $('ifePrev').addEventListener('click', function () { if (list.length > 1) load(k - 1, true); else { v.currentTime = 0; go(); } });
+    /* 영상 소리가 켜져 있는 동안은 배경음악을 잠시 멈추고, 끝나면 다시 */
+    var bgA = $('bgm'), held = false;
+    function duck(on) { if (!bgA) return; if (on) { if (!bgA.paused) { bgA.pause(); held = true; } } else if (held) { held = false; var p2 = bgA.play(); if (p2 && p2.catch) p2.catch(function () {}); } }
+    function sndUi() { var b = $('ifeSnd'); b.textContent = v.muted ? '🔇' : '🔊'; b.setAttribute('aria-label', v.muted ? '소리 켜기' : '소리 끄기'); window.__filmAudible = !v.muted && !v.paused; }
+    v.addEventListener('play', function () { sndUi(); if (!v.muted) duck(true); });
+    v.addEventListener('pause', function () { sndUi(); duck(false); });
+    v.addEventListener('volumechange', function () { sndUi(); if (v.muted) duck(false); else if (!v.paused) duck(true); });
+    $('ifeSnd').addEventListener('click', function () { v.muted = !v.muted; if (!v.muted && v.paused) go(); });
+    /* 크게 보기: 소리 켜고 전체 화면 */
+    function enterFull() {
+      v.muted = false; go();
+      try { if (v.webkitEnterFullscreen && /iPhone|iPod/.test(navigator.userAgent)) v.webkitEnterFullscreen(); else if (v.requestFullscreen) { var r = v.requestFullscreen(); if (r && r.catch) r.catch(function () {}); } else if (v.webkitEnterFullscreen) v.webkitEnterFullscreen(); } catch (e) {}
+    }
+    $('ifeFull').addEventListener('click', enterFull);
+    $('ifeCta').addEventListener('click', enterFull);
+    /* 재생 중에는 화면 위 글씨를 감춰 영상이 다 보이게, 화면을 누르면 다시 */
+    var hideT = 0;
+    function poke() { box.classList.remove('hide-ui'); clearTimeout(hideT); if (!v.paused) hideT = setTimeout(function () { box.classList.add('hide-ui'); }, 2200); }
+    v.addEventListener('play', poke); v.addEventListener('pause', poke);
+    box.addEventListener('click', function (e) { if (e.target.closest('.ife-ctrl')) poke(); }, true);
+    v.addEventListener('click', function () { if (box.classList.contains('hide-ui')) { poke(); return; } if (v.paused) go(); else v.pause(); });
     function clock() { var d = new Date(); $('ifeClock').textContent = (d.getHours() < 10 ? '0' : '') + d.getHours() + ':' + (d.getMinutes() < 10 ? '0' : '') + d.getMinutes(); }
     clock(); setInterval(clock, 30000);
     load(0, false); ui();
