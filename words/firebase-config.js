@@ -8,3 +8,8 @@ window.FIREBASE_CONFIG = {
   messagingSenderId: "",
   appId: ""
 };
+const firebaseConfig = {
+  apiKey: "...",
+  authDomain: "...",
+  ...
+};
