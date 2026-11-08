@@ -148,6 +148,13 @@
   .btn.kakao { background: #fee500; border-color: #d4bd00; color: #191919; }
 
   /* ───── 하단 고정 바 ───── */
+  .bgm-btn { position: fixed; top: 14px; right: 14px; z-index: 58; display: flex; align-items: center; gap: 8px; height: 36px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--line); background: rgba(255,253,248,0.9); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); color: #3b2416; font-family: "Montserrat", sans-serif; font-size: 0.6rem; letter-spacing: 0.22em; cursor: pointer; box-shadow: 0 4px 14px rgba(59,36,22,0.1); }
+  .bgm-btn[hidden] { display: none; }
+  .bgm-btn .beq { display: flex; align-items: flex-end; gap: 2px; height: 12px; }
+  .bgm-btn .beq i { width: 2px; height: 4px; background: var(--gold); }
+  .bgm-btn.on .beq i { animation: eq 0.9s ease-in-out infinite; }
+  .bgm-btn.on .beq i:nth-child(2) { animation-delay: .2s; } .bgm-btn.on .beq i:nth-child(3) { animation-delay: .4s; }
+  @media (prefers-reduced-motion: reduce) { .bgm-btn.on .beq i { animation: none; height: 10px; } }
   .np { position: fixed; left: 50%; bottom: 0; transform: translateX(-50%); z-index: 40; width: 100%; max-width: 480px; padding: 10px 14px calc(10px + env(safe-area-inset-bottom)); display: flex; align-items: center; gap: 12px; background: rgba(247,252,249,0.94); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border-top: 1px solid var(--line); box-shadow: 0 -10px 30px rgba(59,36,22,0.1); }
   .np .info { flex: 1; min-width: 0; line-height: 1.3; }
   .np .info small { display: block; font-family: "Cormorant Garamond", serif; font-style: italic; letter-spacing: 0.1em; color: var(--gold); font-size: 0.92rem; }
@@ -342,6 +349,8 @@
 </div>
 
 <!-- 하단 고정 바: 어디서든 한 번에 -->
+<audio id="bgm" src="../passport/bgm.mp3" loop preload="none"></audio>
+<button type="button" class="bgm-btn" id="bgmBtn" hidden aria-label="배경음악 켜기"><span class="beq" aria-hidden="true"><i></i><i></i><i></i></span><span>MUSIC</span></button>
 <div class="np" id="np">
   <div class="info"><small>NOW PLAYING</small><b id="npText">D-0 · 1.16 SAT 12:30</b></div>
   <button class="btn round" type="button" id="shareBtn" aria-label="청첩장 공유하기">⤴</button>
@@ -560,6 +569,23 @@
     var bg = document.getElementById('bgm'); if (bg && !bg.paused) bg.pause();
     document.getElementById('introVid').innerHTML = '<iframe src="https://www.youtube.com/embed/xGqK5qMO4Oc?autoplay=1&rel=0&playsinline=1" title="신랑 소개" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>';
   });
+})();
+(function () {
+  var bgm = document.getElementById('bgm'), btn = document.getElementById('bgmBtn'), has = false, userOff = false, armed = false;
+  function ui(on) { btn.classList.toggle('on', on); btn.setAttribute('aria-label', on ? '배경음악 끄기' : '배경음악 켜기'); }
+  function arm() {
+    if (armed) return; armed = true;
+    var evs = ['pointerdown', 'pointerup', 'touchend', 'click', 'keydown'];
+    function go() { evs.forEach(function (e) { document.removeEventListener(e, go, true); }); armed = false; if (bgm.paused && !userOff) play(); }
+    evs.forEach(function (e) { document.addEventListener(e, go, true); });
+  }
+  function play() { if (!has) return; bgm.volume = 0.6; var pr = bgm.play(); if (pr && pr.then) pr.then(function () { ui(true); }, function () { ui(false); arm(); }); }
+  bgm.addEventListener('pause', function () { ui(false); });
+  bgm.addEventListener('play', function () { ui(true); });
+  fetch(bgm.getAttribute('src'), { method: 'HEAD' }).then(function (r) { if (r.ok) { has = true; btn.hidden = false; bgm.preload = 'auto'; play(); } }).catch(function () {});
+  btn.addEventListener('click', function (e) { e.stopPropagation(); if (bgm.paused) { userOff = false; play(); } else { userOff = true; bgm.pause(); } });
+  document.addEventListener('visibilitychange', function () { if (document.hidden && !bgm.paused) { bgm.pause(); bgm.dataset.resume = '1'; } else if (!document.hidden && bgm.dataset.resume) { delete bgm.dataset.resume; if (!userOff) play(); } });
+  var iv = document.getElementById('introBtn'); if (iv) iv.addEventListener('click', function () { userOff = true; }, true);
 })();
 </script>
 </body>
