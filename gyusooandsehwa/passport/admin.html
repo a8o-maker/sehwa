@@ -27,7 +27,7 @@
   .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin-bottom: 16px; }
   .kpi { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; }
   .kpi .k { font-family: "Montserrat"; font-size: 0.62rem; letter-spacing: 0.16em; color: var(--mu); text-transform: uppercase; }
-  .kpi .v { font-family: "Cormorant Garamond", serif; font-size: 2rem; color: var(--nv); line-height: 1.1; font-variant-numeric: tabular-nums; }
+  .kpi .v { font-family: "Cormorant Garamond", serif; font-size: 2rem; color: var(--nv); line-height: 1.1; font-variant-numeric: lining-nums tabular-nums; }
   .kpi .s { font-size: 0.74rem; color: var(--mu); }
   .bar { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin: 18px 0 10px; flex-wrap: wrap; }
   .bar h2 { font-size: 1rem; font-weight: 400; color: var(--nv); margin: 0; }
@@ -35,7 +35,8 @@
   table { width: 100%; border-collapse: collapse; font-size: 0.86rem; min-width: 560px; }
   th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid var(--line); white-space: nowrap; }
   th { font-family: "Montserrat"; font-size: 0.62rem; letter-spacing: 0.14em; color: var(--mu); font-weight: 600; text-transform: uppercase; }
-  td.n { font-variant-numeric: tabular-nums; }
+  td.n { font-variant-numeric: lining-nums tabular-nums; }
+  td a { color: inherit; }
   .tag { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 0.74rem; }
   .tag.y { background: rgba(27,42,74,0.1); color: var(--nv); } .tag.n { background: rgba(180,35,24,0.08); color: #b42318; }
   .empty { padding: 26px; text-align: center; color: var(--mu); font-size: 0.86rem; }
@@ -71,7 +72,7 @@
       <div style="display:flex;gap:8px"><button class="btn ghost" type="button" id="csv">CSV 내려받기</button><button class="btn ghost" type="button" id="out">로그아웃</button></div>
     </div>
     <div class="tw"><table>
-      <thead><tr><th>시간</th><th>이름</th><th>휴대전화</th><th>참석</th><th>식사</th><th>인원</th></tr></thead>
+      <thead><tr><th>이름</th><th>참석</th><th>식사</th><th>인원</th><th>휴대전화</th><th>시간</th></tr></thead>
       <tbody id="rows"></tbody>
     </table></div>
   </section>
@@ -101,7 +102,7 @@
     $('kMeal').textContent = meal; $('kTbd').textContent = tbd; $('kNo').textContent = no;
     $('rows').innerHTML = data.length ? data.map(function (v) {
       var y = v.attend === '참석';
-      return '<tr><td class="n">' + when(v.createdAt) + '</td><td>' + esc(v.name) + '</td><td class="n">' + phone(v.phone) + '</td><td><span class="tag ' + (y ? 'y' : 'n') + '">' + esc(v.attend) + '</span></td><td>' + esc(v.meal) + '</td><td class="n">' + (y ? (+v.count || 0) : '-') + '</td></tr>';
+      return '<tr><td>' + esc(v.name) + '</td><td><span class="tag ' + (y ? 'y' : 'n') + '">' + esc(v.attend) + '</span></td><td>' + esc(v.meal) + '</td><td class="n">' + (y ? (+v.count || 0) : '-') + '</td><td class="n"><a href="tel:' + esc(v.phone) + '">' + phone(v.phone) + '</a></td><td class="n">' + when(v.createdAt) + '</td></tr>';
     }).join('') : '<tr><td colspan="6" class="empty">아직 회신이 없어요.</td></tr>';
   }
   auth.onAuthStateChanged(function (u) {
