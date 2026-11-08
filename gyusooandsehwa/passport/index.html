@@ -11,7 +11,7 @@
 <meta property="og:image" content="../s/210.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Gowun+Batang:wght@400;700&family=Montserrat:wght@400;500;600;700;800&family=Nanum+Pen+Script&family=Share+Tech+Mono&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Noto+Serif+KR:wght@400;500;600;700&family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..700&family=Montserrat:wght@400;500;600;700;800&family=Nanum+Pen+Script&family=Share+Tech+Mono&display=swap">
 <style>
   :root {
     --navy: #2a170e; --navy-2: #3b2416; --navy-3: #5a3b2a; --bg: #e7f5ee; --bg-2: #f7fcf9; --ink-1: #2f1d12; --ink-nv: #3b2416; --ink-mu: #6b5646;
@@ -22,7 +22,7 @@
   }
     * { box-sizing: border-box; }
   html { -webkit-text-size-adjust: 100%; }
-  body { margin: 0; background: var(--bg); color: var(--text); font-family: "Gowun Batang", serif; word-break: keep-all; line-height: 1.75; overflow-x: hidden; }
+  body { margin: 0; background: var(--bg); color: var(--text); font-family: "Noto Serif KR", serif; word-break: keep-all; line-height: 1.75; overflow-x: hidden; }
   body.locked { overflow: hidden; height: 100vh; }
   body::before { content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 1; opacity: 0.05; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
   main { position: relative; z-index: 2; }
@@ -34,7 +34,7 @@
   .eyebrow::before, .eyebrow::after { content: ""; width: 34px; height: 1px; background: linear-gradient(90deg, transparent, var(--gold)); }
   .eyebrow::after { background: linear-gradient(90deg, var(--gold), transparent); }
   .eyebrow .no { color: var(--mint-d); font-weight: 700; font-style: normal; font-size: 0.72rem; letter-spacing: 0.24em; margin-right: 6px; opacity: 0.8; }
-  h2 { margin: 2px 0 8px; font-size: 1.12rem; font-weight: 400; letter-spacing: 0.08em; }
+  h2 { margin: 2px 0 8px; font-size: 1.14rem; font-weight: 500; letter-spacing: 0.14em; }
   .lede { margin: 0 auto 26px; max-width: 34ch; word-break: keep-all; font-size: 0.86rem; line-height: 1.85; color: var(--muted); }
   section { padding: 72px 16px 8px; text-align: center; }
   section + section::before { content: ""; display: block; width: 1px; height: 34px; margin: -40px auto 38px; background: linear-gradient(transparent, var(--line)); }
@@ -57,7 +57,7 @@
   .gold { background: linear-gradient(100deg, #9c7f4a 0%, #e6d3a8 40%, #fbf3e0 50%, #e6d3a8 60%, #9c7f4a 100%); background-size: 250% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; animation: shine 6s ease-in-out infinite; }
   @keyframes shine { 0%,100% { background-position: 100% 0; } 50% { background-position: 0 0; } }
   .lid .t1 { font-family: "Montserrat"; font-weight: 600; letter-spacing: 0.34em; font-size: 0.7rem; }
-  .lid .t2 { font-family: "Montserrat"; font-weight: 800; letter-spacing: 0.24em; font-size: 1.85rem; margin: 6px 0 0; }
+  .lid .t2 { font-family: "Bodoni Moda", serif; font-weight: 500; letter-spacing: 0.2em; font-size: 1.95rem; margin: 6px 0 0; }
   .lid .t3 { font-family: "Montserrat"; letter-spacing: 0.3em; font-size: 0.6rem; margin-top: 4px; }
   .emblem { width: 112px; height: 112px; color: #8fe0c0; filter: drop-shadow(0 0 10px rgba(201,169,110,0.35)); }
   .chip { width: 30px; height: 20px; border: 1.4px solid var(--gold-2); border-radius: 4px; position: relative; opacity: 0.85; }
@@ -69,7 +69,7 @@
   /* 신원 정보면 */
   .datapage { position: relative; background: var(--paper); color: var(--paper-ink); border-radius: 6px; padding: 16px 14px 12px; text-align: left; overflow: hidden; box-shadow: 0 20px 44px rgba(0,0,0,0.45);
     background-image: repeating-radial-gradient(circle at 80% 30%, rgba(26,107,86,0.07) 0 1px, transparent 1px 7px), repeating-radial-gradient(circle at 10% 90%, rgba(180,83,9,0.07) 0 1px, transparent 1px 9px); }
-  .dp-top { display: flex; justify-content: space-between; align-items: baseline; font-family: "Montserrat"; font-size: 0.6rem; letter-spacing: 0.2em; color: #1a6b56; font-weight: 700; border-bottom: 1px solid rgba(26,107,86,0.25); padding-bottom: 6px; margin-bottom: 12px; }
+  .dp-top { display: flex; justify-content: space-between; align-items: baseline; font-family: "Montserrat"; font-size: 0.6rem; letter-spacing: 0.2em; color: #1a6b56; font-weight: 600; border-bottom: 1px solid rgba(26,107,86,0.25); padding-bottom: 6px; margin-bottom: 12px; }
   .dp-body { display: grid; grid-template-columns: 42% 1fr; gap: 12px; }
   .dp-photo { position: relative; aspect-ratio: 4 / 5; border-radius: 6px; overflow: hidden; background: #ddd; }
   .dp-photo img { width: 100%; height: 100%; object-fit: cover; }
@@ -77,8 +77,8 @@
   @keyframes holo { 0%,100% { background-position: 120% 0; } 50% { background-position: -20% 0; } }
   .f { margin-bottom: 7px; }
   .f .k { font-family: "Montserrat"; font-size: 0.52rem; letter-spacing: 0.14em; color: var(--paper-mute); text-transform: uppercase; line-height: 1.3; }
-  .f .v { font-family: "Montserrat"; font-size: 0.8rem; font-weight: 700; line-height: 1.3; }
-  .f .v small { font-family: "Gowun Batang"; font-weight: 400; font-size: 0.72rem; color: var(--paper-mute); }
+  .f .v { font-family: "Bodoni Moda", serif; font-size: 0.86rem; font-weight: 600; letter-spacing: 0.03em; line-height: 1.3; }
+  .f .v small { font-family: "Noto Serif KR"; font-weight: 400; font-size: 0.72rem; color: var(--paper-mute); }
   .sig { font-family: "Nanum Pen Script", cursive; font-size: 1.35rem; color: #1a6b56; line-height: 1; margin-top: 2px; }
   .mrz { margin-top: 12px; padding-top: 8px; border-top: 1px dashed rgba(59,36,22,0.25); font-family: "Share Tech Mono", monospace; font-size: clamp(0.56rem, 2.7vw, 0.72rem); letter-spacing: 0.05em; line-height: 1.45; color: #2f1d12; white-space: nowrap; overflow: hidden; }
 
@@ -88,7 +88,7 @@
   .visa .ph { outline: none !important; border-radius: 0 !important; }
   .visa .line { left: 10px !important; right: 10px !important; bottom: 10px !important; font-size: 0.92rem !important; }
   .visa .line small { font-size: 0.54rem !important; }
-  .visa .meta { margin-top: 8px !important; padding: 7px 2px 1px !important; border-radius: 0 !important; background: none !important; border-top: 1px solid rgba(59,36,22,0.2); font-size: 0.56rem !important; letter-spacing: 0.22em !important; font-weight: 700 !important; }
+  .visa .meta { margin-top: 8px !important; padding: 7px 2px 1px !important; border-radius: 0 !important; background: none !important; border-top: 1px solid rgba(59,36,22,0.2); font-size: 0.56rem !important; letter-spacing: 0.22em !important; font-weight: 600 !important; }
   .visa .meta span:first-child { color: #14866a !important; } .visa .meta span:last-child { color: #e5690f !important; }
   .visa .stamp { font-size: 0.46rem !important; padding: 3px 6px !important; border-width: 1.5px !important; max-width: 104px; }
   .visa .stamp b { font-size: 0.58rem !important; } .visa .stamp i { font-size: 0.36rem !important; }
@@ -99,7 +99,7 @@
   .visa .ph img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.06); transition: transform 6s ease-out; }
   .visa.in .ph img { transform: scale(1); }
   .visa .ph::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 30%; background: linear-gradient(transparent, rgba(0,0,0,0.55)); }
-  .visa .line small { display: block; margin-top: 2px; font-family: "Gowun Batang", serif; font-style: normal; font-size: 0.56rem; letter-spacing: 0; opacity: 0.92; }
+  .visa .line small { display: block; margin-top: 2px; font-family: "Noto Serif KR", serif; font-style: normal; font-size: 0.56rem; letter-spacing: 0; opacity: 0.92; }
   .visa .line { position: absolute; z-index: 1; left: 12px; right: 12px; bottom: 12px; color: #fff; font-family: "Cormorant Garamond", serif; font-style: italic; font-size: 1.12rem; letter-spacing: 0.02em; text-align: center; text-shadow: 0 1px 4px rgba(0,0,0,0.7); }
   .visa .meta { display: flex; justify-content: space-between; align-items: center; gap: 6px; margin-top: 10px; padding: 6px 10px; border-radius: 6px; background: #4a2410; font-family: "Montserrat", sans-serif; font-weight: 800; font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; }
   .visa .meta span:first-child { color: #3ff0bf; } .visa .meta span:last-child { color: #ff8a24; }
@@ -117,7 +117,7 @@
   .bp-head { display: flex; justify-content: space-between; align-items: center; padding: 14px 18px; border-bottom: 1px solid var(--line); color: var(--gold-2); font-family: "Montserrat"; font-weight: 500; letter-spacing: 0.24em; font-size: 0.62rem; }
   .bp-main { padding: 18px; }
   .route { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; text-align: center; }
-  .route .code { font-family: "Cormorant Garamond", serif; font-weight: 500; font-size: 2rem; color: var(--gold-2); letter-spacing: 0.04em; line-height: 1.1; }
+  .route .code { font-family: "Bodoni Moda", serif; font-weight: 400; font-size: clamp(1.4rem, 6.4vw, 1.8rem); color: var(--gold-2); letter-spacing: 0.08em; line-height: 1.1; }
   .route .sub { font-size: 0.72rem; color: var(--muted); }
   .route .k { font-family: "Montserrat"; font-size: 0.56rem; letter-spacing: 0.2em; color: var(--muted); }
   .plane { position: relative; width: 74px; height: 22px; }
@@ -126,8 +126,8 @@
   @keyframes fly { 0% { left: 0; opacity: 0; } 15% { opacity: 1; } 85% { opacity: 1; } 100% { left: calc(100% - 22px); opacity: 0; } }
   .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 14px; margin-top: 16px; padding-top: 14px; border-top: 1px dashed rgba(122,106,92,0.35); }
   .grid2 .k { font-family: "Montserrat"; font-size: 0.56rem; letter-spacing: 0.18em; color: var(--muted); }
-  .grid2 .v { font-family: "Montserrat"; font-weight: 700; font-size: 0.86rem; color: var(--text); line-height: 1.35; }
-  .grid2 .v.ko { font-family: "Gowun Batang"; }
+  .grid2 .v { font-family: "Bodoni Moda", serif; font-weight: 600; font-size: 0.94rem; letter-spacing: 0.02em; color: var(--text); line-height: 1.35; }
+  .grid2 .v.ko { font-family: "Noto Serif KR"; font-weight: 600; font-size: 0.88rem; letter-spacing: 0; }
   .tear { position: relative; height: 0; border-top: 2px dashed rgba(122,106,92,0.35); margin: 0 14px; }
   .tear::before, .tear::after { content: ""; position: absolute; top: -12px; width: 22px; height: 22px; border-radius: 50%; background: var(--bg); }
   .tear::before { left: -26px; } .tear::after { right: -26px; }
@@ -137,17 +137,17 @@
   .stub-t b { color: var(--gold-2); font-size: 0.8rem; }
   .cnt { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 18px; }
   .cnt > div { background: var(--bg-2); border: 1px solid var(--line); border-radius: 12px; padding: 10px 0 8px; }
-  .cnt .n { font-family: "Cormorant Garamond", serif; font-weight: 500; font-size: 1.35rem; color: var(--gold-2); line-height: 1.1; font-variant-numeric: tabular-nums; }
+  .cnt .n { font-family: "Bodoni Moda", serif; font-weight: 500; font-size: 1.35rem; font-variant-numeric: lining-nums tabular-nums; color: var(--gold-2); line-height: 1.1; font-variant-numeric: tabular-nums; }
   .cnt .u { font-family: "Montserrat"; font-size: 0.55rem; letter-spacing: 0.2em; color: var(--muted); }
 
   /* 공통 카드 */
   .card { background: var(--bg-2); box-shadow: 0 10px 28px rgba(59,36,22,0.06); border: 1px solid var(--line); border-radius: 12px; padding: 28px 20px; }
   .card h3 { margin: 0 0 8px; color: var(--gold-2); font-size: 0.98rem; font-weight: 400; letter-spacing: 0.04em; }
-  .msg { font-size: 0.93rem; line-height: 2.1; color: #3a261a; margin: 0; }
+  .msg { font-size: 0.92rem; line-height: 2.15; color: #3a261a; margin: 0; letter-spacing: -0.01em; }
   .fam { margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--line); display: grid; gap: 8px; font-size: 0.92rem; color: #4a3426; }
-  .fam b { color: var(--text); font-weight: 700; }
+  .fam b { color: var(--text); font-weight: 600; }
   .fam .rel { color: var(--gold); font-size: 0.8rem; margin: 0 4px; }
-  .fam .nm { color: var(--gold-2); font-weight: 700; }
+  .fam .nm { color: var(--gold-2); font-weight: 600; }
   .btn-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 16px; }
   .btn-row.three { grid-template-columns: repeat(3, 1fr); }
   .btn { display: flex; align-items: center; justify-content: center; gap: 6px; min-height: 44px; border-radius: 6px; border: 1px solid var(--line); background: transparent; color: var(--gold-3); font-family: inherit; font-size: 0.84rem; text-decoration: none; cursor: pointer; }
@@ -155,7 +155,7 @@
   .btn.solid { background: var(--ink-nv); color: #fff; border: 0; font-weight: 600; letter-spacing: 0.04em; }
   .acct { display: flex; align-items: center; justify-content: space-between; gap: 10px; text-align: left; padding: 14px; border-radius: 8px; background: #e7f5ee; border: 1px solid var(--line); margin-top: 10px; }
   .acct .who { font-size: 0.78rem; color: var(--gold-2); }
-  .acct .no { font-family: "Montserrat"; font-size: 0.86rem; color: var(--text); font-weight: 600; }
+  .acct .no { font-family: "Bodoni Moda", serif; font-size: 0.98rem; color: var(--text); font-weight: 500; letter-spacing: 0.06em; font-variant-numeric: lining-nums tabular-nums; }
   .acct .btn { min-height: 36px; padding: 0 14px; flex-shrink: 0; }
   .addr { color: var(--muted); font-size: 0.86rem; margin: 2px 0 0; }
 
@@ -173,10 +173,10 @@
   .log .ph img { display: block; width: 100%; aspect-ratio: 3 / 4; object-fit: cover; }
   .log .ph::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 46%; background: linear-gradient(transparent, rgba(0,0,0,0.55)); pointer-events: none; }
   .log .cap { position: absolute; z-index: 1; left: 6px; right: 6px; bottom: 6px; color: #fff; font-family: "Cormorant Garamond", serif; font-style: italic; font-weight: 600; font-size: 0.74rem; line-height: 1.12; text-shadow: 0 1px 3px rgba(0,0,0,0.7); }
-  .log .cap small { display: block; margin-top: 2px; font-family: "Gowun Batang", serif; font-style: normal; font-weight: 400; font-size: 0.46rem; line-height: 1.25; letter-spacing: 0; opacity: 0.92; }
+  .log .cap small { display: block; margin-top: 2px; font-family: "Noto Serif KR", serif; font-style: normal; font-weight: 400; font-size: 0.46rem; line-height: 1.25; letter-spacing: 0; opacity: 0.92; }
   .tagbar { display: flex; align-items: center; justify-content: space-between; gap: 4px; margin-top: 6px; padding: 6px 1px 1px; background: none; border-radius: 0; border-top: 1px solid rgba(59,36,22,0.2); }
-  .tagbar b { color: #14866a; font-family: "Montserrat", sans-serif; font-weight: 700; font-size: 0.5rem; letter-spacing: 0.18em; white-space: nowrap; }
-  .tagbar i { color: #e5690f; font-style: normal; font-family: "Montserrat", sans-serif; font-weight: 700; font-size: 0.5rem; letter-spacing: 0.12em; text-transform: uppercase; text-align: right; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .tagbar b { color: #14866a; font-family: "Montserrat", sans-serif; font-weight: 600; font-size: 0.5rem; letter-spacing: 0.18em; white-space: nowrap; }
+  .tagbar i { color: #e5690f; font-style: normal; font-family: "Montserrat", sans-serif; font-weight: 600; font-size: 0.5rem; letter-spacing: 0.12em; text-transform: uppercase; text-align: right; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .log .stamp { font-size: 0.34rem; padding: 2px 4px; border-width: 1px; max-width: 70px; z-index: 3; mix-blend-mode: normal; background: rgba(255,255,255,0.92); box-shadow: none; }
   .log .stamp b { font-size: 0.42rem; } .log .stamp i { font-size: 0.28rem; }
   .log .stamp.round { width: 46px; height: 46px; border-width: 2px; padding: 3px; }
@@ -188,7 +188,7 @@
   .lb img { max-height: 76vh; width: auto; max-width: 100%; border-radius: 8px; }
   .lb p { margin: 12px 0 0; text-align: center; font-family: "Cormorant Garamond", serif; font-style: italic; letter-spacing: 0.04em; color: #fff; }
   .lb p .e { display: block; font-size: 1.3rem; color: #3ff0bf; font-weight: 600; }
-  .lb p small { display: block; margin-top: 2px; font-family: "Gowun Batang", serif; font-style: normal; font-size: 0.8rem; letter-spacing: 0; color: #ff9a3c; }
+  .lb p small { display: block; margin-top: 2px; font-family: "Noto Serif KR", serif; font-style: normal; font-size: 0.8rem; letter-spacing: 0; color: #ff9a3c; }
   .lb p em { display: block; margin-top: 4px; font-style: normal; font-family: "Montserrat", sans-serif; font-weight: 700; font-size: 0.66rem; letter-spacing: 0.16em; color: #fff; opacity: 0.8; }
   .lb .x { position: absolute; top: 12px; right: 12px; width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--line); background: none; color: #fff; font-size: 1.3rem; cursor: pointer; }
   .lb .nav { position: absolute; top: 50%; width: 44px; height: 64px; border: 0; background: rgba(15,23,42,0.5); color: #fff; font-size: 1.6rem; cursor: pointer; }
@@ -276,7 +276,7 @@
   .rv .agree { display: flex; gap: 10px; align-items: flex-start; margin: 16px 0 0; font-size: 0.9rem; color: #4a3426; line-height: 1.55; }
   .rv .agree input { width: 22px; height: 22px; margin-top: 2px; accent-color: #3b2416; flex-shrink: 0; }
   .rv .rv-err { min-height: 1.3em; margin: 8px 0 0; color: #b42318; font-size: 0.92rem; font-weight: 500; }
-  .rv .btn.solid { width: 100%; min-height: 54px; font-size: 1.05rem; font-weight: 700; }
+  .rv .btn.solid { width: 100%; min-height: 54px; font-size: 1rem; font-weight: 600; }
   .rv-done { text-align: center; padding: 8px 0 2px; }
   .rv-done .ck { width: 56px; height: 56px; margin: 0 auto 10px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.7rem; color: #f6e6b0; background: var(--ink-nv); }
   .rv-done p { margin: 0; line-height: 1.9; color: #3a261a; }
@@ -324,7 +324,7 @@
   .np .info { flex: 1; min-width: 0; line-height: 1.3; }
   .np .info small { display: block; font-family: "Cormorant Garamond", serif; font-style: italic; letter-spacing: 0.1em; color: var(--gold); font-size: 0.92rem; }
   .np .info b { display: block; font-size: 0.98rem; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--ink-nv); }
-  .np .btn { min-height: 52px; padding: 0 20px; white-space: nowrap; font-size: 1.05rem; font-weight: 700; }
+  .np .btn { min-height: 52px; padding: 0 20px; white-space: nowrap; font-size: 1rem; font-weight: 600; letter-spacing: 0.04em; }
   .np .btn.round { width: 52px; padding: 0; flex: 0 0 52px; font-size: 1.15rem; }
   .toast { bottom: calc(86px + env(safe-area-inset-bottom)) !important; }
   main { padding-bottom: 120px !important; }
@@ -339,12 +339,13 @@
   .gv-x { position: absolute; right: 8px; top: 8px; width: 48px; height: 48px; border: 0; background: none; font-size: 1.6rem; color: var(--muted); cursor: pointer; }
   .ac { margin-top: 14px; padding: 16px 16px 14px; border-radius: 14px; text-align: left; border: 1.5px solid transparent; background: linear-gradient(#fff, #fff) padding-box, var(--foil) border-box; box-shadow: 0 8px 20px rgba(59,36,22,0.07); }
   .ac .who { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
-  .ac .who b { font-size: 1.08rem; color: var(--ink-nv); } .ac .who span { color: var(--muted); font-size: 0.9rem; }
-  .ac .bank { margin-top: 8px; font-weight: 700; color: var(--gold); font-size: 1.02rem; }
-  .ac .num { display: block; width: 100%; margin: 2px 0 0; padding: 4px 0; border: 0; background: none; text-align: left; cursor: pointer; font-family: "Montserrat", sans-serif; font-weight: 700; font-size: clamp(1.35rem, 6.8vw, 1.7rem); letter-spacing: 0.02em; line-height: 1.35; color: #2f1d12; font-variant-numeric: tabular-nums; word-break: normal; }
+  .ac .who b { font-size: 0.98rem; font-weight: 600; letter-spacing: 0.02em; color: var(--ink-nv); } .ac .who span { color: var(--muted); font-size: 0.78rem; }
+  .ac .bank { margin-top: 10px; font-weight: 500; color: var(--gold); font-size: 0.82rem; letter-spacing: 0.06em; }
+  .ac .num .hy { font-family: "Noto Serif KR", serif; font-style: normal; font-weight: 400; color: var(--gold); margin: 0 0.12em; }
+  .ac .num { display: block; width: 100%; margin: 2px 0 0; padding: 4px 0; border: 0; background: none; text-align: left; cursor: pointer; font-family: "Bodoni Moda", serif; font-weight: 500; font-size: 1.2rem; letter-spacing: 0.08em; line-height: 1.45; color: #2f1d12; font-variant-numeric: lining-nums tabular-nums; word-break: normal; }
   .ac .bt { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px; }
   .ac .bt > :first-child { grid-column: 1 / -1; }
-  .ac .btn { min-height: 52px; font-size: 1rem; font-weight: 700; justify-content: center; }
+  .ac .btn { min-height: 48px; font-size: 0.9rem; font-weight: 600; letter-spacing: 0.04em; justify-content: center; }
   .btn.toss { background: #0064ff !important; border-color: #0050cc !important; color: #fff !important; }
   .btn.kakao { background: #fee500 !important; border-color: #d4bd00 !important; color: #191919 !important; }
   .gv-note { margin: 12px 0 0; color: var(--muted); font-size: 0.88rem; line-height: 1.65; text-align: center; }
@@ -707,7 +708,7 @@
   </div></div>
 </div>
 <div class="flight" aria-hidden="true"><i id="flightBar"></i><svg id="flightPlane" viewBox="0 0 24 24"><path fill="#9c7a3f" d="M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5z" transform="rotate(90 12 12)"/></svg></div>
-<audio id="bgm" src="bgm.mp3" loop preload="none"></audio>
+<audio id="bgm" src="sun.mp3" loop preload="none"></audio>
 <button type="button" class="bgm-btn" id="bgmBtn" hidden aria-label="배경음악 켜기">
   <span class="eq" aria-hidden="true"><i></i><i></i><i></i></span><span class="bgm-t">MUSIC</span>
 </button>
@@ -738,7 +739,7 @@ var PHOTOS = [[106, "Fate walks through silver grass"], [97, "Joy finds us anywh
     var pr = bgm.play();
     if (pr && pr.then) pr.then(function () { bgmUi(true); }, function () { bgmUi(false); arm(); });
   }
-  fetch('bgm.mp3', { method: 'HEAD' }).then(function (r) { if (r.ok) { hasBgm = true; bgmBtn.hidden = false; bgm.preload = 'auto'; bgmPlay(); } }).catch(function () {});
+  fetch(bgm.getAttribute('src'), { method: 'HEAD' }).then(function (r) { if (r.ok) { hasBgm = true; bgmBtn.hidden = false; bgm.preload = 'auto'; bgmPlay(); } }).catch(function () {});
   bgmBtn.addEventListener('click', function (e) { e.stopPropagation(); if (bgm.paused) { userOff = false; bgmPlay(); } else { userOff = true; bgm.pause(); bgmUi(false); } });
   document.addEventListener('visibilitychange', function () { if (document.hidden && !bgm.paused) { bgm.pause(); bgm.dataset.resume = '1'; } else if (!document.hidden && bgm.dataset.resume) { delete bgm.dataset.resume; if (!userOff) bgmPlay(); } });
   function openPP() {
@@ -930,12 +931,12 @@ var PHOTOS = [[106, "Fate walks through silver grass"], [97, "Joy finds us anywh
       $('ifeTitle').textContent = list[k].t; $('ifeEp').textContent = 'EP. ' + (k + 1) + ' / ' + list.length;
       if (play) go();
     }
-    function go() { var pr = v.play(); if (pr && pr.catch) pr.catch(function () {}); }
+    function go() { if (v.ended && k === list.length - 1) load(0, false); var pr = v.play(); if (pr && pr.catch) pr.catch(function () {}); }
     function ui() { box.classList.toggle('paused', v.paused); $('ifePlay').textContent = v.paused ? '▶' : '❚❚'; $('ifePlay').setAttribute('aria-label', v.paused ? '재생' : '일시정지'); }
     function fmt(x) { x = Math.max(0, Math.floor(x || 0)); return Math.floor(x / 60) + ':' + (x % 60 < 10 ? '0' : '') + x % 60; }
     v.addEventListener('play', ui); v.addEventListener('pause', ui);
     v.addEventListener('timeupdate', function () { $('ifeProg').style.width = (v.duration ? v.currentTime / v.duration * 100 : 0) + '%'; $('ifeT').textContent = fmt(v.currentTime) + ' / ' + fmt(v.duration); });
-    v.addEventListener('ended', function () { if (++loops < 3) { v.currentTime = 0; go(); } else load(k + 1, true); });
+    v.addEventListener('ended', function () { if (k < list.length - 1) load(k + 1, true); else ui(); });  /* 반복 없이 한 번씩만, 끝나면 멈춤 */
     $('ifePlay').addEventListener('click', function () { if (v.paused) go(); else v.pause(); });
     $('ifePrev').addEventListener('click', function () { load(k - 1, true); });
     $('ifeNext').addEventListener('click', function () { load(k + 1, true); });
@@ -945,7 +946,7 @@ var PHOTOS = [[106, "Fate walks through silver grass"], [97, "Joy finds us anywh
     clock(); setInterval(clock, 30000);
     load(0, false); ui();
     var seat = $('seat');
-    if ('IntersectionObserver' in window) new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { if (!started || !v.dataset.userPaused) go(); started = true; } else if (!v.paused) v.pause(); }); }, { threshold: 0.35 }).observe(seat);
+    if ('IntersectionObserver' in window) new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { if (!started || (!v.dataset.userPaused && !v.ended)) go(); started = true; } else if (!v.paused) v.pause(); }); }, { threshold: 0.35 }).observe(seat);
     else go();
     $('ifePlay').addEventListener('click', function () { v.dataset.userPaused = v.paused ? '1' : ''; });
   })();
@@ -1031,7 +1032,7 @@ var PHOTOS = [[106, "Fate walks through silver grass"], [97, "Joy finds us anywh
     function card(a) {
       var raw = a.no.replace(/\D/g, ''), msg = '계좌번호를 복사했어요. 은행 앱에 붙여 넣어 주세요';
       return '<div class="ac"><div class="who"><b>' + e2(a.who) + ' · ' + e2(a.name) + '</b><span>예금주 ' + e2(a.name) + '</span></div><div class="bank">' + e2(a.bank) + '</div>' +
-        '<button class="num" type="button" data-copy="' + raw + '" data-msg="' + msg + '" aria-label="' + e2(a.bank) + ' ' + a.no + ' 눌러서 복사">' + a.no + '</button>' +
+        '<button class="num" type="button" data-copy="' + raw + '" data-msg="' + msg + '" aria-label="' + e2(a.bank) + ' ' + a.no + ' 눌러서 복사">' + String(a.no).split('-').join('<i class="hy" aria-hidden="true">-</i>') + '</button>' +
         '<div class="bt"><button class="btn solid" type="button" data-copy="' + raw + '" data-msg="' + msg + '">계좌번호 복사</button>' +
         (MOBILE ? '<button class="btn toss" type="button" data-toss="' + e2(a.toss) + '|' + raw + '">토스로 송금</button><button class="btn kakao" type="button" data-kakao="' + e2(a.kakao) + '|' + raw + '">카카오페이로 송금</button>'
                 : '<button class="btn" type="button" data-copy="' + e2(a.bank + ' ' + a.no + ' ' + a.name) + '" data-msg="은행·번호·예금주를 복사했어요">전체 복사</button>') + '</div></div>';
