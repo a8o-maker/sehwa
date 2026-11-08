@@ -120,6 +120,10 @@
   .count b { display: block; font-family: "Jost", sans-serif; font-weight: 400; font-size: 1.55rem; font-variant-numeric: lining-nums tabular-nums; line-height: 1.1; font-variant-numeric: tabular-nums; }
   .count small { color: var(--mute); font-size: 0.8rem; letter-spacing: 0.08em; }
 
+  .when .p2 { margin-top: 2px; color: var(--ink-2); font-size: 0.9rem; }
+  .floors { display: flex; justify-content: center; flex-wrap: wrap; gap: 6px 14px; margin: 10px 0 0; font-size: 0.92rem; color: var(--ink); }
+  .floors span { display: inline-flex; align-items: baseline; gap: 6px; } .floors i { font-style: normal; font-family: "Jost", "Gowun Dodum", sans-serif; font-size: 0.72rem; letter-spacing: 0.1em; padding: 1px 7px; border: 1px solid #111; }
+  .floors b { font-weight: 700; } .meal-note { display: block; margin-top: 6px; font-size: 0.86rem; } .meal-note b { font-weight: 700; }
   .venue { text-align: center; }
   .venue .nm { font-family: "Gowun Dodum", sans-serif; font-weight: 700; font-size: 1.3rem; line-height: 1.45; }
   .venue .ad { color: var(--ink-2); margin-top: 4px; }
@@ -278,6 +282,7 @@
     <div class="when">
       <div class="d">2027년 1월 16일 토요일<br>낮 12시 30분</div>
       <div class="p">양산 W웨딩 5층 팰리스홀</div>
+      <div class="p2">식사 · 6층 더파티 (뷔페)</div>
       <span class="dday" id="dday">D-0</span>
     </div>
     <p class="hint">아래 <b>트랙</b>을 눌러 펼쳐 보세요 · 마음은 맨 아래 <b>‘마음 보내기’</b>로 바로 전할 수 있어요</p>
@@ -325,7 +330,7 @@
     <li class="track">
       <button class="t-head" type="button" aria-expanded="false" aria-controls="p5" id="h5"><span class="no">05</span><span class="tt"><b>오시는 길<span class="eq" aria-hidden="true"><i></i><i></i><i></i></span></b><small>Directions</small></span><span class="len">2:30</span><span class="chev" aria-hidden="true"></span></button>
       <div class="t-body" id="p5" role="region" aria-labelledby="h5"><div class="t-in"><div class="t-pad">
-        <div class="venue"><div class="nm">양산 W웨딩 · 5층 팰리스홀</div><div class="ad">경상남도 양산시 강변로 438<br>크리스탈타워 5층</div></div>
+        <div class="venue"><div class="nm">양산 W웨딩 · 5층 팰리스홀</div><div class="ad">경상남도 양산시 강변로 438<br>크리스탈타워 5층</div><p class="floors"><span><i>예식</i><b>5층</b> 팰리스홀</span><span><i>식사</i><b>6층</b> 더파티 · 뷔페</span></p></div>
         <div class="map-sat"><iframe title="예식장 위성 지도" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen src="https://maps.google.com/maps?q=%EA%B2%BD%EB%82%A8%20%EC%96%91%EC%82%B0%EC%8B%9C%20%EA%B0%95%EB%B3%80%EB%A1%9C%20438&t=k&z=17&hl=ko&output=embed"></iframe><span class="map-tag">SATELLITE · 위성 지도</span></div>
         <div class="btns">
           <a class="btn" href="https://map.kakao.com/link/search/%EC%96%91%EC%82%B0%20W%EC%9B%A8%EB%94%A9" target="_blank" rel="noopener">카카오맵</a>
@@ -361,7 +366,7 @@
     <li class="track">
       <button class="t-head" type="button" aria-expanded="false" aria-controls="p6" id="h6"><span class="no">06</span><span class="tt"><b>참석 알리기<span class="eq" aria-hidden="true"><i></i><i></i><i></i></span></b><small>R.S.V.P</small></span><span class="len">3:00</span><span class="chev" aria-hidden="true"></span></button>
       <div class="t-body" id="p6" role="region" aria-labelledby="h6"><div class="t-in"><div class="t-pad">
-        <p class="greet" style="font-size:1.02rem;line-height:1.9">식사 준비를 위해<br>참석 여부를 미리 알려 주시면 정성껏 준비하겠습니다.</p>
+        <p class="greet" style="font-size:1.02rem;line-height:1.9">식사 준비를 위해<br>참석 여부를 미리 알려 주시면 정성껏 준비하겠습니다.<br><small class="meal-note">식사는 예식 후 같은 건물 <b>6층 더파티</b>(뷔페)에서 합니다</small></p>
         <form id="rsvpForm" novalidate>
           <label class="rf"><span>이름</span><input id="rName" type="text" maxlength="20" autocomplete="name"></label>
           <label class="rf"><span>휴대전화</span><input id="rPhone" type="tel" inputmode="numeric" maxlength="13" placeholder="010-0000-0000" autocomplete="tel"></label>
@@ -490,7 +495,7 @@
   $('calIcs').addEventListener('click', function () {
     var ics = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Gyusoo Sehwa//Wedding Album//KO', 'BEGIN:VEVENT', 'UID:gyusoo-sehwa-20270116@album', 'DTSTAMP:20261101T000000Z',
       'DTSTART:20270116T033000Z', 'DTEND:20270116T053000Z', 'SUMMARY:손규수 ♥ 문세화 결혼식', 'LOCATION:양산 W웨딩 5층 팰리스홀\\, 경상남도 양산시 강변로 438 크리스탈타워 5층',
-      'DESCRIPTION:' + location.href.split('#')[0], 'BEGIN:VALARM', 'TRIGGER:-P1D', 'ACTION:DISPLAY', 'DESCRIPTION:내일은 규수 · 세화 결혼식', 'END:VALARM', 'END:VEVENT', 'END:VCALENDAR'].join('\r\n');
+      'DESCRIPTION:식사는 6층 더파티(뷔페) · ' + location.href.split('#')[0], 'BEGIN:VALARM', 'TRIGGER:-P1D', 'ACTION:DISPLAY', 'DESCRIPTION:내일은 규수 · 세화 결혼식', 'END:VALARM', 'END:VEVENT', 'END:VCALENDAR'].join('\r\n');
     var a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([ics], { type: 'text/calendar;charset=utf-8' })); a.download = 'gyusoo-sehwa-wedding.ics'; document.body.appendChild(a); a.click(); a.remove(); say('캘린더 파일을 저장했어요');
   });
 
