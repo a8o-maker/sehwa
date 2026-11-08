@@ -157,6 +157,8 @@
   .wx-d { margin-top: 6px; font-size: 0.92rem; color: #111111; line-height: 1.5; } .wx-d i { display: block; font-style: normal; font-size: 0.8rem; color: #6b6763; }
   .wx-note { margin: 10px 0 0; padding-top: 8px; border-top: 1px dashed rgba(17,17,17,0.18); font-size: 0.74rem; line-height: 1.6; color: #6b6763; }
   .visits { margin: 16px 0 0; display: flex; justify-content: center; align-items: baseline; gap: 10px; font-family: "Jost", sans-serif; color: #6b6763; }
+  .visits { flex-wrap: wrap; row-gap: 4px; } .visits i { display: inline-block; width: 1px; height: 12px; margin: 0 6px; background: currentColor; opacity: 0.35; align-self: center; }
+  .visits small { flex-basis: 100%; text-align: center; font-family: "Gowun Dodum", sans-serif; font-size: 0.78rem; letter-spacing: 0; }
   .visits span { font-size: 0.58rem; letter-spacing: 0.3em; } .visits b { font-size: 1.1rem; font-weight: 500; color: #111111; letter-spacing: 0.04em; } .visits i { font-style: normal; font-family: "Gowun Dodum", sans-serif; font-size: 0.8rem; }
   /* 위성 지도 · 대중교통 */
   .map-sat { position: relative; margin: 14px 0 0; border-radius: 12px; overflow: hidden; aspect-ratio: 4 / 3; background: #ece8e1; box-shadow: 0 6px 18px rgba(17,17,17,0.14); }
@@ -647,10 +649,13 @@
     try { seen = localStorage.getItem('gs-seen') === today; } catch (e) {}
     function call(m, key) { return fetch(API + m + '/' + NS + '/' + key).then(function (r) { return r.ok ? r.json() : Promise.reject(r.status); }); }
     var m = seen ? 'get' : 'hit';
-    Promise.all([call(m, 'total'), call(m, today)]).then(function (v) {
+    /* 방문자(오늘·전체)는 하루 한 번씩, 조회수는 열 때마다 */
+    Promise.all([call(m, 'total'), call(m, today), call('hit', 'views').catch(function () { return { value: 0 }; })]).then(function (v) {
       if (!seen) { try { localStorage.setItem('gs-seen', today); } catch (e) {} }
-      var t = +v[0].value, d = +v[1].value; if (!(t > 0)) return;
-      el.innerHTML = '<span>VISITORS</span><b>' + t.toLocaleString('ko-KR') + '</b><i>오늘 ' + Math.max(d, 0).toLocaleString('ko-KR') + '명</i>';
+      var t = +v[0].value, d = Math.max(+v[1].value, 0), pv = +v[2].value; if (!(t > 0)) return;
+      function f(x) { return x.toLocaleString('ko-KR'); }
+      el.innerHTML = '<span>TODAY</span><b>' + f(d) + '</b><i aria-hidden="true"></i><span>TOTAL</span><b>' + f(t) + '</b>' + (pv > 0 ? '<small>누적 조회 ' + f(pv) + '회</small>' : '');
+      el.setAttribute('aria-label', '오늘 방문 ' + f(d) + '명, 전체 방문 ' + f(t) + '명');
       el.hidden = false;
     }).catch(function () {});
   })();
