@@ -339,9 +339,7 @@
 </div>
 
 <div class="exit" id="exitCard" role="region" aria-label="참석 여부 남기기" hidden>
-  <b>가시기 전에 잠깐만요</b>
-  <span>참석 · 식사 여부를 남겨 주시면 큰 도움이 돼요.</span>
-  <div class="row"><button class="btn solid" type="button" id="exitGo">지금 남기기</button><button class="btn" type="button" id="exitNo">다음에</button></div>
+  <div class="row"><button class="btn solid" type="button" id="exitYes">참석</button><button class="btn solid" type="button" id="exitNo">미참석</button></div>
 </div>
 
 <div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="사진 크게 보기">
@@ -507,14 +505,15 @@
   function setDone(on) { rdone = on; $('rvDone').hidden = !on; $('rsvpForm').hidden = on; }
   setDone(rdone);
   $('rvAgain').addEventListener('click', function () { try { localStorage.removeItem('al-rsvp'); } catch (e) {} setDone(false); $('rName').focus(); });
-  function goForm() { var tr = $('p6').closest('.track'); tracks.forEach(function (o) { if (o !== tr) setOpen(o, false); }); setOpen(tr, true); setTimeout(function () { tr.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' }); if (!rdone) $('rName').focus({ preventScroll: true }); }, 450); }
+  function pickA(v) { var r = document.querySelector('#rsvpForm input[name="att"][value="' + v + '"]'); if (r) { r.checked = true; syncR(); } }
+  function goForm(v) { if (v) pickA(v); var tr = $('p6').closest('.track'); tracks.forEach(function (o) { if (o !== tr) setOpen(o, false); }); setOpen(tr, true); setTimeout(function () { tr.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' }); if (!rdone) $('rName').focus({ preventScroll: true }); }, 450); }
   /* 끝까지 읽었을 때·창을 닫으려 할 때(컴퓨터) 한 번만 부드럽게 안내 (팝업창 아님) */
   var xcard = $('exitCard'), xshown = false; try { xshown = sessionStorage.getItem('al-exit') === '1'; } catch (e) {}
   function hideExit() { xcard.classList.remove('on'); setTimeout(function () { xcard.hidden = true; }, 320); }
   function showExit() { if (rdone || xshown) return; var f = $('rsvpForm').getBoundingClientRect(); if (f.top < innerHeight && f.bottom > 0 && $('p6').closest('.track').classList.contains('open')) return;
     xshown = true; try { sessionStorage.setItem('al-exit', '1'); } catch (e) {} xcard.hidden = false; void xcard.offsetWidth; xcard.classList.add('on'); }
-  $('exitGo').addEventListener('click', function () { hideExit(); goForm(); }); $('exitNo').addEventListener('click', hideExit);
-  var xt = 0; addEventListener('scroll', function () { if (xt) return; xt = requestAnimationFrame(function () { xt = 0; if (scrollY + innerHeight >= document.documentElement.scrollHeight - 140) showExit(); }); }, { passive: true });
+  $('exitYes').addEventListener('click', function () { hideExit(); goForm('참석'); }); $('exitNo').addEventListener('click', function () { hideExit(); goForm('미참석'); });
+  var xt = 0; addEventListener('scroll', function () { if (xt) return; xt = requestAnimationFrame(function () { xt = 0; var left = document.documentElement.scrollHeight - (scrollY + innerHeight); if (left <= 140) showExit(); else if (left > 520 && xcard.classList.contains('on')) hideExit(); }); }, { passive: true });
   document.addEventListener('mouseout', function (e) { if (!e.relatedTarget && e.clientY <= 0) showExit(); });
   function syncR() { var a = val('att') === '참석'; $('mealSet').hidden = !a; $('countSet').hidden = !a; }
   $('rsvpForm').addEventListener('change', syncR); syncR();
