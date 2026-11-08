@@ -43,7 +43,8 @@
 
   /* 여권 표지 */
   .cover-wrap { position: fixed; inset: 0; z-index: 50; display: flex; align-items: center; justify-content: center; padding: 18px 16px; background: radial-gradient(ellipse at 50% 30%, #f7fcf9, #cfe8dc 80%); perspective: 1600px; }
-  .cover-wrap.gone { pointer-events: none; transition: opacity 0.6s ease 0.7s, visibility 0s linear 1.3s; opacity: 0; visibility: hidden; }
+  .cover-wrap.gone { pointer-events: none; transition: opacity 0.45s ease, visibility 0s linear 0.45s; opacity: 0; visibility: hidden; }
+  .cover-wrap.open { background: transparent; } .cover-wrap.open .pp .inner, .cover-wrap.open .tap { opacity: 0; transition: opacity 0.2s ease; }
   .pp { position: relative; width: min(330px, 100%); aspect-ratio: 125 / 176; transform-style: preserve-3d; }
   .pp .inner { position: absolute; inset: 0; border-radius: 6px 16px 16px 6px; background: var(--paper); overflow: hidden; box-shadow: inset 10px 0 18px -10px rgba(0,0,0,0.4); }
   .pp .inner img { width: 100%; height: 100%; object-fit: cover; opacity: 0.92; }
@@ -389,7 +390,7 @@
 <!-- 여권 표지 -->
 <div class="cover-wrap" id="cover">
   <div class="pp" id="pp">
-    <div class="inner"><img src="../s/210.jpg" alt=""></div>
+    <div class="inner"></div>
     <div class="lid" id="lid" role="button" tabindex="0" aria-label="여권 열기">
       <div class="face front">
         <div>
@@ -769,7 +770,7 @@ var PHOTOS = [[106, "Fate walks through silver grass"], [97, "Joy finds us anywh
   function openPP() {
     if (opened) return; opened = true; if (bgm.paused && !userOff) bgmPlay();
     cover.classList.add('open'); $('wall').classList.add('go');
-    setTimeout(function () { cover.classList.add('gone'); document.body.classList.remove('locked'); if (window.__wallFit) window.__wallFit(); }, reduce ? 0 : 900);
+    setTimeout(function () { cover.classList.add('gone'); document.body.classList.remove('locked'); if (window.__wallFit) window.__wallFit(); }, reduce ? 0 : 550);
   }
   $('lid').addEventListener('click', openPP);
   $('lid').addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openPP(); } });
