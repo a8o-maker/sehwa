@@ -239,6 +239,10 @@
   @media (prefers-reduced-motion: reduce) { .bgm-btn.on .eq i { animation: none; height: 10px; } }
   .seat { position: relative; width: min(300px, 86%); margin: 0 auto; aspect-ratio: 320 / 540; }
   .seat-art { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .introv { width: 88%; margin: 14px auto 0; aspect-ratio: 16 / 9; background: #000; border: 1px solid rgba(59,36,22,0.16); position: relative; overflow: hidden; }
+  .introv button { all: unset; cursor: pointer; display: block; width: 100%; height: 100%; position: relative; }
+  .introv img, .introv iframe { width: 100%; height: 100%; object-fit: cover; border: 0; display: block; }
+  .introv .ipl { position: absolute; left: 50%; top: 50%; width: 54px; height: 54px; margin: -27px 0 0 -27px; border-radius: 50%; background: rgba(255,255,255,0.92); color: #3b2416; display: grid; place-items: center; font-size: 1.1rem; padding-left: 3px; }
   .ife { position: absolute; left: 25%; top: 22.6%; width: 50%; height: 44.2%; border-radius: 6px; overflow: hidden; background: #000; text-align: left; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08); }
   .ife video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
   .ife-glare { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(125deg, rgba(255,255,255,0.16) 0%, transparent 30%, transparent 72%, rgba(255,255,255,0.06) 100%), repeating-linear-gradient(0deg, rgba(0,0,0,0.07) 0 1px, transparent 1px 3px); }
@@ -495,6 +499,14 @@
         <a class="btn" href="sms:01072037677">신부에게 문자</a>
       </div>
     </div>
+  </section>
+
+  <!-- 신랑 소개 영상 -->
+  <i class="divider" aria-hidden="true"></i>
+  <section class="reveal">
+    <p class="eyebrow">The Groom</p>
+    <h2>신랑 소개</h2>
+    <div class="introv" id="introVid"><button type="button" id="introBtn" aria-label="신랑 소개 영상 재생"><img src="https://i.ytimg.com/vi/xGqK5qMO4Oc/hqdefault.jpg" alt="" loading="lazy"><span class="ipl">▶</span></button></div>
   </section>
 
   <!-- 4 비자 · 출입국 도장 -->
@@ -914,6 +926,15 @@ var PHOTOS = [[106, "Fate walks through silver grass"], [97, "Joy finds us anywh
         el.animate([{ transform: 'translate(0,0) rotate(0deg)', opacity: 1 }, { transform: 'translate(' + (Math.random() * 120 - 60) + 'px,' + (window.innerHeight + 60) + 'px) rotate(' + (300 + Math.random() * 400) + 'deg)', opacity: 0.85 }],
           { duration: 2400 + Math.random() * 1800, delay: Math.random() * 500, easing: 'cubic-bezier(.3,.5,.5,1)' }).onfinish = function () { this.effect.target.remove(); };
       }
+    });
+  })();
+
+  /* 신랑 소개 영상 */
+  (function () {
+    var b = $('introBtn'); if (!b) return;
+    b.addEventListener('click', function () {
+      var bg = $('bgm'); if (bg && !bg.paused) bg.pause();
+      $('introVid').innerHTML = '<iframe src="https://www.youtube.com/embed/xGqK5qMO4Oc?autoplay=1&rel=0&playsinline=1" title="신랑 소개" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>';
     });
   })();
 
