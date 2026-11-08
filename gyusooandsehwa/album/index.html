@@ -142,6 +142,9 @@
   .acct .num { display: block; width: 100%; margin: 2px 0 0; padding: 4px 0; border: 0; background: none; text-align: left; cursor: pointer; font-family: "Bodoni Moda", serif; font-weight: 500; font-size: 1.2rem; letter-spacing: 0.08em; line-height: 1.45; color: var(--ink); font-variant-numeric: lining-nums tabular-nums; word-break: normal; }
   .acct .btns { margin-top: 10px; }
   .acct .btns.m > :first-child { grid-column: 1 / -1; }
+  .acct .btns.m > .btn:not(:first-child) { padding: 6px 4px; font-size: 0.88rem; white-space: nowrap; letter-spacing: 0; }
+  .btn.tbank { background: #fff !important; border: 1.5px solid #0064ff !important; color: #0064ff !important; }
+  .btn.kbank { background: #fff6b3 !important; border: 1.5px solid #e2c400 !important; color: #2a1f00 !important; }
   .btn.kakao { background: #fee500; border-color: #d4bd00; color: #191919; }
 
   /* ───── 하단 고정 바 ───── */
@@ -471,16 +474,20 @@
       '<div class="bank">' + esc(a.bank) + '</div>' +
       '<button class="num" type="button" data-copy="' + raw + '" data-msg="계좌번호를 복사했어요. 은행 앱에 붙여 넣어 주세요" aria-label="' + esc(a.bank) + ' ' + a.no + ' 눌러서 복사">' + String(a.no).split('-').join('<i class="hy" aria-hidden="true">-</i>') + '</button>' +
       '<div class="btns' + (IS_MOBILE ? ' m' : '') + '"><button class="btn solid" type="button" data-copy="' + raw + '" data-msg="계좌번호를 복사했어요. 은행 앱에 붙여 넣어 주세요">계좌번호 복사</button>' +
-      (IS_MOBILE ? '<button class="btn toss" type="button" data-toss="' + esc(a.toss) + '|' + raw + '">토스로 송금</button><button class="btn kakao" type="button" data-kakao="' + esc(a.kakao || '') + '|' + raw + '">카카오페이로 송금</button>' : '<button class="btn" type="button" data-copy="' + esc(a.bank + ' ' + a.no + ' ' + a.name) + '" data-msg="은행·번호·예금주를 복사했어요">전체 복사</button>') +
+      (IS_MOBILE ? '<button class="btn toss" type="button" data-toss="' + esc(a.toss) + '|' + raw + '">토스로 송금</button><button class="btn tbank" type="button" data-tbank="' + esc(a.toss) + '|' + raw + '">토스뱅크로 송금</button><button class="btn kakao" type="button" data-kakao="' + esc(a.kakao || '') + '|' + raw + '">카카오페이로 송금</button><button class="btn kbank" type="button" data-kbank="' + raw + '">카카오뱅크로 송금</button>' : '<button class="btn" type="button" data-copy="' + esc(a.bank + ' ' + a.no + ' ' + a.name) + '" data-msg="은행·번호·예금주를 복사했어요">전체 복사</button>') +
       '</div></div>';
   }
-  $('acctInline').innerHTML = ACCTS.map(acctHtml).join('') + '<p class="note">‘토스로 송금’·‘카카오페이로 송금’은 계좌번호를 복사한 뒤 앱을 열어 줍니다. 앱에서 번호를 붙여 넣어 보내시면 돼요.</p>';
+  $('acctInline').innerHTML = ACCTS.map(acctHtml).join('') + '<p class="note">토스·토스뱅크·카카오페이·카카오뱅크 버튼은 계좌번호를 복사한 뒤 앱을 열어 줍니다. 앱에서 번호를 붙여 넣어 보내시면 돼요.</p>';
   $('acctSheet').innerHTML = ACCTS.map(acctHtml).join('') + '<p class="note" style="text-align:center">마음 써 주셔서 고맙습니다.</p>';
   function appOpen(u) { (window.__openApp || function (x) { location.href = x; })(u); }
   document.addEventListener('click', function (e) {
     var b = e.target.closest('[data-toss]');
     if (b) { var p = b.getAttribute('data-toss').split('|'); copy(p[1], '계좌번호를 복사했어요. 토스를 여는 중…');
       setTimeout(function () { appOpen('supertoss://send?bank=' + encodeURIComponent(p[0]) + '&accountNo=' + p[1] + '&origin=qr'); }, 350); return; }
+    b = e.target.closest('[data-tbank]');
+    if (b) { var tb = b.getAttribute('data-tbank').split('|'); copy(tb[1], '계좌번호를 복사했어요. 토스뱅크(토스 앱)를 여는 중…'); setTimeout(function () { appOpen('supertoss://send?bank=' + encodeURIComponent(tb[0]) + '&accountNo=' + tb[1] + '&origin=qr'); }, 350); return; }
+    b = e.target.closest('[data-kbank]');
+    if (b) { var kb = b.getAttribute('data-kbank'); copy(kb, '계좌번호를 복사했어요. 카카오뱅크를 여는 중…'); setTimeout(function () { appOpen('kakaobank://'); }, 350); return; }
     b = e.target.closest('[data-kakao]');
     if (b) { var k = b.getAttribute('data-kakao').split('|'); copy(k[1], '계좌번호를 복사했어요. 카카오페이를 여는 중…');
       /* 계좌별 카카오페이 송금 링크가 있으면 그 링크로, 없으면 카카오페이 계좌송금 화면으로 */
