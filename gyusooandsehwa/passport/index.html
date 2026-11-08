@@ -377,6 +377,19 @@
   .wreath .wr-p { margin: 8px 0 0; font-size: 0.86rem; line-height: 1.7; color: #5b4636; text-align: left; }
   .wreath .wr-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px; }
   .wreath .wr-row .wr-copy { grid-column: 1 / -1; }
+  /* 도착지 날씨 · 방문자 수 */
+  .wx { margin: 18px auto 0; max-width: 380px; padding: 14px 16px 12px; border-radius: 14px; background: #fffdf8; border: 1px solid rgba(26,107,86,0.22); text-align: left; box-shadow: 0 6px 18px rgba(59,36,22,0.06); }
+  .wx[hidden], .visits[hidden] { display: none !important; }
+  .wx-top { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; font-family: "Jost", sans-serif; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: #1a6b56; }
+  .wx-top b { font-weight: 500; } .wx-top span { color: #8a6a2f; letter-spacing: 0.12em; white-space: nowrap; }
+  .wx-main { display: flex; align-items: center; gap: 14px; margin-top: 10px; }
+  .wx-ic { width: 54px; height: 54px; flex: 0 0 54px; }
+  .wx-t { font-family: "Jost", sans-serif; font-size: 1.75rem; font-weight: 400; color: #2f1d12; line-height: 1; font-variant-numeric: lining-nums tabular-nums; }
+  .wx-t small { font-size: 1rem; color: #6b5646; margin-left: 6px; }
+  .wx-d { margin-top: 6px; font-size: 0.92rem; color: #2f1d12; line-height: 1.5; } .wx-d i { display: block; font-style: normal; font-size: 0.8rem; color: #6b5646; }
+  .wx-note { margin: 10px 0 0; padding-top: 8px; border-top: 1px dashed rgba(59,36,22,0.18); font-size: 0.74rem; line-height: 1.6; color: #6b5646; }
+  .visits { margin: 16px 0 0; display: flex; justify-content: center; align-items: baseline; gap: 10px; font-family: "Jost", sans-serif; color: #6b5646; }
+  .visits span { font-size: 0.58rem; letter-spacing: 0.3em; } .visits b { font-size: 1.1rem; font-weight: 500; color: #2f1d12; letter-spacing: 0.04em; } .visits i { font-style: normal; font-family: "Gowun Dodum", sans-serif; font-size: 0.8rem; }
   /* 주차 안내 */
   .pk { margin-top: 18px; padding-top: 16px; border-top: 1px dashed var(--line); text-align: left; }
   .pk-t { display: inline-block; padding: 3px 12px; border-radius: 999px; background: #4a2410; color: #3ff0bf; font-family: "Jost", sans-serif; font-weight: 800; font-size: 0.66rem; letter-spacing: 0.16em; }
@@ -494,6 +507,7 @@
       <div><div class="n" id="cd-m">00</div><div class="u">MIN</div></div>
       <div><div class="n" id="cd-s">00</div><div class="u">SEC</div></div>
     </div>
+    <div class="wx" id="wx" hidden aria-live="polite"></div>
     <button class="btn solid more" type="button" id="rsvpOpen" style="margin-top:18px">참석 · 식사 여부 남기기</button>
     <div class="btn-row" style="margin-top:8px">
       <button class="btn" type="button" id="calIcs">캘린더에 저장</button>
@@ -691,6 +705,7 @@
       <svg class="emblem" style="width:70px;height:70px;margin:0 auto 14px" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="60" cy="60" r="54"/><path d="M60 26v12M56.5 38l3.5 22 3.5-22M60 60v30M34 90h52"/><path d="M48 98c3-4 6-4 12 0 6-4 9-4 12 0-3 5-12 9-12 9s-9-4-12-9z" fill="currentColor" stroke="none"/></svg>
       <p>여기까지 올 수 있었던 건<br>곁에 있어 준 여러분 덕분입니다.<br>이제 둘이서, 잘 살아 보겠습니다.<br>고맙습니다.</p>
       <p class="sg foil-text">Gyusoo &amp; Sehwa</p>
+      <p class="visits" id="visits" hidden aria-label="방문자 수"></p>
     </div>
     <div class="gift" id="gift">
       <p class="eyebrow" style="justify-content:center">A Gift for You</p>
@@ -1142,6 +1157,57 @@ var PHOTOS = [[106, "Fate walks through silver grass"], [97, "Joy finds us anywh
     else copy(url, '청첩장 링크가 복사되었습니다');
   });
 })();
+  /* 방문자 수: 같은 폰·브라우저는 하루 한 번만 셉니다 (실제 주소에서만 실제 숫자) */
+  (function () {
+    var el = document.getElementById('visits'); if (!el || !window.fetch) return;
+    var NS = location.hostname === 'a8o-maker.github.io' ? 'gyusoo-sehwa-0116' : 'gyusoo-sehwa-0116-test', API = 'https://abacus.jasoncameron.dev/';
+    var k = new Date(Date.now() + 9 * 3600e3).toISOString().slice(0, 10).replace(/-/g, ''), today = 'd' + k, seen = false;
+    try { seen = localStorage.getItem('gs-seen') === today; } catch (e) {}
+    function call(m, key) { return fetch(API + m + '/' + NS + '/' + key).then(function (r) { return r.ok ? r.json() : Promise.reject(r.status); }); }
+    var m = seen ? 'get' : 'hit';
+    Promise.all([call(m, 'total'), call(m, today)]).then(function (v) {
+      if (!seen) { try { localStorage.setItem('gs-seen', today); } catch (e) {} }
+      var t = +v[0].value, d = +v[1].value; if (!(t > 0)) return;
+      el.innerHTML = '<span>VISITORS</span><b>' + t.toLocaleString('ko-KR') + '</b><i>오늘 ' + Math.max(d, 0).toLocaleString('ko-KR') + '명</i>';
+      el.hidden = false;
+    }).catch(function () {});
+  })();
+
+  /* 도착지 날씨: 평소엔 평년(지난 15년 1월 중순) 기준, 예식 2주 전부터는 실제 예보로 */
+  (function () {
+    var box = document.getElementById('wx'); if (!box) return;
+    var NOW = Date.now(); try { var q = new URLSearchParams(location.search).get('wxnow'); if (q) NOW = new Date(q).getTime(); } catch (e) {}
+    var WED = new Date('2027-01-16T12:30:00+09:00').getTime(), days = (WED - NOW) / 864e5;
+    if (days < -0.6) { box.hidden = true; return; }
+    var C = '<path d="M14 37h21.5a7.5 7.5 0 0 0 .9-14.95A10.5 10.5 0 0 0 16.2 20.6 8.2 8.2 0 0 0 14 37z"/>';
+    var IC = {
+      sun: ['#e09a1a', '<circle cx="24" cy="24" r="8.5"/><path d="M24 5v5M24 38v5M5 24h5M38 24h5M10.6 10.6l3.5 3.5M33.9 33.9l3.5 3.5M10.6 37.4l3.5-3.5M33.9 14.1l3.5-3.5"/>'],
+      part: ['#d9921c', '<circle cx="18" cy="17" r="6.5"/><path d="M18 4.5v3M5.5 17h3M9.2 8.2l2.1 2.1M26.8 8.2l-2.1 2.1"/><g stroke="#7d8898">' + C + '</g>'],
+      cloud: ['#7d8898', C], fog: ['#8b95a3', '<path d="M8 20h32M5 27h38M10 34h28M14 41h20"/>'],
+      rain: ['#4a7bd0', '<g stroke="#7d8898">' + C + '</g><path d="M17 41l-2 4M25 41l-2 4M33 41l-2 4"/>'],
+      snow: ['#5aa5d6', '<g stroke="#7d8898">' + C + '</g><path d="M17 41.5h.01M25 43.5h.01M33 41.5h.01" stroke-width="3.4"/>']
+    };
+    function code(c) { return c === 0 ? ['sun', '맑음'] : c <= 2 ? ['part', '구름 조금'] : c === 3 ? ['cloud', '흐림'] : c <= 48 ? ['fog', '안개'] : c <= 57 ? ['rain', '이슬비'] : c <= 67 ? ['rain', '비'] : c <= 77 ? ['snow', '눈'] : c <= 82 ? ['rain', '소나기'] : c <= 86 ? ['snow', '눈'] : ['rain', '천둥·비']; }
+    function svg(k) { return '<svg class="wx-ic" viewBox="0 0 48 48" fill="none" stroke="' + IC[k][0] + '" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + IC[k][1] + '</svg>'; }
+    function draw(o) {
+      box.innerHTML = '<div class="wx-top"><b>Destination Weather · Yangsan</b><span>1.16 SAT 12:30</span></div>' +
+        '<div class="wx-main">' + svg(o.icon) + '<div><div class="wx-t">' + o.hi + '°<small>/ ' + o.lo + '°</small></div><div class="wx-d">' + o.desc + '<i>' + o.sub + '</i></div></div></div>' +
+        '<p class="wx-note">' + o.note + '</p>';
+      box.hidden = false;
+    }
+    draw({ icon: 'sun', hi: 7, lo: -2, desc: '대체로 맑고 쌀쌀해요', sub: '비·눈 올 확률 약 18% · 따뜻한 겉옷 챙겨 오세요',
+           note: '평년(지난 15년 1월 중순, 양산 인근 관측) 기준이에요. 1월 16일엔 15년 동안 비 온 해가 없었어요. 예식 2주 전부터 실제 예보로 바뀌어요.' });
+    if (days > 15.5 || !window.fetch) return;
+    fetch('https://api.open-meteo.com/v1/forecast?latitude=35.3386&longitude=129.0265&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max&hourly=temperature_2m&timezone=Asia%2FSeoul&start_date=2027-01-16&end_date=2027-01-16')
+      .then(function (r) { return r.ok ? r.json() : Promise.reject(r.status); }).then(function (j) {
+        var d = j.daily; if (!d || d.weather_code == null || d.weather_code[0] == null) return;
+        var w = code(d.weather_code[0]), hi = Math.round(d.temperature_2m_max[0]), lo = Math.round(d.temperature_2m_min[0]), pp = d.precipitation_probability_max[0];
+        var noon = null; if (j.hourly) { var i = j.hourly.time.indexOf('2027-01-16T12:00'); if (i >= 0) noon = Math.round(j.hourly.temperature_2m[i]); }
+        var tip = pp >= 50 ? '우산을 꼭 챙겨 오세요' : hi <= 3 ? '많이 추워요, 따뜻하게 입고 오세요' : '따뜻한 겉옷 챙겨 오세요';
+        draw({ icon: w[0], hi: hi, lo: lo, desc: w[1] + (noon != null ? ' · 예식 시간 ' + noon + '°' : ''), sub: '비·눈 확률 ' + (pp == null ? '-' : pp) + '% · ' + tip,
+               note: '실제 일기 예보예요 (Open-Meteo 기상 모델). 날짜가 가까울수록 더 정확해져요.' });
+      }).catch(function () {});
+  })();
 </script>
 </body>
 </html>
