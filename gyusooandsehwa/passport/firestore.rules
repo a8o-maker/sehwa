@@ -16,7 +16,7 @@ service cloud.firestore {
       allow create: if request.resource.data.keys().hasOnly(['name', 'phone', 'attend', 'meal', 'count', 'createdAt'])
         && request.resource.data.name is string && request.resource.data.name.size() > 0 && request.resource.data.name.size() <= 20
         && request.resource.data.phone is string && request.resource.data.phone.matches('^01[0-9]{8,9}$')
-        && request.resource.data.attend in ['참석', '불참']
+        && request.resource.data.attend in ['참석', '미참석']
         && request.resource.data.meal in ['식사함', '식사 안 함', '미정', '-']
         && request.resource.data.count is int && request.resource.data.count >= 0 && request.resource.data.count <= 5
         && request.resource.data.createdAt == request.time;
