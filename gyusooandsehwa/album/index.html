@@ -12,7 +12,7 @@
 <meta property="og:image" content="../s/210.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;1,500;1,600&family=Noto+Serif+KR:wght@400;500;600;700&family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..700&family=Noto+Sans+KR:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Jost:ital,wght@0,300..700;1,300..600&display=swap">
 <style>
   :root {
     --paper: #e7f5ee; --card: #f7fcf9; --ink: #3b2416; --ink-2: #4a3426; --mute: #6b5646;
@@ -22,19 +22,19 @@
   }
   * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
   html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
-  body { margin: 0; background: #d4ecdf; color: var(--ink); font-family: "Noto Serif KR", serif; font-size: 17px; line-height: 1.8; word-break: keep-all; }
+  body { margin: 0; background: #d4ecdf; color: var(--ink); font-family: "Gowun Dodum", sans-serif; font-size: 17px; line-height: 1.8; word-break: keep-all; }
   .page { position: relative; max-width: 480px; margin: 0 auto; min-height: 100vh; background: var(--paper); padding-bottom: calc(var(--bar) + 28px); box-shadow: 0 0 60px rgba(59,36,22,0.12); overflow-x: clip;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.05'/%3E%3C/svg%3E"); }
   img { display: block; max-width: 100%; }
   button { font: inherit; color: inherit; }
   :focus-visible { outline: 3px solid var(--gold-2); outline-offset: 2px; }
-  .serif { font-family: "Noto Serif KR", serif; }
-  .en { font-family: "Cormorant Garamond", serif; font-style: italic; }
+  .serif { font-family: "Gowun Dodum", sans-serif; }
+  .en { font-family: "Jost", sans-serif; font-style: italic; }
   .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
   /* ───── 표지: 레코드판 + 슬리브 ───── */
   .hero { padding: 34px 22px 8px; text-align: center; }
-  .eyebrow { margin: 0; white-space: nowrap; font-family: "Cormorant Garamond", serif; font-style: italic; font-size: 1.1rem; letter-spacing: 0.1em; color: var(--gold); display: flex; align-items: center; justify-content: center; gap: 12px; }
+  .eyebrow { margin: 0; white-space: nowrap; font-family: "Jost", sans-serif; font-style: normal; text-transform: uppercase; font-size: 0.66rem; letter-spacing: 0.32em; color: var(--gold); display: flex; align-items: center; justify-content: center; gap: 12px; }
   .eyebrow::before, .eyebrow::after { content: ""; width: 34px; height: 1.5px; background: var(--foil); }
   .cover { position: relative; width: 100%; aspect-ratio: 1 / 0.68; margin: 26px auto 0; }
   .sleeve { position: absolute; left: 0; top: 0; width: 66%; aspect-ratio: 1; z-index: 2; border-radius: 6px; overflow: hidden; background: #fff; padding: 7px; box-shadow: 0 18px 36px rgba(59,36,22,0.28), 0 2px 0 rgba(255,255,255,0.7) inset; }
@@ -44,16 +44,16 @@
     background: radial-gradient(circle at center, transparent 0 17%, rgba(255,255,255,0.05) 17.5% 18%, transparent 18.5%), repeating-radial-gradient(circle at center, #121212 0 1.5px, #242424 1.5px 3px);
     animation: spin 16s linear infinite; }
   .disc::before { content: ""; position: absolute; inset: 0; border-radius: 50%; background: conic-gradient(from 20deg, rgba(255,255,255,0.0), rgba(255,255,255,0.14), rgba(255,255,255,0.0) 25%, rgba(255,255,255,0.0) 50%, rgba(255,255,255,0.12) 62%, rgba(255,255,255,0.0) 78%); }
-  .disc .lb { position: absolute; left: 50%; top: 50%; width: 34%; aspect-ratio: 1; transform: translate(-50%, -50%); border-radius: 50%; background: var(--foil); display: flex; align-items: center; justify-content: center; text-align: center; color: #3a2a08; font-family: "Cormorant Garamond", serif; font-style: italic; font-weight: 600; font-size: clamp(0.9rem, 4.4vw, 1.25rem); line-height: 1.05; box-shadow: inset 0 0 0 2px rgba(0,0,0,0.12); }
+  .disc .lb { position: absolute; left: 50%; top: 50%; width: 34%; aspect-ratio: 1; transform: translate(-50%, -50%); border-radius: 50%; background: var(--foil); display: flex; align-items: center; justify-content: center; text-align: center; color: #3a2a08; font-family: "Jost", sans-serif; font-style: italic; font-weight: 600; font-size: clamp(0.9rem, 4.4vw, 1.25rem); line-height: 1.05; box-shadow: inset 0 0 0 2px rgba(0,0,0,0.12); }
   .disc .lb::after { content: ""; position: absolute; left: 50%; top: 50%; width: 11%; aspect-ratio: 1; transform: translate(-50%, -50%); border-radius: 50%; background: var(--paper); }
   @keyframes spin { to { transform: rotate(360deg); } }
-  h1 { margin: 26px 0 0; font-family: "Cormorant Garamond", serif; font-style: italic; font-weight: 600; font-size: clamp(2.5rem, 12.5vw, 3.4rem); line-height: 1.05; letter-spacing: 0.01em; }
+  h1 { margin: 26px 0 0; font-family: "Jost", sans-serif; font-style: normal; font-weight: 400; text-transform: uppercase; font-size: clamp(1.45rem, 7vw, 2rem); line-height: 1.15; letter-spacing: 0.22em; }
   h1 em { font-style: italic; color: var(--gold); padding: 0 0.12em; }
-  .ko-title { margin: 8px 0 0; font-family: "Noto Serif KR", serif; font-size: 1.2rem; letter-spacing: 0.14em; color: var(--ink-2); }
+  .ko-title { margin: 8px 0 0; font-family: "Gowun Dodum", sans-serif; font-size: 1.2rem; letter-spacing: 0.14em; color: var(--ink-2); }
   .when { margin: 18px auto 0; padding: 16px 18px; max-width: 360px; background: var(--card); border: 1px solid var(--line); border-radius: 14px; box-shadow: 0 8px 22px rgba(59,36,22,0.06); }
-  .when .d { font-family: "Noto Serif KR", serif; font-weight: 700; font-size: 1.3rem; line-height: 1.5; }
+  .when .d { font-family: "Gowun Dodum", sans-serif; font-weight: 700; font-size: 1.3rem; line-height: 1.5; }
   .when .p { margin-top: 2px; color: var(--ink-2); font-size: 1rem; line-height: 1.7; }
-  .dday { display: inline-block; margin-top: 12px; padding: 3px 14px; border-radius: 999px; background: var(--ink); color: #f6e6b0; font-family: "Cormorant Garamond", serif; font-weight: 600; font-style: italic; font-size: 1.2rem; letter-spacing: 0.06em; }
+  .dday { display: inline-block; margin-top: 12px; padding: 3px 14px; border-radius: 999px; background: var(--ink); color: #f6e6b0; font-family: "Jost", sans-serif; font-weight: 500; font-style: normal; font-size: 0.95rem; letter-spacing: 0.12em; }
   .hint { margin: 22px 0 0; color: var(--mute); font-size: 0.92rem; }
   .hint b { color: var(--ink); }
 
@@ -62,10 +62,10 @@
   .track { margin: 12px 0; background: var(--card); border: 1px solid var(--line); border-radius: 16px; box-shadow: 0 6px 18px rgba(59,36,22,0.05); overflow: hidden; transition: box-shadow 0.3s ease, border-color 0.3s ease; }
   .track.open { border-color: rgba(154,122,46,0.55); box-shadow: 0 14px 34px rgba(59,36,22,0.12); }
   .t-head { width: 100%; min-height: 68px; display: grid; grid-template-columns: 44px 1fr auto 28px; align-items: center; gap: 6px; padding: 10px 14px 10px 12px; border: 0; background: none; text-align: left; cursor: pointer; }
-  .no { font-family: "Bodoni Moda", serif; font-style: normal; font-weight: 500; font-size: 1.3rem; font-variant-numeric: lining-nums; color: #1a6b56; text-align: center; }
+  .no { font-family: "Jost", sans-serif; font-style: normal; font-weight: 300; font-size: 1.2rem; font-variant-numeric: lining-nums; color: #1a6b56; text-align: center; }
   .tt b { display: block; font-size: 1.12rem; line-height: 1.35; }
-  .tt small { display: block; font-family: "Cormorant Garamond", serif; font-style: italic; font-size: 0.98rem; color: var(--mute); line-height: 1.2; }
-  .len { font-family: "Bodoni Moda", serif; font-size: 0.88rem; letter-spacing: 0.04em; font-variant-numeric: lining-nums tabular-nums; color: var(--mute); font-variant-numeric: tabular-nums; }
+  .tt small { display: block; font-family: "Jost", sans-serif; font-style: normal; text-transform: uppercase; letter-spacing: 0.2em; font-size: 0.6rem; color: var(--mute); line-height: 1.2; }
+  .len { font-family: "Jost", sans-serif; font-size: 0.88rem; letter-spacing: 0.04em; font-variant-numeric: lining-nums tabular-nums; color: var(--mute); font-variant-numeric: tabular-nums; }
   .chev { width: 28px; height: 28px; position: relative; }
   .chev::before { content: ""; position: absolute; left: 8px; top: 6px; width: 9px; height: 9px; border-right: 2.5px solid var(--ink); border-bottom: 2.5px solid var(--ink); transform: rotate(45deg); transition: transform 0.3s ease, top 0.3s ease; }
   .open .chev::before { transform: rotate(-135deg); top: 11px; }
@@ -80,7 +80,7 @@
   .t-pad { padding: 4px 18px 22px; border-top: 1px dashed var(--line); margin: 0 14px; padding-left: 4px; padding-right: 4px; }
   .t-pad > :first-child { margin-top: 16px; }
 
-  .greet { font-family: "Noto Serif KR", serif; font-size: 1.12rem; line-height: 2.05; color: var(--ink); margin: 0; }
+  .greet { font-family: "Gowun Dodum", sans-serif; font-size: 1.12rem; line-height: 2.05; color: var(--ink); margin: 0; }
   .fam { margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--line); display: grid; gap: 6px; font-size: 1.02rem; color: var(--ink-2); }
   .fam b { color: var(--ink); font-weight: 600; }
   .fam .nm { color: var(--ink); font-weight: 600; font-size: 1.1rem; margin-left: 4px; }
@@ -90,9 +90,9 @@
   .place { flex: 0 0 58%; scroll-snap-align: center; }
   .place .ph { position: relative; aspect-ratio: 4 / 5; border-radius: 0; overflow: hidden; background: #d4ecdf; box-shadow: 0 10px 24px rgba(59,36,22,0.16); outline: 1px solid rgba(154,122,46,0.45); outline-offset: 4px; }
   .place img { width: 100%; height: 100%; object-fit: cover; }
-  .place .st { position: absolute; left: 6px; top: 6px; padding: 1px 8px; border-radius: 999px; background: rgba(246,241,231,0.92); color: var(--ink); font-family: "Cormorant Garamond", serif; font-style: italic; font-weight: 600; font-size: 0.78rem; }
+  .place .st { position: absolute; left: 6px; top: 6px; padding: 1px 8px; border-radius: 999px; background: rgba(246,241,231,0.92); color: var(--ink); font-family: "Jost", sans-serif; font-style: normal; font-weight: 500; letter-spacing: 0.12em; font-size: 0.66rem; }
   .place h3 { margin: 8px 2px 0; font-size: 0.95rem; line-height: 1.35; }
-  .place p { margin: 0 2px; color: var(--mute); font-family: "Cormorant Garamond", serif; font-style: italic; font-size: 0.86rem; line-height: 1.3; }
+  .place p { margin: 0 2px; color: var(--mute); font-family: "Jost", sans-serif; font-style: italic; font-weight: 300; font-size: 0.74rem; line-height: 1.3; }
   .rail-hint { margin: 0; text-align: center; color: var(--mute); font-size: 0.86rem; }
 
   .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px 14px; width: 75%; min-width: 240px; margin: 14px auto 0; }
@@ -102,12 +102,12 @@
   .grid .mat { display: block; padding: 6px; background: #fff; }
   .grid .mat img { display: block; width: 100%; aspect-ratio: 3 / 4; object-fit: cover; background: #e9f3ee; }
   .grid .plq { display: block; margin-top: 7px; padding: 6px 2px 0; border-top: 1px solid rgba(59,36,22,0.2); background: none; text-align: center; }
-  .grid .plq i { display: block; font-family: "Cormorant Garamond", serif; font-style: italic; font-weight: 600; font-size: 0.82rem; line-height: 1.2; color: #14866a; }
-  .grid .plq small { display: block; margin-top: 2px; font-family: "Noto Sans KR", sans-serif; font-style: normal; font-weight: 500; font-size: 0.52rem; line-height: 1.3; color: #e5690f; }
+  .grid .plq i { display: block; font-family: "Jost", sans-serif; font-style: italic; font-weight: 400; font-size: 0.66rem; line-height: 1.2; color: #14866a; }
+  .grid .plq small { display: block; margin-top: 2px; font-family: "Gowun Dodum", sans-serif; font-style: normal; font-weight: 500; font-size: 0.52rem; line-height: 1.3; color: #e5690f; }
   .big-date { text-align: center; padding: 4px 0 2px; }
-  .big-date .n { font-family: "Bodoni Moda", serif; font-weight: 400; font-style: italic; font-size: 3.2rem; line-height: 1; font-variant-numeric: lining-nums; }
+  .big-date .n { font-family: "Jost", sans-serif; font-weight: 300; font-style: normal; font-size: 3rem; line-height: 1; font-variant-numeric: lining-nums; }
   .big-date .n span { background: var(--foil); -webkit-background-clip: text; background-clip: text; color: transparent; }
-  .big-date .t { font-family: "Noto Serif KR", serif; font-weight: 700; font-size: 1.25rem; margin-top: 6px; }
+  .big-date .t { font-family: "Gowun Dodum", sans-serif; font-weight: 700; font-size: 1.25rem; margin-top: 6px; }
   .big-date .v { color: var(--ink-2); margin-top: 2px; }
   table.cal { width: 100%; margin: 16px 0 6px; border-collapse: collapse; text-align: center; font-size: 1rem; }
   table.cal th { font-weight: 500; color: var(--mute); font-size: 0.86rem; padding: 6px 0; }
@@ -116,11 +116,11 @@
   table.cal .mk { display: inline-flex; align-items: center; justify-content: center; width: 38px; height: 38px; border-radius: 50%; background: var(--ink); color: #f6e6b0; font-weight: 700; }
   .count { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 14px; }
   .count div { background: var(--paper); border: 1px solid var(--line); border-radius: 12px; padding: 8px 0; text-align: center; }
-  .count b { display: block; font-family: "Bodoni Moda", serif; font-weight: 500; font-size: 1.7rem; font-variant-numeric: lining-nums tabular-nums; line-height: 1.1; font-variant-numeric: tabular-nums; }
+  .count b { display: block; font-family: "Jost", sans-serif; font-weight: 400; font-size: 1.55rem; font-variant-numeric: lining-nums tabular-nums; line-height: 1.1; font-variant-numeric: tabular-nums; }
   .count small { color: var(--mute); font-size: 0.8rem; letter-spacing: 0.08em; }
 
   .venue { text-align: center; }
-  .venue .nm { font-family: "Noto Serif KR", serif; font-weight: 700; font-size: 1.3rem; line-height: 1.45; }
+  .venue .nm { font-family: "Gowun Dodum", sans-serif; font-weight: 700; font-size: 1.3rem; line-height: 1.45; }
   .venue .ad { color: var(--ink-2); margin-top: 4px; }
 
   .btns { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 14px; }
@@ -138,8 +138,13 @@
   .acct .who b { font-size: 0.98rem; font-weight: 600; letter-spacing: 0.02em; }
   .acct .who span { color: var(--mute); font-size: 0.8rem; }
   .acct .bank { margin-top: 10px; font-weight: 500; color: var(--gold); font-size: 0.84rem; letter-spacing: 0.06em; }
-  .acct .num .hy { font-family: "Noto Serif KR", serif; font-style: normal; font-weight: 400; color: var(--gold); margin: 0 0.12em; }
-  .acct .num { display: block; width: 100%; margin: 2px 0 0; padding: 4px 0; border: 0; background: none; text-align: left; cursor: pointer; font-family: "Bodoni Moda", serif; font-weight: 500; font-size: 1.2rem; letter-spacing: 0.08em; line-height: 1.45; color: var(--ink); font-variant-numeric: lining-nums tabular-nums; word-break: normal; }
+  .acct .num .hy { font-family: "Jost", sans-serif; font-style: normal; font-weight: 400; color: var(--gold); margin: 0 0.06em; }
+  .acct .num { display: block; width: 100%; margin: 2px 0 0; padding: 4px 0; border: 0; background: none; text-align: left; cursor: pointer; font-family: "Jost", sans-serif; font-weight: 400; font-size: 1.12rem; letter-spacing: 0.1em; line-height: 1.45; color: var(--ink); font-variant-numeric: lining-nums tabular-nums; word-break: normal; }
+  .wreath .wr-h { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+  .wreath .wr-h b { font-size: 1rem; } .wreath .wr-h span { font-family: "Jost", sans-serif; font-size: 0.6rem; letter-spacing: 0.3em; color: var(--gold); }
+  .wreath .wr-p { margin: 8px 0 0; font-size: 0.86rem; line-height: 1.7; color: #5b4636; text-align: left; }
+  .wreath .wr-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px; }
+  .wreath .wr-row .wr-copy { grid-column: 1 / -1; }
   .acct .btns { margin-top: 10px; }
   .acct .btns.m > :first-child { grid-column: 1 / -1; }
   .acct .btns.m > .btn:not(:first-child) { padding: 6px 4px; font-size: 0.88rem; white-space: nowrap; letter-spacing: 0; }
@@ -148,7 +153,7 @@
   .btn.kakao { background: #fee500; border-color: #d4bd00; color: #191919; }
 
   /* ───── 하단 고정 바 ───── */
-  .bgm-btn { position: fixed; top: 14px; right: 14px; z-index: 58; display: flex; align-items: center; gap: 8px; height: 36px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--line); background: rgba(255,253,248,0.9); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); color: #3b2416; font-family: "Montserrat", sans-serif; font-size: 0.6rem; letter-spacing: 0.22em; cursor: pointer; box-shadow: 0 4px 14px rgba(59,36,22,0.1); }
+  .bgm-btn { position: fixed; top: 14px; right: 14px; z-index: 58; display: flex; align-items: center; gap: 8px; height: 36px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--line); background: rgba(255,253,248,0.9); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); color: #3b2416; font-family: "Jost", sans-serif; font-size: 0.6rem; letter-spacing: 0.22em; cursor: pointer; box-shadow: 0 4px 14px rgba(59,36,22,0.1); }
   .bgm-btn[hidden] { display: none; }
   .bgm-btn .beq { display: flex; align-items: flex-end; gap: 2px; height: 12px; }
   .bgm-btn .beq i { width: 2px; height: 4px; background: var(--gold); }
@@ -157,7 +162,7 @@
   @media (prefers-reduced-motion: reduce) { .bgm-btn.on .beq i { animation: none; height: 10px; } }
   .np { position: fixed; left: 50%; bottom: 0; transform: translateX(-50%); z-index: 40; width: 100%; max-width: 480px; padding: 10px 14px calc(10px + env(safe-area-inset-bottom)); display: flex; align-items: center; gap: 12px; background: rgba(247,252,249,0.94); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border-top: 1px solid var(--line); box-shadow: 0 -10px 30px rgba(59,36,22,0.1); }
   .np .info { flex: 1; min-width: 0; line-height: 1.3; }
-  .np .info small { display: block; font-family: "Cormorant Garamond", serif; font-style: italic; letter-spacing: 0.1em; color: var(--gold); font-size: 0.92rem; }
+  .np .info small { display: block; font-family: "Jost", sans-serif; font-style: normal; text-transform: uppercase; letter-spacing: 0.26em; color: var(--gold); font-size: 0.6rem; }
   .np .info b { display: block; font-size: 0.98rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .np .btn { min-height: 52px; padding: 0 20px; white-space: nowrap; font-size: 1.05rem; }
   .np .btn.round { padding: 0; width: 52px; flex: 0 0 52px; font-size: 1.15rem; }
@@ -169,7 +174,7 @@
   .panel { width: 100%; max-width: 480px; max-height: 90vh; overflow-y: auto; background: var(--paper); border-radius: 24px 24px 0 0; padding: 12px 18px calc(24px + env(safe-area-inset-bottom)); transform: translateY(40px); transition: transform 0.3s cubic-bezier(.2,.8,.2,1); box-shadow: 0 -20px 60px rgba(0,0,0,0.25); }
   .sheet.on .panel { transform: none; }
   .grab { width: 44px; height: 5px; border-radius: 3px; background: rgba(59,36,22,0.2); margin: 0 auto 10px; }
-  .panel h2 { margin: 6px 0 2px; text-align: center; font-family: "Noto Serif KR", serif; font-size: 1.35rem; }
+  .panel h2 { margin: 6px 0 2px; text-align: center; font-family: "Gowun Dodum", sans-serif; font-size: 1.35rem; }
   .panel .sub { margin: 0 auto 4px; text-align: center; color: var(--ink-2); font-size: 0.98rem; line-height: 1.7; }
   .x { position: absolute; right: 8px; top: 8px; width: 48px; height: 48px; border: 0; background: none; font-size: 1.6rem; color: var(--mute); cursor: pointer; }
   .panel-wrap { position: relative; width: 100%; max-width: 480px; }
@@ -191,10 +196,10 @@
   .lb { position: fixed; inset: 0; z-index: 70; background: rgba(25,14,8,0.96); display: none; align-items: center; justify-content: center; flex-direction: column; padding: 16px; }
   .lb.on { display: flex; }
   .lb img { max-height: 78vh; width: auto; max-width: 100%; border-radius: 8px; }
-  .lb p { margin: 14px 0 0; text-align: center; font-family: "Cormorant Garamond", serif; font-style: italic; color: #fff; }
+  .lb p { margin: 14px 0 0; text-align: center; font-family: "Jost", sans-serif; font-style: italic; font-weight: 300; letter-spacing: 0.05em; color: #fff; }
   .lb p .e { display: block; font-size: 1.35rem; color: #3ff0bf; font-weight: 600; }
-  .lb p small { display: block; margin-top: 2px; font-family: "Noto Sans KR", sans-serif; font-style: normal; font-size: 0.85rem; color: #ff9a3c; }
-  .lb p em { display: block; margin-top: 4px; font-style: normal; font-family: "Noto Sans KR", sans-serif; font-weight: 700; font-size: 0.75rem; letter-spacing: 0.12em; opacity: 0.8; }
+  .lb p small { display: block; margin-top: 2px; font-family: "Gowun Dodum", sans-serif; font-style: normal; font-size: 0.85rem; color: #ff9a3c; }
+  .lb p em { display: block; margin-top: 4px; font-style: normal; font-family: "Gowun Dodum", sans-serif; font-weight: 700; font-size: 0.75rem; letter-spacing: 0.12em; opacity: 0.8; }
   .lb button { position: absolute; border: 0; background: rgba(255,255,255,0.1); color: #fff; width: 52px; height: 52px; border-radius: 50%; font-size: 1.5rem; cursor: pointer; }
   .lb .x2 { top: 14px; right: 14px; } .lb .pv { left: 10px; top: 50%; } .lb .nx { right: 10px; top: 50%; }
 
@@ -218,8 +223,8 @@
   .toast.on { opacity: 1; transform: translateX(-50%); }
 
   .end { margin: 26px 22px 0; text-align: center; }
-  .end p { margin: 0; font-family: "Noto Serif KR", serif; font-size: 1.1rem; line-height: 2; }
-  .end .sg { margin-top: 12px; font-family: "Cormorant Garamond", serif; font-style: italic; font-weight: 600; font-size: 1.8rem; background: linear-gradient(115deg, #6b4f17 0%, #a8832f 45%, #6b4f17 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .end p { margin: 0; font-family: "Gowun Dodum", sans-serif; font-size: 1.1rem; line-height: 2; }
+  .end .sg { margin-top: 12px; font-family: "Jost", sans-serif; font-style: normal; font-weight: 500; text-transform: uppercase; letter-spacing: 0.24em; font-size: 1.1rem; background: linear-gradient(115deg, #6b4f17 0%, #a8832f 45%, #6b4f17 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
 
   @media (prefers-reduced-motion: reduce) { .disc, .eq i { animation: none; } html { scroll-behavior: auto; } .t-body, .sheet, .panel, .toast { transition: none; } }
 </style>
@@ -347,7 +352,7 @@
 </div>
 
 <!-- 하단 고정 바: 어디서든 한 번에 -->
-<audio id="bgm" src="../passport/sun.mp3" loop preload="none"></audio>
+<audio id="bgm" src="../passport/sun-hl.mp3" loop preload="none"></audio>
 <button type="button" class="bgm-btn" id="bgmBtn" hidden aria-label="배경음악 켜기"><span class="beq" aria-hidden="true"><i></i><i></i><i></i></span><span>MUSIC</span></button>
 <div class="np" id="np">
   <div class="info"><small>NOW PLAYING</small><b id="npText">D-0 · 1.16 SAT 12:30</b></div>
@@ -477,8 +482,9 @@
       (IS_MOBILE ? '<button class="btn toss" type="button" data-toss="' + esc(a.toss) + '|' + raw + '">토스로 송금</button><button class="btn tbank" type="button" data-tbank="' + esc(a.toss) + '|' + raw + '">토스뱅크로 송금</button><button class="btn kakao" type="button" data-kakao="' + esc(a.kakao || '') + '|' + raw + '">카카오페이로 송금</button><button class="btn kbank" type="button" data-kbank="' + raw + '">카카오뱅크로 송금</button>' : '<button class="btn" type="button" data-copy="' + esc(a.bank + ' ' + a.no + ' ' + a.name) + '" data-msg="은행·번호·예금주를 복사했어요">전체 복사</button>') +
       '</div></div>';
   }
-  $('acctInline').innerHTML = ACCTS.map(acctHtml).join('') + '<p class="note">토스·토스뱅크·카카오페이·카카오뱅크 버튼은 계좌번호를 복사한 뒤 앱을 열어 줍니다. 앱에서 번호를 붙여 넣어 보내시면 돼요.</p>';
-  $('acctSheet').innerHTML = ACCTS.map(acctHtml).join('') + '<p class="note" style="text-align:center">마음 써 주셔서 고맙습니다.</p>';
+  var WREATH = '<div class="acct wreath"><div class="wr-h"><b>축하 화환 보내기</b><span>FLOWERS</span></div><p class="wr-p">예식장으로 축하 화환을 보내실 분은 아래에서 고르신 뒤, 배송 정보를 붙여 넣어 주문해 주세요.</p><div class="wr-row"><a class="btn solid" href="https://www.coupang.com/np/search?q=%EA%B2%B0%ED%98%BC%EC%8B%9D%20%EC%B6%95%ED%95%98%ED%99%94%ED%99%98" target="_blank" rel="noopener">쿠팡에서 고르기</a><a class="btn" href="https://search.shopping.naver.com/search/all?query=%EA%B2%B0%ED%98%BC%EC%8B%9D%20%EC%B6%95%ED%95%98%ED%99%94%ED%99%98" target="_blank" rel="noopener">네이버에서 고르기</a><button class="btn wr-copy" type="button" data-copy="배송지: 경남 양산시 강변로 438 크리스탈타워 5층 팰리스홀 (양산 W웨딩) / 예식: 2027년 1월 16일(토) 낮 12시 30분 / 받는 분: 신랑 손규수 · 신부 문세화" data-msg="배송 정보를 복사했어요. 주문서에 붙여 넣어 주세요">배송 정보 복사 (주소·예식 시간·이름)</button></div></div>';
+  $('acctInline').innerHTML = ACCTS.map(acctHtml).join('') + '<p class="note">토스·토스뱅크·카카오페이·카카오뱅크 버튼은 계좌번호를 복사한 뒤 앱을 열어 줍니다. 앱에서 번호를 붙여 넣어 보내시면 돼요.</p>' + WREATH;
+  $('acctSheet').innerHTML = ACCTS.map(acctHtml).join('') + WREATH + '<p class="note" style="text-align:center">마음 써 주셔서 고맙습니다.</p>';
   function appOpen(u) { (window.__openApp || function (x) { location.href = x; })(u); }
   document.addEventListener('click', function (e) {
     var b = e.target.closest('[data-toss]');

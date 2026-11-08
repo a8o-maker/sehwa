@@ -11,7 +11,7 @@
 <meta property="og:image" content="../s/210.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Noto+Serif+KR:wght@400;500;600;700&family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..700&family=Montserrat:wght@400;500;600;700;800&family=Nanum+Pen+Script&family=Share+Tech+Mono&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Jost:ital,wght@0,300..700;1,300..600&family=Nanum+Pen+Script&family=Share+Tech+Mono&display=swap">
 <style>
   :root {
     --navy: #2a170e; --navy-2: #3b2416; --navy-3: #5a3b2a; --bg: #e7f5ee; --bg-2: #f7fcf9; --ink-1: #2f1d12; --ink-nv: #3b2416; --ink-mu: #6b5646;
@@ -22,19 +22,19 @@
   }
     * { box-sizing: border-box; }
   html { -webkit-text-size-adjust: 100%; }
-  body { margin: 0; background: var(--bg); color: var(--text); font-family: "Noto Serif KR", serif; word-break: keep-all; line-height: 1.75; overflow-x: hidden; }
+  body { margin: 0; background: var(--bg); color: var(--text); font-family: "Gowun Dodum", sans-serif; word-break: keep-all; line-height: 1.8; overflow-x: hidden; }
   body.locked { overflow: hidden; height: 100vh; }
   body::before { content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 1; opacity: 0.05; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
   main { position: relative; z-index: 2; }
-  .mont { font-family: "Montserrat", sans-serif; }
+  .mont { font-family: "Jost", sans-serif; }
   .mono { font-family: "Share Tech Mono", ui-monospace, monospace; }
   img { display: block; max-width: 100%; }
   main { max-width: 440px; margin: 0 auto; padding-bottom: 60px; overflow-x: clip; }
-  .eyebrow { font-family: "Cormorant Garamond", serif; font-style: italic; font-size: 1.02rem; letter-spacing: 0.06em; color: var(--gold); margin: 0; display: flex; align-items: center; justify-content: center; gap: 14px; }
+  .eyebrow { font-family: "Jost", sans-serif; font-style: normal; font-weight: 400; text-transform: uppercase; font-size: 0.66rem; letter-spacing: 0.32em; color: var(--gold); margin: 0; display: flex; align-items: center; justify-content: center; gap: 14px; }
   .eyebrow::before, .eyebrow::after { content: ""; width: 34px; height: 1px; background: linear-gradient(90deg, transparent, var(--gold)); }
   .eyebrow::after { background: linear-gradient(90deg, var(--gold), transparent); }
-  .eyebrow .no { color: var(--mint-d); font-weight: 700; font-style: normal; font-size: 0.72rem; letter-spacing: 0.24em; margin-right: 6px; opacity: 0.8; }
-  h2 { margin: 2px 0 8px; font-size: 1.14rem; font-weight: 500; letter-spacing: 0.14em; }
+  .eyebrow .no { color: var(--mint-d); font-weight: 500; font-style: normal; font-size: 0.66rem; letter-spacing: 0.24em; margin-right: 6px; opacity: 0.8; }
+  h2 { margin: 4px 0 8px; font-size: 1.2rem; font-weight: 400; letter-spacing: 0.12em; }
   .lede { margin: 0 auto 26px; max-width: 34ch; word-break: keep-all; font-size: 0.86rem; line-height: 1.85; color: var(--muted); }
   section { padding: 72px 16px 8px; text-align: center; }
   section + section::before { content: ""; display: block; width: 1px; height: 34px; margin: -40px auto 38px; background: linear-gradient(transparent, var(--line)); }
@@ -57,29 +57,29 @@
   .lid .back { transform: rotateY(180deg); background: linear-gradient(160deg, #2f1a10, #4a2a1a); }
   .gold { background: linear-gradient(100deg, #9c7f4a 0%, #e6d3a8 40%, #fbf3e0 50%, #e6d3a8 60%, #9c7f4a 100%); background-size: 250% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; animation: shine 6s ease-in-out infinite; }
   @keyframes shine { 0%,100% { background-position: 100% 0; } 50% { background-position: 0 0; } }
-  .lid .t1 { font-family: "Montserrat"; font-weight: 600; letter-spacing: 0.34em; font-size: 0.7rem; }
-  .lid .t2 { font-family: "Bodoni Moda", serif; font-weight: 500; letter-spacing: 0.2em; font-size: 1.95rem; margin: 6px 0 0; }
-  .lid .t3 { font-family: "Montserrat"; letter-spacing: 0.3em; font-size: 0.6rem; margin-top: 4px; }
+  .lid .t1 { font-family: "Jost"; font-weight: 600; letter-spacing: 0.34em; font-size: 0.7rem; }
+  .lid .t2 { font-family: "Jost", sans-serif; font-weight: 500; letter-spacing: 0.34em; font-size: 1.6rem; margin: 6px 0 0; }
+  .lid .t3 { font-family: "Jost"; letter-spacing: 0.3em; font-size: 0.6rem; margin-top: 4px; }
   .emblem { width: 112px; height: 112px; color: #8fe0c0; filter: drop-shadow(0 0 10px rgba(201,169,110,0.35)); }
   .chip { width: 30px; height: 20px; border: 1.4px solid var(--gold-2); border-radius: 4px; position: relative; opacity: 0.85; }
   .chip::before { content: ""; position: absolute; inset: 4px 9px; border: 1.2px solid var(--gold-2); border-radius: 2px; }
-  .tap { margin-top: 18px; font-family: "Montserrat"; font-size: 0.7rem; letter-spacing: 0.28em; color: var(--gold-3); opacity: 0.85; animation: bob 1.8s ease-in-out infinite; }
+  .tap { margin-top: 18px; font-family: "Jost"; font-size: 0.7rem; letter-spacing: 0.28em; color: var(--gold-3); opacity: 0.85; animation: bob 1.8s ease-in-out infinite; }
   @keyframes bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(5px); } }
   @media (prefers-reduced-motion: reduce) { .gold, .tap { animation: none; } .pp .lid { transition: none; } .reveal { opacity: 1; transform: none; transition: none; } }
 
   /* 신원 정보면 */
   .datapage { position: relative; background: var(--paper); color: var(--paper-ink); border-radius: 6px; padding: 16px 14px 12px; text-align: left; overflow: hidden; box-shadow: 0 20px 44px rgba(0,0,0,0.45);
     background-image: repeating-radial-gradient(circle at 80% 30%, rgba(26,107,86,0.07) 0 1px, transparent 1px 7px), repeating-radial-gradient(circle at 10% 90%, rgba(180,83,9,0.07) 0 1px, transparent 1px 9px); }
-  .dp-top { display: flex; justify-content: space-between; align-items: baseline; font-family: "Montserrat"; font-size: 0.6rem; letter-spacing: 0.2em; color: #1a6b56; font-weight: 600; border-bottom: 1px solid rgba(26,107,86,0.25); padding-bottom: 6px; margin-bottom: 12px; }
+  .dp-top { display: flex; justify-content: space-between; align-items: baseline; font-family: "Jost"; font-size: 0.6rem; letter-spacing: 0.2em; color: #1a6b56; font-weight: 600; border-bottom: 1px solid rgba(26,107,86,0.25); padding-bottom: 6px; margin-bottom: 12px; }
   .dp-body { display: grid; grid-template-columns: 42% 1fr; gap: 12px; }
   .dp-photo { position: relative; aspect-ratio: 4 / 5; border-radius: 6px; overflow: hidden; background: #ddd; }
   .dp-photo img { width: 100%; height: 100%; object-fit: cover; }
   .dp-photo::after { content: ""; position: absolute; inset: 0; background: linear-gradient(115deg, transparent 30%, rgba(255,255,255,0.45) 45%, rgba(169,220,196,0.35) 50%, rgba(253,224,71,0.3) 55%, transparent 70%); background-size: 260% 100%; mix-blend-mode: screen; animation: holo 4.5s ease-in-out infinite; }
   @keyframes holo { 0%,100% { background-position: 120% 0; } 50% { background-position: -20% 0; } }
   .f { margin-bottom: 7px; }
-  .f .k { font-family: "Montserrat"; font-size: 0.52rem; letter-spacing: 0.14em; color: var(--paper-mute); text-transform: uppercase; line-height: 1.3; }
-  .f .v { font-family: "Bodoni Moda", serif; font-size: 0.86rem; font-weight: 600; letter-spacing: 0.03em; line-height: 1.3; }
-  .f .v small { font-family: "Noto Serif KR"; font-weight: 400; font-size: 0.72rem; color: var(--paper-mute); }
+  .f .k { font-family: "Jost"; font-size: 0.52rem; letter-spacing: 0.14em; color: var(--paper-mute); text-transform: uppercase; line-height: 1.3; }
+  .f .v { font-family: "Jost", sans-serif; font-size: 0.8rem; font-weight: 500; letter-spacing: 0.08em; line-height: 1.3; }
+  .f .v small { font-family: "Gowun Dodum"; font-weight: 400; font-size: 0.72rem; color: var(--paper-mute); }
   .sig { font-family: "Nanum Pen Script", cursive; font-size: 1.35rem; color: #1a6b56; line-height: 1; margin-top: 2px; }
   .mrz { margin-top: 12px; padding-top: 8px; border-top: 1px dashed rgba(59,36,22,0.25); font-family: "Share Tech Mono", monospace; font-size: clamp(0.56rem, 2.7vw, 0.72rem); letter-spacing: 0.05em; line-height: 1.45; color: #2f1d12; white-space: nowrap; overflow: hidden; }
 
@@ -100,11 +100,11 @@
   .visa .ph img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.06); transition: transform 6s ease-out; }
   .visa.in .ph img { transform: scale(1); }
   .visa .ph::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 30%; background: linear-gradient(transparent, rgba(0,0,0,0.55)); }
-  .visa .line small { display: block; margin-top: 2px; font-family: "Noto Serif KR", serif; font-style: normal; font-size: 0.56rem; letter-spacing: 0; opacity: 0.92; }
-  .visa .line { position: absolute; z-index: 1; left: 12px; right: 12px; bottom: 12px; color: #fff; font-family: "Cormorant Garamond", serif; font-style: italic; font-size: 1.12rem; letter-spacing: 0.02em; text-align: center; text-shadow: 0 1px 4px rgba(0,0,0,0.7); }
-  .visa .meta { display: flex; justify-content: space-between; align-items: center; gap: 6px; margin-top: 10px; padding: 6px 10px; border-radius: 6px; background: #4a2410; font-family: "Montserrat", sans-serif; font-weight: 800; font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; }
+  .visa .line small { display: block; margin-top: 2px; font-family: "Gowun Dodum", sans-serif; font-style: normal; font-size: 0.56rem; letter-spacing: 0; opacity: 0.92; }
+  .visa .line { position: absolute; z-index: 1; left: 12px; right: 12px; bottom: 12px; color: #fff; font-family: "Jost", sans-serif; font-style: italic; font-weight: 300; font-size: 0.92rem; letter-spacing: 0.04em; text-align: center; text-shadow: 0 1px 4px rgba(0,0,0,0.7); }
+  .visa .meta { display: flex; justify-content: space-between; align-items: center; gap: 6px; margin-top: 10px; padding: 6px 10px; border-radius: 6px; background: #4a2410; font-family: "Jost", sans-serif; font-weight: 800; font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; }
   .visa .meta span:first-child { color: #3ff0bf; } .visa .meta span:last-child { color: #ff8a24; }
-  .stamp { position: absolute; z-index: 2; pointer-events: none; font-family: "Montserrat"; font-weight: 800; text-transform: uppercase; text-align: center; line-height: 1.15; color: var(--c); border: 2.5px solid var(--c); padding: 7px 10px; letter-spacing: 0.08em; font-size: 0.62rem; background: rgba(246,241,228,0.18);
+  .stamp { position: absolute; z-index: 2; pointer-events: none; font-family: "Jost"; font-weight: 800; text-transform: uppercase; text-align: center; line-height: 1.15; color: var(--c); border: 2.5px solid var(--c); padding: 7px 10px; letter-spacing: 0.08em; font-size: 0.62rem; background: rgba(246,241,228,0.18);
     mix-blend-mode: multiply; opacity: 0; transform: rotate(var(--r)) scale(2.4); font-weight: 700; letter-spacing: 0.12em; }
   .stamp.round { border-radius: 50%; width: 104px; height: 104px; display: flex; flex-direction: column; align-items: center; justify-content: center; border-style: double; border-width: 5px; padding: 6px; }
   .stamp b { display: block; font-size: 0.82rem; letter-spacing: 0.04em; }
@@ -115,31 +115,31 @@
 
   /* 탑승권 */
   .bp { background: var(--bg-2); border: 1px solid var(--line); border-radius: 12px; text-align: left; overflow: hidden; box-shadow: 0 14px 34px rgba(59,36,22,0.10); }
-  .bp-head { display: flex; justify-content: space-between; align-items: center; padding: 14px 18px; border-bottom: 1px solid var(--line); color: var(--gold-2); font-family: "Montserrat"; font-weight: 500; letter-spacing: 0.24em; font-size: 0.62rem; }
+  .bp-head { display: flex; justify-content: space-between; align-items: center; padding: 14px 18px; border-bottom: 1px solid var(--line); color: var(--gold-2); font-family: "Jost"; font-weight: 500; letter-spacing: 0.24em; font-size: 0.62rem; }
   .bp-main { padding: 18px; }
   .route { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; text-align: center; }
-  .route .code { font-family: "Bodoni Moda", serif; font-weight: 400; font-size: clamp(1.4rem, 6.4vw, 1.8rem); color: var(--gold-2); letter-spacing: 0.08em; line-height: 1.1; }
+  .route .code { font-family: "Jost", sans-serif; font-weight: 400; font-size: clamp(1.15rem, 5.4vw, 1.5rem); color: var(--gold-2); letter-spacing: 0.2em; line-height: 1.1; }
   .route .sub { font-size: 0.72rem; color: var(--muted); }
-  .route .k { font-family: "Montserrat"; font-size: 0.56rem; letter-spacing: 0.2em; color: var(--muted); }
+  .route .k { font-family: "Jost"; font-size: 0.56rem; letter-spacing: 0.2em; color: var(--muted); }
   .plane { position: relative; width: 74px; height: 22px; }
   .plane::before { content: ""; position: absolute; left: 0; right: 0; top: 50%; border-top: 1.5px dashed rgba(201,169,110,0.5); }
   .plane svg { position: absolute; top: 0; left: 0; width: 22px; height: 22px; color: var(--gold); animation: fly 3.2s ease-in-out infinite; }
   @keyframes fly { 0% { left: 0; opacity: 0; } 15% { opacity: 1; } 85% { opacity: 1; } 100% { left: calc(100% - 22px); opacity: 0; } }
   .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 14px; margin-top: 16px; padding-top: 14px; border-top: 1px dashed rgba(122,106,92,0.35); }
-  .grid2 .k { font-family: "Montserrat"; font-size: 0.56rem; letter-spacing: 0.18em; color: var(--muted); }
-  .grid2 .v { font-family: "Bodoni Moda", serif; font-weight: 600; font-size: 0.94rem; letter-spacing: 0.02em; color: var(--text); line-height: 1.35; }
-  .grid2 .v.ko { font-family: "Noto Serif KR"; font-weight: 600; font-size: 0.88rem; letter-spacing: 0; }
+  .grid2 .k { font-family: "Jost"; font-size: 0.56rem; letter-spacing: 0.18em; color: var(--muted); }
+  .grid2 .v { font-family: "Jost", sans-serif; font-weight: 500; font-size: 0.9rem; letter-spacing: 0.06em; color: var(--text); line-height: 1.35; }
+  .grid2 .v.ko { font-family: "Gowun Dodum"; font-weight: 400; font-size: 0.9rem; letter-spacing: 0; }
   .tear { position: relative; height: 0; border-top: 2px dashed rgba(122,106,92,0.35); margin: 0 14px; }
   .tear::before, .tear::after { content: ""; position: absolute; top: -12px; width: 22px; height: 22px; border-radius: 50%; background: var(--bg); }
   .tear::before { left: -26px; } .tear::after { right: -26px; }
   .bp-stub { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 18px 16px; }
   .barcode { height: 40px; flex: 1; background: repeating-linear-gradient(90deg, #3b2416 0 2px, transparent 2px 4px, #3b2416 4px 5px, transparent 5px 8px, #3b2416 8px 11px, transparent 11px 12px); opacity: 0.85; border-radius: 2px; }
-  .stub-t { font-family: "Montserrat"; font-size: 0.6rem; letter-spacing: 0.16em; color: var(--muted); text-align: right; line-height: 1.5; }
+  .stub-t { font-family: "Jost"; font-size: 0.6rem; letter-spacing: 0.16em; color: var(--muted); text-align: right; line-height: 1.5; }
   .stub-t b { color: var(--gold-2); font-size: 0.8rem; }
   .cnt { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 18px; }
   .cnt > div { background: var(--bg-2); border: 1px solid var(--line); border-radius: 12px; padding: 10px 0 8px; }
-  .cnt .n { font-family: "Bodoni Moda", serif; font-weight: 500; font-size: 1.35rem; font-variant-numeric: lining-nums tabular-nums; color: var(--gold-2); line-height: 1.1; font-variant-numeric: tabular-nums; }
-  .cnt .u { font-family: "Montserrat"; font-size: 0.55rem; letter-spacing: 0.2em; color: var(--muted); }
+  .cnt .n { font-family: "Jost", sans-serif; font-weight: 400; font-size: 1.3rem; font-variant-numeric: lining-nums tabular-nums; color: var(--gold-2); line-height: 1.1; font-variant-numeric: tabular-nums; }
+  .cnt .u { font-family: "Jost"; font-size: 0.55rem; letter-spacing: 0.2em; color: var(--muted); }
 
   /* 공통 카드 */
   .card { background: var(--bg-2); box-shadow: 0 10px 28px rgba(59,36,22,0.06); border: 1px solid var(--line); border-radius: 12px; padding: 28px 20px; }
@@ -156,7 +156,7 @@
   .btn.solid { background: var(--ink-nv); color: #fff; border: 0; font-weight: 600; letter-spacing: 0.04em; }
   .acct { display: flex; align-items: center; justify-content: space-between; gap: 10px; text-align: left; padding: 14px; border-radius: 8px; background: #e7f5ee; border: 1px solid var(--line); margin-top: 10px; }
   .acct .who { font-size: 0.78rem; color: var(--gold-2); }
-  .acct .no { font-family: "Bodoni Moda", serif; font-size: 0.98rem; color: var(--text); font-weight: 500; letter-spacing: 0.06em; font-variant-numeric: lining-nums tabular-nums; }
+  .acct .no { font-family: "Jost", sans-serif; font-size: 0.98rem; color: var(--text); font-weight: 500; letter-spacing: 0.06em; font-variant-numeric: lining-nums tabular-nums; }
   .acct .btn { min-height: 36px; padding: 0 14px; flex-shrink: 0; }
   .addr { color: var(--muted); font-size: 0.86rem; margin: 2px 0 0; }
 
@@ -173,11 +173,11 @@
   .log .ph { position: relative; display: block; overflow: hidden; background: #e9f3ee; }
   .log .ph img { display: block; width: 100%; aspect-ratio: 3 / 4; object-fit: cover; }
   .log .ph::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 46%; background: linear-gradient(transparent, rgba(0,0,0,0.55)); pointer-events: none; }
-  .log .cap { position: absolute; z-index: 1; left: 6px; right: 6px; bottom: 6px; color: #fff; font-family: "Cormorant Garamond", serif; font-style: italic; font-weight: 600; font-size: 0.74rem; line-height: 1.12; text-shadow: 0 1px 3px rgba(0,0,0,0.7); }
-  .log .cap small { display: block; margin-top: 2px; font-family: "Noto Serif KR", serif; font-style: normal; font-weight: 400; font-size: 0.46rem; line-height: 1.25; letter-spacing: 0; opacity: 0.92; }
+  .log .cap { position: absolute; z-index: 1; left: 6px; right: 6px; bottom: 6px; color: #fff; font-family: "Jost", sans-serif; font-style: italic; font-weight: 400; font-size: 0.62rem; line-height: 1.12; text-shadow: 0 1px 3px rgba(0,0,0,0.7); }
+  .log .cap small { display: block; margin-top: 2px; font-family: "Gowun Dodum", sans-serif; font-style: normal; font-weight: 400; font-size: 0.46rem; line-height: 1.25; letter-spacing: 0; opacity: 0.92; }
   .tagbar { display: flex; align-items: center; justify-content: space-between; gap: 4px; margin-top: 6px; padding: 6px 1px 1px; background: none; border-radius: 0; border-top: 1px solid rgba(59,36,22,0.2); }
-  .tagbar b { color: #14866a; font-family: "Montserrat", sans-serif; font-weight: 600; font-size: 0.5rem; letter-spacing: 0.18em; white-space: nowrap; }
-  .tagbar i { color: #e5690f; font-style: normal; font-family: "Montserrat", sans-serif; font-weight: 600; font-size: 0.5rem; letter-spacing: 0.12em; text-transform: uppercase; text-align: right; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .tagbar b { color: #14866a; font-family: "Jost", sans-serif; font-weight: 600; font-size: 0.5rem; letter-spacing: 0.18em; white-space: nowrap; }
+  .tagbar i { color: #e5690f; font-style: normal; font-family: "Jost", sans-serif; font-weight: 600; font-size: 0.5rem; letter-spacing: 0.12em; text-transform: uppercase; text-align: right; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .log .stamp { font-size: 0.34rem; padding: 2px 4px; border-width: 1px; max-width: 70px; z-index: 3; mix-blend-mode: normal; background: rgba(255,255,255,0.92); box-shadow: none; }
   .log .stamp b { font-size: 0.42rem; } .log .stamp i { font-size: 0.28rem; }
   .log .stamp.round { width: 46px; height: 46px; border-width: 2px; padding: 3px; }
@@ -187,10 +187,10 @@
   .lb { position: fixed; inset: 0; z-index: 60; background: rgba(2,6,23,0.96); display: none; align-items: center; justify-content: center; flex-direction: column; padding: 16px; }
   .lb.on { display: flex; }
   .lb img { max-height: 76vh; width: auto; max-width: 100%; border-radius: 8px; }
-  .lb p { margin: 12px 0 0; text-align: center; font-family: "Cormorant Garamond", serif; font-style: italic; letter-spacing: 0.04em; color: #fff; }
+  .lb p { margin: 12px 0 0; text-align: center; font-family: "Jost", sans-serif; font-style: italic; font-weight: 300; letter-spacing: 0.05em; color: #fff; }
   .lb p .e { display: block; font-size: 1.3rem; color: #3ff0bf; font-weight: 600; }
-  .lb p small { display: block; margin-top: 2px; font-family: "Noto Serif KR", serif; font-style: normal; font-size: 0.8rem; letter-spacing: 0; color: #ff9a3c; }
-  .lb p em { display: block; margin-top: 4px; font-style: normal; font-family: "Montserrat", sans-serif; font-weight: 700; font-size: 0.66rem; letter-spacing: 0.16em; color: #fff; opacity: 0.8; }
+  .lb p small { display: block; margin-top: 2px; font-family: "Gowun Dodum", sans-serif; font-style: normal; font-size: 0.8rem; letter-spacing: 0; color: #ff9a3c; }
+  .lb p em { display: block; margin-top: 4px; font-style: normal; font-family: "Jost", sans-serif; font-weight: 700; font-size: 0.66rem; letter-spacing: 0.16em; color: #fff; opacity: 0.8; }
   .lb .x { position: absolute; top: 12px; right: 12px; width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--line); background: none; color: #fff; font-size: 1.3rem; cursor: pointer; }
   .lb .nav { position: absolute; top: 50%; width: 44px; height: 64px; border: 0; background: rgba(15,23,42,0.5); color: #fff; font-size: 1.6rem; cursor: pointer; }
   .lb .prev { left: 4px; } .lb .next { right: 4px; }
@@ -200,14 +200,14 @@
   .gb input, .gb textarea { width: 100%; background: #fff; border: 1px solid var(--line); border-radius: 6px; color: var(--text); font: inherit; font-size: 0.9rem; padding: 11px 12px; resize: vertical; }
   .gb input:focus, .gb textarea:focus { outline: none; border-color: var(--gold); }
   .gb-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
-  .gb-row span { font-family: "Montserrat"; font-size: 0.66rem; color: var(--muted); letter-spacing: 0.1em; }
+  .gb-row span { font-family: "Jost"; font-size: 0.66rem; color: var(--muted); letter-spacing: 0.1em; }
   .gb-row .btn { min-width: 96px; }
   .gb-row .btn:disabled { opacity: 0.45; cursor: default; }
   .gb-note { margin: 0; font-size: 0.8rem; color: var(--muted); }
   .gb-list { display: grid; gap: 10px; margin-top: 16px; text-align: left; }
   .gb-item { padding: 14px 16px; border-left: 2px solid var(--gold); background: var(--bg-2); border-radius: 0 8px 8px 0; box-shadow: 0 4px 14px rgba(59,36,22,0.05); }
   .gb-item .who { font-size: 0.8rem; color: var(--gold-2); display: flex; justify-content: space-between; gap: 8px; }
-  .gb-item .who time { font-family: "Montserrat"; font-size: 0.62rem; color: var(--muted); }
+  .gb-item .who time { font-family: "Jost"; font-size: 0.62rem; color: var(--muted); }
   .gb-item p { margin: 4px 0 0; font-size: 0.9rem; line-height: 1.75; color: #3a261a; white-space: pre-wrap; word-break: break-word; }
   .gb-empty { font-size: 0.84rem; color: var(--muted); text-align: center; }
   .clovers { position: fixed; inset: 0; pointer-events: none; z-index: 55; overflow: hidden; }
@@ -228,9 +228,9 @@
   .gift.got .gift-clover svg { animation: glow 1.6s ease-in-out; }
   @keyframes glow { 0% { transform: scale(1); } 30% { transform: scale(1.18) rotate(8deg); filter: drop-shadow(0 0 34px rgba(243,227,184,0.8)); } 100% { transform: scale(1); } }
   .gift-msg { margin: 10px 0 0; font-size: 0.95rem; line-height: 2; color: #3a261a; }
-  .gift-sub { margin: 8px 0 0; font-family: "Cormorant Garamond", serif; font-style: italic; color: var(--gold); font-size: 1rem; letter-spacing: 0.04em; }
+  .gift-sub { margin: 8px 0 0; font-family: "Jost", sans-serif; font-style: normal; text-transform: uppercase; color: var(--gold); font-size: 0.66rem; letter-spacing: 0.3em; }
   @media (prefers-reduced-motion: reduce) { .gift .lf { transform: none; opacity: 1; } .gift.in .lf, .gift.got .gift-clover svg { animation: none; } }
-  .bgm-btn { position: fixed; top: 14px; right: 14px; z-index: 58; display: flex; align-items: center; gap: 8px; height: 36px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--line); background: rgba(255,253,248,0.9); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); color: var(--ink-nv); font-family: "Montserrat"; font-size: 0.6rem; letter-spacing: 0.22em; cursor: pointer; box-shadow: 0 4px 14px rgba(59,36,22,0.1); }
+  .bgm-btn { position: fixed; top: 14px; right: 14px; z-index: 58; display: flex; align-items: center; gap: 8px; height: 36px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--line); background: rgba(255,253,248,0.9); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); color: var(--ink-nv); font-family: "Jost"; font-size: 0.6rem; letter-spacing: 0.22em; cursor: pointer; box-shadow: 0 4px 14px rgba(59,36,22,0.1); }
   .bgm-btn[hidden] { display: none; }
   .bgm-btn .eq { display: flex; align-items: flex-end; gap: 2px; height: 12px; }
   .bgm-btn .eq i { width: 2px; height: 4px; background: var(--gold); }
@@ -243,25 +243,24 @@
   .ife { position: absolute; left: 25%; top: 22.6%; width: 50%; height: 44.2%; border-radius: 6px; overflow: hidden; background: #000; text-align: left; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08); }
   .ife video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; display: block; background: #000; }
   .ife-bar, .ife-info { transition: opacity 0.35s ease; } .ife.hide-ui .ife-bar, .ife.hide-ui .ife-info { opacity: 0; pointer-events: none; }
-  .seat-cta { display: inline-flex; gap: 8px; min-height: 48px; padding: 0 22px; border-radius: 999px; font-size: 0.92rem; }
-  .seat-cta small { font-size: 0.7rem; opacity: 0.75; letter-spacing: 0; }
+
   .ife-glare { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(125deg, rgba(255,255,255,0.16) 0%, transparent 30%, transparent 72%, rgba(255,255,255,0.06) 100%), repeating-linear-gradient(0deg, rgba(0,0,0,0.07) 0 1px, transparent 1px 3px); }
-  .ife-bar { position: absolute; top: 0; left: 0; right: 0; display: flex; align-items: center; justify-content: space-between; padding: 4px 6px; background: linear-gradient(180deg, rgba(42,23,14,0.85), rgba(42,23,14,0)); font-family: "Montserrat"; font-size: 0.4rem; letter-spacing: 0.12em; color: #f1e6d6; }
+  .ife-bar { position: absolute; top: 0; left: 0; right: 0; display: flex; align-items: center; justify-content: space-between; padding: 4px 6px; background: linear-gradient(180deg, rgba(42,23,14,0.85), rgba(42,23,14,0)); font-family: "Jost"; font-size: 0.4rem; letter-spacing: 0.12em; color: #f1e6d6; }
   .ife-air { font-weight: 800; color: #e6d3a8; }
   .ife-tabs b { font-weight: 600; border-bottom: 1px solid #e6d3a8; }
   .ife-clock { font-variant-numeric: tabular-nums; }
   .ife-big { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 1.6rem; color: rgba(255,255,255,0.88); opacity: 0; transition: opacity 0.3s; pointer-events: none; text-shadow: 0 2px 10px rgba(0,0,0,0.6); }
   .ife.paused .ife-big { opacity: 1; }
   .ife-info { position: absolute; left: 0; right: 0; bottom: 0; padding: 14px 6px 5px; background: linear-gradient(180deg, rgba(25,14,8,0), rgba(25,14,8,0.88) 40%); color: #f6ede0; }
-  .ife-title { font-family: "Cormorant Garamond", serif; font-size: 0.68rem; line-height: 1.15; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .ife-meta { display: flex; justify-content: space-between; font-family: "Montserrat"; font-size: 0.36rem; letter-spacing: 0.1em; color: #c8b59f; margin-top: 1px; }
+  .ife-title { font-family: "Jost", sans-serif; font-size: 0.56rem; letter-spacing: 0.04em; line-height: 1.15; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .ife-meta { display: flex; justify-content: space-between; font-family: "Jost"; font-size: 0.36rem; letter-spacing: 0.1em; color: #c8b59f; margin-top: 1px; }
   .ife-t { font-variant-numeric: tabular-nums; }
   .ife-prog { height: 2px; margin-top: 4px; background: rgba(255,255,255,0.18); border-radius: 2px; overflow: hidden; }
   .ife-prog i { display: block; height: 100%; width: 0; background: #e6d3a8; }
   .ife-ctrl { display: flex; justify-content: space-between; gap: 3px; margin-top: 4px; }
   .ife-ctrl button { flex: 1; height: 22px; padding: 0; border: 1px solid rgba(255,255,255,0.16); border-radius: 4px; background: rgba(255,255,255,0.06); color: #f6ede0; font-size: 0.56rem; cursor: pointer; }
   .ife-ctrl button:hover, .ife-ctrl button:focus-visible { background: rgba(230,211,168,0.22); }
-  .seat-label { position: absolute; left: 0; right: 0; bottom: -30px; margin: 0; text-align: center; font-family: "Montserrat"; font-size: 0.56rem; letter-spacing: 0.18em; color: var(--muted); }
+  .seat-label { position: absolute; left: 0; right: 0; bottom: -30px; margin: 0; text-align: center; font-family: "Jost"; font-size: 0.56rem; letter-spacing: 0.18em; color: var(--muted); }
   .seat + * { margin-top: 40px; }
   #seat { margin-bottom: 36px; }
   /* ───── 참석·식사 여부: 페이지 안에 남기기 ───── */
@@ -326,8 +325,8 @@
   .np { position: fixed; left: 50%; bottom: 0; transform: translateX(-50%); z-index: 56; width: 100%; max-width: 440px; padding: 10px 14px calc(10px + env(safe-area-inset-bottom)); display: flex; align-items: center; gap: 12px; background: rgba(255,253,248,0.95); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border-top: 1.5px solid transparent; border-image: var(--foil) 1; box-shadow: 0 -10px 30px rgba(59,36,22,0.1); }
   body.locked .np { display: none; }
   .np .info { flex: 1; min-width: 0; line-height: 1.3; }
-  .np .info small { display: block; font-family: "Cormorant Garamond", serif; font-style: italic; letter-spacing: 0.1em; color: var(--gold); font-size: 0.92rem; }
-  .np .info b { display: block; font-size: 0.98rem; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--ink-nv); }
+  .np .info small { display: block; font-family: "Jost", sans-serif; font-style: normal; text-transform: uppercase; letter-spacing: 0.26em; color: var(--gold); font-size: 0.6rem; }
+  .np .info b { display: block; font-family: "Jost", "Gowun Dodum", sans-serif; letter-spacing: 0.06em; font-size: 0.98rem; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--ink-nv); }
   .np .btn { min-height: 52px; padding: 0 20px; white-space: nowrap; font-size: 1rem; font-weight: 600; letter-spacing: 0.04em; }
   .np .btn.round { width: 52px; padding: 0; flex: 0 0 52px; font-size: 1.15rem; }
   .toast { bottom: calc(86px + env(safe-area-inset-bottom)) !important; }
@@ -345,8 +344,8 @@
   .ac .who { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
   .ac .who b { font-size: 0.98rem; font-weight: 600; letter-spacing: 0.02em; color: var(--ink-nv); } .ac .who span { color: var(--muted); font-size: 0.78rem; }
   .ac .bank { margin-top: 10px; font-weight: 500; color: var(--gold); font-size: 0.82rem; letter-spacing: 0.06em; }
-  .ac .num .hy { font-family: "Noto Serif KR", serif; font-style: normal; font-weight: 400; color: var(--gold); margin: 0 0.12em; }
-  .ac .num { display: block; width: 100%; margin: 2px 0 0; padding: 4px 0; border: 0; background: none; text-align: left; cursor: pointer; font-family: "Bodoni Moda", serif; font-weight: 500; font-size: 1.2rem; letter-spacing: 0.08em; line-height: 1.45; color: #2f1d12; font-variant-numeric: lining-nums tabular-nums; word-break: normal; }
+  .ac .num .hy { font-family: "Jost", sans-serif; font-style: normal; font-weight: 400; color: var(--gold); margin: 0 0.06em; }
+  .ac .num { display: block; width: 100%; margin: 2px 0 0; padding: 4px 0; border: 0; background: none; text-align: left; cursor: pointer; font-family: "Jost", sans-serif; font-weight: 400; font-size: 1.12rem; letter-spacing: 0.1em; line-height: 1.45; color: #2f1d12; font-variant-numeric: lining-nums tabular-nums; word-break: normal; }
   .ac .bt { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px; }
   .ac .bt > :first-child { grid-column: 1 / -1; }
   .ac .btn { min-height: 48px; font-size: 0.9rem; font-weight: 600; letter-spacing: 0.04em; justify-content: center; }
@@ -367,14 +366,19 @@
   .wall-grid .wt:focus-visible { outline: 2px solid #f6e6b0; outline-offset: -2px; z-index: 1; }
   .wall-title { grid-column: 3 / span 2; grid-row: 4; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; margin: 0; background: #fbf7ee; box-shadow: inset 0 0 0 4px #fbf7ee, inset 0 0 0 5px rgba(156,122,63,0.6); text-align: center; opacity: 0; transform: scale(0.9); transition: opacity 0.6s ease 0.75s, transform 0.8s cubic-bezier(.2,.75,.25,1) 0.75s; }
   .wall.go .wall-title { opacity: 1; transform: none; }
-  .wall-title b { font-family: "Bodoni Moda", serif; font-style: italic; font-weight: 400; font-size: clamp(0.82rem, 3.6vw, 1rem); line-height: 1.15; color: #2f1d12; white-space: nowrap; }
-  .wall-title small { font-family: "Montserrat", sans-serif; font-size: 0.46rem; letter-spacing: 0.26em; color: var(--gold); white-space: nowrap; }
+  .wall-title b { font-family: "Jost", sans-serif; font-style: normal; font-weight: 500; text-transform: uppercase; letter-spacing: 0.16em; font-size: clamp(0.56rem, 2.5vw, 0.7rem); line-height: 1.2; color: #2f1d12; white-space: nowrap; }
+  .wall-title small { font-family: "Jost", sans-serif; font-size: 0.46rem; letter-spacing: 0.26em; color: var(--gold); white-space: nowrap; }
   .wall-down { position: absolute; left: 50%; bottom: 10px; z-index: 2; width: 34px; height: 34px; margin-left: -17px; border-radius: 50%; background: rgba(251,247,238,0.9); color: #3b2416; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; box-shadow: 0 4px 12px rgba(0,0,0,0.25); pointer-events: none; opacity: 0; transition: opacity 0.6s ease 1.4s; animation: bob 1.8s ease-in-out infinite; }
   .wall.go .wall-down { opacity: 1; }
   @media (prefers-reduced-motion: reduce) { .wall-grid .wt img, .wall-title { transition: none; } .wall-down { animation: none; } }
+  .wreath .wr-h { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+  .wreath .wr-h b { font-size: 1rem; } .wreath .wr-h span { font-family: "Jost", sans-serif; font-size: 0.6rem; letter-spacing: 0.3em; color: var(--gold, #9a7a2e); }
+  .wreath .wr-p { margin: 8px 0 0; font-size: 0.86rem; line-height: 1.7; color: #5b4636; text-align: left; }
+  .wreath .wr-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px; }
+  .wreath .wr-row .wr-copy { grid-column: 1 / -1; }
   /* 주차 안내 */
   .pk { margin-top: 18px; padding-top: 16px; border-top: 1px dashed var(--line); text-align: left; }
-  .pk-t { display: inline-block; padding: 3px 12px; border-radius: 999px; background: #4a2410; color: #3ff0bf; font-family: "Montserrat", sans-serif; font-weight: 800; font-size: 0.66rem; letter-spacing: 0.16em; }
+  .pk-t { display: inline-block; padding: 3px 12px; border-radius: 999px; background: #4a2410; color: #3ff0bf; font-family: "Jost", sans-serif; font-weight: 800; font-size: 0.66rem; letter-spacing: 0.16em; }
   .pk-lead { margin: 10px 0 0; font-size: 1rem; font-weight: 700; line-height: 1.7; color: var(--ink-nv); }
   .pk-row { display: flex; align-items: center; gap: 10px; margin-top: 10px; padding: 11px 12px; border-radius: 10px; background: #fff; border: 1px solid var(--line); }
   .pk-tx { flex: 1; min-width: 0; line-height: 1.5; }
@@ -385,7 +389,7 @@
   .pk-note { margin: 12px 0 0; padding: 10px 12px; border-radius: 10px; background: #4a2410; color: #ffb066; font-weight: 700; font-size: 0.95rem; line-height: 1.6; text-align: center; }
   .back-cover { margin-top: 30px; padding: 40px 20px; border-radius: 18px; background: var(--bg-2); border: 1px solid var(--line); box-shadow: 0 10px 28px rgba(59,36,22,0.06); }
   .back-cover p { margin: 0; color: #4a3426; font-size: 0.92rem; line-height: 2; }
-  .back-cover .sg { font-family: "Cormorant Garamond", serif; font-style: italic; letter-spacing: 0.08em; font-size: 1.3rem; margin-top: 18px; }
+  .back-cover .sg { font-family: "Jost", sans-serif; font-style: normal; font-weight: 400; text-transform: uppercase; letter-spacing: 0.3em; font-size: 0.9rem; margin-top: 18px; }
 </style>
 </head>
 <body class="locked">
@@ -560,14 +564,14 @@
         <rect x="62" y="12" width="196" height="104" rx="34" fill="url(#sHead)"/>
         <rect x="62" y="12" width="196" height="104" rx="34" fill="url(#sWeave)"/>
         <path d="M84 20h152c6 0 10 4 10 10v34c0 6-4 10-10 10H84c-6 0-10-4-10-10V30c0-6 4-10 10-10z" fill="#f6fbf8"/>
-        <text x="160" y="52" text-anchor="middle" font-family="Montserrat, sans-serif" font-size="13" font-weight="700" letter-spacing="3" fill="#9c7a3f">GS AIR</text>
+        <text x="160" y="52" text-anchor="middle" font-family="Jost, sans-serif" font-size="13" font-weight="700" letter-spacing="3" fill="#9c7a3f">GS AIR</text>
         <rect x="76" y="118" width="168" height="244" rx="10" fill="#0b0e14"/>
         <rect x="140" y="372" width="40" height="10" rx="4" fill="#9aa1ad"/>
         <circle cx="92" cy="377" r="5" fill="#0b0e14" stroke="#7d8593" stroke-width="2"/>
         <circle cx="228" cy="377" r="3" fill="#34d399"/>
         <path d="M74 396h172c6 0 10 4 10 10v40c0 6-4 10-10 10H74c-6 0-10-4-10-10v-40c0-6 4-10 10-10z" fill="#341f14"/>
         <rect x="96" y="388" width="74" height="16" rx="2" fill="#f6fbf8"/>
-        <text x="133" y="400" text-anchor="middle" font-family="Cormorant Garamond, serif" font-style="italic" font-size="10" fill="#3b2416">Sky Love</text>
+        <text x="133" y="400" text-anchor="middle" font-family="Jost, sans-serif" font-style="italic" font-size="10" fill="#3b2416">Sky Love</text>
         <rect x="178" y="391" width="48" height="13" rx="2" fill="#e8dac6"/>
         <path d="M74 412h172" stroke="rgba(255,255,255,.08)" stroke-width="1.5"/>
       </svg>
@@ -583,14 +587,12 @@
           <div class="ife-ctrl">
             <button type="button" id="ifePrev" aria-label="처음부터">⏮</button>
             <button type="button" id="ifePlay" aria-label="일시정지">❚❚</button>
-            <button type="button" id="ifeFull" aria-label="크게 보기">⤢</button>
             <button type="button" id="ifeSnd" aria-label="소리 켜기">🔇</button>
           </div>
         </div>
       </div>
       <p class="seat-label">SEAT 16A · 결혼식 탑승을 환영합니다</p>
     </div>
-    <button class="btn solid seat-cta" type="button" id="ifeCta">▶ 신랑 소개 크게 보기 <small>소리 켜짐</small></button>
   </section>
 
   <!-- 6 여행 기록 -->
@@ -737,7 +739,7 @@
   </div></div>
 </div>
 <div class="flight" aria-hidden="true"><i id="flightBar"></i><svg id="flightPlane" viewBox="0 0 24 24"><path fill="#9c7a3f" d="M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5z" transform="rotate(90 12 12)"/></svg></div>
-<audio id="bgm" src="sun.mp3" loop preload="none"></audio>
+<audio id="bgm" src="sun-hl.mp3" loop preload="none"></audio>
 <button type="button" class="bgm-btn" id="bgmBtn" hidden aria-label="배경음악 켜기">
   <span class="eq" aria-hidden="true"><i></i><i></i><i></i></span><span class="bgm-t">MUSIC</span>
 </button>
@@ -848,14 +850,17 @@ var PHOTOS = [[106, "Fate walks through silver grass"], [97, "Joy finds us anywh
   function isBW(n) { return BW.indexOf(n) >= 0; }
   var LOG = PHOTOS.filter(function (p) { return VISA.every(function (v) { return v.n !== p[0]; }); });
   var logEl = $('log');
+  var SIDE = {};  /* 사진별로 도장 쪽을 바꿔야 할 때: { 번호: 'l' | 'r' } */
   (function () {
     var h = '';
     for (var i = 0; i < LOG.length; i++) {
-      var n = LOG[i][0], pl = placeOf(n), st = STAMP[pl], rr = ((n * 37) % 25) - 12, side = (n % 2) ? 'right:12px' : 'left:12px', cap = LOG[i][1];
+      var n = LOG[i][0], pl = placeOf(n), st = STAMP[pl], rr = ((n * 37) % 25) - 12, cap = LOG[i][1];
+      /* 도장은 사진 위 테두리에 걸치게(사진 윗부분 1할 정도만) 찍어 얼굴을 가리지 않게 */
+      var right = SIDE[n] ? SIDE[n] === 'r' : (n % 2 === 1), side = right ? 'right:-4px' : 'left:-4px', tp = st.round ? '-15px' : '-10px';
       h += '<button type="button" class="fr f' + (i % 3) + '" data-i="' + i + '" aria-label="' + cap + ' 크게 보기">' +
         '<span class="fx"><span class="mat"><span class="ph"><img' + (isBW(n) ? ' class="bw"' : '') + ' src="' + src(n) + '" alt="' + cap + '" loading="lazy" decoding="async"><span class="cap">' + cap + '<small>' + koOf(cap) + '</small></span></span>' +
         '<span class="tagbar"><b>N° ' + (i + VISA.length + 1) + '</b><i>' + st.k + '</i></span></span></span>' +
-        '<span class="stamp' + (st.round ? ' round' : '') + '" style="--c:' + st.c + ';--r:' + rr + 'deg;top:12px;' + side + '"><i>' + st.s + '</i><b>' + st.t + '</b><i>' + st.d + '</i></span></button>';
+        '<span class="stamp' + (st.round ? ' round' : '') + '" style="--c:' + st.c + ';--r:' + rr + 'deg;top:' + tp + ';' + side + '"><i>' + st.s + '</i><b>' + st.t + '</b><i>' + st.d + '</i></span></button>';
     }
     logEl.innerHTML = h;
     logEl.querySelectorAll('button').forEach(watch);
@@ -989,13 +994,6 @@ var PHOTOS = [[106, "Fate walks through silver grass"], [97, "Joy finds us anywh
     v.addEventListener('pause', function () { sndUi(); duck(false); });
     v.addEventListener('volumechange', function () { sndUi(); if (v.muted) duck(false); else if (!v.paused) duck(true); });
     $('ifeSnd').addEventListener('click', function () { v.muted = !v.muted; if (!v.muted && v.paused) go(); });
-    /* 크게 보기: 소리 켜고 전체 화면 */
-    function enterFull() {
-      v.muted = false; go();
-      try { if (v.webkitEnterFullscreen && /iPhone|iPod/.test(navigator.userAgent)) v.webkitEnterFullscreen(); else if (v.requestFullscreen) { var r = v.requestFullscreen(); if (r && r.catch) r.catch(function () {}); } else if (v.webkitEnterFullscreen) v.webkitEnterFullscreen(); } catch (e) {}
-    }
-    $('ifeFull').addEventListener('click', enterFull);
-    $('ifeCta').addEventListener('click', enterFull);
     /* 재생 중에는 화면 위 글씨를 감춰 영상이 다 보이게, 화면을 누르면 다시 */
     var hideT = 0;
     function poke() { box.classList.remove('hide-ui'); clearTimeout(hideT); if (!v.paused) hideT = setTimeout(function () { box.classList.add('hide-ui'); }, 2200); }
@@ -1098,8 +1096,9 @@ var PHOTOS = [[106, "Fate walks through silver grass"], [97, "Joy finds us anywh
                 : '<button class="btn" type="button" data-copy="' + e2(a.bank + ' ' + a.no + ' ' + a.name) + '" data-msg="은행·번호·예금주를 복사했어요">전체 복사</button>') + '</div></div>';
     }
     var note = '<p class="gv-note">토스·토스뱅크·카카오페이·카카오뱅크 버튼은 계좌번호를 복사한 뒤 앱을 열어 줍니다. 앱에서 번호를 붙여 넣어 보내시면 돼요.</p>';
-    $('acInline').innerHTML = ACCTS.map(card).join('') + note;
-    $('acSheet').innerHTML = ACCTS.map(card).join('') + '<p class="gv-note">마음 써 주셔서 고맙습니다.</p>';
+    var WREATH = '<div class="ac wreath"><div class="wr-h"><b>축하 화환 보내기</b><span>FLOWERS</span></div><p class="wr-p">예식장으로 축하 화환을 보내실 분은 아래에서 고르신 뒤, 배송 정보를 붙여 넣어 주문해 주세요.</p><div class="wr-row"><a class="btn solid" href="https://www.coupang.com/np/search?q=%EA%B2%B0%ED%98%BC%EC%8B%9D%20%EC%B6%95%ED%95%98%ED%99%94%ED%99%98" target="_blank" rel="noopener">쿠팡에서 고르기</a><a class="btn" href="https://search.shopping.naver.com/search/all?query=%EA%B2%B0%ED%98%BC%EC%8B%9D%20%EC%B6%95%ED%95%98%ED%99%94%ED%99%98" target="_blank" rel="noopener">네이버에서 고르기</a><button class="btn wr-copy" type="button" data-copy="배송지: 경남 양산시 강변로 438 크리스탈타워 5층 팰리스홀 (양산 W웨딩) / 예식: 2027년 1월 16일(토) 낮 12시 30분 / 받는 분: 신랑 손규수 · 신부 문세화" data-msg="배송 정보를 복사했어요. 주문서에 붙여 넣어 주세요">배송 정보 복사 (주소·예식 시간·이름)</button></div></div>';
+    $('acInline').innerHTML = ACCTS.map(card).join('') + note + WREATH;
+    $('acSheet').innerHTML = ACCTS.map(card).join('') + WREATH + '<p class="gv-note">마음 써 주셔서 고맙습니다.</p>';
     function appOpen(u) { (window.__openApp || function (x) { location.href = x; })(u); }
     document.addEventListener('click', function (e) {
       var b = e.target.closest('[data-toss]');
