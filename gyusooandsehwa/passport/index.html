@@ -543,12 +543,12 @@
         <path d="M74 412h172" stroke="rgba(255,255,255,.08)" stroke-width="1.5"/>
       </svg>
       <div class="ife">
-        <video id="ifeVid" muted playsinline preload="metadata" poster="../book/clip2.jpg" aria-label="기내 상영 영상"></video>
+        <video id="ifeVid" muted playsinline preload="metadata" poster="../book/clip1.jpg" aria-label="기내 상영 영상"></video>
         <div class="ife-glare"></div>
         <div class="ife-bar"><span class="ife-air">GS AIR</span><span class="ife-tabs"><b class="on">MOVIES</b></span><span class="ife-clock" id="ifeClock">12:30</span></div>
         <div class="ife-big" id="ifeBig" aria-hidden="true">▶</div>
         <div class="ife-info">
-          <div class="ife-title" id="ifeTitle">Kiss under N Seoul Tower</div>
+          <div class="ife-title" id="ifeTitle">Looking up, side by side</div>
           <div class="ife-meta"><span id="ifeEp">EP. 1 / 2</span><span class="ife-t" id="ifeT">0:00</span></div>
           <div class="ife-prog"><i id="ifeProg"></i></div>
           <div class="ife-ctrl">
@@ -921,8 +921,8 @@ var PHOTOS = [[106, "Fate walks through silver grass"], [97, "Joy finds us anywh
   (function () {
     var v = $('ifeVid'); if (!v) return;
     var box = v.closest('.ife'), list = [
-      { src: '../book/clip2.mp4', poster: '../book/clip2.jpg', t: 'Kiss under N Seoul Tower' },
-      { src: '../book/clip1.mp4', poster: '../book/clip1.jpg', t: 'Looking up, side by side' }
+      { src: '../book/clip1.mp4', poster: '../book/clip1.jpg', t: 'Looking up, side by side' },
+      { src: '../book/clip2.mp4', poster: '../book/clip2.jpg', t: 'Kiss under N Seoul Tower' }
     ], k = 0, loops = 0, started = false;
     function load(i, play) {
       k = (i + list.length) % list.length; loops = 0;
