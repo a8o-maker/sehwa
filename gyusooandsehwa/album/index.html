@@ -95,10 +95,6 @@
   .place p { margin: 0 2px; color: var(--mute); font-family: "Cormorant Garamond", serif; font-style: italic; font-size: 0.86rem; line-height: 1.3; }
   .rail-hint { margin: 0; text-align: center; color: var(--mute); font-size: 0.86rem; }
 
-  .introv { width: 88%; margin: 0 auto 22px; aspect-ratio: 16 / 9; background: #000; border: 1px solid rgba(59,36,22,0.16); position: relative; overflow: hidden; }
-  .introv button { all: unset; cursor: pointer; display: block; width: 100%; height: 100%; position: relative; }
-  .introv img, .introv iframe { width: 100%; height: 100%; object-fit: cover; border: 0; display: block; }
-  .introv .ipl { position: absolute; left: 50%; top: 50%; width: 54px; height: 54px; margin: -27px 0 0 -27px; border-radius: 50%; background: rgba(255,255,255,0.92); color: #3b2416; display: grid; place-items: center; font-size: 1.1rem; padding-left: 3px; }
   .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px 14px; width: 75%; min-width: 240px; margin: 14px auto 0; }
   .grid .fr { position: relative; display: block; width: 100%; border: 0; background: none; padding: 0; margin: 0; cursor: pointer; text-align: center; }
   .grid .fx { display: block; padding: 0; border-radius: 0; background: #fff; border: 2px solid #f0701a; box-shadow: none; transition: transform 0.35s ease; }
@@ -267,8 +263,6 @@
     <li class="track">
       <button class="t-head" type="button" aria-expanded="false" aria-controls="p3" id="h3"><span class="no">03</span><span class="tt"><b>두 사람<span class="eq" aria-hidden="true"><i></i><i></i><i></i></span></b><small>Gallery</small></span><span class="len">1:30</span><span class="chev" aria-hidden="true"></span></button>
       <div class="t-body" id="p3" role="region" aria-labelledby="h3"><div class="t-in"><div class="t-pad">
-        <p class="note" style="text-align:center;margin:0 0 8px">신랑 소개</p>
-        <div class="introv" id="introVid"><button type="button" id="introBtn" aria-label="신랑 소개 영상 재생"><img src="https://i.ytimg.com/vi/xGqK5qMO4Oc/hqdefault.jpg" alt="" loading="lazy"><span class="ipl">▶</span></button></div>
         <div class="grid" id="grid"></div>
         <p class="note" style="text-align:center">사진을 누르면 크게 볼 수 있어요</p>
       </div></div></div>
@@ -564,13 +558,6 @@
   });
 })();
 (function () {
-  var b = document.getElementById('introBtn'); if (!b) return;
-  b.addEventListener('click', function () {
-    var bg = document.getElementById('bgm'); if (bg && !bg.paused) bg.pause();
-    document.getElementById('introVid').innerHTML = '<iframe src="https://www.youtube.com/embed/xGqK5qMO4Oc?autoplay=1&rel=0&playsinline=1" title="신랑 소개" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>';
-  });
-})();
-(function () {
   var bgm = document.getElementById('bgm'), btn = document.getElementById('bgmBtn'), has = false, userOff = false, armed = false;
   function ui(on) { btn.classList.toggle('on', on); btn.setAttribute('aria-label', on ? '배경음악 끄기' : '배경음악 켜기'); }
   function arm() {
@@ -585,7 +572,6 @@
   fetch(bgm.getAttribute('src'), { method: 'HEAD' }).then(function (r) { if (r.ok) { has = true; btn.hidden = false; bgm.preload = 'auto'; play(); } }).catch(function () {});
   btn.addEventListener('click', function (e) { e.stopPropagation(); if (bgm.paused) { userOff = false; play(); } else { userOff = true; bgm.pause(); } });
   document.addEventListener('visibilitychange', function () { if (document.hidden && !bgm.paused) { bgm.pause(); bgm.dataset.resume = '1'; } else if (!document.hidden && bgm.dataset.resume) { delete bgm.dataset.resume; if (!userOff) play(); } });
-  var iv = document.getElementById('introBtn'); if (iv) iv.addEventListener('click', function () { userOff = true; }, true);
 })();
 </script>
 </body>
