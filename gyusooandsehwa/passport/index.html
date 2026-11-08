@@ -281,7 +281,8 @@
   .exit[hidden] { display: none; }
   .exit b { display: block; color: var(--ink-nv); font-size: 1.02rem; }
   .exit span { display: block; margin-top: 2px; color: #4a3426; font-size: 0.92rem; line-height: 1.6; }
-  .exit .row { display: flex; gap: 8px; margin-top: 10px; }
+  .exit { padding: 10px; }
+  .exit .row { display: flex; gap: 8px; margin: 0; }
   .exit .btn { flex: 1; min-height: 46px; font-weight: 700; }
   @media (prefers-reduced-motion: reduce) { .exit { transition: none; } }
 
@@ -664,9 +665,7 @@
 </div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 <div class="exit" id="exitCard" role="region" aria-label="참석 여부 남기기" hidden>
-  <b>가시기 전에 잠깐만요</b>
-  <span>참석 · 식사 여부를 남겨 주시면 큰 도움이 돼요.</span>
-  <div class="row"><button class="btn solid" type="button" id="exitGo">지금 남기기</button><button class="btn" type="button" id="exitNo">다음에</button></div>
+  <div class="row"><button class="btn solid" type="button" id="exitYes">참석</button><button class="btn solid" type="button" id="exitNo">미참석</button></div>
 </div>
 <div class="clovers" id="clovers" aria-hidden="true"></div>
 <div class="np" id="np">
@@ -943,7 +942,8 @@ var PHOTOS = [[106, "Fate walks through silver grass"], [97, "Joy finds us anywh
     function showDone(on) { $('rvDone').hidden = !on; form.hidden = on; }
     showDone(done);
     $('rvAgain').addEventListener('click', function () { done = false; try { localStorage.removeItem('pp-rsvp'); } catch (e) {} showDone(false); $('rName').focus(); });
-    function goForm() { var sec = $('rsvpSec'); sec.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' }); setTimeout(function () { if (!done) $('rName').focus({ preventScroll: true }); }, 700); }
+    function pick(v) { var r = form.querySelector('input[name="rAtt"][value="' + v + '"]'); if (r) { r.checked = true; sync(); } }
+    function goForm(v) { if (v) pick(v); var sec = $('rsvpSec'); sec.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' }); setTimeout(function () { if (!done) $('rName').focus({ preventScroll: true }); }, 700); }
     $('rsvpOpen').addEventListener('click', goForm);
     form.addEventListener('submit', function (e) {
       e.preventDefault(); err.textContent = '';
@@ -972,9 +972,9 @@ var PHOTOS = [[106, "Fate walks through silver grass"], [97, "Joy finds us anywh
       shown = true; try { sessionStorage.setItem('pp-exit', '1'); } catch (e) {}
       card.hidden = false; void card.offsetWidth; card.classList.add('on');
     }
-    $('exitGo').addEventListener('click', function () { hideExit(); goForm(); });
-    $('exitNo').addEventListener('click', hideExit);
-    var tk = 0; addEventListener('scroll', function () { if (tk) return; tk = requestAnimationFrame(function () { tk = 0; if (scrollY + innerHeight >= document.documentElement.scrollHeight - 140) showExit(); }); }, { passive: true });
+    $('exitYes').addEventListener('click', function () { hideExit(); goForm('참석'); });
+    $('exitNo').addEventListener('click', function () { hideExit(); goForm('미참석'); });
+    var tk = 0; addEventListener('scroll', function () { if (tk) return; tk = requestAnimationFrame(function () { tk = 0; var left = document.documentElement.scrollHeight - (scrollY + innerHeight); if (left <= 140) showExit(); else if (left > 520 && card.classList.contains('on')) hideExit(); }); }, { passive: true });
     document.addEventListener('mouseout', function (e) { if (!e.relatedTarget && e.clientY <= 0) showExit(); });
   })();
 
