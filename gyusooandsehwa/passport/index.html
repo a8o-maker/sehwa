@@ -211,7 +211,8 @@
   .gb-item .who time { font-family: "Jost"; font-size: 0.62rem; color: var(--muted); }
   .gb-item p { margin: 4px 0 0; font-size: 0.9rem; line-height: 1.75; color: #262b55; white-space: pre-wrap; word-break: break-word; }
   .gb-empty { font-size: 0.84rem; color: var(--muted); text-align: center; }
-  .clovers { position: fixed; inset: 0; pointer-events: none; z-index: 55; overflow: hidden; }
+  .clovers { position: fixed; inset: 0; pointer-events: none; z-index: 55; overflow: hidden; transition: opacity 0.45s ease; }
+  .clovers.away { opacity: 0; }
   .clover { position: absolute; top: -40px; width: var(--s); height: var(--s); color: var(--c); opacity: 0; will-change: transform;
     animation: cfall var(--d) linear var(--dl) infinite; }
   .clover svg { width: 100%; height: 100%; display: block; animation: cspin var(--sp) ease-in-out infinite alternate; filter: drop-shadow(0 1px 2px rgba(30,36,90,0.18)); }
@@ -372,11 +373,6 @@
   .wall-down { position: absolute; left: 50%; bottom: 10px; z-index: 2; width: 34px; height: 34px; margin-left: -17px; border-radius: 50%; background: rgba(248,247,255,0.9); color: #262c66; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; box-shadow: 0 4px 12px rgba(0,0,0,0.25); pointer-events: none; opacity: 0; transition: opacity 0.6s ease 1.4s; animation: bob 1.8s ease-in-out infinite; }
   .wall.go .wall-down { opacity: 1; }
   @media (prefers-reduced-motion: reduce) { .wall-grid .wt img, .wall-title { transition: none; } .wall-down { animation: none; } }
-  .wreath .wr-h { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
-  .wreath .wr-h b { font-size: 1rem; } .wreath .wr-h span { font-family: "Jost", sans-serif; font-size: 0.6rem; letter-spacing: 0.3em; color: var(--gold, #6d5dfc); }
-  .wreath .wr-p { margin: 8px 0 0; font-size: 0.86rem; line-height: 1.7; color: #4a5078; text-align: left; }
-  .wreath .wr-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px; }
-  .wreath .wr-row .wr-copy { grid-column: 1 / -1; }
   /* 도착지 날씨 · 방문자 수 */
   .wx { margin: 18px auto 0; max-width: 380px; padding: 14px 16px 12px; border-radius: 14px; background: #fdfdff; border: 1px solid rgba(99,102,241,0.22); text-align: left; box-shadow: 0 6px 18px rgba(30,36,90,0.06); }
   .wx[hidden], .visits[hidden] { display: none !important; }
@@ -992,6 +988,12 @@ var PHOTOS = [[106, "Fate walks through silver grass"], [97, "Joy finds us anywh
         ';--d:' + (9 + Math.random() * 8).toFixed(1) + 's;--dl:' + (-Math.random() * 16).toFixed(1) + 's;--sw:' + (Math.random() * 80 - 40).toFixed(0) + 'px;--sp:' + (1.6 + Math.random() * 1.8).toFixed(1) + 's">' + leaf + '</span>';
     }
     box.innerHTML = h;
+    /* 위성 지도(지구) 위에는 클로버가 떠다니지 않게 */
+    var maps = document.querySelectorAll('.map-sat'), on = 0;
+    if ('IntersectionObserver' in window && maps.length) {
+      var io2 = new IntersectionObserver(function (es) { es.forEach(function (e) { on += e.isIntersecting ? 1 : (e.target.__in ? -1 : 0); e.target.__in = e.isIntersecting; }); box.classList.toggle('away', on > 0); }, { threshold: 0 });
+      maps.forEach(function (m) { io2.observe(m); });
+    }
   })();
 
   /* 마지막 선물: 네잎클로버 */
@@ -1143,9 +1145,8 @@ var PHOTOS = [[106, "Fate walks through silver grass"], [97, "Joy finds us anywh
                 : '<button class="btn" type="button" data-copy="' + e2(a.bank + ' ' + a.no + ' ' + a.name) + '" data-msg="은행·번호·예금주를 복사했어요">전체 복사</button>') + '</div></div>';
     }
     var note = '<p class="gv-note">토스·토스뱅크·카카오페이·카카오뱅크 버튼은 계좌번호를 복사한 뒤 앱을 열어 줍니다. 앱에서 번호를 붙여 넣어 보내시면 돼요.</p>';
-    var WREATH = '<div class="ac wreath"><div class="wr-h"><b>축하 화환 보내기</b><span>FLOWERS</span></div><p class="wr-p">예식장으로 축하 화환을 보내실 분은 아래에서 고르신 뒤, 배송 정보를 붙여 넣어 주문해 주세요.</p><div class="wr-row"><a class="btn solid" href="https://www.coupang.com/np/search?q=%EA%B2%B0%ED%98%BC%EC%8B%9D%20%EC%B6%95%ED%95%98%ED%99%94%ED%99%98" target="_blank" rel="noopener">쿠팡에서 고르기</a><a class="btn" href="https://search.shopping.naver.com/search/all?query=%EA%B2%B0%ED%98%BC%EC%8B%9D%20%EC%B6%95%ED%95%98%ED%99%94%ED%99%98" target="_blank" rel="noopener">네이버에서 고르기</a><button class="btn wr-copy" type="button" data-copy="배송지: 경남 양산시 강변로 438 크리스탈타워 5층 팰리스홀 (양산 W웨딩) / 예식: 2027년 1월 16일(토) 낮 12시 30분 / 받는 분: 신랑 손규수 · 신부 문세화" data-msg="배송 정보를 복사했어요. 주문서에 붙여 넣어 주세요">배송 정보 복사 (주소·예식 시간·이름)</button></div></div>';
-    $('acInline').innerHTML = ACCTS.map(card).join('') + note + WREATH;
-    $('acSheet').innerHTML = ACCTS.map(card).join('') + WREATH + '<p class="gv-note">마음 써 주셔서 고맙습니다.</p>';
+    $('acInline').innerHTML = ACCTS.map(card).join('') + note;
+    $('acSheet').innerHTML = ACCTS.map(card).join('') + '<p class="gv-note">마음 써 주셔서 고맙습니다.</p>';
     function appOpen(u) { (window.__openApp || function (x) { location.href = x; })(u); }
     document.addEventListener('click', function (e) {
       var b = e.target.closest('[data-toss]');

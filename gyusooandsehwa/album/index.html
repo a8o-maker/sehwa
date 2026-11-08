@@ -141,11 +141,6 @@
   .acct .bank { margin-top: 10px; font-weight: 500; color: var(--gold); font-size: 0.84rem; letter-spacing: 0.06em; }
   .acct .num .hy { font-family: "Jost", sans-serif; font-style: normal; font-weight: 400; color: var(--gold); margin: 0 0.06em; }
   .acct .num { display: block; width: 100%; margin: 2px 0 0; padding: 4px 0; border: 0; background: none; text-align: left; cursor: pointer; font-family: "Jost", sans-serif; font-weight: 400; font-size: 1.12rem; letter-spacing: 0.1em; line-height: 1.45; color: var(--ink); font-variant-numeric: lining-nums tabular-nums; word-break: normal; }
-  .wreath .wr-h { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
-  .wreath .wr-h b { font-size: 1rem; } .wreath .wr-h span { font-family: "Jost", sans-serif; font-size: 0.6rem; letter-spacing: 0.3em; color: var(--gold); }
-  .wreath .wr-p { margin: 8px 0 0; font-size: 0.86rem; line-height: 1.7; color: #4a5078; text-align: left; }
-  .wreath .wr-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px; }
-  .wreath .wr-row .wr-copy { grid-column: 1 / -1; }
   /* 도착지 날씨 · 방문자 수 */
   .wx { margin: 18px auto 0; max-width: 380px; padding: 14px 16px 12px; border-radius: 14px; background: #fdfdff; border: 1px solid rgba(99,102,241,0.22); text-align: left; box-shadow: 0 6px 18px rgba(30,36,90,0.06); }
   .wx[hidden], .visits[hidden] { display: none !important; }
@@ -528,9 +523,8 @@
       (IS_MOBILE ? '<button class="btn toss" type="button" data-toss="' + esc(a.toss) + '|' + raw + '">토스로 송금</button><button class="btn tbank" type="button" data-tbank="' + esc(a.toss) + '|' + raw + '">토스뱅크로 송금</button><button class="btn kakao" type="button" data-kakao="' + esc(a.kakao || '') + '|' + raw + '">카카오페이로 송금</button><button class="btn kbank" type="button" data-kbank="' + raw + '">카카오뱅크로 송금</button>' : '<button class="btn" type="button" data-copy="' + esc(a.bank + ' ' + a.no + ' ' + a.name) + '" data-msg="은행·번호·예금주를 복사했어요">전체 복사</button>') +
       '</div></div>';
   }
-  var WREATH = '<div class="acct wreath"><div class="wr-h"><b>축하 화환 보내기</b><span>FLOWERS</span></div><p class="wr-p">예식장으로 축하 화환을 보내실 분은 아래에서 고르신 뒤, 배송 정보를 붙여 넣어 주문해 주세요.</p><div class="wr-row"><a class="btn solid" href="https://www.coupang.com/np/search?q=%EA%B2%B0%ED%98%BC%EC%8B%9D%20%EC%B6%95%ED%95%98%ED%99%94%ED%99%98" target="_blank" rel="noopener">쿠팡에서 고르기</a><a class="btn" href="https://search.shopping.naver.com/search/all?query=%EA%B2%B0%ED%98%BC%EC%8B%9D%20%EC%B6%95%ED%95%98%ED%99%94%ED%99%98" target="_blank" rel="noopener">네이버에서 고르기</a><button class="btn wr-copy" type="button" data-copy="배송지: 경남 양산시 강변로 438 크리스탈타워 5층 팰리스홀 (양산 W웨딩) / 예식: 2027년 1월 16일(토) 낮 12시 30분 / 받는 분: 신랑 손규수 · 신부 문세화" data-msg="배송 정보를 복사했어요. 주문서에 붙여 넣어 주세요">배송 정보 복사 (주소·예식 시간·이름)</button></div></div>';
-  $('acctInline').innerHTML = ACCTS.map(acctHtml).join('') + '<p class="note">토스·토스뱅크·카카오페이·카카오뱅크 버튼은 계좌번호를 복사한 뒤 앱을 열어 줍니다. 앱에서 번호를 붙여 넣어 보내시면 돼요.</p>' + WREATH;
-  $('acctSheet').innerHTML = ACCTS.map(acctHtml).join('') + WREATH + '<p class="note" style="text-align:center">마음 써 주셔서 고맙습니다.</p>';
+  $('acctInline').innerHTML = ACCTS.map(acctHtml).join('') + '<p class="note">토스·토스뱅크·카카오페이·카카오뱅크 버튼은 계좌번호를 복사한 뒤 앱을 열어 줍니다. 앱에서 번호를 붙여 넣어 보내시면 돼요.</p>';
+  $('acctSheet').innerHTML = ACCTS.map(acctHtml).join('') + '<p class="note" style="text-align:center">마음 써 주셔서 고맙습니다.</p>';
   function appOpen(u) { (window.__openApp || function (x) { location.href = x; })(u); }
   document.addEventListener('click', function (e) {
     var b = e.target.closest('[data-toss]');
