@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="light">
-<meta name="theme-color" content="#e7f5ee">
+<meta name="theme-color" content="#eef2ff">
 <title>Gyusoo &amp; Sehwa · The Wedding Album</title>
 <meta name="description" content="손규수 · 문세화 결혼합니다 — 2027년 1월 16일 토요일 낮 12시 30분, 양산 W웨딩 5층 팰리스홀">
 <meta property="og:title" content="Gyusoo &amp; Sehwa · The Wedding Album">
@@ -15,15 +15,15 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Jost:ital,wght@0,300..700;1,300..600&display=swap">
 <style>
   :root {
-    --paper: #e7f5ee; --card: #f7fcf9; --ink: #3b2416; --ink-2: #4a3426; --mute: #6b5646;
-    --gold: #9a7a2e; --gold-2: #c9a54f; --line: rgba(26,107,86,0.26); --red: #b3402e; --ok: #1f6f4a;
-    --foil: linear-gradient(115deg, #8a6a2f 0%, #d9b968 24%, #f6e6b0 40%, #b8913f 58%, #e9cf86 74%, #8a6a2f 100%);
+    --paper: #eef2ff; --card: #f8f8ff; --ink: #262c66; --ink-2: #3a3f6e; --mute: #5a6185;
+    --gold: #6d5dfc; --gold-2: #a896fc; --line: rgba(99,102,241,0.26); --red: #c0365f; --ok: #0f766e;
+    --foil: linear-gradient(115deg, #5b4bd8 0%, #7dd3fc 24%, #eef0ff 40%, #8f7dfb 58%, #c4b5fd 74%, #5b4bd8 100%);
     --bar: calc(76px + env(safe-area-inset-bottom));
   }
   * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
   html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
-  body { margin: 0; background: #d4ecdf; color: var(--ink); font-family: "Gowun Dodum", sans-serif; font-size: 17px; line-height: 1.8; word-break: keep-all; }
-  .page { position: relative; max-width: 480px; margin: 0 auto; min-height: 100vh; background: var(--paper); padding-bottom: calc(var(--bar) + 28px); box-shadow: 0 0 60px rgba(59,36,22,0.12); overflow-x: clip;
+  body { margin: 0; background: #e0e7ff; color: var(--ink); font-family: "Gowun Dodum", sans-serif; font-size: 17px; line-height: 1.8; word-break: keep-all; }
+  .page { position: relative; max-width: 480px; margin: 0 auto; min-height: 100vh; background: var(--paper); padding-bottom: calc(var(--bar) + 28px); box-shadow: 0 0 60px rgba(30,36,90,0.12); overflow-x: clip;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.05'/%3E%3C/svg%3E"); }
   img { display: block; max-width: 100%; }
   button { font: inherit; color: inherit; }
@@ -37,32 +37,32 @@
   .eyebrow { margin: 0; white-space: nowrap; font-family: "Jost", sans-serif; font-style: normal; text-transform: uppercase; font-size: 0.66rem; letter-spacing: 0.32em; color: var(--gold); display: flex; align-items: center; justify-content: center; gap: 12px; }
   .eyebrow::before, .eyebrow::after { content: ""; width: 34px; height: 1.5px; background: var(--foil); }
   .cover { position: relative; width: 100%; aspect-ratio: 1 / 0.68; margin: 26px auto 0; }
-  .sleeve { position: absolute; left: 0; top: 0; width: 66%; aspect-ratio: 1; z-index: 2; border-radius: 6px; overflow: hidden; background: #fff; padding: 7px; box-shadow: 0 18px 36px rgba(59,36,22,0.28), 0 2px 0 rgba(255,255,255,0.7) inset; }
+  .sleeve { position: absolute; left: 0; top: 0; width: 66%; aspect-ratio: 1; z-index: 2; border-radius: 6px; overflow: hidden; background: #fff; padding: 7px; box-shadow: 0 18px 36px rgba(30,36,90,0.28), 0 2px 0 rgba(255,255,255,0.7) inset; }
   .sleeve img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 32%; border-radius: 2px; }
   .sleeve::after { content: ""; position: absolute; inset: 7px; border-radius: 2px; pointer-events: none; background: linear-gradient(135deg, rgba(255,255,255,0.22), transparent 38%); }
   .disc { position: absolute; left: 34%; top: 0; width: 66%; aspect-ratio: 1; z-index: 1; border-radius: 50%; box-shadow: 0 12px 26px rgba(0,0,0,0.38);
     background: radial-gradient(circle at center, transparent 0 17%, rgba(255,255,255,0.05) 17.5% 18%, transparent 18.5%), repeating-radial-gradient(circle at center, #121212 0 1.5px, #242424 1.5px 3px);
     animation: spin 16s linear infinite; }
   .disc::before { content: ""; position: absolute; inset: 0; border-radius: 50%; background: conic-gradient(from 20deg, rgba(255,255,255,0.0), rgba(255,255,255,0.14), rgba(255,255,255,0.0) 25%, rgba(255,255,255,0.0) 50%, rgba(255,255,255,0.12) 62%, rgba(255,255,255,0.0) 78%); }
-  .disc .lb { position: absolute; left: 50%; top: 50%; width: 34%; aspect-ratio: 1; transform: translate(-50%, -50%); border-radius: 50%; background: var(--foil); display: flex; align-items: center; justify-content: center; text-align: center; color: #3a2a08; font-family: "Jost", sans-serif; font-style: italic; font-weight: 600; font-size: clamp(0.9rem, 4.4vw, 1.25rem); line-height: 1.05; box-shadow: inset 0 0 0 2px rgba(0,0,0,0.12); }
+  .disc .lb { position: absolute; left: 50%; top: 50%; width: 34%; aspect-ratio: 1; transform: translate(-50%, -50%); border-radius: 50%; background: var(--foil); display: flex; align-items: center; justify-content: center; text-align: center; color: #1c2148; font-family: "Jost", sans-serif; font-style: italic; font-weight: 600; font-size: clamp(0.9rem, 4.4vw, 1.25rem); line-height: 1.05; box-shadow: inset 0 0 0 2px rgba(0,0,0,0.12); }
   .disc .lb::after { content: ""; position: absolute; left: 50%; top: 50%; width: 11%; aspect-ratio: 1; transform: translate(-50%, -50%); border-radius: 50%; background: var(--paper); }
   @keyframes spin { to { transform: rotate(360deg); } }
   h1 { margin: 26px 0 0; font-family: "Jost", sans-serif; font-style: normal; font-weight: 400; text-transform: uppercase; font-size: clamp(1.45rem, 7vw, 2rem); line-height: 1.15; letter-spacing: 0.22em; }
   h1 em { font-style: italic; color: var(--gold); padding: 0 0.12em; }
   .ko-title { margin: 8px 0 0; font-family: "Gowun Dodum", sans-serif; font-size: 1.2rem; letter-spacing: 0.14em; color: var(--ink-2); }
-  .when { margin: 18px auto 0; padding: 16px 18px; max-width: 360px; background: var(--card); border: 1px solid var(--line); border-radius: 14px; box-shadow: 0 8px 22px rgba(59,36,22,0.06); }
+  .when { margin: 18px auto 0; padding: 16px 18px; max-width: 360px; background: var(--card); border: 1px solid var(--line); border-radius: 14px; box-shadow: 0 8px 22px rgba(30,36,90,0.06); }
   .when .d { font-family: "Gowun Dodum", sans-serif; font-weight: 700; font-size: 1.3rem; line-height: 1.5; }
   .when .p { margin-top: 2px; color: var(--ink-2); font-size: 1rem; line-height: 1.7; }
-  .dday { display: inline-block; margin-top: 12px; padding: 3px 14px; border-radius: 999px; background: var(--ink); color: #f6e6b0; font-family: "Jost", sans-serif; font-weight: 500; font-style: normal; font-size: 0.95rem; letter-spacing: 0.12em; }
+  .dday { display: inline-block; margin-top: 12px; padding: 3px 14px; border-radius: 999px; background: var(--ink); color: #eef0ff; font-family: "Jost", sans-serif; font-weight: 500; font-style: normal; font-size: 0.95rem; letter-spacing: 0.12em; }
   .hint { margin: 22px 0 0; color: var(--mute); font-size: 0.92rem; }
   .hint b { color: var(--ink); }
 
   /* ───── 트랙리스트 ───── */
   .tracks { list-style: none; margin: 8px 0 0; padding: 0 16px; }
-  .track { margin: 12px 0; background: var(--card); border: 1px solid var(--line); border-radius: 16px; box-shadow: 0 6px 18px rgba(59,36,22,0.05); overflow: hidden; transition: box-shadow 0.3s ease, border-color 0.3s ease; }
-  .track.open { border-color: rgba(154,122,46,0.55); box-shadow: 0 14px 34px rgba(59,36,22,0.12); }
+  .track { margin: 12px 0; background: var(--card); border: 1px solid var(--line); border-radius: 16px; box-shadow: 0 6px 18px rgba(30,36,90,0.05); overflow: hidden; transition: box-shadow 0.3s ease, border-color 0.3s ease; }
+  .track.open { border-color: rgba(124,93,255,0.55); box-shadow: 0 14px 34px rgba(30,36,90,0.12); }
   .t-head { width: 100%; min-height: 68px; display: grid; grid-template-columns: 44px 1fr auto 28px; align-items: center; gap: 6px; padding: 10px 14px 10px 12px; border: 0; background: none; text-align: left; cursor: pointer; }
-  .no { font-family: "Jost", sans-serif; font-style: normal; font-weight: 300; font-size: 1.2rem; font-variant-numeric: lining-nums; color: #1a6b56; text-align: center; }
+  .no { font-family: "Jost", sans-serif; font-style: normal; font-weight: 300; font-size: 1.2rem; font-variant-numeric: lining-nums; color: #0f766e; text-align: center; }
   .tt b { display: block; font-size: 1.12rem; line-height: 1.35; }
   .tt small { display: block; font-family: "Jost", sans-serif; font-style: normal; text-transform: uppercase; letter-spacing: 0.2em; font-size: 0.6rem; color: var(--mute); line-height: 1.2; }
   .len { font-family: "Jost", sans-serif; font-size: 0.88rem; letter-spacing: 0.04em; font-variant-numeric: lining-nums tabular-nums; color: var(--mute); font-variant-numeric: tabular-nums; }
@@ -88,23 +88,23 @@
   .rail { display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 4px 2px 12px; margin: 14px -4px 0; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
   .rail::-webkit-scrollbar { display: none; }
   .place { flex: 0 0 58%; scroll-snap-align: center; }
-  .place .ph { position: relative; aspect-ratio: 4 / 5; border-radius: 0; overflow: hidden; background: #d4ecdf; box-shadow: 0 10px 24px rgba(59,36,22,0.16); outline: 1px solid rgba(154,122,46,0.45); outline-offset: 4px; }
+  .place .ph { position: relative; aspect-ratio: 4 / 5; border-radius: 0; overflow: hidden; background: #e0e7ff; box-shadow: 0 10px 24px rgba(30,36,90,0.16); outline: 1px solid rgba(124,93,255,0.45); outline-offset: 4px; }
   .place img { width: 100%; height: 100%; object-fit: cover; }
-  .place .st { position: absolute; left: 6px; top: 6px; padding: 1px 8px; border-radius: 999px; background: rgba(246,241,231,0.92); color: var(--ink); font-family: "Jost", sans-serif; font-style: normal; font-weight: 500; letter-spacing: 0.12em; font-size: 0.66rem; }
+  .place .st { position: absolute; left: 6px; top: 6px; padding: 1px 8px; border-radius: 999px; background: rgba(246,246,255,0.92); color: var(--ink); font-family: "Jost", sans-serif; font-style: normal; font-weight: 500; letter-spacing: 0.12em; font-size: 0.66rem; }
   .place h3 { margin: 8px 2px 0; font-size: 0.95rem; line-height: 1.35; }
   .place p { margin: 0 2px; color: var(--mute); font-family: "Jost", sans-serif; font-style: normal; font-weight: 400; font-size: 0.8rem; line-height: 1.3; }
   .rail-hint { margin: 0; text-align: center; color: var(--mute); font-size: 0.86rem; }
 
   .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px 14px; width: 75%; min-width: 240px; margin: 14px auto 0; }
   .grid .fr { position: relative; display: block; width: 100%; border: 0; background: none; padding: 0; margin: 0; cursor: pointer; text-align: center; }
-  .grid .fx { display: block; padding: 0; border-radius: 0; background: #fff; border: 2px solid #f0701a; box-shadow: none; transition: transform 0.35s ease; }
+  .grid .fx { display: block; padding: 0; border-radius: 0; background: #fff; border: 2px solid #a78bfa; box-shadow: none; transition: transform 0.35s ease; }
   .grid .fr:hover .fx, .grid .fr:focus-visible .fx { transform: translateY(-2px); }
   .grid .mat { display: block; padding: 6px; background: #fff; }
-  .grid .mat img { display: block; width: 100%; aspect-ratio: 3 / 4; object-fit: cover; background: #e9f3ee; }
-  .grid .plq { display: block; margin-top: 7px; padding: 6px 2px 0; border-top: 1px solid rgba(59,36,22,0.2); background: none; text-align: center; }
-  .grid .plq i { display: block; font-family: "Jost", sans-serif; font-style: normal; font-weight: 500; font-size: 0.72rem; line-height: 1.2; color: #14866a; }
+  .grid .mat img { display: block; width: 100%; aspect-ratio: 3 / 4; object-fit: cover; background: #eef2ff; }
+  .grid .plq { display: block; margin-top: 7px; padding: 6px 2px 0; border-top: 1px solid rgba(30,36,90,0.2); background: none; text-align: center; }
+  .grid .plq i { display: block; font-family: "Jost", sans-serif; font-style: normal; font-weight: 500; font-size: 0.72rem; line-height: 1.2; color: #0d9488; }
   .grid .plq i, .place p, .lb p { text-wrap: balance; }
-  .grid .plq small { display: block; margin-top: 3px; font-family: "Gowun Dodum", sans-serif; font-style: normal; font-weight: 400; font-size: 0.66rem; line-height: 1.3; color: #e5690f; }
+  .grid .plq small { display: block; margin-top: 3px; font-family: "Gowun Dodum", sans-serif; font-style: normal; font-weight: 400; font-size: 0.66rem; line-height: 1.3; color: #c026d3; }
   .big-date { text-align: center; padding: 4px 0 2px; }
   .big-date .n { font-family: "Jost", sans-serif; font-weight: 300; font-style: normal; font-size: 3rem; line-height: 1; font-variant-numeric: lining-nums; }
   .big-date .n span { background: var(--foil); -webkit-background-clip: text; background-clip: text; color: transparent; }
@@ -114,7 +114,7 @@
   table.cal th { font-weight: 500; color: var(--mute); font-size: 0.86rem; padding: 6px 0; }
   table.cal th:first-child, table.cal td:first-child { color: var(--red); }
   table.cal td { padding: 7px 0; height: 40px; }
-  table.cal .mk { display: inline-flex; align-items: center; justify-content: center; width: 38px; height: 38px; border-radius: 50%; background: var(--ink); color: #f6e6b0; font-weight: 700; }
+  table.cal .mk { display: inline-flex; align-items: center; justify-content: center; width: 38px; height: 38px; border-radius: 50%; background: var(--ink); color: #eef0ff; font-weight: 700; }
   .count { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 14px; }
   .count div { background: var(--paper); border: 1px solid var(--line); border-radius: 12px; padding: 8px 0; text-align: center; }
   .count b { display: block; font-family: "Jost", sans-serif; font-weight: 400; font-size: 1.55rem; font-variant-numeric: lining-nums tabular-nums; line-height: 1.1; font-variant-numeric: tabular-nums; }
@@ -128,13 +128,13 @@
   .btns.three { grid-template-columns: 1fr 1fr 1fr; }
   .btn { display: flex; align-items: center; justify-content: center; min-height: 52px; padding: 8px 10px; border-radius: 12px; border: 1.5px solid var(--ink); background: var(--card); color: var(--ink); font-weight: 600; font-size: 0.96rem; letter-spacing: 0.02em; text-decoration: none; text-align: center; cursor: pointer; line-height: 1.3; }
   .btn:active { transform: scale(0.98); }
-  .btn.solid { background: var(--ink); color: #f6e6b0; border-color: var(--ink); }
+  .btn.solid { background: var(--ink); color: #eef0ff; border-color: var(--ink); }
   .btn.toss { background: #0064ff; border-color: #0050cc; color: #fff; }
   .btn.soft { border-color: var(--line); font-weight: 500; }
   .note { margin: 10px 0 0; color: var(--mute); font-size: 0.9rem; line-height: 1.65; }
 
   /* ───── 계좌 카드 ───── */
-  .acct { margin-top: 14px; padding: 16px 16px 14px; border-radius: 16px; background: #fff; border: 1px solid var(--line); box-shadow: 0 8px 20px rgba(59,36,22,0.07); }
+  .acct { margin-top: 14px; padding: 16px 16px 14px; border-radius: 16px; background: #fff; border: 1px solid var(--line); box-shadow: 0 8px 20px rgba(30,36,90,0.07); }
   .acct .who { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
   .acct .who b { font-size: 0.98rem; font-weight: 600; letter-spacing: 0.02em; }
   .acct .who span { color: var(--mute); font-size: 0.8rem; }
@@ -143,22 +143,34 @@
   .acct .num { display: block; width: 100%; margin: 2px 0 0; padding: 4px 0; border: 0; background: none; text-align: left; cursor: pointer; font-family: "Jost", sans-serif; font-weight: 400; font-size: 1.12rem; letter-spacing: 0.1em; line-height: 1.45; color: var(--ink); font-variant-numeric: lining-nums tabular-nums; word-break: normal; }
   .wreath .wr-h { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
   .wreath .wr-h b { font-size: 1rem; } .wreath .wr-h span { font-family: "Jost", sans-serif; font-size: 0.6rem; letter-spacing: 0.3em; color: var(--gold); }
-  .wreath .wr-p { margin: 8px 0 0; font-size: 0.86rem; line-height: 1.7; color: #5b4636; text-align: left; }
+  .wreath .wr-p { margin: 8px 0 0; font-size: 0.86rem; line-height: 1.7; color: #4a5078; text-align: left; }
   .wreath .wr-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px; }
   .wreath .wr-row .wr-copy { grid-column: 1 / -1; }
   /* 도착지 날씨 · 방문자 수 */
-  .wx { margin: 18px auto 0; max-width: 380px; padding: 14px 16px 12px; border-radius: 14px; background: #fffdf8; border: 1px solid rgba(26,107,86,0.22); text-align: left; box-shadow: 0 6px 18px rgba(59,36,22,0.06); }
+  .wx { margin: 18px auto 0; max-width: 380px; padding: 14px 16px 12px; border-radius: 14px; background: #fdfdff; border: 1px solid rgba(99,102,241,0.22); text-align: left; box-shadow: 0 6px 18px rgba(30,36,90,0.06); }
   .wx[hidden], .visits[hidden] { display: none !important; }
-  .wx-top { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; font-family: "Jost", sans-serif; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: #1a6b56; }
-  .wx-top b { font-weight: 500; } .wx-top span { color: #8a6a2f; letter-spacing: 0.12em; white-space: nowrap; }
+  .wx-top { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; font-family: "Jost", sans-serif; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: #0f766e; }
+  .wx-top b { font-weight: 500; } .wx-top span { color: #5b4bd8; letter-spacing: 0.12em; white-space: nowrap; }
   .wx-main { display: flex; align-items: center; gap: 14px; margin-top: 10px; }
   .wx-ic { width: 54px; height: 54px; flex: 0 0 54px; }
-  .wx-t { font-family: "Jost", sans-serif; font-size: 1.75rem; font-weight: 400; color: #2f1d12; line-height: 1; font-variant-numeric: lining-nums tabular-nums; }
-  .wx-t small { font-size: 1rem; color: #6b5646; margin-left: 6px; }
-  .wx-d { margin-top: 6px; font-size: 0.92rem; color: #2f1d12; line-height: 1.5; } .wx-d i { display: block; font-style: normal; font-size: 0.8rem; color: #6b5646; }
-  .wx-note { margin: 10px 0 0; padding-top: 8px; border-top: 1px dashed rgba(59,36,22,0.18); font-size: 0.74rem; line-height: 1.6; color: #6b5646; }
-  .visits { margin: 16px 0 0; display: flex; justify-content: center; align-items: baseline; gap: 10px; font-family: "Jost", sans-serif; color: #6b5646; }
-  .visits span { font-size: 0.58rem; letter-spacing: 0.3em; } .visits b { font-size: 1.1rem; font-weight: 500; color: #2f1d12; letter-spacing: 0.04em; } .visits i { font-style: normal; font-family: "Gowun Dodum", sans-serif; font-size: 0.8rem; }
+  .wx-t { font-family: "Jost", sans-serif; font-size: 1.75rem; font-weight: 400; color: #1c2148; line-height: 1; font-variant-numeric: lining-nums tabular-nums; }
+  .wx-t small { font-size: 1rem; color: #5a6185; margin-left: 6px; }
+  .wx-d { margin-top: 6px; font-size: 0.92rem; color: #1c2148; line-height: 1.5; } .wx-d i { display: block; font-style: normal; font-size: 0.8rem; color: #5a6185; }
+  .wx-note { margin: 10px 0 0; padding-top: 8px; border-top: 1px dashed rgba(30,36,90,0.18); font-size: 0.74rem; line-height: 1.6; color: #5a6185; }
+  .visits { margin: 16px 0 0; display: flex; justify-content: center; align-items: baseline; gap: 10px; font-family: "Jost", sans-serif; color: #5a6185; }
+  .visits span { font-size: 0.58rem; letter-spacing: 0.3em; } .visits b { font-size: 1.1rem; font-weight: 500; color: #1c2148; letter-spacing: 0.04em; } .visits i { font-style: normal; font-family: "Gowun Dodum", sans-serif; font-size: 0.8rem; }
+  /* 위성 지도 · 대중교통 */
+  .map-sat { position: relative; margin: 14px 0 0; border-radius: 12px; overflow: hidden; aspect-ratio: 4 / 3; background: #dfe6f5; box-shadow: 0 6px 18px rgba(30,36,90,0.14); }
+  .map-sat iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+  .map-tag { position: absolute; right: 10px; top: 10px; padding: 3px 10px; border-radius: 999px; background: rgba(14,18,44,0.72); color: #fff; font-family: "Jost", sans-serif; font-size: 0.58rem; letter-spacing: 0.18em; pointer-events: none; }
+  .trv { margin-top: 18px; padding-top: 14px; border-top: 1px dashed rgba(30,36,90,0.2); text-align: left; }
+  .trv-t { display: inline-block; padding: 3px 12px; border-radius: 999px; background: #262c66; color: #fff; font-size: 0.78rem; letter-spacing: 0.04em; }
+  .trv-i { display: grid; grid-template-columns: 62px 1fr; gap: 10px; align-items: start; padding: 11px 0; border-bottom: 1px solid rgba(30,36,90,0.08); }
+  .trv-i:last-child { border-bottom: 0; }
+  .trv-i b { display: block; padding: 4px 0; border-radius: 6px; font-weight: 400; font-size: 0.74rem; color: #fff; text-align: center; letter-spacing: 0.02em; }
+  .trv-i p { margin: 0; font-size: 0.9rem; line-height: 1.6; color: #1c2148; } .trv-i strong { font-weight: 700; }
+  .trv-i small { display: block; margin-top: 2px; font-size: 0.78rem; line-height: 1.55; color: #5a6185; }
+  .k-sub { background: #22a052; } .k-bus { background: #2f6fe4; } .k-exp { background: #7c3aed; } .k-ktx { background: #0e7490; } .k-air { background: #0284c7; } .k-car { background: #64748b; }
   .acct .btns { margin-top: 10px; }
   .acct .btns.m > :first-child { grid-column: 1 / -1; }
   .acct .btns.m > .btn:not(:first-child) { padding: 6px 4px; font-size: 0.88rem; white-space: nowrap; letter-spacing: 0; }
@@ -167,14 +179,14 @@
   .btn.kakao { background: #fee500; border-color: #d4bd00; color: #191919; }
 
   /* ───── 하단 고정 바 ───── */
-  .bgm-btn { position: fixed; top: 14px; right: 14px; z-index: 58; display: flex; align-items: center; gap: 8px; height: 36px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--line); background: rgba(255,253,248,0.9); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); color: #3b2416; font-family: "Jost", sans-serif; font-size: 0.6rem; letter-spacing: 0.22em; cursor: pointer; box-shadow: 0 4px 14px rgba(59,36,22,0.1); }
+  .bgm-btn { position: fixed; top: 14px; right: 14px; z-index: 58; display: flex; align-items: center; gap: 8px; height: 36px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--line); background: rgba(252,252,255,0.9); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); color: #262c66; font-family: "Jost", sans-serif; font-size: 0.6rem; letter-spacing: 0.22em; cursor: pointer; box-shadow: 0 4px 14px rgba(30,36,90,0.1); }
   .bgm-btn[hidden] { display: none; }
   .bgm-btn .beq { display: flex; align-items: flex-end; gap: 2px; height: 12px; }
   .bgm-btn .beq i { width: 2px; height: 4px; background: var(--gold); }
   .bgm-btn.on .beq i { animation: eq 0.9s ease-in-out infinite; }
   .bgm-btn.on .beq i:nth-child(2) { animation-delay: .2s; } .bgm-btn.on .beq i:nth-child(3) { animation-delay: .4s; }
   @media (prefers-reduced-motion: reduce) { .bgm-btn.on .beq i { animation: none; height: 10px; } }
-  .np { position: fixed; left: 50%; bottom: 0; transform: translateX(-50%); z-index: 40; width: 100%; max-width: 480px; padding: 10px 14px calc(10px + env(safe-area-inset-bottom)); display: flex; align-items: center; gap: 12px; background: rgba(247,252,249,0.94); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border-top: 1px solid var(--line); box-shadow: 0 -10px 30px rgba(59,36,22,0.1); }
+  .np { position: fixed; left: 50%; bottom: 0; transform: translateX(-50%); z-index: 40; width: 100%; max-width: 480px; padding: 10px 14px calc(10px + env(safe-area-inset-bottom)); display: flex; align-items: center; gap: 12px; background: rgba(248,248,255,0.94); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border-top: 1px solid var(--line); box-shadow: 0 -10px 30px rgba(30,36,90,0.1); }
   .np .info { flex: 1; min-width: 0; line-height: 1.3; }
   .np .info small { display: block; font-family: "Jost", sans-serif; font-style: normal; text-transform: uppercase; letter-spacing: 0.26em; color: var(--gold); font-size: 0.6rem; }
   .np .info b { display: block; font-size: 0.98rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -182,12 +194,12 @@
   .np .btn.round { padding: 0; width: 52px; flex: 0 0 52px; font-size: 1.15rem; }
 
   /* ───── 시트(하단 팝업) ───── */
-  .sheet { position: fixed; inset: 0; z-index: 60; display: flex; align-items: flex-end; justify-content: center; background: rgba(42,23,14,0.5); -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px); opacity: 0; pointer-events: none; transition: opacity 0.25s ease; }
+  .sheet { position: fixed; inset: 0; z-index: 60; display: flex; align-items: flex-end; justify-content: center; background: rgba(20,26,60,0.5); -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px); opacity: 0; pointer-events: none; transition: opacity 0.25s ease; }
   .sheet.on { opacity: 1; pointer-events: auto; }
   .sheet[hidden] { display: none; }
   .panel { width: 100%; max-width: 480px; max-height: 90vh; overflow-y: auto; background: var(--paper); border-radius: 24px 24px 0 0; padding: 12px 18px calc(24px + env(safe-area-inset-bottom)); transform: translateY(40px); transition: transform 0.3s cubic-bezier(.2,.8,.2,1); box-shadow: 0 -20px 60px rgba(0,0,0,0.25); }
   .sheet.on .panel { transform: none; }
-  .grab { width: 44px; height: 5px; border-radius: 3px; background: rgba(59,36,22,0.2); margin: 0 auto 10px; }
+  .grab { width: 44px; height: 5px; border-radius: 3px; background: rgba(30,36,90,0.2); margin: 0 auto 10px; }
   .panel h2 { margin: 6px 0 2px; text-align: center; font-family: "Gowun Dodum", sans-serif; font-size: 1.35rem; }
   .panel .sub { margin: 0 auto 4px; text-align: center; color: var(--ink-2); font-size: 0.98rem; line-height: 1.7; }
   .x { position: absolute; right: 8px; top: 8px; width: 48px; height: 48px; border: 0; background: none; font-size: 1.6rem; color: var(--mute); cursor: pointer; }
@@ -195,41 +207,41 @@
   .done { margin-top: 12px; }
 
   .rf { display: grid; gap: 4px; margin: 12px 0 0; font-size: 0.95rem; color: var(--ink); font-weight: 500; }
-  .rf input[type="text"], .rf input[type="tel"], .rf select { width: 100%; height: 52px; padding: 0 14px; border: 1.5px solid rgba(59,36,22,0.28); border-radius: 12px; background: #fff; color: var(--ink); font: inherit; font-size: 1.05rem; }
+  .rf input[type="text"], .rf input[type="tel"], .rf select { width: 100%; height: 52px; padding: 0 14px; border: 1.5px solid rgba(30,36,90,0.28); border-radius: 12px; background: #fff; color: var(--ink); font: inherit; font-size: 1.05rem; }
   .seg { border: 0; padding: 0; margin: 12px 0 0; display: flex; gap: 8px; flex-wrap: wrap; }
   .seg legend { width: 100%; padding: 0; margin-bottom: 4px; font-size: 0.95rem; font-weight: 500; }
   .seg label { flex: 1; min-width: 96px; position: relative; }
   .seg input { position: absolute; opacity: 0; inset: 0; }
-  .seg span { display: flex; align-items: center; justify-content: center; min-height: 52px; border: 1.5px solid rgba(59,36,22,0.28); border-radius: 12px; background: #fff; font-weight: 500; }
-  .seg input:checked + span { background: var(--ink); color: #f6e6b0; border-color: var(--ink); font-weight: 700; }
+  .seg span { display: flex; align-items: center; justify-content: center; min-height: 52px; border: 1.5px solid rgba(30,36,90,0.28); border-radius: 12px; background: #fff; font-weight: 500; }
+  .seg input:checked + span { background: var(--ink); color: #eef0ff; border-color: var(--ink); font-weight: 700; }
   .seg input:focus-visible + span { outline: 3px solid var(--gold-2); outline-offset: 2px; }
   .agree { display: flex; gap: 10px; align-items: flex-start; margin: 14px 0 0; font-size: 0.9rem; color: var(--ink-2); line-height: 1.55; }
-  .agree input { width: 22px; height: 22px; margin-top: 2px; accent-color: #3b2416; flex-shrink: 0; }
+  .agree input { width: 22px; height: 22px; margin-top: 2px; accent-color: #262c66; flex-shrink: 0; }
   .err { min-height: 1.3em; margin: 8px 0 0; color: var(--red); font-size: 0.92rem; font-weight: 500; }
 
-  .lb { position: fixed; inset: 0; z-index: 70; background: rgba(25,14,8,0.96); display: none; align-items: center; justify-content: center; flex-direction: column; padding: 16px; }
+  .lb { position: fixed; inset: 0; z-index: 70; background: rgba(12,16,40,0.96); display: none; align-items: center; justify-content: center; flex-direction: column; padding: 16px; }
   .lb.on { display: flex; }
   .lb img { max-height: 78vh; width: auto; max-width: 100%; border-radius: 8px; }
   .lb p { margin: 14px 0 0; text-align: center; font-family: "Jost", sans-serif; font-style: normal; font-weight: 400; letter-spacing: 0.05em; color: #fff; }
-  .lb p .e { display: block; font-size: 1.35rem; color: #3ff0bf; font-weight: 600; }
-  .lb p small { display: block; margin-top: 2px; font-family: "Gowun Dodum", sans-serif; font-style: normal; font-size: 0.85rem; color: #ff9a3c; }
+  .lb p .e { display: block; font-size: 1.35rem; color: #a5f3fc; font-weight: 600; }
+  .lb p small { display: block; margin-top: 2px; font-family: "Gowun Dodum", sans-serif; font-style: normal; font-size: 0.85rem; color: #f9a8d4; }
   .lb p em { display: block; margin-top: 4px; font-style: normal; font-family: "Gowun Dodum", sans-serif; font-weight: 700; font-size: 0.75rem; letter-spacing: 0.12em; opacity: 0.8; }
   .lb button { position: absolute; border: 0; background: rgba(255,255,255,0.1); color: #fff; width: 52px; height: 52px; border-radius: 50%; font-size: 1.5rem; cursor: pointer; }
   .lb .x2 { top: 14px; right: 14px; } .lb .pv { left: 10px; top: 50%; } .lb .nx { right: 10px; top: 50%; }
 
-  .rdone { text-align: center; padding: 8px 0 2px; } .rdone .ck { width: 56px; height: 56px; margin: 0 auto 10px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.7rem; color: #f6e6b0; background: var(--ink); } .rdone p { margin: 0; line-height: 1.9; } .rdone .btn { display: inline-flex; margin-top: 14px; padding: 0 26px; min-height: 48px; }
+  .rdone { text-align: center; padding: 8px 0 2px; } .rdone .ck { width: 56px; height: 56px; margin: 0 auto 10px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.7rem; color: #eef0ff; background: var(--ink); } .rdone p { margin: 0; line-height: 1.9; } .rdone .btn { display: inline-flex; margin-top: 14px; padding: 0 26px; min-height: 48px; }
   #rsvpForm[hidden] { display: none; }
   .pk { margin-top: 18px; padding-top: 16px; border-top: 1px dashed var(--line); text-align: left; }
-  .pk-t { display: inline-block; padding: 3px 12px; border-radius: 999px; background: #4a2410; color: #3ff0bf; font-weight: 800; font-size: 0.74rem; letter-spacing: 0.14em; }
+  .pk-t { display: inline-block; padding: 3px 12px; border-radius: 999px; background: #2b2f72; color: #a5f3fc; font-weight: 800; font-size: 0.74rem; letter-spacing: 0.14em; }
   .pk-lead { margin: 10px 0 0; font-size: 1.02rem; font-weight: 700; line-height: 1.7; }
   .pk-row { display: flex; align-items: center; gap: 10px; margin-top: 10px; padding: 11px 12px; border-radius: 12px; background: #fff; border: 1px solid var(--line); }
   .pk-tx { flex: 1; min-width: 0; line-height: 1.5; }
-  .pk-tx i { display: block; font-style: normal; font-weight: 800; font-size: 0.82rem; color: #e5690f; }
+  .pk-tx i { display: block; font-style: normal; font-weight: 800; font-size: 0.82rem; color: #c026d3; }
   .pk-tx span { display: block; font-size: 0.98rem; }
-  .pk-tx b { color: #14866a; font-weight: 800; }
+  .pk-tx b { color: #0d9488; font-weight: 800; }
   .pk-row .btn { min-height: 48px; padding: 0 14px; flex-shrink: 0; }
-  .pk-note { margin: 12px 0 0; padding: 11px 12px; border-radius: 12px; background: #4a2410; color: #ffb066; font-weight: 700; font-size: 0.98rem; line-height: 1.6; text-align: center; }
-  .exit { position: fixed; left: 50%; bottom: calc(var(--bar) + 12px); transform: translate(-50%, 20px); z-index: 45; width: calc(100% - 28px); max-width: 452px; padding: 14px 16px; border-radius: 14px; background: var(--card); border: 1.5px solid rgba(154,122,46,0.55); box-shadow: 0 14px 34px rgba(59,36,22,0.22); opacity: 0; pointer-events: none; transition: opacity 0.3s ease, transform 0.3s ease; }
+  .pk-note { margin: 12px 0 0; padding: 11px 12px; border-radius: 12px; background: #2b2f72; color: #fbcfe8; font-weight: 700; font-size: 0.98rem; line-height: 1.6; text-align: center; }
+  .exit { position: fixed; left: 50%; bottom: calc(var(--bar) + 12px); transform: translate(-50%, 20px); z-index: 45; width: calc(100% - 28px); max-width: 452px; padding: 14px 16px; border-radius: 14px; background: var(--card); border: 1.5px solid rgba(124,93,255,0.55); box-shadow: 0 14px 34px rgba(30,36,90,0.22); opacity: 0; pointer-events: none; transition: opacity 0.3s ease, transform 0.3s ease; }
   .exit.on { opacity: 1; transform: translate(-50%, 0); pointer-events: auto; } .exit[hidden] { display: none; }
   .exit b { display: block; font-size: 1.05rem; } .exit span { display: block; margin-top: 2px; color: var(--ink-2); font-size: 0.95rem; line-height: 1.6; }
   .exit .row { display: flex; gap: 8px; margin-top: 10px; } .exit .btn { flex: 1; min-height: 48px; }
@@ -238,9 +250,16 @@
 
   .end { margin: 26px 22px 0; text-align: center; }
   .end p { margin: 0; font-family: "Gowun Dodum", sans-serif; font-size: 1.1rem; line-height: 2; }
-  .end .sg { margin-top: 12px; font-family: "Jost", sans-serif; font-style: normal; font-weight: 500; text-transform: uppercase; letter-spacing: 0.24em; font-size: 1.1rem; background: linear-gradient(115deg, #6b4f17 0%, #a8832f 45%, #6b4f17 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .end .sg { margin-top: 12px; font-family: "Jost", sans-serif; font-style: normal; font-weight: 500; text-transform: uppercase; letter-spacing: 0.24em; font-size: 1.1rem; background: linear-gradient(115deg, #4338ca 0%, #8b7cf8 45%, #4338ca 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
 
   @media (prefers-reduced-motion: reduce) { .disc, .eq i { animation: none; } html { scroll-behavior: auto; } .t-body, .sheet, .panel, .toast { transition: none; } }
+
+  /* ===== 오로라 색 ===== */
+  :root { --foil: linear-gradient(115deg, #14b8a6 0%, #38bdf8 28%, #818cf8 52%, #c084fc 74%, #f472b6 100%); --aurora: linear-gradient(120deg, #2dd4bf, #60a5fa 35%, #a78bfa 65%, #f472b6); }
+  body { background: radial-gradient(900px 560px at 0% -6%, rgba(45,212,191,0.30), transparent 62%), radial-gradient(820px 560px at 100% 6%, rgba(167,139,250,0.32), transparent 60%), radial-gradient(900px 680px at 55% 106%, rgba(244,114,182,0.20), transparent 62%), #eef2ff !important; background-attachment: fixed !important; }
+  .btn.solid { background: linear-gradient(135deg, #4f46e5 0%, #6d28d9 60%, #a21caf 100%) !important; color: #fff !important; box-shadow: 0 6px 16px rgba(79,70,229,0.28) !important; border-color: transparent !important; }
+  .gold { background: linear-gradient(100deg, #5eead4 0%, #a5b4fc 35%, #f0abfc 55%, #a5b4fc 75%, #5eead4 100%) !important; background-size: 250% 100% !important; -webkit-background-clip: text !important; background-clip: text !important; color: transparent !important; }
+  .grid .fx { border: 2px solid transparent !important; background: linear-gradient(#fff, #fff) padding-box, var(--aurora) border-box !important; }
 </style>
 </head>
 <body>
@@ -297,7 +316,6 @@
         <div class="big-date"><div class="n"><span>01 · 16</span></div><div class="t">2027년 1월 16일 토요일 · 낮 12시 30분</div><div class="v">양산 W웨딩 5층 팰리스홀</div></div>
         <table class="cal" aria-label="2027년 1월 달력"><thead><tr><th>일</th><th>월</th><th>화</th><th>수</th><th>목</th><th>금</th><th>토</th></tr></thead><tbody id="cal"></tbody></table>
         <div class="count" aria-live="off"><div><b id="c-d">0</b><small>DAYS</small></div><div><b id="c-h">00</b><small>HOURS</small></div><div><b id="c-m">00</b><small>MIN</small></div></div>
-        <div class="wx" id="wx" hidden aria-live="polite"></div>
         <div class="btns"><button class="btn solid" type="button" id="calIcs">캘린더에 저장</button><a class="btn" id="calG" target="_blank" rel="noopener" href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=%EC%86%90%EA%B7%9C%EC%88%98%20%E2%99%A5%20%EB%AC%B8%EC%84%B8%ED%99%94%20%EA%B2%B0%ED%98%BC%EC%8B%9D&amp;dates=20270116T033000Z/20270116T053000Z&amp;location=%EC%96%91%EC%82%B0%20W%EC%9B%A8%EB%94%A9%205%EC%B8%B5%20%ED%8C%B0%EB%A6%AC%EC%8A%A4%ED%99%80%2C%20%EA%B2%BD%EC%83%81%EB%82%A8%EB%8F%84%20%EC%96%91%EC%82%B0%EC%8B%9C%20%EA%B0%95%EB%B3%80%EB%A1%9C%20438">구글 캘린더</a></div>
       </div></div></div>
     </li>
@@ -306,11 +324,23 @@
       <button class="t-head" type="button" aria-expanded="false" aria-controls="p5" id="h5"><span class="no">05</span><span class="tt"><b>오시는 길<span class="eq" aria-hidden="true"><i></i><i></i><i></i></span></b><small>Directions</small></span><span class="len">2:30</span><span class="chev" aria-hidden="true"></span></button>
       <div class="t-body" id="p5" role="region" aria-labelledby="h5"><div class="t-in"><div class="t-pad">
         <div class="venue"><div class="nm">양산 W웨딩 · 5층 팰리스홀</div><div class="ad">경상남도 양산시 강변로 438<br>크리스탈타워 5층</div></div>
-        <div class="btns three">
+        <div class="map-sat"><iframe title="예식장 위성 지도" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen src="https://maps.google.com/maps?q=%EA%B2%BD%EB%82%A8%20%EC%96%91%EC%82%B0%EC%8B%9C%20%EA%B0%95%EB%B3%80%EB%A1%9C%20438&t=k&z=17&hl=ko&output=embed"></iframe><span class="map-tag">SATELLITE · 위성 지도</span></div>
+        <div class="btns">
           <a class="btn" href="https://map.kakao.com/link/search/%EC%96%91%EC%82%B0%20W%EC%9B%A8%EB%94%A9" target="_blank" rel="noopener">카카오맵</a>
           <a class="btn" href="https://map.naver.com/p/search/%EC%96%91%EC%82%B0%20W%EC%9B%A8%EB%94%A9" target="_blank" rel="noopener">네이버지도</a>
+          <a class="btn" href="https://www.google.com/maps/search/?api=1&query=%EA%B2%BD%EB%82%A8%20%EC%96%91%EC%82%B0%EC%8B%9C%20%EA%B0%95%EB%B3%80%EB%A1%9C%20438%20%ED%81%AC%EB%A6%AC%EC%8A%A4%ED%83%88%ED%83%80%EC%9B%8C" target="_blank" rel="noopener">구글 위성지도</a>
           <button class="btn" type="button" data-copy="경상남도 양산시 강변로 438 크리스탈타워 5층" data-msg="주소를 복사했어요">주소 복사</button>
         </div>
+        <div class="trv">
+          <div class="trv-t">대중교통으로 오시는 길</div>
+          <div class="trv-i"><b class="k-sub">지하철</b><p>부산 도시철도 2호선 <strong>양산역 4번 출구</strong> → 도보 1분<small>예식장이 역 바로 앞 크리스탈타워에 있어요</small></p></div>
+          <div class="trv-i"><b class="k-bus">시내버스</b><p><strong>양산역환승센터</strong> 정류장 하차 → 도보 2~3분<small>여러 시내버스가 서는 양산역 환승 정류장이에요</small></p></div>
+          <div class="trv-i"><b class="k-exp">시외버스</b><p><strong>양산시외버스터미널</strong>(양산역1길 7) 하차 → 양산역 쪽으로 도보 약 5~10분<small>서울(동서울·남서울), 수원, 동대구, 울산, 창원·마산, 김해, 해운대, 경주, 포항 등에서 와요 · 예매: 버스타고·티머니GO 앱 · 터미널 ☎ 055-366-9812</small></p></div>
+          <div class="trv-i"><b class="k-ktx">KTX</b><p><strong>물금역</strong> 하차 → 택시 약 15분<small>부산역에 내리시면: 지하철 1호선 → 서면 환승 → 2호선 양산역 (약 1시간 10분)</small></p></div>
+          <div class="trv-i"><b class="k-air">비행기</b><p><strong>김해공항</strong> → 부산김해경전철 사상역 → 2호선 양산역 (약 1시간)<small>택시로는 약 35분</small></p></div>
+          <div class="trv-i"><b class="k-car">자가용</b><p>내비게이션에 <strong>양산 W웨딩</strong> 또는 <strong>강변로 438</strong><small>크리스탈타워 지하주차장 · 아래 주차 안내를 봐 주세요</small></p></div>
+        </div>
+        <div class="wx" id="wx" hidden aria-live="polite"></div>
         <div class="pk">
         <div class="pk-t">주차 안내</div>
         <p class="pk-lead">만차 시, 바로 앞 양산역프라자주차장 이용하면 되세요!</p>
@@ -636,13 +666,13 @@
     function code(c) { return c === 0 ? ['sun', '맑음'] : c <= 2 ? ['part', '구름 조금'] : c === 3 ? ['cloud', '흐림'] : c <= 48 ? ['fog', '안개'] : c <= 57 ? ['rain', '이슬비'] : c <= 67 ? ['rain', '비'] : c <= 77 ? ['snow', '눈'] : c <= 82 ? ['rain', '소나기'] : c <= 86 ? ['snow', '눈'] : ['rain', '천둥·비']; }
     function svg(k) { return '<svg class="wx-ic" viewBox="0 0 48 48" fill="none" stroke="' + IC[k][0] + '" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + IC[k][1] + '</svg>'; }
     function draw(o) {
-      box.innerHTML = '<div class="wx-top"><b>Destination Weather · Yangsan</b><span>1.16 SAT 12:30</span></div>' +
+      box.innerHTML = '<div class="wx-top"><b>Venue Weather · 양산 W웨딩</b><span>1.16 SAT 12:30</span></div>' +
         '<div class="wx-main">' + svg(o.icon) + '<div><div class="wx-t">' + o.hi + '°<small>/ ' + o.lo + '°</small></div><div class="wx-d">' + o.desc + '<i>' + o.sub + '</i></div></div></div>' +
         '<p class="wx-note">' + o.note + '</p>';
       box.hidden = false;
     }
     draw({ icon: 'sun', hi: 7, lo: -2, desc: '대체로 맑고 쌀쌀해요', sub: '비·눈 올 확률 약 18% · 따뜻한 겉옷 챙겨 오세요',
-           note: '평년(지난 15년 1월 중순, 양산 인근 관측) 기준이에요. 1월 16일엔 15년 동안 비 온 해가 없었어요. 예식 2주 전부터 실제 예보로 바뀌어요.' });
+           note: '평년(지난 15년 1월 중순, 예식장 인근 김해공항 관측) 기준이에요. 1월 16일엔 15년 동안 비 온 해가 없었어요. 예식 2주 전부터 실제 예보로 바뀌어요.' });
     if (days > 15.5 || !window.fetch) return;
     fetch('https://api.open-meteo.com/v1/forecast?latitude=35.3386&longitude=129.0265&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max&hourly=temperature_2m&timezone=Asia%2FSeoul&start_date=2027-01-16&end_date=2027-01-16')
       .then(function (r) { return r.ok ? r.json() : Promise.reject(r.status); }).then(function (j) {
