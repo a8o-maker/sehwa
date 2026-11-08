@@ -191,6 +191,16 @@
 
   .rdone { text-align: center; padding: 8px 0 2px; } .rdone .ck { width: 56px; height: 56px; margin: 0 auto 10px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.7rem; color: #f6e6b0; background: var(--ink); } .rdone p { margin: 0; line-height: 1.9; } .rdone .btn { display: inline-flex; margin-top: 14px; padding: 0 26px; min-height: 48px; }
   #rsvpForm[hidden] { display: none; }
+  .pk { margin-top: 18px; padding-top: 16px; border-top: 1px dashed var(--line); text-align: left; }
+  .pk-t { display: inline-block; padding: 3px 12px; border-radius: 999px; background: #4a2410; color: #3ff0bf; font-weight: 800; font-size: 0.74rem; letter-spacing: 0.14em; }
+  .pk-lead { margin: 10px 0 0; font-size: 1.02rem; font-weight: 700; line-height: 1.7; }
+  .pk-row { display: flex; align-items: center; gap: 10px; margin-top: 10px; padding: 11px 12px; border-radius: 12px; background: #fff; border: 1px solid var(--line); }
+  .pk-tx { flex: 1; min-width: 0; line-height: 1.5; }
+  .pk-tx i { display: block; font-style: normal; font-weight: 800; font-size: 0.82rem; color: #e5690f; }
+  .pk-tx span { display: block; font-size: 0.98rem; }
+  .pk-tx b { color: #14866a; font-weight: 800; }
+  .pk-row .btn { min-height: 48px; padding: 0 14px; flex-shrink: 0; }
+  .pk-note { margin: 12px 0 0; padding: 11px 12px; border-radius: 12px; background: #4a2410; color: #ffb066; font-weight: 700; font-size: 0.98rem; line-height: 1.6; text-align: center; }
   .exit { position: fixed; left: 50%; bottom: calc(var(--bar) + 12px); transform: translate(-50%, 20px); z-index: 45; width: calc(100% - 28px); max-width: 452px; padding: 14px 16px; border-radius: 14px; background: var(--card); border: 1.5px solid rgba(154,122,46,0.55); box-shadow: 0 14px 34px rgba(59,36,22,0.22); opacity: 0; pointer-events: none; transition: opacity 0.3s ease, transform 0.3s ease; }
   .exit.on { opacity: 1; transform: translate(-50%, 0); pointer-events: auto; } .exit[hidden] { display: none; }
   .exit b { display: block; font-size: 1.05rem; } .exit span { display: block; margin-top: 2px; color: var(--ink-2); font-size: 0.95rem; line-height: 1.6; }
@@ -272,6 +282,13 @@
           <a class="btn" href="https://map.naver.com/p/search/%EC%96%91%EC%82%B0%20W%EC%9B%A8%EB%94%A9" target="_blank" rel="noopener">네이버지도</a>
           <button class="btn" type="button" data-copy="경상남도 양산시 강변로 438 크리스탈타워 5층" data-msg="주소를 복사했어요">주소 복사</button>
         </div>
+        <div class="pk">
+        <div class="pk-t">주차 안내</div>
+        <p class="pk-lead">만차 시, 바로 앞 양산역프라자주차장 이용하면 되세요!</p>
+        <div class="pk-row"><div class="pk-tx"><i>더파티 양산점</i><span>경남 양산시 강변로 438 크리스탈타워 <b>지하주차</b> 이용</span></div><button class="btn" type="button" data-copy="경남 양산시 강변로 438 크리스탈타워" data-msg="주소를 복사했어요">복사</button></div>
+        <div class="pk-row"><div class="pk-tx"><i>양산역프라자</i><span>경남 양산시 양산역7길 10 양산역프라자 <b>지상주차</b> 이용</span></div><button class="btn" type="button" data-copy="경남 양산시 양산역7길 10 양산역프라자" data-msg="주소를 복사했어요">복사</button></div>
+        <p class="pk-note">뷔페 카운터에서 차량 번호 뒤에 4자리 등록 후 출차</p>
+      </div>
         <p class="note" style="text-align:center;margin-top:18px">궁금한 점은 편하게 연락 주세요</p>
         <div class="btns">
           <a class="btn soft" href="tel:01040122921">신랑 전화</a><a class="btn soft" href="sms:01040122921">신랑 문자</a>
