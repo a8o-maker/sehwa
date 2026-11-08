@@ -83,7 +83,15 @@
   .mrz { margin-top: 12px; padding-top: 8px; border-top: 1px dashed rgba(59,36,22,0.25); font-family: "Share Tech Mono", monospace; font-size: clamp(0.56rem, 2.7vw, 0.72rem); letter-spacing: 0.05em; line-height: 1.45; color: #2f1d12; white-space: nowrap; overflow: hidden; }
 
   /* 비자 · 출입국 도장 */
-  .visas { display: grid; gap: 22px; }
+  .visas { display: grid; gap: 22px; justify-items: center; }
+  .visas .visa { width: 60%; min-width: 210px; padding: 8px 8px 8px; box-shadow: 0 8px 20px rgba(0,0,0,0.18); background-image: none; }
+  .visa .ph { outline: none !important; }
+  .visa .line { left: 8px !important; right: 8px !important; bottom: 8px !important; font-size: 0.8rem !important; }
+  .visa .line small { font-size: 0.5rem !important; }
+  .visa .meta { margin-top: 7px !important; padding: 4px 8px !important; font-size: 0.5rem !important; }
+  .visa .stamp { font-size: 0.4rem !important; padding: 3px 5px !important; border-width: 1.5px !important; max-width: 88px; }
+  .visa .stamp b { font-size: 0.5rem !important; } .visa .stamp i { font-size: 0.32rem !important; }
+  .visa .stamp.round { width: 62px !important; height: 62px !important; border-width: 3px !important; padding: 3px !important; }
   .visa { position: relative; background: var(--paper); color: var(--paper-ink); border-radius: 4px; padding: 14px 14px 12px; text-align: left; box-shadow: 0 16px 36px rgba(0,0,0,0.4);
     background-image: repeating-linear-gradient(0deg, rgba(26,107,86,0.05) 0 1px, transparent 1px 14px); }
   .visa .ph { position: relative; aspect-ratio: 4 / 5; border-radius: 2px; overflow: hidden; background: #d4ecdf; outline: 1px solid rgba(156,127,74,0.55); outline-offset: 4px; }
@@ -155,25 +163,24 @@
   .films video { width: 100%; aspect-ratio: 9 / 16; object-fit: cover; border-radius: 2px; background: #000; outline: 1px solid var(--line); outline-offset: 4px; }
   .bw { filter: grayscale(1) contrast(1.08) brightness(1.03); }
   /* ───── 여행 기록: 미리보기만 액자처럼 (가로 두 개씩) ───── */
-  .log { display: grid; grid-template-columns: 1fr 1fr; gap: 26px 12px; }
+  .log { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px 8px; }
   .log .fr { position: relative; display: block; border: 0; background: none; padding: 0; margin: 0; cursor: pointer; text-align: left; font: inherit; color: inherit; }
-  .log .fx { display: block; padding: 7px; border-radius: 2px; background: linear-gradient(135deg, #ffb25a 0%, #f57c1f 38%, #d9560b 62%, #ff9a3c 100%); box-shadow: 0 10px 16px rgba(80,35,5,0.28), 0 2px 3px rgba(0,0,0,0.22), inset 0 0 0 1px rgba(255,235,200,0.55), inset 0 0 0 3px rgba(150,60,5,0.35); transition: transform 0.3s ease; }
-  .log .f1 .fx { background: linear-gradient(135deg, #f08a2c 0%, #c2540a 45%, #e2711a 100%); }
-  .log .f2 .fx { background: linear-gradient(135deg, #ffc27a 0%, #ff8f2e 50%, #ee6a10 100%); }
-  .log .fr:hover .fx, .log .fr:focus-visible .fx { transform: translateY(-3px); }
-  .log .mat { display: block; padding: 6px 6px 7px; background: #f7fcf9; box-shadow: inset 0 0 0 1px rgba(0,0,0,0.08), inset 0 3px 8px rgba(0,0,0,0.14); }
-  .log .ph { position: relative; display: block; overflow: hidden; background: #d4ecdf; box-shadow: 0 0 0 1px rgba(0,0,0,0.28); }
-  .log .ph img { display: block; width: 100%; aspect-ratio: 3 / 4; object-fit: cover; transition: transform 0.4s ease; }
-  .log .fr:hover .ph img { transform: scale(1.04); }
-  .log .ph::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 46%; background: linear-gradient(transparent, rgba(0,0,0,0.62)); pointer-events: none; }
-  .log .cap { position: absolute; z-index: 1; left: 7px; right: 7px; bottom: 7px; color: #fff; font-family: "Cormorant Garamond", serif; font-style: italic; font-weight: 600; font-size: 0.82rem; line-height: 1.12; text-shadow: 0 1px 4px rgba(0,0,0,0.75); }
-  .log .cap small { display: block; margin-top: 2px; font-family: "Gowun Batang", serif; font-style: normal; font-weight: 400; font-size: 0.5rem; line-height: 1.25; letter-spacing: 0; opacity: 0.92; }
-  .tagbar { display: flex; align-items: center; justify-content: space-between; gap: 4px; margin-top: 6px; padding: 5px 7px; border-radius: 4px; background: #4a2410; }
-  .tagbar b { color: #3ff0bf; font-family: "Montserrat", sans-serif; font-weight: 800; font-size: 0.54rem; letter-spacing: 0.1em; white-space: nowrap; }
-  .tagbar i { color: #ff8a24; font-style: normal; font-family: "Montserrat", sans-serif; font-weight: 800; font-size: 0.54rem; letter-spacing: 0.1em; text-transform: uppercase; text-align: right; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .log .stamp { font-size: 0.44rem; padding: 3px 5px; border-width: 1.5px; max-width: 84px; z-index: 3; mix-blend-mode: normal; background: rgba(247,252,249,0.94); box-shadow: 0 2px 5px rgba(0,0,0,0.3); }
-  .log .stamp b { font-size: 0.5rem; } .log .stamp i { font-size: 0.34rem; }
-  .log .stamp.round { width: 54px; height: 54px; border-width: 3px; padding: 3px; }
+  .log .fx { display: block; padding: 4px; border-radius: 1px; background: linear-gradient(135deg, #ffb25a 0%, #f57c1f 45%, #d9560b 100%); box-shadow: 0 4px 10px rgba(80,35,5,0.22); transition: transform 0.3s ease; }
+  .log .f1 .fx { background: linear-gradient(135deg, #f08a2c 0%, #c2540a 55%, #e2711a 100%); }
+  .log .f2 .fx { background: linear-gradient(135deg, #ffc27a 0%, #ff8f2e 55%, #ee6a10 100%); }
+  .log .fr:hover .fx, .log .fr:focus-visible .fx { transform: translateY(-2px); }
+  .log .mat { display: block; padding: 3px 3px 4px; background: #f7fcf9; }
+  .log .ph { position: relative; display: block; overflow: hidden; background: #d4ecdf; }
+  .log .ph img { display: block; width: 100%; aspect-ratio: 3 / 4; object-fit: cover; }
+  .log .ph::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 50%; background: linear-gradient(transparent, rgba(0,0,0,0.6)); pointer-events: none; }
+  .log .cap { position: absolute; z-index: 1; left: 4px; right: 4px; bottom: 4px; color: #fff; font-family: "Cormorant Garamond", serif; font-style: italic; font-weight: 600; font-size: 0.6rem; line-height: 1.1; text-shadow: 0 1px 3px rgba(0,0,0,0.75); }
+  .log .cap small { display: block; margin-top: 1px; font-family: "Gowun Batang", serif; font-style: normal; font-weight: 400; font-size: 0.42rem; line-height: 1.2; letter-spacing: 0; opacity: 0.92; }
+  .tagbar { display: flex; align-items: center; justify-content: space-between; gap: 3px; margin-top: 3px; padding: 3px 4px; border-radius: 3px; background: #4a2410; }
+  .tagbar b { color: #3ff0bf; font-family: "Montserrat", sans-serif; font-weight: 800; font-size: 0.42rem; letter-spacing: 0.06em; white-space: nowrap; }
+  .tagbar i { color: #ff8a24; font-style: normal; font-family: "Montserrat", sans-serif; font-weight: 800; font-size: 0.42rem; letter-spacing: 0.04em; text-transform: uppercase; text-align: right; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .log .stamp { font-size: 0.3rem; padding: 2px 3px; border-width: 1px; max-width: 56px; z-index: 3; mix-blend-mode: normal; background: rgba(247,252,249,0.94); box-shadow: 0 1px 3px rgba(0,0,0,0.3); }
+  .log .stamp b { font-size: 0.36rem; } .log .stamp i { font-size: 0.25rem; }
+  .log .stamp.round { width: 38px; height: 38px; border-width: 2px; padding: 2px; }
   .log .fr.in .stamp { animation: thud 0.45s cubic-bezier(.3,1.6,.5,1) 0.25s forwards; }
   @media (prefers-reduced-motion: reduce) { .log .fr.in .stamp { animation: none; } }
   .more { margin-top: 14px; width: 100%; }
@@ -814,11 +821,11 @@ var PHOTOS = [[106, "Fate walks through silver grass"], [97, "Joy finds us anywh
   (function () {
     var h = '';
     for (var i = 0; i < LOG.length; i++) {
-      var n = LOG[i][0], pl = placeOf(n), st = STAMP[pl], rr = ((n * 37) % 25) - 12, side = (n % 2) ? 'right:-8px' : 'left:-8px', cap = LOG[i][1];
+      var n = LOG[i][0], pl = placeOf(n), st = STAMP[pl], rr = ((n * 37) % 25) - 12, side = (n % 2) ? 'right:8px' : 'left:8px', cap = LOG[i][1];
       h += '<button type="button" class="fr f' + (i % 3) + '" data-i="' + i + '" aria-label="' + cap + ' 크게 보기">' +
         '<span class="fx"><span class="mat"><span class="ph"><img' + (isBW(n) ? ' class="bw"' : '') + ' src="' + src(n) + '" alt="' + cap + '" loading="lazy" decoding="async"><span class="cap">' + cap + '<small>' + koOf(cap) + '</small></span></span>' +
-        '<span class="tagbar"><b>VISA No. ' + (i + VISA.length + 1) + '</b><i>' + st.k + '</i></span></span></span>' +
-        '<span class="stamp' + (st.round ? ' round' : '') + '" style="--c:' + st.c + ';--r:' + rr + 'deg;top:-10px;' + side + '"><i>' + st.s + '</i><b>' + st.t + '</b><i>' + st.d + '</i></span></button>';
+        '<span class="tagbar"><b>No. ' + (i + VISA.length + 1) + '</b><i>' + st.k + '</i></span></span></span>' +
+        '<span class="stamp' + (st.round ? ' round' : '') + '" style="--c:' + st.c + ';--r:' + rr + 'deg;top:8px;' + side + '"><i>' + st.s + '</i><b>' + st.t + '</b><i>' + st.d + '</i></span></button>';
     }
     logEl.innerHTML = h;
     logEl.querySelectorAll('button').forEach(watch);
