@@ -452,7 +452,8 @@
   var ACCTS = [
     { who: '신랑', name: '손규수', bank: '부산은행', toss: '부산은행', kakao: '', no: '166-12-011157-6' },
     { who: '신랑 어머니', name: '이수자', bank: '경남은행', toss: '경남은행', kakao: '', no: '679-21-003880-9' },
-    { who: '신부', name: '문세화', bank: 'NH농협은행', toss: '농협은행', kakao: '', no: '302-7203-767751' }
+    { who: '신부', name: '문세화', bank: 'NH농협은행', toss: '농협은행', kakao: '', no: '302-7203-767751' },
+    { who: '신부 어머니', name: '최장심(문준영)', holder: '문준영', bank: '부산은행', toss: '부산은행', kakao: '', no: '112-2079-9181-00' }
   ];
   var KO = {"Fate walks through silver grass": "억새밭을 걷는다", "Joy finds us anywhere": "어디서든 즐겁다", "Time-worn doors, new vows": "오래된 가게 앞에서", "Holding on, holding hands": "손을 잡고 있다", "All roads led here": "여기까지 왔다", "Choosing you, every single day": "매일 당신을 고른다", "Of all paths, I chose you": "당신을 골랐다", "A kiss that says forever": "입을 맞춘다", "Love, by heart": "마음으로", "Every sign points to us": "표지판 앞에서", "Two hearts, one horizon": "같은 곳을 본다", "Still choosing you, daily": "오늘도 당신을 고른다", "Golden hours with you": "노을 질 무렵", "Let's run into forever": "같이 뛰자", "Home is in your arms": "안겨 있다", "Two paths became one": "두 길이 하나가 됐다", "Laughing into forever": "웃으며 걷는다", "Hand in hand, for life": "손을 잡고 간다", "Coffee and forever": "커피 한 잔", "Walk with me": "같이 걷자", "Two hearts, one home": "둘이 한 집", "Coffee for two, always": "둘이 마시는 커피", "Laughter is our language": "웃음이 많다", "You make ordinary golden": "평범한 하루", "Walk with me, always": "계속 같이 걷자", "A promise, face to face": "마주 보고 약속한다", "Running toward forever": "달려간다", "Old souls, new beginning": "새로 시작한다", "Love lives in the details": "사소한 것도 좋다", "Hand in hand, for life ♡": "손을 잡고 간다", "Every road led to you": "어느 길이든 같이", "Looking back, still us": "돌아봐도 우리", "Side by side, always": "늘 나란히", "Our story, just begun": "이제 시작이다", "Veil in the autumn wind": "바람에 날리는 베일", "Walking into our vows": "걸어간다", "Palace gates, open hearts": "궁궐 문 앞에서", "Side by side, sunlit": "햇볕 아래 나란히", "Every crosswalk, together": "횡단보도를 같이 건넌다", "The world can wait": "서두르지 않는다", "Hand in hand, unhurried": "손잡고 천천히", "Two shadows, one path": "그림자 두 개, 길 하나", "Under old eaves, new love": "처마 아래에서", "Looking up, together": "같이 올려다본다", "Eyes that say forever": "서로 바라본다", "Before the vow, a smile": "웃고 있다", "Quiet promises": "조용히"};
   function koOf(c) { return KO[String(c).replace(/\s*♡$/, '')] || ''; }
@@ -525,11 +526,11 @@
   /* 계좌 (아래 고정 바 시트 + 07 트랙 같은 카드) */
   function acctHtml(a) {
     var raw = a.no.replace(/\D/g, '');
-    return '<div class="acct"><div class="who"><b>' + esc(a.who) + ' · ' + esc(a.name) + '</b><span>예금주 ' + esc(a.name) + '</span></div>' +
+    return '<div class="acct"><div class="who"><b>' + esc(a.who) + ' · ' + esc(a.name) + '</b><span>예금주 ' + esc(a.holder || a.name) + '</span></div>' +
       '<div class="bank">' + esc(a.bank) + '</div>' +
       '<button class="num" type="button" data-copy="' + raw + '" data-msg="계좌번호를 복사했어요. 은행 앱에 붙여 넣어 주세요" aria-label="' + esc(a.bank) + ' ' + a.no + ' 눌러서 복사">' + String(a.no).split('-').join('<i class="hy" aria-hidden="true">-</i>') + '</button>' +
       '<div class="btns' + (IS_MOBILE ? ' m' : '') + '"><button class="btn solid" type="button" data-copy="' + raw + '" data-msg="계좌번호를 복사했어요. 은행 앱에 붙여 넣어 주세요">계좌번호 복사</button>' +
-      (IS_MOBILE ? '<button class="btn toss" type="button" data-toss="' + esc(a.toss) + '|' + raw + '">토스로 송금</button><button class="btn tbank" type="button" data-tbank="' + esc(a.toss) + '|' + raw + '">토스뱅크로 송금</button><button class="btn kakao" type="button" data-kakao="' + esc(a.kakao || '') + '|' + raw + '">카카오페이로 송금</button><button class="btn kbank" type="button" data-kbank="' + raw + '">카카오뱅크로 송금</button>' : '<button class="btn" type="button" data-copy="' + esc(a.bank + ' ' + a.no + ' ' + a.name) + '" data-msg="은행·번호·예금주를 복사했어요">전체 복사</button>') +
+      (IS_MOBILE ? '<button class="btn toss" type="button" data-toss="' + esc(a.toss) + '|' + raw + '">토스로 송금</button><button class="btn tbank" type="button" data-tbank="' + esc(a.toss) + '|' + raw + '">토스뱅크로 송금</button><button class="btn kakao" type="button" data-kakao="' + esc(a.kakao || '') + '|' + raw + '">카카오페이로 송금</button><button class="btn kbank" type="button" data-kbank="' + raw + '">카카오뱅크로 송금</button>' : '<button class="btn" type="button" data-copy="' + esc(a.bank + ' ' + a.no + ' ' + (a.holder || a.name)) + '" data-msg="은행·번호·예금주를 복사했어요">전체 복사</button>') +
       '</div></div>';
   }
   $('acctInline').innerHTML = ACCTS.map(acctHtml).join('') + '<p class="note">토스·토스뱅크·카카오페이·카카오뱅크 버튼은 계좌번호를 복사한 뒤 앱을 열어 줍니다. 앱에서 번호를 붙여 넣어 보내시면 돼요.</p>';

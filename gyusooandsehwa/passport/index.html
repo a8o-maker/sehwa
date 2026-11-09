@@ -1185,17 +1185,18 @@ var PHOTOS = [[106, "Fate walks through silver grass"], [97, "Joy finds us anywh
     var ACCTS = [
       { who: '신랑', name: '손규수', bank: '부산은행', toss: '부산은행', kakao: '', no: '166-12-011157-6' },
       { who: '신랑 어머니', name: '이수자', bank: '경남은행', toss: '경남은행', kakao: '', no: '679-21-003880-9' },
-      { who: '신부', name: '문세화', bank: 'NH농협은행', toss: '농협은행', kakao: '', no: '302-7203-767751' }
+      { who: '신부', name: '문세화', bank: 'NH농협은행', toss: '농협은행', kakao: '', no: '302-7203-767751' },
+      { who: '신부 어머니', name: '최장심(문준영)', holder: '문준영', bank: '부산은행', toss: '부산은행', kakao: '', no: '112-2079-9181-00' }
     ];
     var MOBILE = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
     function e2(x) { return String(x).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
     function card(a) {
       var raw = a.no.replace(/\D/g, ''), msg = '계좌번호를 복사했어요. 은행 앱에 붙여 넣어 주세요';
-      return '<div class="ac"><div class="who"><b>' + e2(a.who) + ' · ' + e2(a.name) + '</b><span>예금주 ' + e2(a.name) + '</span></div><div class="bank">' + e2(a.bank) + '</div>' +
+      return '<div class="ac"><div class="who"><b>' + e2(a.who) + ' · ' + e2(a.name) + '</b><span>예금주 ' + e2(a.holder || a.name) + '</span></div><div class="bank">' + e2(a.bank) + '</div>' +
         '<button class="num" type="button" data-copy="' + raw + '" data-msg="' + msg + '" aria-label="' + e2(a.bank) + ' ' + a.no + ' 눌러서 복사">' + String(a.no).split('-').join('<i class="hy" aria-hidden="true">-</i>') + '</button>' +
         '<div class="bt"><button class="btn solid" type="button" data-copy="' + raw + '" data-msg="' + msg + '">계좌번호 복사</button>' +
         (MOBILE ? '<button class="btn toss" type="button" data-toss="' + e2(a.toss) + '|' + raw + '">토스로 송금</button><button class="btn tbank" type="button" data-tbank="' + e2(a.toss) + '|' + raw + '">토스뱅크로 송금</button><button class="btn kakao" type="button" data-kakao="' + e2(a.kakao) + '|' + raw + '">카카오페이로 송금</button><button class="btn kbank" type="button" data-kbank="' + raw + '">카카오뱅크로 송금</button>'
-                : '<button class="btn" type="button" data-copy="' + e2(a.bank + ' ' + a.no + ' ' + a.name) + '" data-msg="은행·번호·예금주를 복사했어요">전체 복사</button>') + '</div></div>';
+                : '<button class="btn" type="button" data-copy="' + e2(a.bank + ' ' + a.no + ' ' + (a.holder || a.name)) + '" data-msg="은행·번호·예금주를 복사했어요">전체 복사</button>') + '</div></div>';
     }
     var note = '<p class="gv-note">토스·토스뱅크·카카오페이·카카오뱅크 버튼은 계좌번호를 복사한 뒤 앱을 열어 줍니다. 앱에서 번호를 붙여 넣어 보내시면 돼요.</p>';
     $('acInline').innerHTML = ACCTS.map(card).join('') + note;
