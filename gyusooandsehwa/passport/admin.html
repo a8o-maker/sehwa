@@ -46,7 +46,7 @@
 <body>
 <main>
   <p class="eyebrow">R.S.V.P</p>
-  <h1>참석 · 식사 집계</h1>
+  <h1>참석 집계</h1>
 
   <div class="card" id="setup" hidden>
     <p class="note">아직 Firebase가 연결되지 않았어요. <b>firebase-config.js</b>에 설정값을 넣으면 이 페이지에서 집계를 볼 수 있습니다.</p>
@@ -64,7 +64,6 @@
     <div class="kpis">
       <div class="kpi"><div class="k">Replies</div><div class="v" id="kAll">0</div><div class="s">전체 회신</div></div>
       <div class="kpi"><div class="k">Attending</div><div class="v" id="kHead">0</div><div class="s">참석 인원 (<span id="kAttR">0</span>건)</div></div>
-      <div class="kpi"><div class="k">Meals</div><div class="v" id="kMeal">0</div><div class="s">식사 인원 · 미정 <span id="kTbd">0</span>명</div></div>
       <div class="kpi"><div class="k">Not attending</div><div class="v" id="kNo">0</div><div class="s">미참석 회신</div></div>
     </div>
     <div class="bar">
@@ -72,7 +71,7 @@
       <div style="display:flex;gap:8px"><button class="btn ghost" type="button" id="csv">CSV 내려받기</button><button class="btn ghost" type="button" id="out">로그아웃</button></div>
     </div>
     <div class="tw"><table>
-      <thead><tr><th>이름</th><th>참석</th><th>식사</th><th>인원</th><th>휴대전화</th><th>시간</th></tr></thead>
+      <thead><tr><th>이름</th><th>참석</th><th>인원</th><th>휴대전화</th><th>시간</th></tr></thead>
       <tbody id="rows"></tbody>
     </table></div>
   </section>
@@ -93,17 +92,17 @@
   function phone(p) { return String(p || '').replace(/(\d{3})(\d+)(\d{4})/, '$1-$2-$3'); }
   function when(ts) { if (!ts || !ts.toDate) return ''; var d = ts.toDate(); return (d.getMonth() + 1) + '.' + d.getDate() + ' ' + (d.getHours() < 10 ? '0' : '') + d.getHours() + ':' + (d.getMinutes() < 10 ? '0' : '') + d.getMinutes(); }
   function render() {
-    var head = 0, meal = 0, tbd = 0, attR = 0, no = 0;
+    var head = 0, attR = 0, no = 0;
     data.forEach(function (v) {
-      if (v.attend === '참석') { attR++; head += +v.count || 0; if (v.meal === '식사함') meal += +v.count || 0; else if (v.meal === '미정') tbd += +v.count || 0; }
+      if (v.attend === '참석') { attR++; head += +v.count || 0; }
       else no++;
     });
     $('kAll').textContent = data.length; $('kHead').textContent = head; $('kAttR').textContent = attR;
-    $('kMeal').textContent = meal; $('kTbd').textContent = tbd; $('kNo').textContent = no;
+    $('kNo').textContent = no;
     $('rows').innerHTML = data.length ? data.map(function (v) {
       var y = v.attend === '참석';
-      return '<tr><td>' + esc(v.name) + '</td><td><span class="tag ' + (y ? 'y' : 'n') + '">' + esc(v.attend) + '</span></td><td>' + esc(v.meal) + '</td><td class="n">' + (y ? (+v.count || 0) : '-') + '</td><td class="n"><a href="tel:' + esc(v.phone) + '">' + phone(v.phone) + '</a></td><td class="n">' + when(v.createdAt) + '</td></tr>';
-    }).join('') : '<tr><td colspan="6" class="empty">아직 회신이 없어요.</td></tr>';
+      return '<tr><td>' + esc(v.name) + '</td><td><span class="tag ' + (y ? 'y' : 'n') + '">' + esc(v.attend) + '</span></td><td class="n">' + (y ? (+v.count || 0) : '-') + '</td><td class="n"><a href="tel:' + esc(v.phone) + '">' + phone(v.phone) + '</a></td><td class="n">' + when(v.createdAt) + '</td></tr>';
+    }).join('') : '<tr><td colspan="5" class="empty">아직 회신이 없어요.</td></tr>';
   }
   auth.onAuthStateChanged(function (u) {
     if (unsub) { unsub(); unsub = null; }
@@ -119,7 +118,7 @@
   });
   $('out').addEventListener('click', function () { auth.signOut(); });
   $('csv').addEventListener('click', function () {
-    var lines = [['시간', '이름', '휴대전화', '참석', '식사', '인원']].concat(data.map(function (v) { return [when(v.createdAt), v.name, phone(v.phone), v.attend, v.meal, v.attend === '참석' ? v.count : 0]; }));
+    var lines = [['시간', '이름', '휴대전화', '참석', '인원']].concat(data.map(function (v) { return [when(v.createdAt), v.name, phone(v.phone), v.attend, v.attend === '참석' ? v.count : 0]; }));
     var csv = '﻿' + lines.map(function (r) { return r.map(function (c) { return '"' + String(c == null ? '' : c).replace(/"/g, '""') + '"'; }).join(','); }).join('\n');
     var a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([csv], { type: 'text/csv' })); a.download = 'rsvp.csv'; a.click();
   });
