@@ -368,18 +368,13 @@
     <li class="track">
       <button class="t-head" type="button" aria-expanded="false" aria-controls="p6" id="h6"><span class="no">06</span><span class="tt"><b>참석 알리기<span class="eq" aria-hidden="true"><i></i><i></i><i></i></span></b><small>R.S.V.P</small></span><span class="len">3:00</span><span class="chev" aria-hidden="true"></span></button>
       <div class="t-body" id="p6" role="region" aria-labelledby="h6"><div class="t-in"><div class="t-pad">
-        <p class="greet" style="font-size:1.02rem;line-height:1.9">식사 준비를 위해<br>참석 여부를 미리 알려 주시면 정성껏 준비하겠습니다.<br><small class="meal-note">식사는 예식 후 같은 건물 <b>6층 더파티</b>(뷔페)에서 합니다</small></p>
+        <p class="greet" style="font-size:1.02rem;line-height:1.9">참석 여부를 미리 알려 주시면<br>정성껏 준비하겠습니다.<br><small class="meal-note">식사는 예식 후 같은 건물 <b>6층 더파티</b>(뷔페)에서 합니다</small></p>
         <form id="rsvpForm" novalidate>
           <label class="rf"><span>이름</span><input id="rName" type="text" maxlength="20" autocomplete="name"></label>
           <label class="rf"><span>휴대전화</span><input id="rPhone" type="tel" inputmode="numeric" maxlength="13" placeholder="010-0000-0000" autocomplete="tel"></label>
           <fieldset class="seg"><legend>참석 여부</legend>
             <label><input type="radio" name="att" value="참석" checked><span>참석</span></label>
             <label><input type="radio" name="att" value="미참석"><span>미참석</span></label>
-          </fieldset>
-          <fieldset class="seg" id="mealSet"><legend>식사 여부</legend>
-            <label><input type="radio" name="meal" value="식사함" checked><span>식사함</span></label>
-            <label><input type="radio" name="meal" value="식사 안 함"><span>식사 안 함</span></label>
-            <label><input type="radio" name="meal" value="미정"><span>미정</span></label>
           </fieldset>
           <label class="rf" id="countSet"><span>본인 포함 인원</span><select id="rCount"><option>1</option><option selected>2</option><option>3</option><option>4</option><option>5</option></select></label>
           <label class="agree"><input type="checkbox" id="rAgree"><span>참석 확인을 위해 이름·연락처를 수집하는 데 동의합니다. (예식 후 파기)</span></label>
@@ -607,7 +602,7 @@
   $('exitYes').addEventListener('click', function () { hideExit(); goForm('참석'); }); $('exitNo').addEventListener('click', function () { hideExit(); goForm('미참석'); });
   var xt = 0; addEventListener('scroll', function () { if (xt) return; xt = requestAnimationFrame(function () { xt = 0; var left = document.documentElement.scrollHeight - (scrollY + innerHeight); if (left <= 140) showExit(); else if (left > 520 && xcard.classList.contains('on')) hideExit(); }); }, { passive: true });
   document.addEventListener('mouseout', function (e) { if (!e.relatedTarget && e.clientY <= 0) showExit(); });
-  function syncR() { var a = val('att') === '참석'; $('mealSet').hidden = !a; $('countSet').hidden = !a; }
+  function syncR() { var a = val('att') === '참석'; $('countSet').hidden = !a; }
   $('rsvpForm').addEventListener('change', syncR); syncR();
   $('rPhone').addEventListener('input', function () { var d = this.value.replace(/\D/g, '').slice(0, 11); this.value = d.length > 7 ? d.slice(0, 3) + '-' + d.slice(3, d.length - 4) + '-' + d.slice(-4) : d.length > 3 ? d.slice(0, 3) + '-' + d.slice(3) : d; });
   $('rsvpForm').addEventListener('submit', function (e) {
@@ -616,11 +611,11 @@
     if (!name) { er.textContent = '이름을 적어 주세요.'; $('rName').focus(); return; }
     if (!/^01\d{8,9}$/.test(phone)) { er.textContent = '휴대전화 번호를 확인해 주세요.'; $('rPhone').focus(); return; }
     if (!$('rAgree').checked) { er.textContent = '개인정보 수집에 동의해 주세요.'; return; }
-    var att = val('att'), data = { name: name.slice(0, 20), phone: phone, attend: att, meal: att === '참석' ? val('meal') : '-', count: att === '참석' ? +$('rCount').value : 0 };
+    var att = val('att'), data = { name: name.slice(0, 20), phone: phone, attend: att, meal: '-', count: att === '참석' ? +$('rCount').value : 0 };
     function ok() { try { localStorage.setItem('al-rsvp', '1'); } catch (e2) {} setDone(true); hideExit(); say('남겨 주셔서 고맙습니다'); }
     if (col) { $('rSend').disabled = true; data.createdAt = firebase.firestore.FieldValue.serverTimestamp(); col.add(data).then(ok, function () { er.textContent = '전송하지 못했어요. 잠시 후 다시 시도해 주세요.'; }).then(function () { $('rSend').disabled = false; }); }
     else {
-      var body = '[참석 회신] ' + data.name + ' / ' + phone.replace(/(\d{3})(\d+)(\d{4})/, '$1-$2-$3') + ' / ' + att + (att === '참석' ? ' / ' + data.meal + ' / ' + data.count + '명' : '');
+      var body = '[참석 회신] ' + data.name + ' / ' + phone.replace(/(\d{3})(\d+)(\d{4})/, '$1-$2-$3') + ' / ' + att + (att === '참석' ? ' / ' + data.count + '명' : '');
       ok(); location.href = 'sms:' + GROOM + (/iPhone|iPad|iPod/.test(navigator.userAgent) ? '&' : '?') + 'body=' + encodeURIComponent(body);
     }
   });
