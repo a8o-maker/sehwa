@@ -184,6 +184,9 @@
   .log .stamp.round { width: 46px; height: 46px; border-width: 2px; padding: 3px; }
   .log .fr.in .stamp { animation: thud 0.45s cubic-bezier(.3,1.6,.5,1) 0.25s forwards; }
   @media (prefers-reduced-motion: reduce) { .log .fr.in .stamp { animation: none; } }
+  .r3 .stamp { font-size: 0.34rem; padding: 2px 4px; border-width: 1px; max-width: 70px; z-index: 3; mix-blend-mode: normal; background: rgba(255,255,255,0.92); box-shadow: none; opacity: 0.86; transform: rotate(var(--r)); }
+  .r3 .stamp b { font-size: 0.42rem; } .r3 .stamp i { font-size: 0.28rem; }
+  .r3 .stamp.round { width: 46px; height: 46px; border-width: 2px; padding: 3px; }
   .more { margin-top: 14px; width: 100%; }
   .lb { position: fixed; inset: 0; z-index: 60; background: rgba(2,6,23,0.96); display: none; align-items: center; justify-content: center; flex-direction: column; padding: 16px; }
   .lb.on { display: flex; }
@@ -195,6 +198,7 @@
   .lb .x { position: absolute; top: 12px; right: 12px; width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--line); background: none; color: #fff; font-size: 1.3rem; cursor: pointer; }
   .lb .nav { position: absolute; top: 50%; width: 44px; height: 64px; border: 0; background: rgba(15,23,42,0.5); color: #fff; font-size: 1.6rem; cursor: pointer; }
   .lb .prev { left: 4px; } .lb .next { right: 4px; }
+  .lb .x, .lb .nav { z-index: 2; }  /* 흑백 사진(필터)이 닫기 버튼을 덮지 않게 */
   .toast { position: fixed; left: 50%; bottom: 26px; transform: translateX(-50%) translateY(20px); background: var(--ink-nv); color: #fff; font-size: 0.86rem; padding: 10px 18px; border-radius: 999px; opacity: 0; transition: 0.3s; z-index: 70; pointer-events: none; }
   .toast.on { opacity: 1; transform: translateX(-50%); }
   .gb { text-align: left; display: grid; gap: 10px; padding: 18px; }
@@ -670,7 +674,9 @@
     <p class="eyebrow"><span class="no">VI</span>Travel Log</p>
     <h2>여행 기록</h2>
     <p class="lede">잘 나온 사진보다<br>같이 웃던 순간이 더 좋았습니다.</p>
-    <div class="log" id="log"></div>
+    <div id="r3" aria-label="여행 기록 3D 갤러리 (옆으로 돌려 보기)"></div>
+    <p class="r3-info" id="r3Info" aria-live="polite"></p>
+    <div id="pv" aria-label="여행 기록 미리보기"></div>
   </section>
 
   <!-- 7 오시는 길 -->
@@ -822,6 +828,7 @@
   <span class="eq" aria-hidden="true"><i></i><i></i><i></i></span><span class="bgm-t">MUSIC</span>
 </button>
 
+<script src="../ring3d.js"></script>
 <script src="firebase-config.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
@@ -927,27 +934,26 @@ var PHOTOS = [[106, "Fate walks through silver grass"], [97, "Joy finds us anywh
   var BW = [211,212,213,202,203,204,218,221,222,224,225,226,229,237,238,239,240,242,244,245,247,248,250,252,253];
   function isBW(n) { return BW.indexOf(n) >= 0; }
   var LOG = PHOTOS.filter(function (p) { return VISA.every(function (v) { return v.n !== p[0]; }); });
-  var logEl = $('log');
   var SIDE = {};  /* 사진별로 도장 쪽을 바꿔야 할 때: { 번호: 'l' | 'r' } */
-  (function () {
-    var h = '';
-    for (var i = 0; i < LOG.length; i++) {
-      var n = LOG[i][0], pl = placeOf(n), st = STAMP[pl], rr = ((n * 37) % 25) - 12, cap = LOG[i][1];
-      /* 도장은 사진 위 테두리에 걸치게(사진 윗부분 1할 정도만) 찍어 얼굴을 가리지 않게 */
-      var right = SIDE[n] ? SIDE[n] === 'r' : (n % 2 === 1), side = right ? 'right:-4px' : 'left:-4px', tp = st.round ? '-15px' : '-10px';
-      h += '<button type="button" class="fr f' + (i % 3) + '" data-i="' + i + '" aria-label="' + cap + ' 크게 보기">' +
-        '<span class="fx"><span class="mat"><span class="ph"><img' + (isBW(n) ? ' class="bw"' : '') + ' src="' + src(n) + '" alt="' + cap + '" loading="lazy" decoding="async"><span class="cap">' + cap + '<small>' + koOf(cap) + '</small></span></span>' +
-        '<span class="tagbar"><b>N° ' + (i + VISA.length + 1) + '</b><i>' + st.k + '</i></span></span></span>' +
-        '<span class="stamp' + (st.round ? ' round' : '') + '" style="--c:' + st.c + ';--r:' + rr + 'deg;top:' + tp + ';' + side + '"><i>' + st.s + '</i><b>' + st.t + '</b><i>' + st.d + '</i></span></button>';
-    }
-    logEl.innerHTML = h;
-    logEl.querySelectorAll('button').forEach(watch);
-  })();
+  /* 3D 회전 갤러리 카드: 사진 + 글귀 + N° + 장소 도장 (도장은 카드 윗테두리에 걸쳐 얼굴을 가리지 않게) */
+  function logCard(i) {
+    var n = LOG[i][0], st = STAMP[placeOf(n)], rr = ((n * 37) % 25) - 12, cap = LOG[i][1];
+    var right = SIDE[n] ? SIDE[n] === 'r' : (n % 2 === 1), side = right ? 'right:-5px' : 'left:-5px', tp = st.round ? '-13px' : '-9px';
+    return '<span class="r3-ph"><img' + (isBW(n) ? ' class="bw"' : '') + ' src="' + src(n) + '" alt="' + cap + '" decoding="async" draggable="false"><span class="r3-cap">' + cap + '<small>' + koOf(cap) + '</small></span></span>' +
+      '<span class="r3-tag"><b>N° ' + (i + VISA.length + 1) + '</b><i>' + st.k + '</i></span>' +
+      '<span class="stamp' + (st.round ? ' round' : '') + '" style="--c:' + st.c + ';--r:' + rr + 'deg;top:' + tp + ';' + side + '"><i>' + st.s + '</i><b>' + st.t + '</b><i>' + st.d + '</i></span>';
+  }
+  function openLog(i, el) { last = el; LBL = LOG; show(i); lb.classList.add('on'); $('lbX').focus(); }
+  var ring3 = window.Ring3D ? Ring3D({ root: $('r3'), info: $('r3Info'), items: LOG, card: logCard,
+    caption: function (i) { return { e: LOG[i][1], k: koOf(LOG[i][1]) }; }, onOpen: openLog,
+    paused: function () { return lb.classList.contains('on') || document.body.classList.contains('locked'); } }) : null;
+  /* 미리보기: 한 줄 4장, 처음 7장 + 더보기 */
+  if (window.Preview4) Preview4({ root: $('pv'), items: LOG, thumb: function (n) { return '../t/' + n + '.jpg'; }, isBW: isBW, first: 7,
+    onOpen: function (i, el) { if (ring3) ring3.goTo(i, true); openLog(i, el); } });
 
   /* 크게 보기 */
   var lb = $('lb'), cur = 0, last = null, LBL = LOG;
   function show(i) { cur = (i + LBL.length) % LBL.length; $('lbImg').src = src(LBL[cur][0]); $('lbImg').style.filter = isBW(LBL[cur][0]) ? 'grayscale(1) contrast(1.08) brightness(1.03)' : ''; $('lbImg').alt = LBL[cur][1]; var lc = $('lbCap'); lc.innerHTML = ''; var e1 = document.createElement('span'); e1.className = 'e'; e1.textContent = LBL[cur][1]; var k1 = document.createElement('small'); k1.textContent = koOf(LBL[cur][1]); var c1 = document.createElement('em'); c1.textContent = (cur + 1) + ' / ' + LBL.length; lc.appendChild(e1); lc.appendChild(k1); lc.appendChild(c1); }
-  logEl.addEventListener('click', function (e) { var b = e.target.closest('button[data-i]'); if (!b) return; last = b; LBL = LOG; show(+b.getAttribute('data-i')); lb.classList.add('on'); $('lbX').focus(); });
   /* 첫 화면 사진 벽: 청첩장에 나오는 사진 전부 */
   (function () {
     var g = $('wallGrid'); if (!g) return;

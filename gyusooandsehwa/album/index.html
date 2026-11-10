@@ -314,7 +314,9 @@
     <li class="track">
       <button class="t-head" type="button" aria-expanded="false" aria-controls="p3" id="h3"><span class="no">03</span><span class="tt"><b>두 사람<span class="eq" aria-hidden="true"><i></i><i></i><i></i></span></b><small>Gallery</small></span><span class="len">1:30</span><span class="chev" aria-hidden="true"></span></button>
       <div class="t-body" id="p3" role="region" aria-labelledby="h3"><div class="t-in"><div class="t-pad">
-        <div class="grid" id="grid"></div>
+        <div id="r3" aria-label="두 사람 3D 갤러리 (옆으로 돌려 보기)"></div>
+        <p class="r3-info" id="r3Info" aria-live="polite"></p>
+        <div id="pv" aria-label="사진 미리보기"></div>
         <p class="note" style="text-align:center">사진을 누르면 크게 볼 수 있어요</p>
       </div></div></div>
     </li>
@@ -434,6 +436,7 @@
 </div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
+<script src="../ring3d.js"></script>
 <script src="../passport/firebase-config.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
@@ -519,9 +522,18 @@
   $('rail').innerHTML = PLACES.map(function (p, i) {
     return '<figure class="place" style="margin:0"><div class="ph"><img src="' + src(p.n) + '" alt="' + esc(p.ko) + '에서 찍은 두 사람 사진" loading="lazy" decoding="async"><span class="st">No. ' + (i + 1) + '</span></div><h3>' + esc(p.ko) + '</h3><p>' + esc(p.en) + '</p></figure>';
   }).join('');
-  $('grid').innerHTML = GALLERY.map(function (g, i) {
-    return '<button type="button" class="fr f' + (i % 3) + '" data-i="' + i + '" aria-label="' + esc(g[1]) + ' 크게 보기"><span class="fx"><span class="mat"><img src="' + src(g[0]) + '" alt="' + esc(g[1]) + '" loading="lazy" decoding="async"></span></span><span class="plq"><i>' + esc(g[1]) + '</i><small>' + esc(koOf(g[1])) + '</small></span></button>';
-  }).join('');
+  /* 두 사람: 3D 회전 갤러리 + 미리보기(한 줄 4장, 처음 7장 + 더보기) */
+  function gCard(i) {
+    var g = GALLERY[i];
+    return '<span class="r3-ph"><img src="' + src(g[0]) + '" alt="' + esc(g[1]) + '" decoding="async" draggable="false"><span class="r3-cap">' + esc(g[1]) + '<small>' + esc(koOf(g[1])) + '</small></span></span>' +
+      '<span class="r3-tag"><b>No. ' + (i + 1) + '</b><i>With love</i></span>';
+  }
+  function openG(i, el) { lastLb = el; showLb(i); $('lb').classList.add('on'); document.body.style.overflow = 'hidden'; $('lbX').focus(); }
+  var ring3 = window.Ring3D ? Ring3D({ root: $('r3'), info: $('r3Info'), items: GALLERY, card: gCard,
+    caption: function (i) { return { e: GALLERY[i][1], k: koOf(GALLERY[i][1]) }; }, onOpen: openG,
+    paused: function () { return $('lb').classList.contains('on'); } }) : null;
+  if (window.Preview4) Preview4({ root: $('pv'), items: GALLERY, thumb: function (n) { return '../t/' + n + '.jpg'; }, first: 7,
+    onOpen: function (i, el) { if (ring3) ring3.goTo(i, true); openG(i, el); } });
 
   /* 계좌 (아래 고정 바 시트 + 07 트랙 같은 카드) */
   function acctHtml(a) {
@@ -579,7 +591,6 @@
   var cur = 0, lastLb = null;
   function showLb(i) { cur = (i + GALLERY.length) % GALLERY.length; $('lbImg').src = src(GALLERY[cur][0]); $('lbImg').alt = GALLERY[cur][1]; var lc = $('lbCap'); lc.innerHTML = ''; var e1 = document.createElement('span'); e1.className = 'e'; e1.textContent = GALLERY[cur][1]; var k1 = document.createElement('small'); k1.textContent = koOf(GALLERY[cur][1]); var c1 = document.createElement('em'); c1.textContent = (cur + 1) + ' / ' + GALLERY.length; lc.appendChild(e1); lc.appendChild(k1); lc.appendChild(c1); }
   function closeLb() { $('lb').classList.remove('on'); document.body.style.overflow = ''; if (lastLb && lastLb.focus) lastLb.focus(); }
-  $('grid').addEventListener('click', function (e) { var b = e.target.closest('button[data-i]'); if (!b) return; lastLb = b; showLb(+b.getAttribute('data-i')); $('lb').classList.add('on'); document.body.style.overflow = 'hidden'; $('lbX').focus(); });
   $('lbX').addEventListener('click', closeLb); $('lbP').addEventListener('click', function () { showLb(cur - 1); }); $('lbN').addEventListener('click', function () { showLb(cur + 1); });
   $('lb').addEventListener('click', function (e) { if (e.target === $('lb')) closeLb(); });
   var sx = 0; $('lb').addEventListener('touchstart', function (e) { sx = e.touches[0].clientX; }, { passive: true });
